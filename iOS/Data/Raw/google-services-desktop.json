@@ -1,0 +1,36 @@
+{
+  "project_info": {
+    "project_number": "151323225816",
+    "project_id": "microlearning-33132",
+    "storage_bucket": "microlearning-33132.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151323225816:ios:25aebb1ba488fd08a231ad",
+        "android_client_info": {
+          "package_name": "com.halbus.labedu"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoygJxioqPTbUzWnyXRDlxMe8p8LWnkeE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151323225816-516fcsqgutqkvbfl31t73vigflkqqcus.apps.googleusercontent.com"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}
