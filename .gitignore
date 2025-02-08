@@ -1,3 +1,38 @@
+```text
+# Firebase
+firebase.json
+.firebaserc
+.firebase/
+firebase-debug.log
+GoogleService-Info.plist
+google-services.json
+*.plist.meta
+*.json.meta
+
+# External Dependency Manager (EDM4U)
+Assets/ExternalDependencyManager/**
+ExternalDependencyManager/**
+**/Google.IOSResolver*.dll
+**/Google.JarResolver*.dll
+**/Google.PackageManagerResolver*.dll
+**/Google.VersionHandlerImpl*.dll
+**/Google.VersionHandler*.dll
+
+# Firebase Unity SDK
+Assets/Firebase/**
+Firebase/**
+**/Firebase.Editor*.dll
+**/firebase-analytics-unity*.pom
+**/firebase-app-unity*.pom
+**/firebase-auth-unity*.pom
+**/firebase-firestore-unity*.pom
+**/firebase-storage-unity*.pom
+
+# Unity duplicated files
+**/*\ 2.*
+**/*\ 2.meta
+**/ShaderGraphSettings*.asset
+
 # Sistema e IDE
 .vs/
 .vscode/
@@ -43,10 +78,8 @@ crashlytics-build.properties
 Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_5_0.so
 Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_5_0.bundle
 Library/PackageCache/com.unity.burst/.Runtime/libburst-llvm-16.dylib
-iOS/Libraries/libiPhone-lib.aAssets/Firebase/Plugins/x86_64/FirebaseCppApp*
+iOS/Libraries/libiPhone-lib.a
+Assets/Firebase/Plugins/x86_64/FirebaseCppApp*
 Library/PackageCache/**/*.dylib
 iOS/Libraries/*.a
 iOS/Libraries/libiPhone-lib.a
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_5_0.bundle
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_5_0.so
-Library/PackageCache/com.unity.burst/.Runtime/libburst-llvm-16.dylib

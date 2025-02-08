@@ -8,6 +8,7 @@ public class QuestionCanvasGroups : MonoBehaviour
     [SerializeField] private CanvasGroup questionsCompletedFeedback;
     [SerializeField] private CanvasGroup bottomBar;
     [SerializeField] private CanvasGroup questionTextBackground;
+    [SerializeField] private CanvasGroup questionImageContainer;
 
     public void ValidateComponents()
     {
@@ -23,6 +24,8 @@ public class QuestionCanvasGroups : MonoBehaviour
             Debug.LogError("BottomBar não está atribuído");
         if (questionTextBackground == null)
             Debug.LogError("QuestionTextBackground não está atribuído");
+        if (questionImageContainer == null)
+            Debug.LogError("QuestionImageContainer não está atribuído");
     }
 
     // Propriedades públicas para acesso
@@ -32,6 +35,7 @@ public class QuestionCanvasGroups : MonoBehaviour
     public CanvasGroup QuestionsCompletedFeedback => questionsCompletedFeedback;
     public CanvasGroup BottomBar => bottomBar;
     public CanvasGroup QuestionTextBackground => questionTextBackground;
+    public CanvasGroup QuestionImageContainer => questionImageContainer;
 
     public void InitializeCanvasGroups()
     {

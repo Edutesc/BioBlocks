@@ -1,11 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using QuestionSystem;
-using TMPro;
-using System.Linq;
 using System;
 using System.Collections;
 using UnityEngine.Events;
@@ -15,6 +10,7 @@ public class QuestionUIManager : MonoBehaviour
     [SerializeField] private QuestionCanvasGroups canvasGroups;
     [SerializeField] private QuestionUIElements uiElements;
     [SerializeField] private FeedbackUIElements feedbackElements;
+    [SerializeField] private Image questionImage;
     private Coroutine feedbackCoroutine;
 
     private void Start()
@@ -23,7 +19,6 @@ public class QuestionUIManager : MonoBehaviour
         InitializeUI();
         UpdateUserInfo();
 
-        // Inscreve-se para receber atualizações do UserDataStore
         UserDataStore.OnUserDataChanged += OnUserDataChanged;
     }
 
@@ -47,7 +42,6 @@ public class QuestionUIManager : MonoBehaviour
             return;
         }
 
-        // Valida os componentes internos de cada classe
         canvasGroups.ValidateComponents();
         uiElements.ValidateComponents();
         feedbackElements.ValidateComponents();
@@ -151,31 +145,94 @@ public class QuestionUIManager : MonoBehaviour
 
     public void ShowQuestion(Question question)
     {
-        uiElements.QuestionText.text = question.questionText;
-        canvasGroups.QuestionTextBackground.gameObject.SetActive(true);
-
-        if (question.isImageAnswer)
+        // Controla o formato da pergunta (texto ou imagem)
+        if (question.isImageQuestion)
         {
-            ShowImageQuestion();
+            // Configura para exibir a pergunta como imagem
+            canvasGroups.QuestionTextBackground.alpha = 0f;
+            canvasGroups.QuestionImageContainer.alpha = 1f;
+
+            // Carrega a imagem da questão
+            if (!string.IsNullOrEmpty(question.questionImagePath))
+            {
+                StartCoroutine(LoadQuestionImage(question.questionImagePath));
+            }
+            else
+            {
+                Debug.LogError("Question marked as image question but no image path provided");
+            }
         }
         else
         {
-            ShowTextQuestion();
+            // Configura para exibir a pergunta como texto
+            canvasGroups.QuestionTextBackground.alpha = 1f;
+            canvasGroups.QuestionImageContainer.alpha = 0f;
+            uiElements.QuestionText.text = question.questionText;
+        }
+
+        // Controla o formato das respostas (texto ou imagem)
+        if (question.isImageAnswer)
+        {
+            canvasGroups.QuestionCanvasGroup.gameObject.SetActive(false);
+            canvasGroups.QuestionImageCanvasGroup.gameObject.SetActive(true);
+            canvasGroups.QuestionImageCanvasGroup.interactable = true;
+            canvasGroups.QuestionImageCanvasGroup.blocksRaycasts = true;
+        }
+        else
+        {
+            canvasGroups.QuestionCanvasGroup.gameObject.SetActive(true);
+            canvasGroups.QuestionImageCanvasGroup.gameObject.SetActive(false);
         }
     }
 
-    private void ShowImageQuestion()
+    private void ShowImageQuestion(Question question)
     {
-        canvasGroups.QuestionCanvasGroup.gameObject.SetActive(false);
-        canvasGroups.QuestionImageCanvasGroup.gameObject.SetActive(true);
-        canvasGroups.QuestionImageCanvasGroup.interactable = true;
-        canvasGroups.QuestionImageCanvasGroup.blocksRaycasts = true;
+        // Desativa o background de texto da questão
+        canvasGroups.QuestionTextBackground.gameObject.SetActive(false);
+
+        // Carrega e exibe a imagem da questão
+        if (!string.IsNullOrEmpty(question.questionImagePath))
+        {
+            StartCoroutine(LoadQuestionImage(question.questionImagePath));
+        }
+        else
+        {
+            Debug.LogError("Question marked as image question but no image path provided");
+        }
     }
 
-    private void ShowTextQuestion()
+    private IEnumerator LoadQuestionImage(string imagePath)
     {
-        canvasGroups.QuestionCanvasGroup.gameObject.SetActive(true);
-        canvasGroups.QuestionImageCanvasGroup.gameObject.SetActive(false);
+        if (questionImage == null)
+        {
+            Debug.LogError("QuestionImage component not assigned");
+            yield break;
+        }
+
+        // Carrega a imagem de forma assíncrona
+        var request = Resources.LoadAsync<Sprite>(imagePath);
+        yield return request;
+
+        if (request.asset == null)
+        {
+            Debug.LogError($"Failed to load question image at path: {imagePath}");
+            yield break;
+        }
+
+        questionImage.sprite = request.asset as Sprite;
+    }
+
+    private void ShowTextQuestion(Question question)
+    {
+        // Ativa o background de texto e define o texto da questão
+        canvasGroups.QuestionTextBackground.gameObject.SetActive(true);
+        uiElements.QuestionText.text = question.questionText;
+
+        // Garante que a imagem da questão está desativada
+        if (questionImage != null)
+        {
+            questionImage.gameObject.SetActive(false);
+        }
     }
 
     public void ShowFeedback(string message, bool isCorrect, bool isCompleted = false)

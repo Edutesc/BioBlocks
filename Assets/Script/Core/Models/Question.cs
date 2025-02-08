@@ -11,6 +11,8 @@ namespace QuestionSystem{
         public int correctIndex;
         public int questionNumber;
         public bool isImageAnswer;
+        public bool isImageQuestion;
+        public string questionImagePath;
     } 
 }
 
