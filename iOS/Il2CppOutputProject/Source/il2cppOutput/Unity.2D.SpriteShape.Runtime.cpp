@@ -2462,13 +2462,14 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR SpriteU5BU5D_tCEE379E10CAD9DBFA77
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SpriteShapeRenderer_Prepare_m3EB1D60213EC54306CEC059519D22E2754072950 (SpriteShapeRenderer_tE998BB73CF661079736CCC23617E597AB230A4AC* __this, JobHandle_t5DF5F99902FED3C801A81C05205CEA6CE039EF08 ___0_handle, SpriteShapeParameters_tC047BDC50B45EE3C0035646195EFA31FB89F2E45 ___1_shapeParams, SpriteU5BU5D_tCEE379E10CAD9DBFA770B331480592548ED0EA1B* ___2_sprites, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviour__ctor_m592DB0105CA0BC97AA1C5F4AD27B12D68A3B7C1E (MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Exception__ctor_m9B2BD92CD68916245A75109105D9071C9D430E7F (Exception_t* __this, String_t* ___0_message, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A (Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_lhs, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_rhs, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F (bool ___0_condition, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Geom_TransLeq_m51E8B752216D3CC7B3D1997D1136CD3523BB9503 (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_lhs, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_rhs, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A (Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Geom_Swap_mC7EC25B8240634331DBA3131664431F8B368197B (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E** ___0_a, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E** ___1_b, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_EdgeEval_m5C733B47B92D0D71D3F2EAAF3ACFE22615D2410E (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_u, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_v, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___2_w, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_Interpolate_m786E5018A615B1E1019DBC5BE287641A88C1672D (float ___0_a, float ___1_x, float ___2_b, float ___3_y, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_u, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_v, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___2_w, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Geom_TransLeq_m51E8B752216D3CC7B3D1997D1136CD3523BB9503 (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_lhs, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_rhs, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_TransEval_mF27A561158C7835A953334914C17081EEECA641E (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_u, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_v, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___2_w, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_TransSign_m2C6FC8DEF955A96C2F3FF2BFEDD4BEF40C576046 (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___0_u, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___1_v, Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* ___2_w, const RuntimeMethod* method) ;
 inline void Pooled_1__ctor_m6D2022594CA36C1F949598A02E227306D68A1E43 (Pooled_1_tD4DBBDB5519CEC7B9D263106AA5F3B1CE1223180* __this, const RuntimeMethod* method)
@@ -2640,6 +2641,7 @@ inline Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* PriorityQueue_1_Extract
 }
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_DoneEdgeDict_m24F4E64FF899AA4BB85C79C107EFEE03C9980606 (Tess_tB28CB03B89140E744FA9E9A5CE06A64F6286EAB2* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_DonePriorityQ_m27DEF72BC94B68743B99CA7BA9A042377F13BA5C (Tess_tB28CB03B89140E744FA9E9A5CE06A64F6286EAB2* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Mesh_Check_mDA1197C89B6C32B6EE7F342A127BA7F1E3AAFF9E (Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2 (RuntimeObject* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Vec3_Sub_mE2347B74B4877CB5E0269FE8FAEFF8B82AD1D3EF (Vec3_t2DC07E9249C572CF68A4D54873B4038A68B77E74* ___0_lhs, Vec3_t2DC07E9249C572CF68A4D54873B4038A68B77E74* ___1_rhs, Vec3_t2DC07E9249C572CF68A4D54873B4038A68B77E74* ___2_result, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Vec3_LongAxis_mDD3D8BCD04B089AD3E7B383F1EBE72A0C548F141 (Vec3_t2DC07E9249C572CF68A4D54873B4038A68B77E74* ___0_v, const RuntimeMethod* method) ;
@@ -4129,76 +4131,103 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_EdgeEval_m5C733B47B92D0D71D3F2EAAF
 {
 	float V_0 = 0.0f;
 	float V_1 = 0.0f;
+	int32_t G_B3_0 = 0;
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___1_v;
-		NullCheck(L_0);
-		float L_1 = L_0->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_2 = ___0_u;
-		NullCheck(L_2);
-		float L_3 = L_2->____s;
-		V_0 = ((float)il2cpp_codegen_subtract(L_1, L_3));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___0_u;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_1 = ___1_v;
+		bool L_2;
+		L_2 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_0, L_1, NULL);
+		if (!L_2)
+		{
+			goto IL_0012;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_3 = ___1_v;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4 = ___2_w;
-		NullCheck(L_4);
-		float L_5 = L_4->____s;
+		bool L_5;
+		L_5 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_3, L_4, NULL);
+		G_B3_0 = ((int32_t)(L_5));
+		goto IL_0013;
+	}
+
+IL_0012:
+	{
+		G_B3_0 = 0;
+	}
+
+IL_0013:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B3_0, NULL);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_6 = ___1_v;
 		NullCheck(L_6);
 		float L_7 = L_6->____s;
-		V_1 = ((float)il2cpp_codegen_subtract(L_5, L_7));
-		float L_8 = V_0;
-		float L_9 = V_1;
-		if ((!(((float)((float)il2cpp_codegen_add(L_8, L_9))) > ((float)(0.0f)))))
-		{
-			goto IL_006e;
-		}
-	}
-	{
-		float L_10 = V_0;
-		float L_11 = V_1;
-		if ((!(((float)L_10) < ((float)L_11))))
-		{
-			goto IL_004c;
-		}
-	}
-	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_8 = ___0_u;
+		NullCheck(L_8);
+		float L_9 = L_8->____s;
+		V_0 = ((float)il2cpp_codegen_subtract(L_7, L_9));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_10 = ___2_w;
+		NullCheck(L_10);
+		float L_11 = L_10->____s;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = ___1_v;
 		NullCheck(L_12);
-		float L_13 = L_12->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14 = ___0_u;
-		NullCheck(L_14);
-		float L_15 = L_14->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_16 = ___0_u;
-		NullCheck(L_16);
-		float L_17 = L_16->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = ___2_w;
+		float L_13 = L_12->____s;
+		V_1 = ((float)il2cpp_codegen_subtract(L_11, L_13));
+		float L_14 = V_0;
+		float L_15 = V_1;
+		if ((!(((float)((float)il2cpp_codegen_add(L_14, L_15))) > ((float)(0.0f)))))
+		{
+			goto IL_0086;
+		}
+	}
+	{
+		float L_16 = V_0;
+		float L_17 = V_1;
+		if ((!(((float)L_16) < ((float)L_17))))
+		{
+			goto IL_0064;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = ___1_v;
 		NullCheck(L_18);
 		float L_19 = L_18->____t;
-		float L_20 = V_0;
-		float L_21 = V_0;
-		float L_22 = V_1;
-		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_13, L_15)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_17, L_19)), ((float)(L_20/((float)il2cpp_codegen_add(L_21, L_22))))))));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_20 = ___0_u;
+		NullCheck(L_20);
+		float L_21 = L_20->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_22 = ___0_u;
+		NullCheck(L_22);
+		float L_23 = L_22->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_24 = ___2_w;
+		NullCheck(L_24);
+		float L_25 = L_24->____t;
+		float L_26 = V_0;
+		float L_27 = V_0;
+		float L_28 = V_1;
+		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_19, L_21)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_23, L_25)), ((float)(L_26/((float)il2cpp_codegen_add(L_27, L_28))))))));
 	}
 
-IL_004c:
+IL_0064:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_23 = ___1_v;
-		NullCheck(L_23);
-		float L_24 = L_23->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_25 = ___2_w;
-		NullCheck(L_25);
-		float L_26 = L_25->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_27 = ___2_w;
-		NullCheck(L_27);
-		float L_28 = L_27->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_29 = ___0_u;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_29 = ___1_v;
 		NullCheck(L_29);
 		float L_30 = L_29->____t;
-		float L_31 = V_1;
-		float L_32 = V_0;
-		float L_33 = V_1;
-		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_24, L_26)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_28, L_30)), ((float)(L_31/((float)il2cpp_codegen_add(L_32, L_33))))))));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_31 = ___2_w;
+		NullCheck(L_31);
+		float L_32 = L_31->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_33 = ___2_w;
+		NullCheck(L_33);
+		float L_34 = L_33->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_35 = ___0_u;
+		NullCheck(L_35);
+		float L_36 = L_35->____t;
+		float L_37 = V_1;
+		float L_38 = V_0;
+		float L_39 = V_1;
+		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_30, L_32)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_34, L_36)), ((float)(L_37/((float)il2cpp_codegen_add(L_38, L_39))))))));
 	}
 
-IL_006e:
+IL_0086:
 	{
 		return (0.0f);
 	}
@@ -4207,47 +4236,74 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_EdgeSign_m585A164610F6CA2B34B1F7C8
 {
 	float V_0 = 0.0f;
 	float V_1 = 0.0f;
+	int32_t G_B3_0 = 0;
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___1_v;
-		NullCheck(L_0);
-		float L_1 = L_0->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_2 = ___0_u;
-		NullCheck(L_2);
-		float L_3 = L_2->____s;
-		V_0 = ((float)il2cpp_codegen_subtract(L_1, L_3));
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4 = ___2_w;
-		NullCheck(L_4);
-		float L_5 = L_4->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_6 = ___1_v;
-		NullCheck(L_6);
-		float L_7 = L_6->____s;
-		V_1 = ((float)il2cpp_codegen_subtract(L_5, L_7));
-		float L_8 = V_0;
-		float L_9 = V_1;
-		if ((!(((float)((float)il2cpp_codegen_add(L_8, L_9))) > ((float)(0.0f)))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___0_u;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_1 = ___1_v;
+		bool L_2;
+		L_2 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_0, L_1, NULL);
+		if (!L_2)
 		{
-			goto IL_0046;
+			goto IL_0012;
 		}
 	}
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_10 = ___1_v;
-		NullCheck(L_10);
-		float L_11 = L_10->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = ___2_w;
-		NullCheck(L_12);
-		float L_13 = L_12->____t;
-		float L_14 = V_0;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_15 = ___1_v;
-		NullCheck(L_15);
-		float L_16 = L_15->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_17 = ___0_u;
-		NullCheck(L_17);
-		float L_18 = L_17->____t;
-		float L_19 = V_1;
-		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_11, L_13)), L_14)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_16, L_18)), L_19))));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_3 = ___1_v;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4 = ___2_w;
+		bool L_5;
+		L_5 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_3, L_4, NULL);
+		G_B3_0 = ((int32_t)(L_5));
+		goto IL_0013;
 	}
 
-IL_0046:
+IL_0012:
+	{
+		G_B3_0 = 0;
+	}
+
+IL_0013:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B3_0, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_6 = ___1_v;
+		NullCheck(L_6);
+		float L_7 = L_6->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_8 = ___0_u;
+		NullCheck(L_8);
+		float L_9 = L_8->____s;
+		V_0 = ((float)il2cpp_codegen_subtract(L_7, L_9));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_10 = ___2_w;
+		NullCheck(L_10);
+		float L_11 = L_10->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = ___1_v;
+		NullCheck(L_12);
+		float L_13 = L_12->____s;
+		V_1 = ((float)il2cpp_codegen_subtract(L_11, L_13));
+		float L_14 = V_0;
+		float L_15 = V_1;
+		if ((!(((float)((float)il2cpp_codegen_add(L_14, L_15))) > ((float)(0.0f)))))
+		{
+			goto IL_005e;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_16 = ___1_v;
+		NullCheck(L_16);
+		float L_17 = L_16->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = ___2_w;
+		NullCheck(L_18);
+		float L_19 = L_18->____t;
+		float L_20 = V_0;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21 = ___1_v;
+		NullCheck(L_21);
+		float L_22 = L_21->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_23 = ___0_u;
+		NullCheck(L_23);
+		float L_24 = L_23->____t;
+		float L_25 = V_1;
+		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_17, L_19)), L_20)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_22, L_24)), L_25))));
+	}
+
+IL_005e:
 	{
 		return (0.0f);
 	}
@@ -4302,76 +4358,103 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_TransEval_mF27A561158C7835A9533349
 {
 	float V_0 = 0.0f;
 	float V_1 = 0.0f;
+	int32_t G_B3_0 = 0;
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___1_v;
-		NullCheck(L_0);
-		float L_1 = L_0->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_2 = ___0_u;
-		NullCheck(L_2);
-		float L_3 = L_2->____t;
-		V_0 = ((float)il2cpp_codegen_subtract(L_1, L_3));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___0_u;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_1 = ___1_v;
+		bool L_2;
+		L_2 = Geom_TransLeq_m51E8B752216D3CC7B3D1997D1136CD3523BB9503(L_0, L_1, NULL);
+		if (!L_2)
+		{
+			goto IL_0012;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_3 = ___1_v;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4 = ___2_w;
-		NullCheck(L_4);
-		float L_5 = L_4->____t;
+		bool L_5;
+		L_5 = Geom_TransLeq_m51E8B752216D3CC7B3D1997D1136CD3523BB9503(L_3, L_4, NULL);
+		G_B3_0 = ((int32_t)(L_5));
+		goto IL_0013;
+	}
+
+IL_0012:
+	{
+		G_B3_0 = 0;
+	}
+
+IL_0013:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B3_0, NULL);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_6 = ___1_v;
 		NullCheck(L_6);
 		float L_7 = L_6->____t;
-		V_1 = ((float)il2cpp_codegen_subtract(L_5, L_7));
-		float L_8 = V_0;
-		float L_9 = V_1;
-		if ((!(((float)((float)il2cpp_codegen_add(L_8, L_9))) > ((float)(0.0f)))))
-		{
-			goto IL_006e;
-		}
-	}
-	{
-		float L_10 = V_0;
-		float L_11 = V_1;
-		if ((!(((float)L_10) < ((float)L_11))))
-		{
-			goto IL_004c;
-		}
-	}
-	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_8 = ___0_u;
+		NullCheck(L_8);
+		float L_9 = L_8->____t;
+		V_0 = ((float)il2cpp_codegen_subtract(L_7, L_9));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_10 = ___2_w;
+		NullCheck(L_10);
+		float L_11 = L_10->____t;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = ___1_v;
 		NullCheck(L_12);
-		float L_13 = L_12->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14 = ___0_u;
-		NullCheck(L_14);
-		float L_15 = L_14->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_16 = ___0_u;
-		NullCheck(L_16);
-		float L_17 = L_16->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = ___2_w;
+		float L_13 = L_12->____t;
+		V_1 = ((float)il2cpp_codegen_subtract(L_11, L_13));
+		float L_14 = V_0;
+		float L_15 = V_1;
+		if ((!(((float)((float)il2cpp_codegen_add(L_14, L_15))) > ((float)(0.0f)))))
+		{
+			goto IL_0086;
+		}
+	}
+	{
+		float L_16 = V_0;
+		float L_17 = V_1;
+		if ((!(((float)L_16) < ((float)L_17))))
+		{
+			goto IL_0064;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = ___1_v;
 		NullCheck(L_18);
 		float L_19 = L_18->____s;
-		float L_20 = V_0;
-		float L_21 = V_0;
-		float L_22 = V_1;
-		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_13, L_15)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_17, L_19)), ((float)(L_20/((float)il2cpp_codegen_add(L_21, L_22))))))));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_20 = ___0_u;
+		NullCheck(L_20);
+		float L_21 = L_20->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_22 = ___0_u;
+		NullCheck(L_22);
+		float L_23 = L_22->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_24 = ___2_w;
+		NullCheck(L_24);
+		float L_25 = L_24->____s;
+		float L_26 = V_0;
+		float L_27 = V_0;
+		float L_28 = V_1;
+		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_19, L_21)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_23, L_25)), ((float)(L_26/((float)il2cpp_codegen_add(L_27, L_28))))))));
 	}
 
-IL_004c:
+IL_0064:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_23 = ___1_v;
-		NullCheck(L_23);
-		float L_24 = L_23->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_25 = ___2_w;
-		NullCheck(L_25);
-		float L_26 = L_25->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_27 = ___2_w;
-		NullCheck(L_27);
-		float L_28 = L_27->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_29 = ___0_u;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_29 = ___1_v;
 		NullCheck(L_29);
 		float L_30 = L_29->____s;
-		float L_31 = V_1;
-		float L_32 = V_0;
-		float L_33 = V_1;
-		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_24, L_26)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_28, L_30)), ((float)(L_31/((float)il2cpp_codegen_add(L_32, L_33))))))));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_31 = ___2_w;
+		NullCheck(L_31);
+		float L_32 = L_31->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_33 = ___2_w;
+		NullCheck(L_33);
+		float L_34 = L_33->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_35 = ___0_u;
+		NullCheck(L_35);
+		float L_36 = L_35->____s;
+		float L_37 = V_1;
+		float L_38 = V_0;
+		float L_39 = V_1;
+		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_subtract(L_30, L_32)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_34, L_36)), ((float)(L_37/((float)il2cpp_codegen_add(L_38, L_39))))))));
 	}
 
-IL_006e:
+IL_0086:
 	{
 		return (0.0f);
 	}
@@ -4380,47 +4463,74 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Geom_TransSign_m2C6FC8DEF955A96C2F3FF2B
 {
 	float V_0 = 0.0f;
 	float V_1 = 0.0f;
+	int32_t G_B3_0 = 0;
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___1_v;
-		NullCheck(L_0);
-		float L_1 = L_0->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_2 = ___0_u;
-		NullCheck(L_2);
-		float L_3 = L_2->____t;
-		V_0 = ((float)il2cpp_codegen_subtract(L_1, L_3));
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4 = ___2_w;
-		NullCheck(L_4);
-		float L_5 = L_4->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_6 = ___1_v;
-		NullCheck(L_6);
-		float L_7 = L_6->____t;
-		V_1 = ((float)il2cpp_codegen_subtract(L_5, L_7));
-		float L_8 = V_0;
-		float L_9 = V_1;
-		if ((!(((float)((float)il2cpp_codegen_add(L_8, L_9))) > ((float)(0.0f)))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_0 = ___0_u;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_1 = ___1_v;
+		bool L_2;
+		L_2 = Geom_TransLeq_m51E8B752216D3CC7B3D1997D1136CD3523BB9503(L_0, L_1, NULL);
+		if (!L_2)
 		{
-			goto IL_0046;
+			goto IL_0012;
 		}
 	}
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_10 = ___1_v;
-		NullCheck(L_10);
-		float L_11 = L_10->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = ___2_w;
-		NullCheck(L_12);
-		float L_13 = L_12->____s;
-		float L_14 = V_0;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_15 = ___1_v;
-		NullCheck(L_15);
-		float L_16 = L_15->____s;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_17 = ___0_u;
-		NullCheck(L_17);
-		float L_18 = L_17->____s;
-		float L_19 = V_1;
-		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_11, L_13)), L_14)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_16, L_18)), L_19))));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_3 = ___1_v;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4 = ___2_w;
+		bool L_5;
+		L_5 = Geom_TransLeq_m51E8B752216D3CC7B3D1997D1136CD3523BB9503(L_3, L_4, NULL);
+		G_B3_0 = ((int32_t)(L_5));
+		goto IL_0013;
 	}
 
-IL_0046:
+IL_0012:
+	{
+		G_B3_0 = 0;
+	}
+
+IL_0013:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B3_0, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_6 = ___1_v;
+		NullCheck(L_6);
+		float L_7 = L_6->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_8 = ___0_u;
+		NullCheck(L_8);
+		float L_9 = L_8->____t;
+		V_0 = ((float)il2cpp_codegen_subtract(L_7, L_9));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_10 = ___2_w;
+		NullCheck(L_10);
+		float L_11 = L_10->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = ___1_v;
+		NullCheck(L_12);
+		float L_13 = L_12->____t;
+		V_1 = ((float)il2cpp_codegen_subtract(L_11, L_13));
+		float L_14 = V_0;
+		float L_15 = V_1;
+		if ((!(((float)((float)il2cpp_codegen_add(L_14, L_15))) > ((float)(0.0f)))))
+		{
+			goto IL_005e;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_16 = ___1_v;
+		NullCheck(L_16);
+		float L_17 = L_16->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = ___2_w;
+		NullCheck(L_18);
+		float L_19 = L_18->____s;
+		float L_20 = V_0;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21 = ___1_v;
+		NullCheck(L_21);
+		float L_22 = L_21->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_23 = ___0_u;
+		NullCheck(L_23);
+		float L_24 = L_23->____s;
+		float L_25 = V_1;
+		return ((float)il2cpp_codegen_add(((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_17, L_19)), L_20)), ((float)il2cpp_codegen_multiply(((float)il2cpp_codegen_subtract(L_22, L_24)), L_25))));
+	}
+
+IL_005e:
 	{
 		return (0.0f);
 	}
@@ -5972,6 +6082,399 @@ IL_00fd:
 		return;
 	}
 }
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Mesh_Check_mDA1197C89B6C32B6EE7F342A127BA7F1E3AAFF9E (Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* __this, const RuntimeMethod* method) 
+{
+	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_0 = NULL;
+	Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* V_1 = NULL;
+	Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* V_2 = NULL;
+	Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* V_3 = NULL;
+	Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* V_4 = NULL;
+	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_5 = NULL;
+	int32_t G_B8_0 = 0;
+	int32_t G_B16_0 = 0;
+	int32_t G_B27_0 = 0;
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_0 = __this->____fHead;
+		V_1 = L_0;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_1 = __this->____fHead;
+		V_1 = L_1;
+		goto IL_008b;
+	}
+
+IL_0010:
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_2 = V_2;
+		NullCheck(L_2);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = L_2->____anEdge;
+		V_0 = L_3;
+	}
+
+IL_0017:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_4 = V_0;
+		NullCheck(L_4);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_5 = L_4->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_5) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_6))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = V_0;
+		NullCheck(L_7);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = L_7->____Sym;
+		NullCheck(L_8);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_9 = L_8->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_9) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_10))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = V_0;
+		NullCheck(L_11);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_12 = L_11->____Lnext;
+		NullCheck(L_12);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = L_12->____Onext;
+		NullCheck(L_13);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_14 = L_13->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_14) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_15))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_16 = V_0;
+		NullCheck(L_16);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_17 = L_16->____Onext;
+		NullCheck(L_17);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18 = L_17->____Sym;
+		NullCheck(L_18);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_19 = L_18->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_19) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_20))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_21 = V_0;
+		NullCheck(L_21);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_22 = L_21->____Lface;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_23 = V_2;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_22) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_23))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_24 = V_0;
+		NullCheck(L_24);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = L_24->____Lnext;
+		V_0 = L_25;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_26 = V_0;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_27 = V_2;
+		NullCheck(L_27);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_28 = L_27->____anEdge;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_26) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_28))))
+		{
+			goto IL_0017;
+		}
+	}
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_29 = V_2;
+		V_1 = L_29;
+	}
+
+IL_008b:
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_30 = V_1;
+		NullCheck(L_30);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_31 = L_30->____next;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_32 = L_31;
+		V_2 = L_32;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_33 = __this->____fHead;
+		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_32) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_33))))
+		{
+			goto IL_0010;
+		}
+	}
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_34 = V_2;
+		NullCheck(L_34);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_35 = L_34->____prev;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_36 = V_1;
+		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_35) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_36))))
+		{
+			goto IL_00b2;
+		}
+	}
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_37 = V_2;
+		NullCheck(L_37);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_38 = L_37->____anEdge;
+		G_B8_0 = ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_38) == ((RuntimeObject*)(RuntimeObject*)NULL))? 1 : 0);
+		goto IL_00b3;
+	}
+
+IL_00b2:
+	{
+		G_B8_0 = 0;
+	}
+
+IL_00b3:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B8_0, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_39 = __this->____vHead;
+		V_3 = L_39;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_40 = __this->____vHead;
+		V_3 = L_40;
+		goto IL_0159;
+	}
+
+IL_00cb:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_41 = V_4;
+		NullCheck(L_41);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_42 = L_41->____prev;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_43 = V_3;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_42) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_43))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_44 = V_4;
+		NullCheck(L_44);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_45 = L_44->____anEdge;
+		V_0 = L_45;
+	}
+
+IL_00e2:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_46 = V_0;
+		NullCheck(L_46);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_47 = L_46->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_48 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_47) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_48))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_49 = V_0;
+		NullCheck(L_49);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_50 = L_49->____Sym;
+		NullCheck(L_50);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_51 = L_50->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_52 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_51) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_52))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_53 = V_0;
+		NullCheck(L_53);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_54 = L_53->____Lnext;
+		NullCheck(L_54);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_55 = L_54->____Onext;
+		NullCheck(L_55);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_56 = L_55->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_57 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_56) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_57))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_58 = V_0;
+		NullCheck(L_58);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_59 = L_58->____Onext;
+		NullCheck(L_59);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_60 = L_59->____Sym;
+		NullCheck(L_60);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_61 = L_60->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_62 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_61) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_62))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_63 = V_0;
+		NullCheck(L_63);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_64 = L_63->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_65 = V_4;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_64) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_65))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_66 = V_0;
+		NullCheck(L_66);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_67 = L_66->____Onext;
+		V_0 = L_67;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_68 = V_0;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_69 = V_4;
+		NullCheck(L_69);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_70 = L_69->____anEdge;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_68) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_70))))
+		{
+			goto IL_00e2;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_71 = V_4;
+		V_3 = L_71;
+	}
+
+IL_0159:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_72 = V_3;
+		NullCheck(L_72);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_73 = L_72->____next;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_74 = L_73;
+		V_4 = L_74;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_75 = __this->____vHead;
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_74) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_75))))
+		{
+			goto IL_00cb;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_76 = V_4;
+		NullCheck(L_76);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_77 = L_76->____prev;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_78 = V_3;
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_77) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_78))))
+		{
+			goto IL_0183;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_79 = V_4;
+		NullCheck(L_79);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_80 = L_79->____anEdge;
+		G_B16_0 = ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_80) == ((RuntimeObject*)(RuntimeObject*)NULL))? 1 : 0);
+		goto IL_0184;
+	}
+
+IL_0183:
+	{
+		G_B16_0 = 0;
+	}
+
+IL_0184:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B16_0, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_81 = __this->____eHead;
+		V_5 = L_81;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_82 = __this->____eHead;
+		V_5 = L_82;
+		goto IL_022a;
+	}
+
+IL_019e:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_83 = V_0;
+		NullCheck(L_83);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_84 = L_83->____Sym;
+		NullCheck(L_84);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_85 = L_84->____next;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_86 = V_5;
+		NullCheck(L_86);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_87 = L_86->____Sym;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_85) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_87))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_88 = V_0;
+		NullCheck(L_88);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_89 = L_88->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_90 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_89) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_90))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_91 = V_0;
+		NullCheck(L_91);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_92 = L_91->____Sym;
+		NullCheck(L_92);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_93 = L_92->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_94 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_93) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_94))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_95 = V_0;
+		NullCheck(L_95);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_96 = L_95->____Org;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_96) <= ((RuntimeObject*)(RuntimeObject*)NULL)))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_97 = V_0;
+		NullCheck(L_97);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_98;
+		L_98 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_97, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_98) <= ((RuntimeObject*)(RuntimeObject*)NULL)))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_99 = V_0;
+		NullCheck(L_99);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_100 = L_99->____Lnext;
+		NullCheck(L_100);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_101 = L_100->____Onext;
+		NullCheck(L_101);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_102 = L_101->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_103 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_102) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_103))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_104 = V_0;
+		NullCheck(L_104);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_105 = L_104->____Onext;
+		NullCheck(L_105);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_106 = L_105->____Sym;
+		NullCheck(L_106);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_107 = L_106->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_108 = V_0;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_107) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_108))? 1 : 0), NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_109 = V_0;
+		V_5 = L_109;
+	}
+
+IL_022a:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_110 = V_5;
+		NullCheck(L_110);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_111 = L_110->____next;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_112 = L_111;
+		V_0 = L_112;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_113 = __this->____eHead;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_112) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_113))))
+		{
+			goto IL_019e;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_114 = V_0;
+		NullCheck(L_114);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_115 = L_114->____Sym;
+		NullCheck(L_115);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_116 = L_115->____next;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_117 = V_5;
+		NullCheck(L_117);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_118 = L_117->____Sym;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_116) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_118))))
+		{
+			goto IL_0291;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_119 = V_0;
+		NullCheck(L_119);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_120 = L_119->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_121 = __this->____eHeadSym;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_120) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_121))))
+		{
+			goto IL_0291;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_122 = V_0;
+		NullCheck(L_122);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_123 = L_122->____Sym;
+		NullCheck(L_123);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_124 = L_123->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_125 = V_0;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_124) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_125))))
+		{
+			goto IL_0291;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_126 = V_0;
+		NullCheck(L_126);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_127 = L_126->____Org;
+		if (L_127)
+		{
+			goto IL_0291;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_128 = V_0;
+		NullCheck(L_128);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_129;
+		L_129 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_128, NULL);
+		if (L_129)
+		{
+			goto IL_0291;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_130 = V_0;
+		NullCheck(L_130);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_131 = L_130->____Lface;
+		if (L_131)
+		{
+			goto IL_0291;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_132 = V_0;
+		NullCheck(L_132);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_133;
+		L_133 = Edge_get__Rface_mA14DC262D09B8C4730E2DC670A0360D80EF9E026(L_132, NULL);
+		G_B27_0 = ((((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_133) == ((RuntimeObject*)(RuntimeObject*)NULL))? 1 : 0);
+		goto IL_0292;
+	}
+
+IL_0291:
+	{
+		G_B27_0 = 0;
+	}
+
+IL_0292:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B27_0, NULL);
+		return;
+	}
+}
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -6285,106 +6788,108 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E
 	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_1 = NULL;
 	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_2 = NULL;
 	{
-		EdgePair_t95505DCE7A222968AA47C9EC34DE560D827CB470 L_0;
-		L_0 = EdgePair_Create_m984F08E6275A4688EB8164D3184F8BA8E1233923(NULL);
-		EdgePair_t95505DCE7A222968AA47C9EC34DE560D827CB470 L_1 = L_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_2 = L_1.____e;
-		V_0 = L_2;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = L_1.____eSym;
-		V_1 = L_3;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_0 = ___0_eNext;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_0) <= ((RuntimeObject*)(RuntimeObject*)NULL)))? 1 : 0), NULL);
+		EdgePair_t95505DCE7A222968AA47C9EC34DE560D827CB470 L_1;
+		L_1 = EdgePair_Create_m984F08E6275A4688EB8164D3184F8BA8E1233923(NULL);
+		EdgePair_t95505DCE7A222968AA47C9EC34DE560D827CB470 L_2 = L_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = L_2.____e;
+		V_0 = L_3;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_4 = L_2.____eSym;
+		V_1 = L_4;
 		Edge_EnsureFirst_m74A479649B38135FBFB43F21EAA44C32EEAD144F((&___0_eNext), NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_4 = ___0_eNext;
-		NullCheck(L_4);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_5 = L_4->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_5 = ___0_eNext;
 		NullCheck(L_5);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = L_5->____next;
-		V_2 = L_6;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = V_1;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = V_2;
-		NullCheck(L_7);
-		L_7->____next = L_8;
-		Il2CppCodeGenWriteBarrier((void**)(&L_7->____next), (void*)L_8);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = L_5->____Sym;
+		NullCheck(L_6);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = L_6->____next;
+		V_2 = L_7;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = V_1;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_9 = V_2;
-		NullCheck(L_9);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10 = L_9->____Sym;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = V_0;
+		NullCheck(L_8);
+		L_8->____next = L_9;
+		Il2CppCodeGenWriteBarrier((void**)(&L_8->____next), (void*)L_9);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10 = V_2;
 		NullCheck(L_10);
-		L_10->____next = L_11;
-		Il2CppCodeGenWriteBarrier((void**)(&L_10->____next), (void*)L_11);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = L_10->____Sym;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_12 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = ___0_eNext;
-		NullCheck(L_12);
-		L_12->____next = L_13;
-		Il2CppCodeGenWriteBarrier((void**)(&L_12->____next), (void*)L_13);
+		NullCheck(L_11);
+		L_11->____next = L_12;
+		Il2CppCodeGenWriteBarrier((void**)(&L_11->____next), (void*)L_12);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = V_0;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_14 = ___0_eNext;
-		NullCheck(L_14);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = L_14->____Sym;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_16 = V_1;
+		NullCheck(L_13);
+		L_13->____next = L_14;
+		Il2CppCodeGenWriteBarrier((void**)(&L_13->____next), (void*)L_14);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = ___0_eNext;
 		NullCheck(L_15);
-		L_15->____next = L_16;
-		Il2CppCodeGenWriteBarrier((void**)(&L_15->____next), (void*)L_16);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_17 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18 = V_1;
-		NullCheck(L_17);
-		L_17->____Sym = L_18;
-		Il2CppCodeGenWriteBarrier((void**)(&L_17->____Sym), (void*)L_18);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_19 = V_0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_16 = L_15->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_17 = V_1;
+		NullCheck(L_16);
+		L_16->____next = L_17;
+		Il2CppCodeGenWriteBarrier((void**)(&L_16->____next), (void*)L_17);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18 = V_0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_19 = V_1;
+		NullCheck(L_18);
+		L_18->____Sym = L_19;
+		Il2CppCodeGenWriteBarrier((void**)(&L_18->____Sym), (void*)L_19);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = V_0;
-		NullCheck(L_19);
-		L_19->____Onext = L_20;
-		Il2CppCodeGenWriteBarrier((void**)(&L_19->____Onext), (void*)L_20);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_21 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_22 = V_1;
-		NullCheck(L_21);
-		L_21->____Lnext = L_22;
-		Il2CppCodeGenWriteBarrier((void**)(&L_21->____Lnext), (void*)L_22);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_23 = V_0;
-		NullCheck(L_23);
-		L_23->____Org = (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_23->____Org), (void*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL);
+		NullCheck(L_20);
+		L_20->____Onext = L_21;
+		Il2CppCodeGenWriteBarrier((void**)(&L_20->____Onext), (void*)L_21);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_22 = V_0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_23 = V_1;
+		NullCheck(L_22);
+		L_22->____Lnext = L_23;
+		Il2CppCodeGenWriteBarrier((void**)(&L_22->____Lnext), (void*)L_23);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_24 = V_0;
 		NullCheck(L_24);
-		L_24->____Lface = (Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_24->____Lface), (void*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL);
+		L_24->____Org = (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_24->____Org), (void*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = V_0;
 		NullCheck(L_25);
-		L_25->____winding = 0;
+		L_25->____Lface = (Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_25->____Lface), (void*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_26 = V_0;
 		NullCheck(L_26);
-		L_26->____activeRegion = (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_26->____activeRegion), (void*)(ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_27 = V_1;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_28 = V_0;
+		L_26->____winding = 0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_27 = V_0;
 		NullCheck(L_27);
-		L_27->____Sym = L_28;
-		Il2CppCodeGenWriteBarrier((void**)(&L_27->____Sym), (void*)L_28);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_29 = V_1;
+		L_27->____activeRegion = (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_27->____activeRegion), (void*)(ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_28 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_29 = V_0;
+		NullCheck(L_28);
+		L_28->____Sym = L_29;
+		Il2CppCodeGenWriteBarrier((void**)(&L_28->____Sym), (void*)L_29);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_30 = V_1;
-		NullCheck(L_29);
-		L_29->____Onext = L_30;
-		Il2CppCodeGenWriteBarrier((void**)(&L_29->____Onext), (void*)L_30);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_31 = V_1;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_32 = V_0;
-		NullCheck(L_31);
-		L_31->____Lnext = L_32;
-		Il2CppCodeGenWriteBarrier((void**)(&L_31->____Lnext), (void*)L_32);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_33 = V_1;
-		NullCheck(L_33);
-		L_33->____Org = (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_33->____Org), (void*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL);
+		NullCheck(L_30);
+		L_30->____Onext = L_31;
+		Il2CppCodeGenWriteBarrier((void**)(&L_30->____Onext), (void*)L_31);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_32 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_33 = V_0;
+		NullCheck(L_32);
+		L_32->____Lnext = L_33;
+		Il2CppCodeGenWriteBarrier((void**)(&L_32->____Lnext), (void*)L_33);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_34 = V_1;
 		NullCheck(L_34);
-		L_34->____Lface = (Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_34->____Lface), (void*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL);
+		L_34->____Org = (Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_34->____Org), (void*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_35 = V_1;
 		NullCheck(L_35);
-		L_35->____winding = 0;
+		L_35->____Lface = (Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_35->____Lface), (void*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_36 = V_1;
 		NullCheck(L_36);
-		L_36->____activeRegion = (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_36->____activeRegion), (void*)(ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_37 = V_0;
-		return L_37;
+		L_36->____winding = 0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_37 = V_1;
+		NullCheck(L_37);
+		L_37->____activeRegion = (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_37->____activeRegion), (void*)(ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_38 = V_0;
+		return L_38;
 	}
 }
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MeshUtils_Splice_mD0C74018EFACEB37BD20709F2F304A4B6517E576 (Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* ___0_a, Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* ___1_b, const RuntimeMethod* method) 
@@ -7429,43 +7934,63 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_DeleteRegion_mCFA4F24A80189DC8A75FD
 		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_0 = ___0_reg;
 		NullCheck(L_0);
 		bool L_1 = L_0->____fixUpperEdge;
+		if (!L_1)
+		{
+			goto IL_001b;
+		}
+	}
+	{
 		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_2 = ___0_reg;
 		NullCheck(L_2);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = L_2->____eUp;
 		NullCheck(L_3);
-		L_3->____activeRegion = (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&L_3->____activeRegion), (void*)(ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL);
-		Dict_1_tD1584450532229333ADACF7949A706675CEE5012* L_4 = __this->____dict;
+		int32_t L_4 = L_3->____winding;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)L_4) == ((int32_t)0))? 1 : 0), NULL);
+	}
+
+IL_001b:
+	{
 		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_5 = ___0_reg;
 		NullCheck(L_5);
-		Node_t06356FB62D8BB233A2995348130F197928CAA666* L_6 = L_5->____nodeUp;
-		NullCheck(L_4);
-		Dict_1_Remove_mEB9FC0CAE305769989BAC53C626DB0056B27BD73(L_4, L_6, Dict_1_Remove_mEB9FC0CAE305769989BAC53C626DB0056B27BD73_RuntimeMethod_var);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = L_5->____eUp;
+		NullCheck(L_6);
+		L_6->____activeRegion = (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_6->____activeRegion), (void*)(ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL);
+		Dict_1_tD1584450532229333ADACF7949A706675CEE5012* L_7 = __this->____dict;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_8 = ___0_reg;
+		NullCheck(L_8);
+		Node_t06356FB62D8BB233A2995348130F197928CAA666* L_9 = L_8->____nodeUp;
+		NullCheck(L_7);
+		Dict_1_Remove_mEB9FC0CAE305769989BAC53C626DB0056B27BD73(L_7, L_9, Dict_1_Remove_mEB9FC0CAE305769989BAC53C626DB0056B27BD73_RuntimeMethod_var);
 		return;
 	}
 }
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_FixUpperEdge_m80D33493DCEBD2341C55C4F2A171A22D92C708EA (Tess_tB28CB03B89140E744FA9E9A5CE06A64F6286EAB2* __this, ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* ___0_reg, Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* ___1_newEdge, const RuntimeMethod* method) 
 {
 	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_0 = __this->____mesh;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_1 = ___0_reg;
-		NullCheck(L_1);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_2 = L_1->____eUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_0 = ___0_reg;
 		NullCheck(L_0);
-		Mesh_Delete_mD97D1D9DB96444628E39D0A2A525F0E998CB4B57(L_0, L_2, NULL);
+		bool L_1 = L_0->____fixUpperEdge;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F(L_1, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_2 = __this->____mesh;
 		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_3 = ___0_reg;
 		NullCheck(L_3);
-		L_3->____fixUpperEdge = (bool)0;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_4 = ___0_reg;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_5 = ___1_newEdge;
-		NullCheck(L_4);
-		L_4->____eUp = L_5;
-		Il2CppCodeGenWriteBarrier((void**)(&L_4->____eUp), (void*)L_5);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = ___1_newEdge;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_7 = ___0_reg;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_4 = L_3->____eUp;
+		NullCheck(L_2);
+		Mesh_Delete_mD97D1D9DB96444628E39D0A2A525F0E998CB4B57(L_2, L_4, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_5 = ___0_reg;
+		NullCheck(L_5);
+		L_5->____fixUpperEdge = (bool)0;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_6 = ___0_reg;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = ___1_newEdge;
 		NullCheck(L_6);
-		L_6->____activeRegion = L_7;
-		Il2CppCodeGenWriteBarrier((void**)(&L_6->____activeRegion), (void*)L_7);
+		L_6->____eUp = L_7;
+		Il2CppCodeGenWriteBarrier((void**)(&L_6->____eUp), (void*)L_7);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = ___1_newEdge;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_9 = ___0_reg;
+		NullCheck(L_8);
+		L_8->____activeRegion = L_9;
+		Il2CppCodeGenWriteBarrier((void**)(&L_8->____activeRegion), (void*)L_9);
 		return;
 	}
 }
@@ -7824,179 +8349,199 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_AddRightEdges_m6C4B1B30D4DF33EA6A0C
 
 IL_0004:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_1 = ___0_regUp;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_2 = V_1;
-		NullCheck(L_2);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = L_2->____Sym;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_4;
-		L_4 = Tess_AddRegionBelow_mD41DF8630F4C54D537E9F00D3A2672D13E9E68A9(__this, L_1, L_3, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_5 = V_1;
-		NullCheck(L_5);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = L_5->____Onext;
-		V_1 = L_6;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_1 = V_1;
+		NullCheck(L_1);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_2 = L_1->____Org;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = V_1;
+		NullCheck(L_3);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_4;
+		L_4 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_3, NULL);
+		bool L_5;
+		L_5 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_2, L_4, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F(L_5, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_6 = ___0_regUp;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = V_1;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = ___2_eLast;
-		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_7) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_8))))
+		NullCheck(L_7);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = L_7->____Sym;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_9;
+		L_9 = Tess_AddRegionBelow_mD41DF8630F4C54D537E9F00D3A2672D13E9E68A9(__this, L_6, L_8, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10 = V_1;
+		NullCheck(L_10);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = L_10->____Onext;
+		V_1 = L_11;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_12 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = ___2_eLast;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_12) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_13))))
 		{
 			goto IL_0004;
 		}
 	}
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_9 = ___3_eTopLeft;
-		if (L_9)
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_14 = ___3_eTopLeft;
+		if (L_14)
 		{
-			goto IL_0034;
+			goto IL_004a;
 		}
 	}
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_10 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_11;
-		L_11 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_10, NULL);
-		NullCheck(L_11);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_12 = L_11->____eUp;
-		NullCheck(L_12);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13;
-		L_13 = Edge_get__Rprev_mE3B995FFD33AD26DAF5F1AED18382BB100065DCD(L_12, NULL);
-		___3_eTopLeft = L_13;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_15 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_16;
+		L_16 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_15, NULL);
+		NullCheck(L_16);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_17 = L_16->____eUp;
+		NullCheck(L_17);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18;
+		L_18 = Edge_get__Rprev_mE3B995FFD33AD26DAF5F1AED18382BB100065DCD(L_17, NULL);
+		___3_eTopLeft = L_18;
 	}
 
-IL_0034:
+IL_004a:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_14 = ___0_regUp;
-		V_2 = L_14;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = ___3_eTopLeft;
-		V_4 = L_15;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_19 = ___0_regUp;
+		V_2 = L_19;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = ___3_eTopLeft;
+		V_4 = L_20;
 	}
 
-IL_003a:
+IL_0050:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_16 = V_2;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_17;
-		L_17 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_16, NULL);
-		V_3 = L_17;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_18 = V_3;
-		NullCheck(L_18);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_19 = L_18->____eUp;
-		NullCheck(L_19);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = L_19->____Sym;
-		V_1 = L_20;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_21 = V_1;
-		NullCheck(L_21);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_22 = L_21->____Org;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_23 = V_4;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_21 = V_2;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_22;
+		L_22 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_21, NULL);
+		V_3 = L_22;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_23 = V_3;
 		NullCheck(L_23);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_24 = L_23->____Org;
-		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_22) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_24))))
-		{
-			goto IL_00f4;
-		}
-	}
-	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = V_1;
-		NullCheck(L_25);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_26 = L_25->____Onext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_27 = V_4;
-		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_26) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_27)))
-		{
-			goto IL_008f;
-		}
-	}
-	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_28 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_29 = V_1;
-		NullCheck(L_29);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_30;
-		L_30 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_29, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_31 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_24 = L_23->____eUp;
+		NullCheck(L_24);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = L_24->____Sym;
+		V_1 = L_25;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_26 = V_1;
+		NullCheck(L_26);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_27 = L_26->____Org;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_28 = V_4;
 		NullCheck(L_28);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_28, L_30, L_31, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_32 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_33 = V_4;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_29 = L_28->____Org;
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_27) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_29))))
+		{
+			goto IL_010a;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_30 = V_1;
+		NullCheck(L_30);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_31 = L_30->____Onext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_32 = V_4;
+		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_31) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_32)))
+		{
+			goto IL_00a5;
+		}
+	}
+	{
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_33 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_34 = V_1;
+		NullCheck(L_34);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_35;
+		L_35 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_34, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_36 = V_1;
 		NullCheck(L_33);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_34;
-		L_34 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_33, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_35 = V_1;
-		NullCheck(L_32);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_32, L_34, L_35, NULL);
-	}
-
-IL_008f:
-	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_36 = V_3;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_37 = V_2;
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_33, L_35, L_36, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_37 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_38 = V_4;
+		NullCheck(L_38);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_39;
+		L_39 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_38, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_40 = V_1;
 		NullCheck(L_37);
-		int32_t L_38 = L_37->____windingNumber;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_39 = V_1;
-		NullCheck(L_39);
-		int32_t L_40 = L_39->____winding;
-		NullCheck(L_36);
-		L_36->____windingNumber = ((int32_t)il2cpp_codegen_subtract(L_38, L_40));
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_41 = V_3;
-		int32_t L_42 = __this->____windingRule;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_43 = V_3;
-		NullCheck(L_43);
-		int32_t L_44 = L_43->____windingNumber;
-		bool L_45;
-		L_45 = Geom_IsWindingInside_mF1E1D0DFFC5438424F614993FDA27CBC37C35B4D(L_42, L_44, NULL);
-		NullCheck(L_41);
-		L_41->____inside = L_45;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_46 = V_2;
-		NullCheck(L_46);
-		L_46->____dirty = (bool)1;
-		bool L_47 = V_0;
-		if (L_47)
-		{
-			goto IL_00e8;
-		}
-	}
-	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_48 = V_2;
-		bool L_49;
-		L_49 = Tess_CheckForRightSplice_m25942FDEF6276480112696ECB9D7D6E0C27395C4(__this, L_48, NULL);
-		if (!L_49)
-		{
-			goto IL_00e8;
-		}
-	}
-	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_50 = V_1;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_51 = V_4;
-		Geom_AddWinding_mEF9B45F1F1264B9A4057470FBCABF4A1C43132BC(L_50, L_51, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_52 = V_2;
-		Tess_DeleteRegion_mCFA4F24A80189DC8A75FD2B452400823E799C170(__this, L_52, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_53 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_54 = V_4;
-		NullCheck(L_53);
-		Mesh_Delete_mD97D1D9DB96444628E39D0A2A525F0E998CB4B57(L_53, L_54, NULL);
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_37, L_39, L_40, NULL);
 	}
 
-IL_00e8:
+IL_00a5:
+	{
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_41 = V_3;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_42 = V_2;
+		NullCheck(L_42);
+		int32_t L_43 = L_42->____windingNumber;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_44 = V_1;
+		NullCheck(L_44);
+		int32_t L_45 = L_44->____winding;
+		NullCheck(L_41);
+		L_41->____windingNumber = ((int32_t)il2cpp_codegen_subtract(L_43, L_45));
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_46 = V_3;
+		int32_t L_47 = __this->____windingRule;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_48 = V_3;
+		NullCheck(L_48);
+		int32_t L_49 = L_48->____windingNumber;
+		bool L_50;
+		L_50 = Geom_IsWindingInside_mF1E1D0DFFC5438424F614993FDA27CBC37C35B4D(L_47, L_49, NULL);
+		NullCheck(L_46);
+		L_46->____inside = L_50;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_51 = V_2;
+		NullCheck(L_51);
+		L_51->____dirty = (bool)1;
+		bool L_52 = V_0;
+		if (L_52)
+		{
+			goto IL_00fe;
+		}
+	}
+	{
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_53 = V_2;
+		bool L_54;
+		L_54 = Tess_CheckForRightSplice_m25942FDEF6276480112696ECB9D7D6E0C27395C4(__this, L_53, NULL);
+		if (!L_54)
+		{
+			goto IL_00fe;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_55 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_56 = V_4;
+		Geom_AddWinding_mEF9B45F1F1264B9A4057470FBCABF4A1C43132BC(L_55, L_56, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_57 = V_2;
+		Tess_DeleteRegion_mCFA4F24A80189DC8A75FD2B452400823E799C170(__this, L_57, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_58 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_59 = V_4;
+		NullCheck(L_58);
+		Mesh_Delete_mD97D1D9DB96444628E39D0A2A525F0E998CB4B57(L_58, L_59, NULL);
+	}
+
+IL_00fe:
 	{
 		V_0 = (bool)0;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_55 = V_3;
-		V_2 = L_55;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_56 = V_1;
-		V_4 = L_56;
-		goto IL_003a;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_60 = V_3;
+		V_2 = L_60;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_61 = V_1;
+		V_4 = L_61;
+		goto IL_0050;
 	}
 
-IL_00f4:
+IL_010a:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_57 = V_2;
-		NullCheck(L_57);
-		L_57->____dirty = (bool)1;
-		bool L_58 = ___4_cleanUp;
-		if (!L_58)
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_62 = V_2;
+		NullCheck(L_62);
+		L_62->____dirty = (bool)1;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_63 = V_2;
+		NullCheck(L_63);
+		int32_t L_64 = L_63->____windingNumber;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_65 = V_1;
+		NullCheck(L_65);
+		int32_t L_66 = L_65->____winding;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_67 = V_3;
+		NullCheck(L_67);
+		int32_t L_68 = L_67->____windingNumber;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((int32_t)il2cpp_codegen_subtract(L_64, L_66))) == ((int32_t)L_68))? 1 : 0), NULL);
+		bool L_69 = ___4_cleanUp;
+		if (!L_69)
 		{
-			goto IL_0106;
+			goto IL_0136;
 		}
 	}
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_59 = V_2;
-		Tess_WalkDirtyRegions_m2F929B139BD96213AB133AAA0A8544995FB9F4F5(__this, L_59, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_70 = V_2;
+		Tess_WalkDirtyRegions_m2F929B139BD96213AB133AAA0A8544995FB9F4F5(__this, L_70, NULL);
 	}
 
-IL_0106:
+IL_0136:
 	{
 		return;
 	}
@@ -8416,13 +8961,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Tess_CheckForLeftSplice_mCEDEE452591B6F8
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_9;
 		L_9 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_8, NULL);
 		bool L_10;
-		L_10 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_7, L_9, NULL);
-		if (!L_10)
-		{
-			goto IL_0093;
-		}
-	}
-	{
+		L_10 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_7, L_9, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)L_10) == ((int32_t)0))? 1 : 0), NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = V_1;
 		NullCheck(L_11);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12;
@@ -8431,117 +8971,133 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Tess_CheckForLeftSplice_mCEDEE452591B6F8
 		NullCheck(L_13);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14;
 		L_14 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_13, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = V_1;
-		NullCheck(L_15);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_16 = L_15->____Org;
-		float L_17;
-		L_17 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_12, L_14, L_16, NULL);
-		if ((!(((float)L_17) < ((float)(0.0f)))))
+		bool L_15;
+		L_15 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_12, L_14, NULL);
+		if (!L_15)
 		{
-			goto IL_0049;
+			goto IL_00ac;
 		}
 	}
 	{
-		return (bool)0;
-	}
-
-IL_0049:
-	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_18 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_19;
-		L_19 = Tess_RegionAbove_mD8753526CB8C95B8F123324647D96CDACB14EB3B(__this, L_18, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_20 = ___0_regUp;
-		int32_t L_21 = 1;
-		V_4 = (bool)L_21;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_16 = V_1;
+		NullCheck(L_16);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_17;
+		L_17 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_16, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18 = V_2;
+		NullCheck(L_18);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_19;
+		L_19 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_18, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = V_1;
 		NullCheck(L_20);
-		L_20->____dirty = (bool)L_21;
-		bool L_22 = V_4;
-		NullCheck(L_19);
-		L_19->____dirty = L_22;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_23 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_24 = V_1;
-		NullCheck(L_23);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25;
-		L_25 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_23, L_24, NULL);
-		V_3 = L_25;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_26 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_27 = V_2;
-		NullCheck(L_27);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_28 = L_27->____Sym;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_29 = V_3;
-		NullCheck(L_26);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_26, L_28, L_29, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_30 = V_3;
-		NullCheck(L_30);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_31 = L_30->____Lface;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_32 = ___0_regUp;
-		NullCheck(L_32);
-		bool L_33 = L_32->____inside;
-		NullCheck(L_31);
-		L_31->____inside = L_33;
-		goto IL_00f8;
-	}
-
-IL_0093:
-	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_34 = V_2;
-		NullCheck(L_34);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_35;
-		L_35 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_34, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_36 = V_1;
-		NullCheck(L_36);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_37;
-		L_37 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_36, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_38 = V_2;
-		NullCheck(L_38);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_39 = L_38->____Org;
-		float L_40;
-		L_40 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_35, L_37, L_39, NULL);
-		if ((!(((float)L_40) > ((float)(0.0f)))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21 = L_20->____Org;
+		float L_22;
+		L_22 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_17, L_19, L_21, NULL);
+		if ((!(((float)L_22) < ((float)(0.0f)))))
 		{
-			goto IL_00b3;
+			goto IL_0062;
 		}
 	}
 	{
 		return (bool)0;
 	}
 
-IL_00b3:
+IL_0062:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_41 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_42 = V_0;
-		int32_t L_43 = 1;
-		V_4 = (bool)L_43;
-		NullCheck(L_42);
-		L_42->____dirty = (bool)L_43;
-		bool L_44 = V_4;
-		NullCheck(L_41);
-		L_41->____dirty = L_44;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_45 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_46 = V_2;
-		NullCheck(L_45);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_47;
-		L_47 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_45, L_46, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_48 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_49 = V_1;
-		NullCheck(L_49);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_50 = L_49->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_51 = V_2;
-		NullCheck(L_51);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_52 = L_51->____Sym;
-		NullCheck(L_48);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_48, L_50, L_52, NULL);
-		NullCheck(L_47);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_53;
-		L_53 = Edge_get__Rface_mA14DC262D09B8C4730E2DC670A0360D80EF9E026(L_47, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_54 = ___0_regUp;
-		NullCheck(L_54);
-		bool L_55 = L_54->____inside;
-		NullCheck(L_53);
-		L_53->____inside = L_55;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_23 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_24;
+		L_24 = Tess_RegionAbove_mD8753526CB8C95B8F123324647D96CDACB14EB3B(__this, L_23, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_25 = ___0_regUp;
+		int32_t L_26 = 1;
+		V_4 = (bool)L_26;
+		NullCheck(L_25);
+		L_25->____dirty = (bool)L_26;
+		bool L_27 = V_4;
+		NullCheck(L_24);
+		L_24->____dirty = L_27;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_28 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_29 = V_1;
+		NullCheck(L_28);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_30;
+		L_30 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_28, L_29, NULL);
+		V_3 = L_30;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_31 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_32 = V_2;
+		NullCheck(L_32);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_33 = L_32->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_34 = V_3;
+		NullCheck(L_31);
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_31, L_33, L_34, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_35 = V_3;
+		NullCheck(L_35);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_36 = L_35->____Lface;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_37 = ___0_regUp;
+		NullCheck(L_37);
+		bool L_38 = L_37->____inside;
+		NullCheck(L_36);
+		L_36->____inside = L_38;
+		goto IL_0111;
 	}
 
-IL_00f8:
+IL_00ac:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_39 = V_2;
+		NullCheck(L_39);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_40;
+		L_40 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_39, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_41 = V_1;
+		NullCheck(L_41);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_42;
+		L_42 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_41, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_43 = V_2;
+		NullCheck(L_43);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_44 = L_43->____Org;
+		float L_45;
+		L_45 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_40, L_42, L_44, NULL);
+		if ((!(((float)L_45) > ((float)(0.0f)))))
+		{
+			goto IL_00cc;
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_00cc:
+	{
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_46 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_47 = V_0;
+		int32_t L_48 = 1;
+		V_4 = (bool)L_48;
+		NullCheck(L_47);
+		L_47->____dirty = (bool)L_48;
+		bool L_49 = V_4;
+		NullCheck(L_46);
+		L_46->____dirty = L_49;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_50 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_51 = V_2;
+		NullCheck(L_50);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_52;
+		L_52 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_50, L_51, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_53 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_54 = V_1;
+		NullCheck(L_54);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_55 = L_54->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_56 = V_2;
+		NullCheck(L_56);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_57 = L_56->____Sym;
+		NullCheck(L_53);
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_53, L_55, L_57, NULL);
+		NullCheck(L_52);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_58;
+		L_58 = Edge_get__Rface_mA14DC262D09B8C4730E2DC670A0360D80EF9E026(L_52, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_59 = ___0_regUp;
+		NullCheck(L_59);
+		bool L_60 = L_59->____inside;
+		NullCheck(L_58);
+		L_58->____inside = L_60;
+	}
+
+IL_0111:
 	{
 		return (bool)1;
 	}
@@ -8569,7 +9125,9 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Tess_CheckForIntersect_mA71310105191E504
 	Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* V_9 = NULL;
 	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_10 = NULL;
 	bool V_11 = false;
-	Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* G_B14_0 = NULL;
+	int32_t G_B3_0 = 0;
+	int32_t G_B6_0 = 0;
+	Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* G_B20_0 = NULL;
 	{
 		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_0 = ___0_regUp;
 		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_1;
@@ -8601,567 +9159,679 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Tess_CheckForIntersect_mA71310105191E504
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_13;
 		L_13 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_12, NULL);
 		V_6 = L_13;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14 = V_3;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_15 = V_4;
-		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_14) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_15))))
-		{
-			goto IL_003c;
-		}
-	}
-	{
-		return (bool)0;
-	}
-
-IL_003c:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_16 = V_3;
-		NullCheck(L_16);
-		float L_17 = L_16->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = V_5;
-		NullCheck(L_18);
-		float L_19 = L_18->____t;
-		il2cpp_codegen_runtime_class_init_inline(Math_tEB65DE7CA8B083C412C969C92981C030865486CE_il2cpp_TypeInfo_var);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_15 = V_5;
+		bool L_16;
+		L_16 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_14, L_15, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)L_16) == ((int32_t)0))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_17 = V_5;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_18 = __this->____event;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_19 = V_3;
 		float L_20;
-		L_20 = Math_Min_mE913811A2F7566294BF4649A434282634E7254B3(L_17, L_19, NULL);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21 = V_4;
-		NullCheck(L_21);
-		float L_22 = L_21->____t;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_23 = V_6;
-		NullCheck(L_23);
-		float L_24 = L_23->____t;
-		float L_25;
-		L_25 = Math_Max_mB55ACEA482E7F67E61496C4C7C54FE0BB7BE78EA(L_22, L_24, NULL);
-		V_7 = L_25;
-		float L_26 = V_7;
-		if ((!(((float)L_20) > ((float)L_26))))
-		{
-			goto IL_0069;
-		}
-	}
-	{
-		return (bool)0;
-	}
-
-IL_0069:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_27 = V_3;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_28 = V_4;
-		bool L_29;
-		L_29 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_27, L_28, NULL);
-		if (!L_29)
-		{
-			goto IL_0086;
-		}
-	}
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_30 = V_6;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_31 = V_3;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_32 = V_4;
-		float L_33;
-		L_33 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_30, L_31, L_32, NULL);
-		if ((!(((float)L_33) > ((float)(0.0f)))))
+		L_20 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_17, L_18, L_19, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((!(((float)L_20) <= ((float)(0.0f))))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_22 = __this->____event;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_23 = V_4;
+		float L_24;
+		L_24 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_21, L_22, L_23, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((!(((float)L_24) >= ((float)(0.0f))))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_25 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_26 = __this->____event;
+		if ((((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_25) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_26)))
 		{
 			goto IL_0099;
 		}
 	}
 	{
-		return (bool)0;
-	}
-
-IL_0086:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_34 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_35 = V_4;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_36 = V_3;
-		float L_37;
-		L_37 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_34, L_35, L_36, NULL);
-		if ((!(((float)L_37) < ((float)(0.0f)))))
-		{
-			goto IL_0099;
-		}
-	}
-	{
-		return (bool)0;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_27 = V_4;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_28 = __this->____event;
+		G_B3_0 = ((((int32_t)((((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_27) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_28))? 1 : 0)) == ((int32_t)0))? 1 : 0);
+		goto IL_009a;
 	}
 
 IL_0099:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_38;
-		L_38 = Pooled_1_Create_mEF10ADA55CD881913504AC9DC40DFB56CE386C30(Pooled_1_Create_mEF10ADA55CD881913504AC9DC40DFB56CE386C30_RuntimeMethod_var);
-		V_8 = L_38;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_39 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_40 = V_3;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_41 = V_6;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_42 = V_4;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_43 = V_8;
-		Geom_EdgeIntersect_m01A9D8616F0A580C84D6298C0A3F7CF6AFE29019(L_39, L_40, L_41, L_42, L_43, NULL);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_44 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_45 = __this->____event;
-		bool L_46;
-		L_46 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_44, L_45, NULL);
-		if (!L_46)
+		G_B3_0 = 0;
+	}
+
+IL_009a:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B3_0, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_29 = ___0_regUp;
+		NullCheck(L_29);
+		bool L_30 = L_29->____fixUpperEdge;
+		if (L_30)
 		{
-			goto IL_00e1;
+			goto IL_00b2;
 		}
 	}
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_47 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_48 = __this->____event;
-		NullCheck(L_48);
-		float L_49 = L_48->____s;
-		NullCheck(L_47);
-		L_47->____s = L_49;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_50 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_51 = __this->____event;
-		NullCheck(L_51);
-		float L_52 = L_51->____t;
-		NullCheck(L_50);
-		L_50->____t = L_52;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_31 = V_0;
+		NullCheck(L_31);
+		bool L_32 = L_31->____fixUpperEdge;
+		G_B6_0 = ((((int32_t)L_32) == ((int32_t)0))? 1 : 0);
+		goto IL_00b3;
 	}
 
-IL_00e1:
+IL_00b2:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_53 = V_3;
+		G_B6_0 = 0;
+	}
+
+IL_00b3:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B6_0, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_33 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_34 = V_4;
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_33) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_34))))
+		{
+			goto IL_00bf;
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_00bf:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_35 = V_3;
+		NullCheck(L_35);
+		float L_36 = L_35->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_37 = V_5;
+		NullCheck(L_37);
+		float L_38 = L_37->____t;
+		il2cpp_codegen_runtime_class_init_inline(Math_tEB65DE7CA8B083C412C969C92981C030865486CE_il2cpp_TypeInfo_var);
+		float L_39;
+		L_39 = Math_Min_mE913811A2F7566294BF4649A434282634E7254B3(L_36, L_38, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_40 = V_4;
+		NullCheck(L_40);
+		float L_41 = L_40->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_42 = V_6;
+		NullCheck(L_42);
+		float L_43 = L_42->____t;
+		float L_44;
+		L_44 = Math_Max_mB55ACEA482E7F67E61496C4C7C54FE0BB7BE78EA(L_41, L_43, NULL);
+		V_7 = L_44;
+		float L_45 = V_7;
+		if ((!(((float)L_39) > ((float)L_45))))
+		{
+			goto IL_00ec;
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_00ec:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_46 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_47 = V_4;
+		bool L_48;
+		L_48 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_46, L_47, NULL);
+		if (!L_48)
+		{
+			goto IL_0109;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_49 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_50 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_51 = V_4;
+		float L_52;
+		L_52 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_49, L_50, L_51, NULL);
+		if ((!(((float)L_52) > ((float)(0.0f)))))
+		{
+			goto IL_011c;
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_0109:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_53 = V_5;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_54 = V_4;
-		bool L_55;
-		L_55 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_53, L_54, NULL);
-		if (L_55)
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_55 = V_3;
+		float L_56;
+		L_56 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_53, L_54, L_55, NULL);
+		if ((!(((float)L_56) < ((float)(0.0f)))))
 		{
-			goto IL_00ef;
+			goto IL_011c;
 		}
 	}
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_56 = V_4;
-		G_B14_0 = L_56;
-		goto IL_00f0;
+		return (bool)0;
 	}
 
-IL_00ef:
+IL_011c:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_57 = V_3;
-		G_B14_0 = L_57;
-	}
-
-IL_00f0:
-	{
-		V_9 = G_B14_0;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_58 = V_9;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_59 = V_8;
-		bool L_60;
-		L_60 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_58, L_59, NULL);
-		if (!L_60)
-		{
-			goto IL_0119;
-		}
-	}
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_61 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_62 = V_9;
-		NullCheck(L_62);
-		float L_63 = L_62->____s;
-		NullCheck(L_61);
-		L_61->____s = L_63;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_64 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_65 = V_9;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_57;
+		L_57 = Pooled_1_Create_mEF10ADA55CD881913504AC9DC40DFB56CE386C30(Pooled_1_Create_mEF10ADA55CD881913504AC9DC40DFB56CE386C30_RuntimeMethod_var);
+		V_8 = L_57;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_58 = V_5;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_59 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_60 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_61 = V_4;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_62 = V_8;
+		Geom_EdgeIntersect_m01A9D8616F0A580C84D6298C0A3F7CF6AFE29019(L_58, L_59, L_60, L_61, L_62, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_63 = V_3;
+		NullCheck(L_63);
+		float L_64 = L_63->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_65 = V_5;
 		NullCheck(L_65);
 		float L_66 = L_65->____t;
-		NullCheck(L_64);
-		L_64->____t = L_66;
-	}
-
-IL_0119:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_67 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_68 = V_3;
-		bool L_69;
-		L_69 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_67, L_68, NULL);
-		if (L_69)
-		{
-			goto IL_012e;
-		}
-	}
-	{
+		il2cpp_codegen_runtime_class_init_inline(Math_tEB65DE7CA8B083C412C969C92981C030865486CE_il2cpp_TypeInfo_var);
+		float L_67;
+		L_67 = Math_Min_mE913811A2F7566294BF4649A434282634E7254B3(L_64, L_66, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_68 = V_8;
+		NullCheck(L_68);
+		float L_69 = L_68->____t;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((!(((float)L_67) <= ((float)L_69)))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_70 = V_8;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_71 = V_4;
-		bool L_72;
-		L_72 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_70, L_71, NULL);
-		if (!L_72)
+		NullCheck(L_70);
+		float L_71 = L_70->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_72 = V_4;
+		NullCheck(L_72);
+		float L_73 = L_72->____t;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_74 = V_6;
+		NullCheck(L_74);
+		float L_75 = L_74->____t;
+		float L_76;
+		L_76 = Math_Max_mB55ACEA482E7F67E61496C4C7C54FE0BB7BE78EA(L_73, L_75, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((!(((float)L_71) <= ((float)L_76)))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_77 = V_6;
+		NullCheck(L_77);
+		float L_78 = L_77->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_79 = V_5;
+		NullCheck(L_79);
+		float L_80 = L_79->____s;
+		float L_81;
+		L_81 = Math_Min_mE913811A2F7566294BF4649A434282634E7254B3(L_78, L_80, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_82 = V_8;
+		NullCheck(L_82);
+		float L_83 = L_82->____s;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((!(((float)L_81) <= ((float)L_83)))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_84 = V_8;
+		NullCheck(L_84);
+		float L_85 = L_84->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_86 = V_4;
+		NullCheck(L_86);
+		float L_87 = L_86->____s;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_88 = V_3;
+		NullCheck(L_88);
+		float L_89 = L_88->____s;
+		float L_90;
+		L_90 = Math_Max_mB55ACEA482E7F67E61496C4C7C54FE0BB7BE78EA(L_87, L_89, NULL);
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((!(((float)L_85) <= ((float)L_90)))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_91 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_92 = __this->____event;
+		bool L_93;
+		L_93 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_91, L_92, NULL);
+		if (!L_93)
 		{
-			goto IL_0138;
+			goto IL_01f2;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_94 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_95 = __this->____event;
+		NullCheck(L_95);
+		float L_96 = L_95->____s;
+		NullCheck(L_94);
+		L_94->____s = L_96;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_97 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_98 = __this->____event;
+		NullCheck(L_98);
+		float L_99 = L_98->____t;
+		NullCheck(L_97);
+		L_97->____t = L_99;
+	}
+
+IL_01f2:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_100 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_101 = V_4;
+		bool L_102;
+		L_102 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_100, L_101, NULL);
+		if (L_102)
+		{
+			goto IL_0200;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_103 = V_4;
+		G_B20_0 = L_103;
+		goto IL_0201;
+	}
+
+IL_0200:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_104 = V_3;
+		G_B20_0 = L_104;
+	}
+
+IL_0201:
+	{
+		V_9 = G_B20_0;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_105 = V_9;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_106 = V_8;
+		bool L_107;
+		L_107 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_105, L_106, NULL);
+		if (!L_107)
+		{
+			goto IL_022a;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_108 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_109 = V_9;
+		NullCheck(L_109);
+		float L_110 = L_109->____s;
+		NullCheck(L_108);
+		L_108->____s = L_110;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_111 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_112 = V_9;
+		NullCheck(L_112);
+		float L_113 = L_112->____t;
+		NullCheck(L_111);
+		L_111->____t = L_113;
+	}
+
+IL_022a:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_114 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_115 = V_3;
+		bool L_116;
+		L_116 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_114, L_115, NULL);
+		if (L_116)
+		{
+			goto IL_023f;
+		}
+	}
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_117 = V_8;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_118 = V_4;
+		bool L_119;
+		L_119 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_117, L_118, NULL);
+		if (!L_119)
+		{
+			goto IL_0249;
 		}
 	}
 
-IL_012e:
+IL_023f:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_73 = ___0_regUp;
-		bool L_74;
-		L_74 = Tess_CheckForRightSplice_m25942FDEF6276480112696ECB9D7D6E0C27395C4(__this, L_73, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_120 = ___0_regUp;
+		bool L_121;
+		L_121 = Tess_CheckForRightSplice_m25942FDEF6276480112696ECB9D7D6E0C27395C4(__this, L_120, NULL);
 		return (bool)0;
 	}
 
-IL_0138:
+IL_0249:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_75 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_76 = __this->____event;
-		bool L_77;
-		L_77 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_75, L_76, NULL);
-		if (L_77)
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_122 = V_5;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_123 = __this->____event;
+		bool L_124;
+		L_124 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_122, L_123, NULL);
+		if (L_124)
 		{
-			goto IL_015d;
+			goto IL_026e;
 		}
 	}
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_78 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_79 = __this->____event;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_80 = V_8;
-		float L_81;
-		L_81 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_78, L_79, L_80, NULL);
-		if ((((float)L_81) >= ((float)(0.0f))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_125 = V_5;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_126 = __this->____event;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_127 = V_8;
+		float L_128;
+		L_128 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_125, L_126, L_127, NULL);
+		if ((((float)L_128) >= ((float)(0.0f))))
 		{
-			goto IL_0188;
-		}
-	}
-
-IL_015d:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_82 = V_6;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_83 = __this->____event;
-		bool L_84;
-		L_84 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_82, L_83, NULL);
-		if (L_84)
-		{
-			goto IL_033f;
-		}
-	}
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_85 = V_6;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_86 = __this->____event;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_87 = V_8;
-		float L_88;
-		L_88 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_85, L_86, L_87, NULL);
-		if ((!(((float)L_88) <= ((float)(0.0f)))))
-		{
-			goto IL_033f;
+			goto IL_0299;
 		}
 	}
 
-IL_0188:
+IL_026e:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_89 = V_6;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_90 = __this->____event;
-		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_89) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_90))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_129 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_130 = __this->____event;
+		bool L_131;
+		L_131 = Geom_VertEq_m185C5D61E54B5F9A48999AB1FF64DC30033673F0(L_129, L_130, NULL);
+		if (L_131)
 		{
-			goto IL_01ed;
+			goto IL_0450;
 		}
 	}
 	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_91 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_92 = V_1;
-		NullCheck(L_92);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_93 = L_92->____Sym;
-		NullCheck(L_91);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_94;
-		L_94 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_91, L_93, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_95 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_96 = V_2;
-		NullCheck(L_96);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_97 = L_96->____Sym;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_98 = V_1;
-		NullCheck(L_95);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_95, L_97, L_98, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_99 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_100;
-		L_100 = Tess_TopLeftRegion_m3C1E8AC1640F14D04C27C163191E1AB4E8D356BE(__this, L_99, NULL);
-		___0_regUp = L_100;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_101 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_102;
-		L_102 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_101, NULL);
-		NullCheck(L_102);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_103 = L_102->____eUp;
-		V_1 = L_103;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_104 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_105;
-		L_105 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_104, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_106 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_107;
-		L_107 = Tess_FinishLeftRegions_mAC94EA6A1A8483C3A17573244F154D64BC52319F(__this, L_105, L_106, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_108 = ___0_regUp;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_109 = V_1;
-		NullCheck(L_109);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_110;
-		L_110 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_109, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_111 = V_1;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_112 = V_1;
-		Tess_AddRightEdges_m6C4B1B30D4DF33EA6A0CB10109CF85A03FD63958(__this, L_108, L_110, L_111, L_112, (bool)1, NULL);
-		return (bool)1;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_132 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_133 = __this->____event;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_134 = V_8;
+		float L_135;
+		L_135 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_132, L_133, L_134, NULL);
+		if ((!(((float)L_135) <= ((float)(0.0f)))))
+		{
+			goto IL_0450;
+		}
 	}
 
-IL_01ed:
+IL_0299:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_113 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_114 = __this->____event;
-		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_113) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_114))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_136 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_137 = __this->____event;
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_136) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_137))))
 		{
-			goto IL_026b;
+			goto IL_02fe;
 		}
 	}
 	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_115 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_116 = V_2;
-		NullCheck(L_116);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_117 = L_116->____Sym;
-		NullCheck(L_115);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_118;
-		L_118 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_115, L_117, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_119 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_120 = V_1;
-		NullCheck(L_120);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_121 = L_120->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_122 = V_2;
-		NullCheck(L_122);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_123;
-		L_123 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_122, NULL);
-		NullCheck(L_119);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_119, L_121, L_123, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_124 = ___0_regUp;
-		V_0 = L_124;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_125 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_126;
-		L_126 = Tess_TopRightRegion_mDEF4F555F567428E63A1DA74FFBAEBF29454FB8D(__this, L_125, NULL);
-		___0_regUp = L_126;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_127 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_128;
-		L_128 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_127, NULL);
-		NullCheck(L_128);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_129 = L_128->____eUp;
-		NullCheck(L_129);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_130;
-		L_130 = Edge_get__Rprev_mE3B995FFD33AD26DAF5F1AED18382BB100065DCD(L_129, NULL);
-		V_10 = L_130;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_131 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_132 = V_2;
-		NullCheck(L_132);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_133;
-		L_133 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_132, NULL);
-		NullCheck(L_131);
-		L_131->____eUp = L_133;
-		Il2CppCodeGenWriteBarrier((void**)(&L_131->____eUp), (void*)L_133);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_134 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_135;
-		L_135 = Tess_FinishLeftRegions_mAC94EA6A1A8483C3A17573244F154D64BC52319F(__this, L_134, (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL, NULL);
-		V_2 = L_135;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_136 = ___0_regUp;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_137 = V_2;
-		NullCheck(L_137);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_138 = L_137->____Onext;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_138 = __this->____mesh;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_139 = V_1;
 		NullCheck(L_139);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_140;
-		L_140 = Edge_get__Rprev_mE3B995FFD33AD26DAF5F1AED18382BB100065DCD(L_139, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_141 = V_10;
-		Tess_AddRightEdges_m6C4B1B30D4DF33EA6A0CB10109CF85A03FD63958(__this, L_136, L_138, L_140, L_141, (bool)1, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_140 = L_139->____Sym;
+		NullCheck(L_138);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_141;
+		L_141 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_138, L_140, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_142 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_143 = V_2;
+		NullCheck(L_143);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_144 = L_143->____Sym;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_145 = V_1;
+		NullCheck(L_142);
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_142, L_144, L_145, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_146 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_147;
+		L_147 = Tess_TopLeftRegion_m3C1E8AC1640F14D04C27C163191E1AB4E8D356BE(__this, L_146, NULL);
+		___0_regUp = L_147;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_148 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_149;
+		L_149 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_148, NULL);
+		NullCheck(L_149);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_150 = L_149->____eUp;
+		V_1 = L_150;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_151 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_152;
+		L_152 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_151, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_153 = V_0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_154;
+		L_154 = Tess_FinishLeftRegions_mAC94EA6A1A8483C3A17573244F154D64BC52319F(__this, L_152, L_153, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_155 = ___0_regUp;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_156 = V_1;
+		NullCheck(L_156);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_157;
+		L_157 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_156, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_158 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_159 = V_1;
+		Tess_AddRightEdges_m6C4B1B30D4DF33EA6A0CB10109CF85A03FD63958(__this, L_155, L_157, L_158, L_159, (bool)1, NULL);
 		return (bool)1;
 	}
 
-IL_026b:
+IL_02fe:
 	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_142 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_143 = __this->____event;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_144 = V_8;
-		float L_145;
-		L_145 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_142, L_143, L_144, NULL);
-		if ((!(((float)L_145) >= ((float)(0.0f)))))
-		{
-			goto IL_02d7;
-		}
-	}
-	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_146 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_147;
-		L_147 = Tess_RegionAbove_mD8753526CB8C95B8F123324647D96CDACB14EB3B(__this, L_146, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_148 = ___0_regUp;
-		int32_t L_149 = 1;
-		V_11 = (bool)L_149;
-		NullCheck(L_148);
-		L_148->____dirty = (bool)L_149;
-		bool L_150 = V_11;
-		NullCheck(L_147);
-		L_147->____dirty = L_150;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_151 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_152 = V_1;
-		NullCheck(L_152);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_153 = L_152->____Sym;
-		NullCheck(L_151);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_154;
-		L_154 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_151, L_153, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_155 = V_1;
-		NullCheck(L_155);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_156 = L_155->____Org;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_157 = __this->____event;
-		NullCheck(L_157);
-		float L_158 = L_157->____s;
-		NullCheck(L_156);
-		L_156->____s = L_158;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_159 = V_1;
-		NullCheck(L_159);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_160 = L_159->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_160 = V_5;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_161 = __this->____event;
-		NullCheck(L_161);
-		float L_162 = L_161->____t;
-		NullCheck(L_160);
-		L_160->____t = L_162;
-	}
-
-IL_02d7:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_163 = V_6;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_164 = __this->____event;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_165 = V_8;
-		float L_166;
-		L_166 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_163, L_164, L_165, NULL);
-		if ((!(((float)L_166) <= ((float)(0.0f)))))
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_160) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_161))))
 		{
-			goto IL_033d;
+			goto IL_037c;
 		}
 	}
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_167 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_168 = V_0;
-		int32_t L_169 = 1;
-		V_11 = (bool)L_169;
-		NullCheck(L_168);
-		L_168->____dirty = (bool)L_169;
-		bool L_170 = V_11;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_162 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_163 = V_2;
+		NullCheck(L_163);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_164 = L_163->____Sym;
+		NullCheck(L_162);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_165;
+		L_165 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_162, L_164, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_166 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_167 = V_1;
 		NullCheck(L_167);
-		L_167->____dirty = L_170;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_171 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_172 = V_2;
-		NullCheck(L_172);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_173 = L_172->____Sym;
-		NullCheck(L_171);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_174;
-		L_174 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_171, L_173, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_175 = V_2;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_168 = L_167->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_169 = V_2;
+		NullCheck(L_169);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_170;
+		L_170 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_169, NULL);
+		NullCheck(L_166);
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_166, L_168, L_170, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_171 = ___0_regUp;
+		V_0 = L_171;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_172 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_173;
+		L_173 = Tess_TopRightRegion_mDEF4F555F567428E63A1DA74FFBAEBF29454FB8D(__this, L_172, NULL);
+		___0_regUp = L_173;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_174 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_175;
+		L_175 = Tess_RegionBelow_mB4663FB383114F9E38C7E65BB43F0A5152D5A5BB(__this, L_174, NULL);
 		NullCheck(L_175);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_176 = L_175->____Org;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_177 = __this->____event;
-		NullCheck(L_177);
-		float L_178 = L_177->____s;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_176 = L_175->____eUp;
 		NullCheck(L_176);
-		L_176->____s = L_178;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_177;
+		L_177 = Edge_get__Rprev_mE3B995FFD33AD26DAF5F1AED18382BB100065DCD(L_176, NULL);
+		V_10 = L_177;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_178 = V_0;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_179 = V_2;
 		NullCheck(L_179);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_180 = L_179->____Org;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_181 = __this->____event;
-		NullCheck(L_181);
-		float L_182 = L_181->____t;
-		NullCheck(L_180);
-		L_180->____t = L_182;
-	}
-
-IL_033d:
-	{
-		return (bool)0;
-	}
-
-IL_033f:
-	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_183 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_184 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_180;
+		L_180 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_179, NULL);
+		NullCheck(L_178);
+		L_178->____eUp = L_180;
+		Il2CppCodeGenWriteBarrier((void**)(&L_178->____eUp), (void*)L_180);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_181 = V_0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_182;
+		L_182 = Tess_FinishLeftRegions_mAC94EA6A1A8483C3A17573244F154D64BC52319F(__this, L_181, (ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0*)NULL, NULL);
+		V_2 = L_182;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_183 = ___0_regUp;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_184 = V_2;
 		NullCheck(L_184);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_185 = L_184->____Sym;
-		NullCheck(L_183);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_186;
-		L_186 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_183, L_185, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_187 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_188 = V_2;
-		NullCheck(L_188);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_189 = L_188->____Sym;
-		NullCheck(L_187);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_190;
-		L_190 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_187, L_189, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_191 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_192 = V_2;
-		NullCheck(L_192);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_193;
-		L_193 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_192, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_194 = V_1;
-		NullCheck(L_191);
-		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_191, L_193, L_194, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_195 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_185 = L_184->____Onext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_186 = V_1;
+		NullCheck(L_186);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_187;
+		L_187 = Edge_get__Rprev_mE3B995FFD33AD26DAF5F1AED18382BB100065DCD(L_186, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_188 = V_10;
+		Tess_AddRightEdges_m6C4B1B30D4DF33EA6A0CB10109CF85A03FD63958(__this, L_183, L_185, L_187, L_188, (bool)1, NULL);
+		return (bool)1;
+	}
+
+IL_037c:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_189 = V_5;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_190 = __this->____event;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_191 = V_8;
+		float L_192;
+		L_192 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_189, L_190, L_191, NULL);
+		if ((!(((float)L_192) >= ((float)(0.0f)))))
+		{
+			goto IL_03e8;
+		}
+	}
+	{
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_193 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_194;
+		L_194 = Tess_RegionAbove_mD8753526CB8C95B8F123324647D96CDACB14EB3B(__this, L_193, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_195 = ___0_regUp;
+		int32_t L_196 = 1;
+		V_11 = (bool)L_196;
 		NullCheck(L_195);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_196 = L_195->____Org;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_197 = V_8;
-		NullCheck(L_197);
-		float L_198 = L_197->____s;
-		NullCheck(L_196);
-		L_196->____s = L_198;
+		L_195->____dirty = (bool)L_196;
+		bool L_197 = V_11;
+		NullCheck(L_194);
+		L_194->____dirty = L_197;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_198 = __this->____mesh;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_199 = V_1;
 		NullCheck(L_199);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_200 = L_199->____Org;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_201 = V_8;
-		NullCheck(L_201);
-		float L_202 = L_201->____t;
-		NullCheck(L_200);
-		L_200->____t = L_202;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_203 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_200 = L_199->____Sym;
+		NullCheck(L_198);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_201;
+		L_201 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_198, L_200, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_202 = V_1;
+		NullCheck(L_202);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_203 = L_202->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_204 = __this->____event;
+		NullCheck(L_204);
+		float L_205 = L_204->____s;
 		NullCheck(L_203);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_204 = L_203->____Org;
-		PriorityQueue_1_t1DD36294F647D075BECC1914E6D5F34E464954B6* L_205 = __this->____pq;
+		L_203->____s = L_205;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_206 = V_1;
 		NullCheck(L_206);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_207 = L_206->____Org;
-		NullCheck(L_205);
-		PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F L_208;
-		L_208 = PriorityQueue_1_Insert_m760B390982BBE052BF962EB7B8DA8C16CA1C2655(L_205, L_207, PriorityQueue_1_Insert_m760B390982BBE052BF962EB7B8DA8C16CA1C2655_RuntimeMethod_var);
-		NullCheck(L_204);
-		L_204->____pqHandle = L_208;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_209 = V_1;
-		NullCheck(L_209);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_210 = L_209->____Org;
-		NullCheck(L_210);
-		PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F* L_211 = (PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F*)(&L_210->____pqHandle);
-		int32_t L_212 = L_211->____handle;
-		il2cpp_codegen_runtime_class_init_inline(PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F_il2cpp_TypeInfo_var);
-		int32_t L_213 = ((PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F_StaticFields*)il2cpp_codegen_static_fields_for(PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F_il2cpp_TypeInfo_var))->___Invalid;
-		if ((!(((uint32_t)L_212) == ((uint32_t)L_213))))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_208 = __this->____event;
+		NullCheck(L_208);
+		float L_209 = L_208->____t;
+		NullCheck(L_207);
+		L_207->____t = L_209;
+	}
+
+IL_03e8:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_210 = V_6;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_211 = __this->____event;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_212 = V_8;
+		float L_213;
+		L_213 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_210, L_211, L_212, NULL);
+		if ((!(((float)L_213) <= ((float)(0.0f)))))
 		{
-			goto IL_03d7;
+			goto IL_044e;
 		}
 	}
 	{
-		InvalidOperationException_t5DDE4D49B7405FAAB1E4576F4715A42A3FAD4BAB* L_214 = (InvalidOperationException_t5DDE4D49B7405FAAB1E4576F4715A42A3FAD4BAB*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&InvalidOperationException_t5DDE4D49B7405FAAB1E4576F4715A42A3FAD4BAB_il2cpp_TypeInfo_var)));
-		InvalidOperationException__ctor_mE4CB6F4712AB6D99A2358FBAE2E052B3EE976162(L_214, ((String_t*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&_stringLiteralD195D0425B8FE98A04F1BE9F8F30B202B33C80ED)), NULL);
-		IL2CPP_RAISE_MANAGED_EXCEPTION(L_214, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&Tess_CheckForIntersect_mA71310105191E5048AB2F6C630CC787856FA1F34_RuntimeMethod_var)));
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_214 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_215 = V_0;
+		int32_t L_216 = 1;
+		V_11 = (bool)L_216;
+		NullCheck(L_215);
+		L_215->____dirty = (bool)L_216;
+		bool L_217 = V_11;
+		NullCheck(L_214);
+		L_214->____dirty = L_217;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_218 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_219 = V_2;
+		NullCheck(L_219);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_220 = L_219->____Sym;
+		NullCheck(L_218);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_221;
+		L_221 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_218, L_220, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_222 = V_2;
+		NullCheck(L_222);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_223 = L_222->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_224 = __this->____event;
+		NullCheck(L_224);
+		float L_225 = L_224->____s;
+		NullCheck(L_223);
+		L_223->____s = L_225;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_226 = V_2;
+		NullCheck(L_226);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_227 = L_226->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_228 = __this->____event;
+		NullCheck(L_228);
+		float L_229 = L_228->____t;
+		NullCheck(L_227);
+		L_227->____t = L_229;
 	}
 
-IL_03d7:
+IL_044e:
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_215 = V_1;
-		NullCheck(L_215);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_216 = L_215->____Org;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_217 = V_3;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_218 = V_5;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_219 = V_4;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_220 = V_6;
-		Tess_GetIntersectData_mB0CAFD39DAABEC4403569B04190EC627E06F7A14(__this, L_216, L_217, L_218, L_219, L_220, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_221 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_222;
-		L_222 = Tess_RegionAbove_mD8753526CB8C95B8F123324647D96CDACB14EB3B(__this, L_221, NULL);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_223 = ___0_regUp;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_224 = V_0;
-		int32_t L_225 = 1;
-		V_11 = (bool)L_225;
-		NullCheck(L_224);
-		L_224->____dirty = (bool)L_225;
-		bool L_226 = V_11;
-		bool L_227 = L_226;
-		V_11 = L_227;
-		NullCheck(L_223);
-		L_223->____dirty = L_227;
-		bool L_228 = V_11;
-		NullCheck(L_222);
-		L_222->____dirty = L_228;
+		return (bool)0;
+	}
+
+IL_0450:
+	{
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_230 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_231 = V_1;
+		NullCheck(L_231);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_232 = L_231->____Sym;
+		NullCheck(L_230);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_233;
+		L_233 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_230, L_232, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_234 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_235 = V_2;
+		NullCheck(L_235);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_236 = L_235->____Sym;
+		NullCheck(L_234);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_237;
+		L_237 = Mesh_SplitEdge_m03C876CEB3B2E04E9A8592E8D425C9D36E6F4C4E(L_234, L_236, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_238 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_239 = V_2;
+		NullCheck(L_239);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_240;
+		L_240 = Edge_get__Oprev_mF9454D77C5B98CB63628398729BACA3D9C1F6D6B(L_239, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_241 = V_1;
+		NullCheck(L_238);
+		Mesh_Splice_m2E87747EE346CDBBB6E0EC0ED09804E6D124C76F(L_238, L_240, L_241, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_242 = V_1;
+		NullCheck(L_242);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_243 = L_242->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_244 = V_8;
+		NullCheck(L_244);
+		float L_245 = L_244->____s;
+		NullCheck(L_243);
+		L_243->____s = L_245;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_246 = V_1;
+		NullCheck(L_246);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_247 = L_246->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_248 = V_8;
+		NullCheck(L_248);
+		float L_249 = L_248->____t;
+		NullCheck(L_247);
+		L_247->____t = L_249;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_250 = V_1;
+		NullCheck(L_250);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_251 = L_250->____Org;
+		PriorityQueue_1_t1DD36294F647D075BECC1914E6D5F34E464954B6* L_252 = __this->____pq;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_253 = V_1;
+		NullCheck(L_253);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_254 = L_253->____Org;
+		NullCheck(L_252);
+		PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F L_255;
+		L_255 = PriorityQueue_1_Insert_m760B390982BBE052BF962EB7B8DA8C16CA1C2655(L_252, L_254, PriorityQueue_1_Insert_m760B390982BBE052BF962EB7B8DA8C16CA1C2655_RuntimeMethod_var);
+		NullCheck(L_251);
+		L_251->____pqHandle = L_255;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_256 = V_1;
+		NullCheck(L_256);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_257 = L_256->____Org;
+		NullCheck(L_257);
+		PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F* L_258 = (PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F*)(&L_257->____pqHandle);
+		int32_t L_259 = L_258->____handle;
+		il2cpp_codegen_runtime_class_init_inline(PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F_il2cpp_TypeInfo_var);
+		int32_t L_260 = ((PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F_StaticFields*)il2cpp_codegen_static_fields_for(PQHandle_tD8B673DD5F9F2EF4E72C8A86AD41A78DE7F6C42F_il2cpp_TypeInfo_var))->___Invalid;
+		if ((!(((uint32_t)L_259) == ((uint32_t)L_260))))
+		{
+			goto IL_04e8;
+		}
+	}
+	{
+		InvalidOperationException_t5DDE4D49B7405FAAB1E4576F4715A42A3FAD4BAB* L_261 = (InvalidOperationException_t5DDE4D49B7405FAAB1E4576F4715A42A3FAD4BAB*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&InvalidOperationException_t5DDE4D49B7405FAAB1E4576F4715A42A3FAD4BAB_il2cpp_TypeInfo_var)));
+		InvalidOperationException__ctor_mE4CB6F4712AB6D99A2358FBAE2E052B3EE976162(L_261, ((String_t*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&_stringLiteralD195D0425B8FE98A04F1BE9F8F30B202B33C80ED)), NULL);
+		IL2CPP_RAISE_MANAGED_EXCEPTION(L_261, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&Tess_CheckForIntersect_mA71310105191E5048AB2F6C630CC787856FA1F34_RuntimeMethod_var)));
+	}
+
+IL_04e8:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_262 = V_1;
+		NullCheck(L_262);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_263 = L_262->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_264 = V_3;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_265 = V_5;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_266 = V_4;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_267 = V_6;
+		Tess_GetIntersectData_mB0CAFD39DAABEC4403569B04190EC627E06F7A14(__this, L_263, L_264, L_265, L_266, L_267, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_268 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_269;
+		L_269 = Tess_RegionAbove_mD8753526CB8C95B8F123324647D96CDACB14EB3B(__this, L_268, NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_270 = ___0_regUp;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_271 = V_0;
+		int32_t L_272 = 1;
+		V_11 = (bool)L_272;
+		NullCheck(L_271);
+		L_271->____dirty = (bool)L_272;
+		bool L_273 = V_11;
+		bool L_274 = L_273;
+		V_11 = L_274;
+		NullCheck(L_270);
+		L_270->____dirty = L_274;
+		bool L_275 = V_11;
+		NullCheck(L_269);
+		L_269->____dirty = L_275;
 		return (bool)0;
 	}
 }
@@ -10186,34 +10856,58 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_DoneEdgeDict_m24F4E64FF899AA4BB85C7
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Node_get_Key_m6BC6943E0BC9A37B43EC32D9B56BC9AA7F876BE9_RuntimeMethod_var);
 		s_Il2CppMethodInitialized = true;
 	}
-	ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* V_0 = NULL;
+	int32_t V_0 = 0;
+	ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* V_1 = NULL;
 	{
-		goto IL_0010;
+		V_0 = 0;
+		goto IL_0039;
 	}
 
-IL_0002:
+IL_0004:
 	{
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_0 = V_0;
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_0 = V_1;
 		NullCheck(L_0);
 		bool L_1 = L_0->____sentinel;
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_2 = V_0;
-		Tess_DeleteRegion_mCFA4F24A80189DC8A75FD2B452400823E799C170(__this, L_2, NULL);
+		if (L_1)
+		{
+			goto IL_0024;
+		}
+	}
+	{
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_2 = V_1;
+		NullCheck(L_2);
+		bool L_3 = L_2->____fixUpperEdge;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F(L_3, NULL);
+		int32_t L_4 = V_0;
+		int32_t L_5 = ((int32_t)il2cpp_codegen_add(L_4, 1));
+		V_0 = L_5;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)L_5) == ((int32_t)1))? 1 : 0), NULL);
 	}
 
-IL_0010:
+IL_0024:
 	{
-		Dict_1_tD1584450532229333ADACF7949A706675CEE5012* L_3 = __this->____dict;
-		NullCheck(L_3);
-		Node_t06356FB62D8BB233A2995348130F197928CAA666* L_4;
-		L_4 = Dict_1_Min_m812DF218DBEC76B8954A89358A4242458DC6D2E1(L_3, Dict_1_Min_m812DF218DBEC76B8954A89358A4242458DC6D2E1_RuntimeMethod_var);
-		NullCheck(L_4);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_5;
-		L_5 = Node_get_Key_m6BC6943E0BC9A37B43EC32D9B56BC9AA7F876BE9_inline(L_4, Node_get_Key_m6BC6943E0BC9A37B43EC32D9B56BC9AA7F876BE9_RuntimeMethod_var);
-		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_6 = L_5;
-		V_0 = L_6;
-		if (L_6)
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_6 = V_1;
+		NullCheck(L_6);
+		int32_t L_7 = L_6->____windingNumber;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)L_7) == ((int32_t)0))? 1 : 0), NULL);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_8 = V_1;
+		Tess_DeleteRegion_mCFA4F24A80189DC8A75FD2B452400823E799C170(__this, L_8, NULL);
+	}
+
+IL_0039:
+	{
+		Dict_1_tD1584450532229333ADACF7949A706675CEE5012* L_9 = __this->____dict;
+		NullCheck(L_9);
+		Node_t06356FB62D8BB233A2995348130F197928CAA666* L_10;
+		L_10 = Dict_1_Min_m812DF218DBEC76B8954A89358A4242458DC6D2E1(L_9, Dict_1_Min_m812DF218DBEC76B8954A89358A4242458DC6D2E1_RuntimeMethod_var);
+		NullCheck(L_10);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_11;
+		L_11 = Node_get_Key_m6BC6943E0BC9A37B43EC32D9B56BC9AA7F876BE9_inline(L_10, Node_get_Key_m6BC6943E0BC9A37B43EC32D9B56BC9AA7F876BE9_RuntimeMethod_var);
+		ActiveRegion_tDE80DC43174EAB98C595EFC94F3DE7F736E46FD0* L_12 = L_11;
+		V_1 = L_12;
+		if (L_12)
 		{
-			goto IL_0002;
+			goto IL_0004;
 		}
 	}
 	{
@@ -10542,7 +11236,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_RemoveDegenerateFaces_m175F0E09E0A1
 		NullCheck(L_1);
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_2 = L_1->____next;
 		V_0 = L_2;
-		goto IL_0049;
+		goto IL_005a;
 	}
 
 IL_0013:
@@ -10558,39 +11252,44 @@ IL_0013:
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = V_2;
 		NullCheck(L_7);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = L_7->____Lnext;
-		NullCheck(L_8);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_9 = L_8->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_9 = V_2;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_8) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_9))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10 = V_2;
-		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_9) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_10))))
+		NullCheck(L_10);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = L_10->____Lnext;
+		NullCheck(L_11);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_12 = L_11->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = V_2;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_12) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_13))))
 		{
-			goto IL_0047;
+			goto IL_0058;
 		}
 	}
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = V_2;
-		NullCheck(L_11);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_12 = L_11->____Onext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = V_2;
-		Geom_AddWinding_mEF9B45F1F1264B9A4057470FBCABF4A1C43132BC(L_12, L_13, NULL);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_14 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = V_2;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_14 = V_2;
 		NullCheck(L_14);
-		Mesh_Delete_mD97D1D9DB96444628E39D0A2A525F0E998CB4B57(L_14, L_15, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_15 = L_14->____Onext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_16 = V_2;
+		Geom_AddWinding_mEF9B45F1F1264B9A4057470FBCABF4A1C43132BC(L_15, L_16, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_17 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18 = V_2;
+		NullCheck(L_17);
+		Mesh_Delete_mD97D1D9DB96444628E39D0A2A525F0E998CB4B57(L_17, L_18, NULL);
 	}
 
-IL_0047:
+IL_0058:
 	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_16 = V_1;
-		V_0 = L_16;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_19 = V_1;
+		V_0 = L_19;
 	}
 
-IL_0049:
+IL_005a:
 	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_17 = V_0;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_18 = __this->____mesh;
-		NullCheck(L_18);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_19 = L_18->____fHead;
-		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_17) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_19))))
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_20 = V_0;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_21 = __this->____mesh;
+		NullCheck(L_21);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_22 = L_21->____fHead;
+		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_20) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_22))))
 		{
 			goto IL_0013;
 		}
@@ -10680,6 +11379,9 @@ IL_0059:
 		Tess_DoneEdgeDict_m24F4E64FF899AA4BB85C79C107EFEE03C9980606(__this, NULL);
 		Tess_DonePriorityQ_m27DEF72BC94B68743B99CA7BA9A042377F13BA5C(__this, NULL);
 		Tess_RemoveDegenerateFaces_m175F0E09E0A14E1F45ABAA71EEA744BB48863D8C(__this, NULL);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_16 = __this->____mesh;
+		NullCheck(L_16);
+		Mesh_Check_mDA1197C89B6C32B6EE7F342A127BA7F1E3AAFF9E(L_16, NULL);
 		return;
 	}
 }
@@ -11718,275 +12420,309 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Tess_TessellateMonoRegion_m495AA620F323F
 {
 	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_0 = NULL;
 	Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* V_1 = NULL;
+	int32_t G_B3_0 = 0;
 	{
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_0 = ___0_face;
 		NullCheck(L_0);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_1 = L_0->____anEdge;
 		V_0 = L_1;
-		goto IL_0010;
-	}
-
-IL_0009:
-	{
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_2 = V_0;
 		NullCheck(L_2);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3;
-		L_3 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_2, NULL);
-		V_0 = L_3;
-	}
-
-IL_0010:
-	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_3 = L_2->____Lnext;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_4 = V_0;
-		NullCheck(L_4);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_5;
-		L_5 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_4, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = V_0;
-		NullCheck(L_6);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_7 = L_6->____Org;
-		bool L_8;
-		L_8 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_5, L_7, NULL);
-		if (L_8)
+		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_3) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_4)))
 		{
-			goto IL_0009;
+			goto IL_0023;
 		}
 	}
 	{
-		goto IL_002c;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_5 = V_0;
+		NullCheck(L_5);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_6 = L_5->____Lnext;
+		NullCheck(L_6);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_7 = L_6->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_8 = V_0;
+		G_B3_0 = ((((int32_t)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_7) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_8))? 1 : 0)) == ((int32_t)0))? 1 : 0);
+		goto IL_0024;
 	}
 
-IL_0025:
+IL_0023:
+	{
+		G_B3_0 = 0;
+	}
+
+IL_0024:
+	{
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)G_B3_0, NULL);
+		goto IL_0032;
+	}
+
+IL_002b:
 	{
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_9 = V_0;
 		NullCheck(L_9);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10 = L_9->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_10;
+		L_10 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_9, NULL);
 		V_0 = L_10;
 	}
 
-IL_002c:
+IL_0032:
 	{
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_11 = V_0;
 		NullCheck(L_11);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12 = L_11->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_12;
+		L_12 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_11, NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_13 = V_0;
 		NullCheck(L_13);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14;
-		L_14 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_13, NULL);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_14 = L_13->____Org;
 		bool L_15;
 		L_15 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_12, L_14, NULL);
 		if (L_15)
 		{
-			goto IL_0025;
+			goto IL_002b;
 		}
 	}
+	{
+		goto IL_004e;
+	}
+
+IL_0047:
 	{
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_16 = V_0;
 		NullCheck(L_16);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_17;
-		L_17 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_16, NULL);
-		V_1 = L_17;
-		goto IL_0112;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_17 = L_16->____Lnext;
+		V_0 = L_17;
 	}
 
-IL_004b:
+IL_004e:
 	{
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_18 = V_0;
 		NullCheck(L_18);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_19;
-		L_19 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_18, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = V_1;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_19 = L_18->____Org;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_20 = V_0;
 		NullCheck(L_20);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21 = L_20->____Org;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_21;
+		L_21 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_20, NULL);
 		bool L_22;
 		L_22 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_19, L_21, NULL);
-		if (!L_22)
+		if (L_22)
 		{
-			goto IL_00d2;
+			goto IL_0047;
 		}
 	}
 	{
-		goto IL_0078;
-	}
-
-IL_0060:
-	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_23 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_24 = V_1;
-		NullCheck(L_24);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = L_24->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_26 = V_1;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_23 = V_0;
 		NullCheck(L_23);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_27;
-		L_27 = Mesh_Connect_mE5B23363499165A6B2A6A585AED053D962D072D1(L_23, L_25, L_26, NULL);
-		NullCheck(L_27);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_28 = L_27->____Sym;
-		V_1 = L_28;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_24;
+		L_24 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_23, NULL);
+		V_1 = L_24;
+		goto IL_0134;
 	}
 
-IL_0078:
+IL_006d:
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_29 = V_1;
-		NullCheck(L_29);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_30 = L_29->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_31 = V_0;
-		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_30) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_31)))
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = V_0;
+		NullCheck(L_25);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_26;
+		L_26 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_25, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_27 = V_1;
+		NullCheck(L_27);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_28 = L_27->____Org;
+		bool L_29;
+		L_29 = Geom_VertLeq_m643E83BDCBB7CAC1A3FA1480F81701433155D21F(L_26, L_28, NULL);
+		if (!L_29)
 		{
-			goto IL_00b1;
+			goto IL_00f4;
 		}
 	}
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_32 = V_1;
-		NullCheck(L_32);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_33 = L_32->____Lnext;
-		bool L_34;
-		L_34 = Geom_EdgeGoesLeft_m8C4A572A6E0F2BC8D6457787CBD3B09200B34808(L_33, NULL);
-		if (L_34)
+		goto IL_009a;
+	}
+
+IL_0082:
+	{
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_30 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_31 = V_1;
+		NullCheck(L_31);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_32 = L_31->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_33 = V_1;
+		NullCheck(L_30);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_34;
+		L_34 = Mesh_Connect_mE5B23363499165A6B2A6A585AED053D962D072D1(L_30, L_32, L_33, NULL);
+		NullCheck(L_34);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_35 = L_34->____Sym;
+		V_1 = L_35;
+	}
+
+IL_009a:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_36 = V_1;
+		NullCheck(L_36);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_37 = L_36->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_38 = V_0;
+		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_37) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_38)))
 		{
-			goto IL_0060;
+			goto IL_00d3;
 		}
 	}
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_35 = V_1;
-		NullCheck(L_35);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_36 = L_35->____Org;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_37 = V_1;
-		NullCheck(L_37);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_38;
-		L_38 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_37, NULL);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_39 = V_1;
 		NullCheck(L_39);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_40 = L_39->____Lnext;
-		NullCheck(L_40);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_41;
-		L_41 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_40, NULL);
-		float L_42;
-		L_42 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_36, L_38, L_41, NULL);
-		if ((((float)L_42) <= ((float)(0.0f))))
+		bool L_41;
+		L_41 = Geom_EdgeGoesLeft_m8C4A572A6E0F2BC8D6457787CBD3B09200B34808(L_40, NULL);
+		if (L_41)
 		{
-			goto IL_0060;
+			goto IL_0082;
 		}
 	}
-
-IL_00b1:
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_43 = V_1;
-		NullCheck(L_43);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_44;
-		L_44 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_43, NULL);
-		V_1 = L_44;
-		goto IL_0112;
-	}
-
-IL_00ba:
-	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_45 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_46 = V_0;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_47 = V_0;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_42 = V_1;
+		NullCheck(L_42);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_43 = L_42->____Org;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_44 = V_1;
+		NullCheck(L_44);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_45;
+		L_45 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_44, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_46 = V_1;
+		NullCheck(L_46);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_47 = L_46->____Lnext;
 		NullCheck(L_47);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_48;
-		L_48 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_47, NULL);
-		NullCheck(L_45);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_49;
-		L_49 = Mesh_Connect_mE5B23363499165A6B2A6A585AED053D962D072D1(L_45, L_46, L_48, NULL);
-		NullCheck(L_49);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_50 = L_49->____Sym;
-		V_0 = L_50;
-	}
-
-IL_00d2:
-	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_51 = V_1;
-		NullCheck(L_51);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_52 = L_51->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_53 = V_0;
-		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_52) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_53)))
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_48;
+		L_48 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_47, NULL);
+		float L_49;
+		L_49 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_43, L_45, L_48, NULL);
+		if ((((float)L_49) <= ((float)(0.0f))))
 		{
-			goto IL_010b;
+			goto IL_0082;
 		}
 	}
+
+IL_00d3:
 	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_50 = V_1;
+		NullCheck(L_50);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_51;
+		L_51 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_50, NULL);
+		V_1 = L_51;
+		goto IL_0134;
+	}
+
+IL_00dc:
+	{
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_52 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_53 = V_0;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_54 = V_0;
 		NullCheck(L_54);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_55;
 		L_55 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_54, NULL);
-		bool L_56;
-		L_56 = Geom_EdgeGoesRight_m1279AC98D42D6CDF49D720E4F735FD3AFDE242C6(L_55, NULL);
-		if (L_56)
+		NullCheck(L_52);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_56;
+		L_56 = Mesh_Connect_mE5B23363499165A6B2A6A585AED053D962D072D1(L_52, L_53, L_55, NULL);
+		NullCheck(L_56);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_57 = L_56->____Sym;
+		V_0 = L_57;
+	}
+
+IL_00f4:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_58 = V_1;
+		NullCheck(L_58);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_59 = L_58->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_60 = V_0;
+		if ((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_59) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_60)))
 		{
-			goto IL_00ba;
+			goto IL_012d;
 		}
 	}
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_57 = V_0;
-		NullCheck(L_57);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_58;
-		L_58 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_57, NULL);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_59 = V_0;
-		NullCheck(L_59);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_60 = L_59->____Org;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_61 = V_0;
 		NullCheck(L_61);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_62;
 		L_62 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_61, NULL);
-		NullCheck(L_62);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_63 = L_62->____Org;
-		float L_64;
-		L_64 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_58, L_60, L_63, NULL);
-		if ((((float)L_64) >= ((float)(0.0f))))
+		bool L_63;
+		L_63 = Geom_EdgeGoesRight_m1279AC98D42D6CDF49D720E4F735FD3AFDE242C6(L_62, NULL);
+		if (L_63)
 		{
-			goto IL_00ba;
-		}
-	}
-
-IL_010b:
-	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_65 = V_0;
-		NullCheck(L_65);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_66 = L_65->____Lnext;
-		V_0 = L_66;
-	}
-
-IL_0112:
-	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_67 = V_0;
-		NullCheck(L_67);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_68 = L_67->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_69 = V_1;
-		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_68) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_69))))
-		{
-			goto IL_004b;
+			goto IL_00dc;
 		}
 	}
 	{
-		goto IL_0138;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_64 = V_0;
+		NullCheck(L_64);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_65;
+		L_65 = Edge_get__Dst_m70C56414A729CC9D426FE1BD1EC95C6026610E3A(L_64, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_66 = V_0;
+		NullCheck(L_66);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_67 = L_66->____Org;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_68 = V_0;
+		NullCheck(L_68);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_69;
+		L_69 = Edge_get__Lprev_m7C649C346AD4E5475DC33C49CE48B33C60BC3B31(L_68, NULL);
+		NullCheck(L_69);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_70 = L_69->____Org;
+		float L_71;
+		L_71 = Geom_EdgeSign_m585A164610F6CA2B34B1F7C8F2596E3AEDA1669A(L_65, L_67, L_70, NULL);
+		if ((((float)L_71) >= ((float)(0.0f))))
+		{
+			goto IL_00dc;
+		}
 	}
 
-IL_0120:
+IL_012d:
 	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_70 = __this->____mesh;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_71 = V_1;
-		NullCheck(L_71);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_72 = L_71->____Lnext;
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_73 = V_1;
-		NullCheck(L_70);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_74;
-		L_74 = Mesh_Connect_mE5B23363499165A6B2A6A585AED053D962D072D1(L_70, L_72, L_73, NULL);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_72 = V_0;
+		NullCheck(L_72);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_73 = L_72->____Lnext;
+		V_0 = L_73;
+	}
+
+IL_0134:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_74 = V_0;
 		NullCheck(L_74);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_75 = L_74->____Sym;
-		V_1 = L_75;
-	}
-
-IL_0138:
-	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_75 = L_74->____Lnext;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_76 = V_1;
-		NullCheck(L_76);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_77 = L_76->____Lnext;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_75) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_76))))
+		{
+			goto IL_006d;
+		}
+	}
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_77 = V_1;
 		NullCheck(L_77);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_78 = L_77->____Lnext;
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_79 = V_0;
-		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_78) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_79))))
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_78) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_79))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		goto IL_016b;
+	}
+
+IL_0153:
+	{
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_80 = __this->____mesh;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_81 = V_1;
+		NullCheck(L_81);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_82 = L_81->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_83 = V_1;
+		NullCheck(L_80);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_84;
+		L_84 = Mesh_Connect_mE5B23363499165A6B2A6A585AED053D962D072D1(L_80, L_82, L_83, NULL);
+		NullCheck(L_84);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_85 = L_84->____Sym;
+		V_1 = L_85;
+	}
+
+IL_016b:
+	{
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_86 = V_1;
+		NullCheck(L_86);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_87 = L_86->____Lnext;
+		NullCheck(L_87);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_88 = L_87->____Lnext;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_89 = V_0;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_88) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_89))))
 		{
-			goto IL_0120;
+			goto IL_0153;
 		}
 	}
 	{
@@ -12296,10 +13032,10 @@ IL_003d:
 		NullCheck(L_14);
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_15 = L_14->____next;
 		V_1 = L_15;
-		goto IL_00d7;
+		goto IL_00e7;
 	}
 
-IL_005e:
+IL_0061:
 	{
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_16 = V_1;
 		NullCheck(L_16);
@@ -12309,14 +13045,14 @@ IL_005e:
 		bool L_18 = L_17->____inside;
 		if (!L_18)
 		{
-			goto IL_00d0;
+			goto IL_00e0;
 		}
 	}
 	{
 		bool L_19 = __this->___NoEmptyPolygons;
 		if (!L_19)
 		{
-			goto IL_0087;
+			goto IL_008a;
 		}
 	}
 	{
@@ -12328,11 +13064,11 @@ IL_005e:
 		L_22 = fabsf(L_21);
 		if ((((float)L_22) < ((float)(1.40129846E-45f))))
 		{
-			goto IL_00d0;
+			goto IL_00e0;
 		}
 	}
 
-IL_0087:
+IL_008a:
 	{
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_23 = V_1;
 		NullCheck(L_23);
@@ -12341,7 +13077,7 @@ IL_0087:
 		V_5 = 0;
 	}
 
-IL_0091:
+IL_0094:
 	{
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_25 = V_2;
 		NullCheck(L_25);
@@ -12352,7 +13088,7 @@ IL_0091:
 		int32_t L_28 = L_27->____n;
 		if ((!(((uint32_t)L_28) == ((uint32_t)(-1)))))
 		{
-			goto IL_00af;
+			goto IL_00b2;
 		}
 	}
 	{
@@ -12364,7 +13100,7 @@ IL_0091:
 		V_4 = ((int32_t)il2cpp_codegen_add(L_31, 1));
 	}
 
-IL_00af:
+IL_00b2:
 	{
 		int32_t L_32 = V_5;
 		V_5 = ((int32_t)il2cpp_codegen_add(L_32, 1));
@@ -12378,314 +13114,317 @@ IL_00af:
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_37 = L_36->____anEdge;
 		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_35) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_37))))
 		{
-			goto IL_0091;
+			goto IL_0094;
 		}
 	}
 	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_38 = V_1;
-		int32_t L_39 = V_3;
-		NullCheck(L_38);
-		L_38->____n = L_39;
-		int32_t L_40 = V_3;
-		V_3 = ((int32_t)il2cpp_codegen_add(L_40, 1));
+		int32_t L_38 = V_5;
+		int32_t L_39 = ___1_polySize;
+		Debug_Assert_m9192EFA9CFAB2EDE68E87341348441EEE645348F((bool)((((int32_t)((((int32_t)L_38) > ((int32_t)L_39))? 1 : 0)) == ((int32_t)0))? 1 : 0), NULL);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_40 = V_1;
+		int32_t L_41 = V_3;
+		NullCheck(L_40);
+		L_40->____n = L_41;
+		int32_t L_42 = V_3;
+		V_3 = ((int32_t)il2cpp_codegen_add(L_42, 1));
 	}
 
-IL_00d0:
-	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_41 = V_1;
-		NullCheck(L_41);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_42 = L_41->____next;
-		V_1 = L_42;
-	}
-
-IL_00d7:
+IL_00e0:
 	{
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_43 = V_1;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_44 = __this->____mesh;
-		NullCheck(L_44);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_45 = L_44->____fHead;
-		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_43) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_45))))
-		{
-			goto IL_005e;
-		}
+		NullCheck(L_43);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_44 = L_43->____next;
+		V_1 = L_44;
 	}
+
+IL_00e7:
 	{
-		int32_t L_46 = V_3;
-		__this->____elementCount = L_46;
-		int32_t L_47 = ___0_elementType;
-		if ((!(((uint32_t)L_47) == ((uint32_t)1))))
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_45 = V_1;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_46 = __this->____mesh;
+		NullCheck(L_46);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_47 = L_46->____fHead;
+		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_45) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_47))))
 		{
-			goto IL_00f7;
+			goto IL_0061;
 		}
 	}
 	{
 		int32_t L_48 = V_3;
-		V_3 = ((int32_t)il2cpp_codegen_multiply(L_48, 2));
-	}
-
-IL_00f7:
-	{
-		int32_t L_49 = V_3;
-		int32_t L_50 = ___1_polySize;
-		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_51 = (Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)SZArrayNew(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C_il2cpp_TypeInfo_var, (uint32_t)((int32_t)il2cpp_codegen_multiply(L_49, L_50)));
-		__this->____elements = L_51;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->____elements), (void*)L_51);
-		int32_t L_52 = V_4;
-		__this->____vertexCount = L_52;
-		int32_t L_53 = __this->____vertexCount;
-		ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5* L_54 = (ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5*)(ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5*)SZArrayNew(ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5_il2cpp_TypeInfo_var, (uint32_t)L_53);
-		__this->____vertices = L_54;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->____vertices), (void*)L_54);
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_55 = __this->____mesh;
-		NullCheck(L_55);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_56 = L_55->____vHead;
-		NullCheck(L_56);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_57 = L_56->____next;
-		V_0 = L_57;
-		goto IL_0179;
-	}
-
-IL_0131:
-	{
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_58 = V_0;
-		NullCheck(L_58);
-		int32_t L_59 = L_58->____n;
-		if ((((int32_t)L_59) == ((int32_t)(-1))))
+		__this->____elementCount = L_48;
+		int32_t L_49 = ___0_elementType;
+		if ((!(((uint32_t)L_49) == ((uint32_t)1))))
 		{
-			goto IL_0172;
+			goto IL_0107;
 		}
 	}
 	{
-		ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5* L_60 = __this->____vertices;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_61 = V_0;
-		NullCheck(L_61);
-		int32_t L_62 = L_61->____n;
+		int32_t L_50 = V_3;
+		V_3 = ((int32_t)il2cpp_codegen_multiply(L_50, 2));
+	}
+
+IL_0107:
+	{
+		int32_t L_51 = V_3;
+		int32_t L_52 = ___1_polySize;
+		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_53 = (Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)SZArrayNew(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C_il2cpp_TypeInfo_var, (uint32_t)((int32_t)il2cpp_codegen_multiply(L_51, L_52)));
+		__this->____elements = L_53;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->____elements), (void*)L_53);
+		int32_t L_54 = V_4;
+		__this->____vertexCount = L_54;
+		int32_t L_55 = __this->____vertexCount;
+		ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5* L_56 = (ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5*)(ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5*)SZArrayNew(ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5_il2cpp_TypeInfo_var, (uint32_t)L_55);
+		__this->____vertices = L_56;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->____vertices), (void*)L_56);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_57 = __this->____mesh;
+		NullCheck(L_57);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_58 = L_57->____vHead;
+		NullCheck(L_58);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_59 = L_58->____next;
+		V_0 = L_59;
+		goto IL_0189;
+	}
+
+IL_0141:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_60 = V_0;
 		NullCheck(L_60);
+		int32_t L_61 = L_60->____n;
+		if ((((int32_t)L_61) == ((int32_t)(-1))))
+		{
+			goto IL_0182;
+		}
+	}
+	{
+		ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5* L_62 = __this->____vertices;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_63 = V_0;
 		NullCheck(L_63);
-		Vec3_t2DC07E9249C572CF68A4D54873B4038A68B77E74 L_64 = L_63->____coords;
-		((L_60)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_62)))->___Position = L_64;
-		ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5* L_65 = __this->____vertices;
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_66 = V_0;
-		NullCheck(L_66);
-		int32_t L_67 = L_66->____n;
+		int32_t L_64 = L_63->____n;
+		NullCheck(L_62);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_65 = V_0;
 		NullCheck(L_65);
+		Vec3_t2DC07E9249C572CF68A4D54873B4038A68B77E74 L_66 = L_65->____coords;
+		((L_62)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_64)))->___Position = L_66;
+		ContourVertexU5BU5D_tA2E5DCD24E23FACD7195A27617FA696A603992F5* L_67 = __this->____vertices;
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_68 = V_0;
 		NullCheck(L_68);
-		RuntimeObject* L_69 = L_68->____data;
-		((L_65)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_67)))->___Data = L_69;
-		Il2CppCodeGenWriteBarrier((void**)(&((L_65)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_67)))->___Data), (void*)L_69);
-	}
-
-IL_0172:
-	{
+		int32_t L_69 = L_68->____n;
+		NullCheck(L_67);
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_70 = V_0;
 		NullCheck(L_70);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_71 = L_70->____next;
-		V_0 = L_71;
+		RuntimeObject* L_71 = L_70->____data;
+		((L_67)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_69)))->___Data = L_71;
+		Il2CppCodeGenWriteBarrier((void**)(&((L_67)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_69)))->___Data), (void*)L_71);
 	}
 
-IL_0179:
+IL_0182:
 	{
 		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_72 = V_0;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_73 = __this->____mesh;
-		NullCheck(L_73);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_74 = L_73->____vHead;
-		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_72) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_74))))
+		NullCheck(L_72);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_73 = L_72->____next;
+		V_0 = L_73;
+	}
+
+IL_0189:
+	{
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_74 = V_0;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_75 = __this->____mesh;
+		NullCheck(L_75);
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_76 = L_75->____vHead;
+		if ((!(((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_74) == ((RuntimeObject*)(Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E*)L_76))))
 		{
-			goto IL_0131;
+			goto IL_0141;
 		}
 	}
 	{
 		V_7 = 0;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_75 = __this->____mesh;
-		NullCheck(L_75);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_76 = L_75->____fHead;
-		NullCheck(L_76);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_77 = L_76->____next;
-		V_1 = L_77;
-		goto IL_027a;
-	}
-
-IL_01a0:
-	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_78 = V_1;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_77 = __this->____mesh;
+		NullCheck(L_77);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_78 = L_77->____fHead;
 		NullCheck(L_78);
-		bool L_79 = L_78->____inside;
-		if (!L_79)
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_79 = L_78->____next;
+		V_1 = L_79;
+		goto IL_028a;
+	}
+
+IL_01b0:
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_80 = V_1;
+		NullCheck(L_80);
+		bool L_81 = L_80->____inside;
+		if (!L_81)
 		{
-			goto IL_0273;
+			goto IL_0283;
 		}
 	}
 	{
-		bool L_80 = __this->___NoEmptyPolygons;
-		if (!L_80)
+		bool L_82 = __this->___NoEmptyPolygons;
+		if (!L_82)
 		{
-			goto IL_01c8;
+			goto IL_01d8;
 		}
 	}
 	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_81 = V_1;
-		float L_82;
-		L_82 = MeshUtils_FaceArea_m58594CC100DB8CB29D939B7F9703D67975881DB6(L_81, NULL);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_83 = V_1;
+		float L_84;
+		L_84 = MeshUtils_FaceArea_m58594CC100DB8CB29D939B7F9703D67975881DB6(L_83, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Math_tEB65DE7CA8B083C412C969C92981C030865486CE_il2cpp_TypeInfo_var);
-		float L_83;
-		L_83 = fabsf(L_82);
-		if ((((float)L_83) < ((float)(1.40129846E-45f))))
+		float L_85;
+		L_85 = fabsf(L_84);
+		if ((((float)L_85) < ((float)(1.40129846E-45f))))
 		{
-			goto IL_0273;
+			goto IL_0283;
 		}
 	}
 
-IL_01c8:
+IL_01d8:
 	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_84 = V_1;
-		NullCheck(L_84);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_85 = L_84->____anEdge;
-		V_2 = L_85;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_86 = V_1;
+		NullCheck(L_86);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_87 = L_86->____anEdge;
+		V_2 = L_87;
 		V_5 = 0;
 	}
 
-IL_01d2:
+IL_01e2:
 	{
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_86 = V_2;
-		NullCheck(L_86);
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_87 = L_86->____Org;
-		V_0 = L_87;
-		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_88 = __this->____elements;
-		int32_t L_89 = V_7;
-		int32_t L_90 = L_89;
-		V_7 = ((int32_t)il2cpp_codegen_add(L_90, 1));
-		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_91 = V_0;
-		NullCheck(L_91);
-		int32_t L_92 = L_91->____n;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_88 = V_2;
 		NullCheck(L_88);
-		(L_88)->SetAt(static_cast<il2cpp_array_size_t>(L_90), (int32_t)L_92);
-		int32_t L_93 = V_5;
-		V_5 = ((int32_t)il2cpp_codegen_add(L_93, 1));
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_94 = V_2;
-		NullCheck(L_94);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_95 = L_94->____Lnext;
-		V_2 = L_95;
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_89 = L_88->____Org;
+		V_0 = L_89;
+		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_90 = __this->____elements;
+		int32_t L_91 = V_7;
+		int32_t L_92 = L_91;
+		V_7 = ((int32_t)il2cpp_codegen_add(L_92, 1));
+		Vertex_tDDF0F90AA77AF545B38619BBAAC0B7C9AEA27A4E* L_93 = V_0;
+		NullCheck(L_93);
+		int32_t L_94 = L_93->____n;
+		NullCheck(L_90);
+		(L_90)->SetAt(static_cast<il2cpp_array_size_t>(L_92), (int32_t)L_94);
+		int32_t L_95 = V_5;
+		V_5 = ((int32_t)il2cpp_codegen_add(L_95, 1));
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_96 = V_2;
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_97 = V_1;
-		NullCheck(L_97);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_98 = L_97->____anEdge;
-		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_96) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_98))))
+		NullCheck(L_96);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_97 = L_96->____Lnext;
+		V_2 = L_97;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_98 = V_2;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_99 = V_1;
+		NullCheck(L_99);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_100 = L_99->____anEdge;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_98) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_100))))
 		{
-			goto IL_01d2;
+			goto IL_01e2;
 		}
 	}
 	{
-		int32_t L_99 = V_5;
-		V_6 = L_99;
-		goto IL_021e;
+		int32_t L_101 = V_5;
+		V_6 = L_101;
+		goto IL_022e;
 	}
 
-IL_0209:
+IL_0219:
 	{
-		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_100 = __this->____elements;
-		int32_t L_101 = V_7;
-		int32_t L_102 = L_101;
-		V_7 = ((int32_t)il2cpp_codegen_add(L_102, 1));
-		NullCheck(L_100);
-		(L_100)->SetAt(static_cast<il2cpp_array_size_t>(L_102), (int32_t)(-1));
-		int32_t L_103 = V_6;
-		V_6 = ((int32_t)il2cpp_codegen_add(L_103, 1));
-	}
-
-IL_021e:
-	{
-		int32_t L_104 = V_6;
-		int32_t L_105 = ___1_polySize;
-		if ((((int32_t)L_104) < ((int32_t)L_105)))
-		{
-			goto IL_0209;
-		}
-	}
-	{
-		int32_t L_106 = ___0_elementType;
-		if ((!(((uint32_t)L_106) == ((uint32_t)1))))
-		{
-			goto IL_0273;
-		}
-	}
-	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_107 = V_1;
-		NullCheck(L_107);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_108 = L_107->____anEdge;
-		V_2 = L_108;
+		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_102 = __this->____elements;
+		int32_t L_103 = V_7;
+		int32_t L_104 = L_103;
+		V_7 = ((int32_t)il2cpp_codegen_add(L_104, 1));
+		NullCheck(L_102);
+		(L_102)->SetAt(static_cast<il2cpp_array_size_t>(L_104), (int32_t)(-1));
+		int32_t L_105 = V_6;
+		V_6 = ((int32_t)il2cpp_codegen_add(L_105, 1));
 	}
 
 IL_022e:
 	{
-		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_109 = __this->____elements;
-		int32_t L_110 = V_7;
-		int32_t L_111 = L_110;
-		V_7 = ((int32_t)il2cpp_codegen_add(L_111, 1));
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_112 = V_2;
-		int32_t L_113;
-		L_113 = Tess_GetNeighbourFace_m923653D242BA94542FC5566F35B4F4A968F8EA6F(__this, L_112, NULL);
+		int32_t L_106 = V_6;
+		int32_t L_107 = ___1_polySize;
+		if ((((int32_t)L_106) < ((int32_t)L_107)))
+		{
+			goto IL_0219;
+		}
+	}
+	{
+		int32_t L_108 = ___0_elementType;
+		if ((!(((uint32_t)L_108) == ((uint32_t)1))))
+		{
+			goto IL_0283;
+		}
+	}
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_109 = V_1;
 		NullCheck(L_109);
-		(L_109)->SetAt(static_cast<il2cpp_array_size_t>(L_111), (int32_t)L_113);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_110 = L_109->____anEdge;
+		V_2 = L_110;
+	}
+
+IL_023e:
+	{
+		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_111 = __this->____elements;
+		int32_t L_112 = V_7;
+		int32_t L_113 = L_112;
+		V_7 = ((int32_t)il2cpp_codegen_add(L_113, 1));
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_114 = V_2;
-		NullCheck(L_114);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_115 = L_114->____Lnext;
-		V_2 = L_115;
+		int32_t L_115;
+		L_115 = Tess_GetNeighbourFace_m923653D242BA94542FC5566F35B4F4A968F8EA6F(__this, L_114, NULL);
+		NullCheck(L_111);
+		(L_111)->SetAt(static_cast<il2cpp_array_size_t>(L_113), (int32_t)L_115);
 		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_116 = V_2;
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_117 = V_1;
-		NullCheck(L_117);
-		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_118 = L_117->____anEdge;
-		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_116) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_118))))
+		NullCheck(L_116);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_117 = L_116->____Lnext;
+		V_2 = L_117;
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_118 = V_2;
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_119 = V_1;
+		NullCheck(L_119);
+		Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2* L_120 = L_119->____anEdge;
+		if ((!(((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_118) == ((RuntimeObject*)(Edge_t3C300DB1F3D874BDE5A2A215313DD698868DC5E2*)L_120))))
 		{
-			goto IL_022e;
+			goto IL_023e;
 		}
 	}
 	{
-		int32_t L_119 = V_5;
-		V_6 = L_119;
-		goto IL_026e;
+		int32_t L_121 = V_5;
+		V_6 = L_121;
+		goto IL_027e;
 	}
 
-IL_0259:
+IL_0269:
 	{
-		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_120 = __this->____elements;
-		int32_t L_121 = V_7;
-		int32_t L_122 = L_121;
-		V_7 = ((int32_t)il2cpp_codegen_add(L_122, 1));
-		NullCheck(L_120);
-		(L_120)->SetAt(static_cast<il2cpp_array_size_t>(L_122), (int32_t)(-1));
-		int32_t L_123 = V_6;
-		V_6 = ((int32_t)il2cpp_codegen_add(L_123, 1));
+		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_122 = __this->____elements;
+		int32_t L_123 = V_7;
+		int32_t L_124 = L_123;
+		V_7 = ((int32_t)il2cpp_codegen_add(L_124, 1));
+		NullCheck(L_122);
+		(L_122)->SetAt(static_cast<il2cpp_array_size_t>(L_124), (int32_t)(-1));
+		int32_t L_125 = V_6;
+		V_6 = ((int32_t)il2cpp_codegen_add(L_125, 1));
 	}
 
-IL_026e:
+IL_027e:
 	{
-		int32_t L_124 = V_6;
-		int32_t L_125 = ___1_polySize;
-		if ((((int32_t)L_124) < ((int32_t)L_125)))
+		int32_t L_126 = V_6;
+		int32_t L_127 = ___1_polySize;
+		if ((((int32_t)L_126) < ((int32_t)L_127)))
 		{
-			goto IL_0259;
+			goto IL_0269;
 		}
 	}
 
-IL_0273:
-	{
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_126 = V_1;
-		NullCheck(L_126);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_127 = L_126->____next;
-		V_1 = L_127;
-	}
-
-IL_027a:
+IL_0283:
 	{
 		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_128 = V_1;
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_129 = __this->____mesh;
-		NullCheck(L_129);
-		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_130 = L_129->____fHead;
-		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_128) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_130))))
+		NullCheck(L_128);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_129 = L_128->____next;
+		V_1 = L_129;
+	}
+
+IL_028a:
+	{
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_130 = V_1;
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_131 = __this->____mesh;
+		NullCheck(L_131);
+		Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE* L_132 = L_131->____fHead;
+		if ((!(((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_130) == ((RuntimeObject*)(Face_tE1DA4E692F85D25DC36E64C53433B0CEA1A9D8DE*)L_132))))
 		{
-			goto IL_01a0;
+			goto IL_01b0;
 		}
 	}
 	{
@@ -13229,39 +13968,42 @@ IL_004b:
 
 IL_0051:
 	{
-		int32_t L_5 = ___1_elementType;
-		if ((!(((uint32_t)L_5) == ((uint32_t)2))))
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_5 = __this->____mesh;
+		NullCheck(L_5);
+		Mesh_Check_mDA1197C89B6C32B6EE7F342A127BA7F1E3AAFF9E(L_5, NULL);
+		int32_t L_6 = ___1_elementType;
+		if ((!(((uint32_t)L_6) == ((uint32_t)2))))
 		{
-			goto IL_005d;
+			goto IL_0068;
 		}
 	}
 	{
 		Tess_OutputContours_m3FA17B0D69F28B4671F8FE03CE0350C2A094FEB7(__this, NULL);
-		goto IL_0065;
+		goto IL_0070;
 	}
 
-IL_005d:
+IL_0068:
 	{
-		int32_t L_6 = ___1_elementType;
-		int32_t L_7 = ___2_polySize;
-		Tess_OutputPolymesh_m84AB594E58778801BA24B6AEA0757B0CA07F381F(__this, L_6, L_7, NULL);
+		int32_t L_7 = ___1_elementType;
+		int32_t L_8 = ___2_polySize;
+		Tess_OutputPolymesh_m84AB594E58778801BA24B6AEA0757B0CA07F381F(__this, L_7, L_8, NULL);
 	}
 
-IL_0065:
+IL_0070:
 	{
-		bool L_8 = __this->___UsePooling;
-		if (!L_8)
+		bool L_9 = __this->___UsePooling;
+		if (!L_9)
 		{
-			goto IL_0078;
+			goto IL_0083;
 		}
 	}
 	{
-		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_9 = __this->____mesh;
-		NullCheck(L_9);
-		Pooled_1_Free_m640224CA37755A613C60973AF690D8AD8D71C50C(L_9, Pooled_1_Free_m640224CA37755A613C60973AF690D8AD8D71C50C_RuntimeMethod_var);
+		Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5* L_10 = __this->____mesh;
+		NullCheck(L_10);
+		Pooled_1_Free_m640224CA37755A613C60973AF690D8AD8D71C50C(L_10, Pooled_1_Free_m640224CA37755A613C60973AF690D8AD8D71C50C_RuntimeMethod_var);
 	}
 
-IL_0078:
+IL_0083:
 	{
 		__this->____mesh = (Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____mesh), (void*)(Mesh_tEB440781097E8998DF2A7A872EDB6BD2B20355A5*)NULL);

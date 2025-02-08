@@ -1,0 +1,4 @@
+repository "LabEdu 2024-12-16_13-18-43/LabEdu@lpuzer@unity"
+  path "/"
+    br "/main"
+    co "/main"

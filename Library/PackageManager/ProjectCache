@@ -1,25 +1,25 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
-    m_FilePath: /Users/lucianopuzer/LabEdu/Packages/manifest.json
+    m_FilePath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Packages/manifest.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638698686330000000
-    m_Hash: 3572085116
+      ticks: 638738775450000000
+    m_Hash: 3919947850
   m_LockFileStatus:
-    m_FilePath: /Users/lucianopuzer/LabEdu/Packages/packages-lock.json
+    m_FilePath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638698686450000000
-    m_Hash: 3751017014
+      ticks: 638744941160000000
+    m_Hash: 1270217541
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
   m_LocalFileStatus: []
-m_ProjectPath: /Users/lucianopuzer/LabEdu/Packages
+m_ProjectPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Packages
 m_EditorVersion: 6000.0.27f1 (27c554a2199c)
 m_ResolvedPackages:
 - packageId: com.unity.collab-proxy@2.5.2
@@ -27,7 +27,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.5.2
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.collab-proxy
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.collab-proxy
   assetPath: Packages/com.unity.collab-proxy
   name: com.unity.collab-proxy
   displayName: Version Control
@@ -181,12 +181,84 @@ m_ResolvedPackages:
     compatibilityLevel: 0
     minimumPackageVersion: 2.5.2
     minimumUnityVersion: 2020.3.48f1
+- packageId: com.unity.device-simulator.devices@1.0.0
+  testable: 0
+  isDirectDependency: 1
+  version: 1.0.0
+  source: 1
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.device-simulator.devices
+  assetPath: Packages/com.unity.device-simulator.devices
+  name: com.unity.device-simulator.devices
+  displayName: Device Simulator Devices
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: asset
+  description: This package contains additional devices for the Device Simulator.
+    Each device has a complete device definition and includes a device overlay. After
+    you install this package, the additional devices are immediately available in
+    the Device Simulator.
+  errors: []
+  versions:
+    all:
+    - 1.0.0-pre.1
+    - 1.0.0-pre.2
+    - 1.0.0-pre.4
+    - 1.0.0
+    compatible:
+    - 1.0.0
+    recommended: 1.0.0
+    deprecated: []
+  dependencies: []
+  resolvedDependencies: []
+  keywords: []
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  entitlements:
+    licensingModel: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 637810555200000000
+  documentationUrl: 
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.cds.internal.unity3d.com/unity/com.unity.device-simulator.devices.git
+    revision: 2e1ffaaea0624daf91ee6c76906fd119dbd584c6
+    path: 
+  unityLifecycle:
+    version: 1.0.0
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
+  git:
+    hash: 
+    revision: 
+  upmReserved: 
+  assetStore:
+    productId: 
+  fingerprint: ae8874e9c898e20961be6f426dfafaf49f604cda
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 1.0.0
+    minimumUnityVersion: 2022.1.0a1
 - packageId: com.unity.feature.2d@2.0.1
   testable: 0
   isDirectDependency: 1
   version: 2.0.1
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.feature.2d
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.feature.2d
   assetPath: Packages/com.unity.feature.2d
   name: com.unity.feature.2d
   displayName: 2D
@@ -315,12 +387,12 @@ m_ResolvedPackages:
     compatibilityLevel: 0
     minimumPackageVersion: 2.0.1
     minimumUnityVersion: 
-- packageId: com.unity.ide.rider@3.0.31
+- packageId: com.unity.ide.rider@3.0.34
   testable: 0
   isDirectDependency: 1
-  version: 3.0.31
+  version: 3.0.34
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.ide.rider
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.ide.rider
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -329,7 +401,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: assets
+  type: 
   description: The JetBrains Rider Editor package provides an integration for using
     the JetBrains Rider IDE as a code editor for Unity. It adds support for generating
     .csproj files for code completion and auto-discovery of installations.
@@ -404,13 +476,13 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638548308080000000
+  datePublishedTicks: 638651995659960000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.rider@3.0/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.rider.git
-    revision: ccd778a2275ff09f1a83bc924cfb2fb4d5b63566
+    revision: 700eb86ebc7b9f72d760e2e1c740fc5e2fd6a54b
     path: 
   unityLifecycle:
     version: 3.0.31
@@ -423,23 +495,20 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"fix RIDER-104519 Rider is reporting errors in scripts
-    that work fine in Unity when utilizing DOTS - when Player project, by generating
-    projects for all assemblies in \"com.unity.entities\", \"com.unity.collections\"\nfix
-    RIDER-111622 Unity Rider package is not compatible with Rider Dev builds"}'
+  upmReserved: '{"changelog":"- Bump Unity minimum supported version"}'
   assetStore:
     productId: 
-  fingerprint: 7921be93db40ec070fcb01ed82d1c3df1bbdddcd
+  fingerprint: ecbf706690e5ce42dc165ddd8e5754acda3dc6b9
   editorCompatibility:
     compatibilityLevel: 0
     minimumPackageVersion: 3.0.31
-    minimumUnityVersion: 2019.2.6f1
+    minimumUnityVersion: 2019.4.6f1
 - packageId: com.unity.ide.visualstudio@2.0.22
   testable: 0
   isDirectDependency: 1
   version: 2.0.22
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.ide.visualstudio
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.ide.visualstudio
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -545,7 +614,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.11.2
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.inputsystem
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.inputsystem
   assetPath: Packages/com.unity.inputsystem
   name: com.unity.inputsystem
   displayName: Input System
@@ -611,8 +680,12 @@ m_ResolvedPackages:
     - 1.11.0
     - 1.11.1
     - 1.11.2
+    - 1.12.0
+    - 1.13.0
     compatible:
     - 1.11.2
+    - 1.12.0
+    - 1.13.0
     recommended: 1.11.2
     deprecated: []
   dependencies:
@@ -696,7 +769,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.multiplayer.center
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.multiplayer.center
   assetPath: Packages/com.unity.multiplayer.center
   name: com.unity.multiplayer.center
   displayName: Multiplayer Center
@@ -786,7 +859,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 17.0.3
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.render-pipelines.universal
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.render-pipelines.universal
   assetPath: Packages/com.unity.render-pipelines.universal
   name: com.unity.render-pipelines.universal
   displayName: Universal RP
@@ -948,7 +1021,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.4.5
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.test-framework
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.test-framework
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -1011,17 +1084,19 @@ m_ResolvedPackages:
     - 1.4.3
     - 1.4.4
     - 1.4.5
+    - 1.4.6
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
     - 2.0.1-pre.18
     compatible:
     - 1.4.5
+    - 1.4.6
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
     - 2.0.1-pre.18
-    recommended: 1.4.5
+    recommended: 1.4.6
     deprecated: []
   dependencies:
   - name: com.unity.ext.nunit
@@ -1111,7 +1186,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.8.7
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.timeline
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.timeline
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -1212,9 +1287,11 @@ m_ResolvedPackages:
     - 1.8.5
     - 1.8.6
     - 1.8.7
+    - 1.8.8
     compatible:
     - 1.8.7
-    recommended: 1.8.7
+    - 1.8.8
+    recommended: 1.8.8
     deprecated: []
   dependencies:
   - name: com.unity.modules.audio
@@ -1294,7 +1371,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.ugui
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.ugui
   assetPath: Packages/com.unity.ugui
   name: com.unity.ugui
   displayName: Unity UI
@@ -1386,7 +1463,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.9.4
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.visualscripting
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.visualscripting
   assetPath: Packages/com.unity.visualscripting
   name: com.unity.visualscripting
   displayName: Visual Scripting
@@ -1497,7 +1574,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.accessibility
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.accessibility
   assetPath: Packages/com.unity.modules.accessibility
   name: com.unity.modules.accessibility
   displayName: Accessibility
@@ -1564,7 +1641,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.ai
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.ai
   assetPath: Packages/com.unity.modules.ai
   name: com.unity.modules.ai
   displayName: AI
@@ -1631,7 +1708,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.androidjni
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.androidjni
   assetPath: Packages/com.unity.modules.androidjni
   name: com.unity.modules.androidjni
   displayName: Android JNI
@@ -1697,7 +1774,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.animation
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.animation
   assetPath: Packages/com.unity.modules.animation
   name: com.unity.modules.animation
   displayName: Animation
@@ -1764,7 +1841,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.assetbundle
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.assetbundle
   assetPath: Packages/com.unity.modules.assetbundle
   name: com.unity.modules.assetbundle
   displayName: Asset Bundle
@@ -1831,7 +1908,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.audio
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.audio
   assetPath: Packages/com.unity.modules.audio
   name: com.unity.modules.audio
   displayName: Audio
@@ -1898,7 +1975,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.cloth
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.cloth
   assetPath: Packages/com.unity.modules.cloth
   name: com.unity.modules.cloth
   displayName: Cloth
@@ -1969,7 +2046,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.director
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.director
   assetPath: Packages/com.unity.modules.director
   name: com.unity.modules.director
   displayName: Director
@@ -2044,7 +2121,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.imageconversion
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.imageconversion
   assetPath: Packages/com.unity.modules.imageconversion
   name: com.unity.modules.imageconversion
   displayName: Image Conversion
@@ -2111,7 +2188,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.imgui
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.imgui
   assetPath: Packages/com.unity.modules.imgui
   name: com.unity.modules.imgui
   displayName: IMGUI
@@ -2178,7 +2255,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.jsonserialize
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.jsonserialize
   assetPath: Packages/com.unity.modules.jsonserialize
   name: com.unity.modules.jsonserialize
   displayName: JSONSerialize
@@ -2245,7 +2322,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.particlesystem
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.particlesystem
   assetPath: Packages/com.unity.modules.particlesystem
   name: com.unity.modules.particlesystem
   displayName: Particle System
@@ -2312,7 +2389,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.physics
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.physics
   assetPath: Packages/com.unity.modules.physics
   name: com.unity.modules.physics
   displayName: Physics
@@ -2379,7 +2456,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.physics2d
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.physics2d
   assetPath: Packages/com.unity.modules.physics2d
   name: com.unity.modules.physics2d
   displayName: Physics 2D
@@ -2446,7 +2523,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.screencapture
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.screencapture
   assetPath: Packages/com.unity.modules.screencapture
   name: com.unity.modules.screencapture
   displayName: Screen Capture
@@ -2517,7 +2594,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.terrain
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.terrain
   assetPath: Packages/com.unity.modules.terrain
   name: com.unity.modules.terrain
   displayName: Terrain
@@ -2584,7 +2661,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.terrainphysics
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.terrainphysics
   assetPath: Packages/com.unity.modules.terrainphysics
   name: com.unity.modules.terrainphysics
   displayName: Terrain Physics
@@ -2659,7 +2736,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.tilemap
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.tilemap
   assetPath: Packages/com.unity.modules.tilemap
   name: com.unity.modules.tilemap
   displayName: Tilemap
@@ -2729,7 +2806,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.ui
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.ui
   assetPath: Packages/com.unity.modules.ui
   name: com.unity.modules.ui
   displayName: UI
@@ -2796,7 +2873,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.uielements
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.uielements
   assetPath: Packages/com.unity.modules.uielements
   name: com.unity.modules.uielements
   displayName: UIElements
@@ -2879,7 +2956,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.umbra
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.umbra
   assetPath: Packages/com.unity.modules.umbra
   name: com.unity.modules.umbra
   displayName: Umbra
@@ -2946,7 +3023,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.unityanalytics
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.unityanalytics
   assetPath: Packages/com.unity.modules.unityanalytics
   name: com.unity.modules.unityanalytics
   displayName: Unity Analytics
@@ -3020,7 +3097,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequest
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequest
   assetPath: Packages/com.unity.modules.unitywebrequest
   name: com.unity.modules.unitywebrequest
   displayName: Unity Web Request
@@ -3087,7 +3164,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequestassetbundle
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequestassetbundle
   assetPath: Packages/com.unity.modules.unitywebrequestassetbundle
   name: com.unity.modules.unitywebrequestassetbundle
   displayName: Unity Web Request Asset Bundle
@@ -3162,7 +3239,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequestaudio
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequestaudio
   assetPath: Packages/com.unity.modules.unitywebrequestaudio
   name: com.unity.modules.unitywebrequestaudio
   displayName: Unity Web Request Audio
@@ -3237,7 +3314,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequesttexture
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequesttexture
   assetPath: Packages/com.unity.modules.unitywebrequesttexture
   name: com.unity.modules.unitywebrequesttexture
   displayName: Unity Web Request Texture
@@ -3312,7 +3389,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequestwww
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.unitywebrequestwww
   assetPath: Packages/com.unity.modules.unitywebrequestwww
   name: com.unity.modules.unitywebrequestwww
   displayName: Unity Web Request WWW
@@ -3403,7 +3480,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.vehicles
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.vehicles
   assetPath: Packages/com.unity.modules.vehicles
   name: com.unity.modules.vehicles
   displayName: Vehicles
@@ -3474,7 +3551,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.video
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.video
   assetPath: Packages/com.unity.modules.video
   name: com.unity.modules.video
   displayName: Video
@@ -3553,7 +3630,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.vr
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.vr
   assetPath: Packages/com.unity.modules.vr
   name: com.unity.modules.vr
   displayName: VR
@@ -3634,7 +3711,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.wind
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.wind
   assetPath: Packages/com.unity.modules.wind
   name: com.unity.modules.wind
   displayName: Wind
@@ -3701,7 +3778,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.xr
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.xr
   assetPath: Packages/com.unity.modules.xr
   name: com.unity.modules.xr
   displayName: XR
@@ -3780,7 +3857,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.subsystems
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.subsystems
   assetPath: Packages/com.unity.modules.subsystems
   name: com.unity.modules.subsystems
   displayName: Subsystems
@@ -3851,7 +3928,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.modules.hierarchycore
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.modules.hierarchycore
   assetPath: Packages/com.unity.modules.hierarchycore
   name: com.unity.modules.hierarchycore
   displayName: Hierarchy Core
@@ -3918,7 +3995,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.0.5
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.ext.nunit
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.ext.nunit
   assetPath: Packages/com.unity.ext.nunit
   name: com.unity.ext.nunit
   displayName: Custom NUnit
@@ -3997,7 +4074,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.render-pipelines.core
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.render-pipelines.core
   assetPath: Packages/com.unity.render-pipelines.core
   name: com.unity.render-pipelines.core
   displayName: Core RP Library
@@ -4211,7 +4288,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.shadergraph
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.shadergraph
   assetPath: Packages/com.unity.shadergraph
   name: com.unity.shadergraph
   displayName: Shader Graph
@@ -4414,7 +4491,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.render-pipelines.universal-config
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.render-pipelines.universal-config
   assetPath: Packages/com.unity.render-pipelines.universal-config
   name: com.unity.render-pipelines.universal-config
   displayName: Universal RP Config
@@ -4512,7 +4589,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 10.1.4
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.animation
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.animation
   assetPath: Packages/com.unity.2d.animation
   name: com.unity.2d.animation
   displayName: 2D Animation
@@ -4762,7 +4839,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 5.0.3
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.pixel-perfect
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.pixel-perfect
   assetPath: Packages/com.unity.2d.pixel-perfect
   name: com.unity.2d.pixel-perfect
   displayName: 2D Pixel Perfect
@@ -4857,7 +4934,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 9.0.3
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.psdimporter
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.psdimporter
   assetPath: Packages/com.unity.2d.psdimporter
   name: com.unity.2d.psdimporter
   displayName: 2D PSD Importer
@@ -4952,6 +5029,7 @@ m_ResolvedPackages:
     - 9.0.1
     - 9.0.2
     - 9.0.3
+    - 10.0.0
     compatible:
     - 9.0.3
     recommended: 9.0.3
@@ -5032,7 +5110,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.sprite
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.sprite
   assetPath: Packages/com.unity.2d.sprite
   name: com.unity.2d.sprite
   displayName: 2D Sprite
@@ -5102,7 +5180,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 10.0.7
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.spriteshape
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.spriteshape
   assetPath: Packages/com.unity.2d.spriteshape
   name: com.unity.2d.spriteshape
   displayName: 2D SpriteShape
@@ -5294,7 +5372,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.tilemap
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.tilemap
   assetPath: Packages/com.unity.2d.tilemap
   name: com.unity.2d.tilemap
   displayName: 2D Tilemap Editor
@@ -5381,7 +5459,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.1.0
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.tilemap.extras
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.tilemap.extras
   assetPath: Packages/com.unity.2d.tilemap.extras
   name: com.unity.2d.tilemap.extras
   displayName: 2D Tilemap Extras
@@ -5448,6 +5526,7 @@ m_ResolvedPackages:
     - 4.0.1
     - 4.0.2
     - 4.1.0
+    - 4.2.1
     compatible:
     - 4.1.0
     recommended: 4.1.0
@@ -5525,7 +5604,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.1.6
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.aseprite
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.aseprite
   assetPath: Packages/com.unity.2d.aseprite
   name: com.unity.2d.aseprite
   displayName: 2D Aseprite Importer
@@ -5554,10 +5633,14 @@ m_ResolvedPackages:
     - 1.1.5
     - 1.1.6
     - 1.1.7
+    - 1.1.8
+    - 1.2.0
+    - 1.2.1
     compatible:
     - 1.1.6
     - 1.1.7
-    recommended: 1.1.7
+    - 1.1.8
+    recommended: 1.1.8
     deprecated: []
   dependencies:
   - name: com.unity.2d.common
@@ -5640,7 +5723,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.9.2
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.searcher
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.searcher
   assetPath: Packages/com.unity.searcher
   name: com.unity.searcher
   displayName: Searcher
@@ -5671,9 +5754,11 @@ m_ResolvedPackages:
     - 4.7.0-preview
     - 4.9.1
     - 4.9.2
+    - 4.9.3
     compatible:
     - 4.9.2
-    recommended: 4.9.2
+    - 4.9.3
+    recommended: 4.9.3
     deprecated: []
   dependencies: []
   resolvedDependencies: []
@@ -5724,7 +5809,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.8.18
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.burst
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.burst
   assetPath: Packages/com.unity.burst
   name: com.unity.burst
   displayName: Burst
@@ -5872,9 +5957,11 @@ m_ResolvedPackages:
     - 1.8.16
     - 1.8.17
     - 1.8.18
+    - 1.8.19
     compatible:
     - 1.8.18
-    recommended: 1.8.18
+    - 1.8.19
+    recommended: 1.8.19
     deprecated: []
   dependencies:
   - name: com.unity.mathematics
@@ -5942,7 +6029,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.3.2
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.mathematics
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.mathematics
   assetPath: Packages/com.unity.mathematics
   name: com.unity.mathematics
   displayName: Mathematics
@@ -6031,7 +6118,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.5.1
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.collections
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.collections
   assetPath: Packages/com.unity.collections
   name: com.unity.collections
   displayName: Collections
@@ -6116,9 +6203,11 @@ m_ResolvedPackages:
     - 2.5.0-exp.1
     - 2.5.0-pre.2
     - 2.5.1
+    - 2.5.2
     compatible:
     - 2.5.1
-    recommended: 2.5.1
+    - 2.5.2
+    recommended: 2.5.2
     deprecated: []
   dependencies:
   - name: com.unity.burst
@@ -6197,7 +6286,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.1
   source: 2
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.rendering.light-transport
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.rendering.light-transport
   assetPath: Packages/com.unity.rendering.light-transport
   name: com.unity.rendering.light-transport
   displayName: Unity Light Transport Library
@@ -6293,7 +6382,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 9.0.7
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.2d.common
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.2d.common
   assetPath: Packages/com.unity.2d.common
   name: com.unity.2d.common
   displayName: 2D Common
@@ -6451,7 +6540,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.11.4
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.nuget.mono-cecil
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.nuget.mono-cecil
   assetPath: Packages/com.unity.nuget.mono-cecil
   name: com.unity.nuget.mono-cecil
   displayName: Mono Cecil
@@ -6480,9 +6569,11 @@ m_ResolvedPackages:
     - 1.10.1
     - 1.10.2
     - 1.11.4
+    - 1.11.5
     compatible:
     - 1.11.4
-    recommended: 1.11.4
+    - 1.11.5
+    recommended: 1.11.5
     deprecated: []
   dependencies: []
   resolvedDependencies: []
@@ -6531,7 +6622,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 3.0.3
   source: 1
-  resolvedPath: /Users/lucianopuzer/LabEdu/Library/PackageCache/com.unity.test-framework.performance
+  resolvedPath: /Users/lucianopuzer/Documents/Bioblocks/LabEdu 2024-12-16_13-18-43/LabEdu/Library/PackageCache/com.unity.test-framework.performance
   assetPath: Packages/com.unity.test-framework.performance
   name: com.unity.test-framework.performance
   displayName: Performance testing API

@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "LabEdu.sln"
+    "dotnet.defaultSolution": "LabEdu.sln",
+    "git.ignoreLimitWarning": true
 }
