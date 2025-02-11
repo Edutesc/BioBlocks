@@ -468,15 +468,6 @@ struct Mathf_tE284D016E3B297B72311AAD9EB8F0E643F6A4682
 struct MethodBase_t  : public MemberInfo_t
 {
 };
-struct OneModifierComposite_tC18745AC641308E913620A321BF1CCE00D60E55B  : public InputBindingComposite_tA9230435A30FB5B2D4967D6FAE7EFABBBF26C0C0
-{
-	int32_t ___modifier;
-	int32_t ___binding;
-	bool ___overrideModifiersNeedToBePressedFirst;
-	int32_t ___m_ValueSizeInBytes;
-	Type_t* ___m_ValueType;
-	bool ___m_BindingIsButton;
-};
 struct PropertyInfo_t  : public MemberInfo_t
 {
 };
@@ -508,16 +499,6 @@ struct Substring_t2E16755269E6716C22074D6BC0A9099915E67849_marshaled_com
 	Il2CppChar* ___m_String;
 	int32_t ___m_Index;
 	int32_t ___m_Length;
-};
-struct TwoModifiersComposite_t7B84C109D0750D4F515629DD0D3D5C6373F42CA3  : public InputBindingComposite_tA9230435A30FB5B2D4967D6FAE7EFABBBF26C0C0
-{
-	int32_t ___modifier1;
-	int32_t ___modifier2;
-	int32_t ___binding;
-	bool ___overrideModifiersNeedToBePressedFirst;
-	int32_t ___m_ValueSizeInBytes;
-	Type_t* ___m_ValueType;
-	bool ___m_BindingIsButton;
 };
 struct TypeTable_tEAC1ECAD849469DEA65DA2FC65B19C2D4739B67E 
 {
@@ -773,19 +754,6 @@ struct Allocator_t996642592271AAD9EE688F142741D512C07B5824
 {
 	int32_t ___value__;
 };
-struct ButtonWithOneModifier_t407B77B4960C57B1DEC84F631F91B1E135343222  : public InputBindingComposite_1_t2D5E67CAF6C6931B703564ED5FF2CC1D32B9814E
-{
-	int32_t ___modifier;
-	int32_t ___button;
-	bool ___overrideModifiersNeedToBePressedFirst;
-};
-struct ButtonWithTwoModifiers_tCA30378981527D0F306883EABED0657FA5FE7C59  : public InputBindingComposite_1_t2D5E67CAF6C6931B703564ED5FF2CC1D32B9814E
-{
-	int32_t ___modifier1;
-	int32_t ___modifier2;
-	int32_t ___button;
-	bool ___overrideModifiersNeedToBePressedFirst;
-};
 struct DefaultFormat_t76E7B829061170DA4EE4B2B6574C47DD182B7BF3 
 {
 	int32_t ___value__;
@@ -941,6 +909,14 @@ struct WhichSideWins_t628E6122D6B0C02EEF82EA347AA5665EB690E862
 {
 	int32_t ___value__;
 };
+struct ModifiersOrder_t056645A057CBD18A072157E63C5F5BB002F3F36C 
+{
+	int32_t ___value__;
+};
+struct ModifiersOrder_t0C45A28C0FBCD7D02F066B04D031DA6F7725BA43 
+{
+	int32_t ___value__;
+};
 struct ControlFlags_t9C297F208DE19CEB00A0560F7FDE59F6A2004132 
 {
 	int32_t ___value__;
@@ -965,6 +941,10 @@ struct UpdateMode_tCD49766B755C4CD8E1F2DE8D57798DAC2C5CBF32
 {
 	int32_t ___value__;
 };
+struct ModifiersOrder_tDC03394E51D1DEE6184D2CC6F6898BD405509D53 
+{
+	int32_t ___value__;
+};
 struct U3CTokenizeU3Ed__8_t974A4A167882F66AC70C15513407BB7218E6E64B  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
@@ -974,6 +954,10 @@ struct U3CTokenizeU3Ed__8_t974A4A167882F66AC70C15513407BB7218E6E64B  : public Ru
 	String_t* ___U3CU3E3__str;
 	int32_t ___U3ClengthU3E5__2;
 	int32_t ___U3CendPosU3E5__3;
+};
+struct ModifiersOrder_t08D8D3C1FD8530B1A1FC11C14AC12C817B7CE5B5 
+{
+	int32_t ___value__;
 };
 struct Mode_tC3E9CF3E48612D8E2FD67CDBA91095417B9124B6 
 {
@@ -1013,6 +997,21 @@ struct AxisComposite_t9E3B9C369A8F748691611245821471645D31D2AC  : public InputBi
 	float ___maxValue;
 	int32_t ___whichSideWins;
 };
+struct ButtonWithOneModifier_t407B77B4960C57B1DEC84F631F91B1E135343222  : public InputBindingComposite_1_t2D5E67CAF6C6931B703564ED5FF2CC1D32B9814E
+{
+	int32_t ___modifier;
+	int32_t ___button;
+	bool ___overrideModifiersNeedToBePressedFirst;
+	int32_t ___modifiersOrder;
+};
+struct ButtonWithTwoModifiers_tCA30378981527D0F306883EABED0657FA5FE7C59  : public InputBindingComposite_1_t2D5E67CAF6C6931B703564ED5FF2CC1D32B9814E
+{
+	int32_t ___modifier1;
+	int32_t ___modifier2;
+	int32_t ___button;
+	bool ___overrideModifiersNeedToBePressedFirst;
+	int32_t ___modifiersOrder;
+};
 struct MulticastDelegate_t  : public Delegate_t
 {
 	DelegateU5BU5D_tC5AB7E8F745616680F337909D3A8E6C722CDF771* ___delegates;
@@ -1024,6 +1023,16 @@ struct MulticastDelegate_t_marshaled_pinvoke : public Delegate_t_marshaled_pinvo
 struct MulticastDelegate_t_marshaled_com : public Delegate_t_marshaled_com
 {
 	Delegate_t_marshaled_com** ___delegates;
+};
+struct OneModifierComposite_tC18745AC641308E913620A321BF1CCE00D60E55B  : public InputBindingComposite_tA9230435A30FB5B2D4967D6FAE7EFABBBF26C0C0
+{
+	int32_t ___modifier;
+	int32_t ___binding;
+	bool ___overrideModifiersNeedToBePressedFirst;
+	int32_t ___modifiersOrder;
+	int32_t ___m_ValueSizeInBytes;
+	Type_t* ___m_ValueType;
+	bool ___m_BindingIsButton;
 };
 struct PrimitiveValue_t1CC37566F40746757D5E3F87474A05909D85C2D4 
 {
@@ -1522,6 +1531,17 @@ struct SystemException_tCC48D868298F4C0705279823E34B00F4FBDB7295  : public Excep
 };
 struct Texture_t791CBB51219779964E0E8A2ED7C1AA5F92A4A700  : public Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C
 {
+};
+struct TwoModifiersComposite_t7B84C109D0750D4F515629DD0D3D5C6373F42CA3  : public InputBindingComposite_tA9230435A30FB5B2D4967D6FAE7EFABBBF26C0C0
+{
+	int32_t ___modifier1;
+	int32_t ___modifier2;
+	int32_t ___binding;
+	bool ___overrideModifiersNeedToBePressedFirst;
+	int32_t ___modifiersOrder;
+	int32_t ___m_ValueSizeInBytes;
+	Type_t* ___m_ValueType;
+	bool ___m_BindingIsButton;
 };
 struct Type_t  : public MemberInfo_t
 {
@@ -6628,14 +6648,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool ButtonWithOneModifier_ModifierIsPressed_
 		bool L_3 = V_0;
 		if (!L_3)
 		{
-			goto IL_0038;
+			goto IL_0039;
 		}
 	}
 	{
-		bool L_4 = __this->___overrideModifiersNeedToBePressedFirst;
-		if (L_4)
+		int32_t L_4 = __this->___modifiersOrder;
+		if ((!(((uint32_t)L_4) == ((uint32_t)1))))
 		{
-			goto IL_0038;
+			goto IL_0039;
 		}
 	}
 	{
@@ -6652,7 +6672,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool ButtonWithOneModifier_ModifierIsPressed_
 		return (bool)((((int32_t)((!(((double)L_10) <= ((double)L_11)))? 1 : 0)) == ((int32_t)0))? 1 : 0);
 	}
 
-IL_0038:
+IL_0039:
 	{
 		bool L_12 = V_0;
 		return L_12;
@@ -6675,24 +6695,63 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ButtonWithOneModifier_FinishSetup_m92274
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
+	ButtonWithOneModifier_t407B77B4960C57B1DEC84F631F91B1E135343222* G_B5_0 = NULL;
+	ButtonWithOneModifier_t407B77B4960C57B1DEC84F631F91B1E135343222* G_B4_0 = NULL;
+	int32_t G_B6_0 = 0;
+	ButtonWithOneModifier_t407B77B4960C57B1DEC84F631F91B1E135343222* G_B6_1 = NULL;
 	{
-		bool L_0 = __this->___overrideModifiersNeedToBePressedFirst;
+		int32_t L_0 = __this->___modifiersOrder;
 		if (L_0)
 		{
-			goto IL_001b;
+			goto IL_002e;
 		}
 	}
 	{
-		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
-		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_1;
-		L_1 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
-		NullCheck(L_1);
-		bool L_2;
-		L_2 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_1, NULL);
-		__this->___overrideModifiersNeedToBePressedFirst = (bool)((((int32_t)L_2) == ((int32_t)0))? 1 : 0);
+		bool L_1 = __this->___overrideModifiersNeedToBePressedFirst;
+		if (!L_1)
+		{
+			goto IL_0018;
+		}
+	}
+	{
+		__this->___modifiersOrder = 2;
+		return;
 	}
 
-IL_001b:
+IL_0018:
+	{
+		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
+		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_2;
+		L_2 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
+		NullCheck(L_2);
+		bool L_3;
+		L_3 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_2, NULL);
+		if (L_3)
+		{
+			G_B5_0 = __this;
+			goto IL_0028;
+		}
+		G_B4_0 = __this;
+	}
+	{
+		G_B6_0 = 2;
+		G_B6_1 = G_B4_0;
+		goto IL_0029;
+	}
+
+IL_0028:
+	{
+		G_B6_0 = 1;
+		G_B6_1 = G_B5_0;
+	}
+
+IL_0029:
+	{
+		NullCheck(G_B6_1);
+		G_B6_1->___modifiersOrder = G_B6_0;
+	}
+
+IL_002e:
 	{
 		return;
 	}
@@ -6710,6 +6769,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ButtonWithOneModifier__ctor_m7B7F85E23B5
 		return;
 	}
 }
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -6784,14 +6851,14 @@ IL_001d:
 		bool L_6 = V_0;
 		if (!L_6)
 		{
-			goto IL_005c;
+			goto IL_005d;
 		}
 	}
 	{
-		bool L_7 = __this->___overrideModifiersNeedToBePressedFirst;
-		if (L_7)
+		int32_t L_7 = __this->___modifiersOrder;
+		if ((!(((uint32_t)L_7) == ((uint32_t)1))))
 		{
-			goto IL_005c;
+			goto IL_005d;
 		}
 	}
 	{
@@ -6812,7 +6879,7 @@ IL_001d:
 		double L_17 = V_1;
 		if ((!(((double)L_13) <= ((double)L_17))))
 		{
-			goto IL_005a;
+			goto IL_005b;
 		}
 	}
 	{
@@ -6821,12 +6888,12 @@ IL_001d:
 		return (bool)((((int32_t)((!(((double)L_18) <= ((double)L_19)))? 1 : 0)) == ((int32_t)0))? 1 : 0);
 	}
 
-IL_005a:
+IL_005b:
 	{
 		return (bool)0;
 	}
 
-IL_005c:
+IL_005d:
 	{
 		bool L_20 = V_0;
 		return L_20;
@@ -6849,24 +6916,63 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ButtonWithTwoModifiers_FinishSetup_m72B6
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
+	ButtonWithTwoModifiers_tCA30378981527D0F306883EABED0657FA5FE7C59* G_B5_0 = NULL;
+	ButtonWithTwoModifiers_tCA30378981527D0F306883EABED0657FA5FE7C59* G_B4_0 = NULL;
+	int32_t G_B6_0 = 0;
+	ButtonWithTwoModifiers_tCA30378981527D0F306883EABED0657FA5FE7C59* G_B6_1 = NULL;
 	{
-		bool L_0 = __this->___overrideModifiersNeedToBePressedFirst;
+		int32_t L_0 = __this->___modifiersOrder;
 		if (L_0)
 		{
-			goto IL_001b;
+			goto IL_002e;
 		}
 	}
 	{
-		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
-		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_1;
-		L_1 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
-		NullCheck(L_1);
-		bool L_2;
-		L_2 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_1, NULL);
-		__this->___overrideModifiersNeedToBePressedFirst = (bool)((((int32_t)L_2) == ((int32_t)0))? 1 : 0);
+		bool L_1 = __this->___overrideModifiersNeedToBePressedFirst;
+		if (!L_1)
+		{
+			goto IL_0018;
+		}
+	}
+	{
+		__this->___modifiersOrder = 2;
+		return;
 	}
 
-IL_001b:
+IL_0018:
+	{
+		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
+		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_2;
+		L_2 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
+		NullCheck(L_2);
+		bool L_3;
+		L_3 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_2, NULL);
+		if (L_3)
+		{
+			G_B5_0 = __this;
+			goto IL_0028;
+		}
+		G_B4_0 = __this;
+	}
+	{
+		G_B6_0 = 2;
+		G_B6_1 = G_B4_0;
+		goto IL_0029;
+	}
+
+IL_0028:
+	{
+		G_B6_0 = 1;
+		G_B6_1 = G_B5_0;
+	}
+
+IL_0029:
+	{
+		NullCheck(G_B6_1);
+		G_B6_1->___modifiersOrder = G_B6_0;
+	}
+
+IL_002e:
 	{
 		return;
 	}
@@ -6884,6 +6990,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ButtonWithTwoModifiers__ctor_m200626B0BE
 		return;
 	}
 }
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -6971,21 +7085,21 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool OneModifierComposite_ModifierIsPressed_m
 		bool L_3 = V_0;
 		if (!L_3)
 		{
-			goto IL_0040;
+			goto IL_0041;
 		}
 	}
 	{
 		bool L_4 = __this->___m_BindingIsButton;
 		if (!L_4)
 		{
-			goto IL_0040;
+			goto IL_0041;
 		}
 	}
 	{
-		bool L_5 = __this->___overrideModifiersNeedToBePressedFirst;
-		if (L_5)
+		int32_t L_5 = __this->___modifiersOrder;
+		if ((!(((uint32_t)L_5) == ((uint32_t)1))))
 		{
-			goto IL_0040;
+			goto IL_0041;
 		}
 	}
 	{
@@ -7002,7 +7116,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool OneModifierComposite_ModifierIsPressed_m
 		return (bool)((((int32_t)((!(((double)L_11) <= ((double)L_12)))? 1 : 0)) == ((int32_t)0))? 1 : 0);
 	}
 
-IL_0040:
+IL_0041:
 	{
 		bool L_13 = V_0;
 		return L_13;
@@ -7016,6 +7130,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OneModifierComposite_FinishSetup_m91EE0D
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
+	OneModifierComposite_tC18745AC641308E913620A321BF1CCE00D60E55B* G_B5_0 = NULL;
+	OneModifierComposite_tC18745AC641308E913620A321BF1CCE00D60E55B* G_B4_0 = NULL;
+	int32_t G_B6_0 = 0;
+	OneModifierComposite_tC18745AC641308E913620A321BF1CCE00D60E55B* G_B6_1 = NULL;
 	{
 		InputBindingCompositeContext_t961CAA1DF29D7D4E0AE0AEF22400B285E17B1390* L_0 = ___0_context;
 		int32_t L_1 = __this->___binding;
@@ -7023,23 +7141,58 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OneModifierComposite_FinishSetup_m91EE0D
 		int32_t* L_3 = (int32_t*)(&__this->___m_ValueSizeInBytes);
 		bool* L_4 = (bool*)(&__this->___m_BindingIsButton);
 		OneModifierComposite_DetermineValueTypeAndSize_m872B0A8E5DEA6864048B0D08DE31FFBA40C442AA(L_0, L_1, L_2, L_3, L_4, NULL);
-		bool L_5 = __this->___overrideModifiersNeedToBePressedFirst;
+		int32_t L_5 = __this->___modifiersOrder;
 		if (L_5)
 		{
-			goto IL_0039;
+			goto IL_004c;
 		}
 	}
 	{
-		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
-		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_6;
-		L_6 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
-		NullCheck(L_6);
-		bool L_7;
-		L_7 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_6, NULL);
-		__this->___overrideModifiersNeedToBePressedFirst = (bool)((((int32_t)L_7) == ((int32_t)0))? 1 : 0);
+		bool L_6 = __this->___overrideModifiersNeedToBePressedFirst;
+		if (!L_6)
+		{
+			goto IL_0036;
+		}
+	}
+	{
+		__this->___modifiersOrder = 2;
+		return;
 	}
 
-IL_0039:
+IL_0036:
+	{
+		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
+		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_7;
+		L_7 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
+		NullCheck(L_7);
+		bool L_8;
+		L_8 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_7, NULL);
+		if (L_8)
+		{
+			G_B5_0 = __this;
+			goto IL_0046;
+		}
+		G_B4_0 = __this;
+	}
+	{
+		G_B6_0 = 2;
+		G_B6_1 = G_B4_0;
+		goto IL_0047;
+	}
+
+IL_0046:
+	{
+		G_B6_0 = 1;
+		G_B6_1 = G_B5_0;
+	}
+
+IL_0047:
+	{
+		NullCheck(G_B6_1);
+		G_B6_1->___modifiersOrder = G_B6_0;
+	}
+
+IL_004c:
 	{
 		return;
 	}
@@ -7272,6 +7425,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OneModifierComposite__ctor_mB03D8DE49D44
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Type_t* TwoModifiersComposite_get_valueType_mD7C59304C3F9F7C9A49C29F705E500781CAE6125 (TwoModifiersComposite_t7B84C109D0750D4F515629DD0D3D5C6373F42CA3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -7374,21 +7535,21 @@ IL_001d:
 		bool L_6 = V_0;
 		if (!L_6)
 		{
-			goto IL_0064;
+			goto IL_0065;
 		}
 	}
 	{
 		bool L_7 = __this->___m_BindingIsButton;
 		if (!L_7)
 		{
-			goto IL_0064;
+			goto IL_0065;
 		}
 	}
 	{
-		bool L_8 = __this->___overrideModifiersNeedToBePressedFirst;
-		if (L_8)
+		int32_t L_8 = __this->___modifiersOrder;
+		if ((!(((uint32_t)L_8) == ((uint32_t)1))))
 		{
-			goto IL_0064;
+			goto IL_0065;
 		}
 	}
 	{
@@ -7409,7 +7570,7 @@ IL_001d:
 		double L_18 = V_1;
 		if ((!(((double)L_14) <= ((double)L_18))))
 		{
-			goto IL_0062;
+			goto IL_0063;
 		}
 	}
 	{
@@ -7418,12 +7579,12 @@ IL_001d:
 		return (bool)((((int32_t)((!(((double)L_19) <= ((double)L_20)))? 1 : 0)) == ((int32_t)0))? 1 : 0);
 	}
 
-IL_0062:
+IL_0063:
 	{
 		return (bool)0;
 	}
 
-IL_0064:
+IL_0065:
 	{
 		bool L_21 = V_0;
 		return L_21;
@@ -7437,6 +7598,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TwoModifiersComposite_FinishSetup_mE1307
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
+	TwoModifiersComposite_t7B84C109D0750D4F515629DD0D3D5C6373F42CA3* G_B5_0 = NULL;
+	TwoModifiersComposite_t7B84C109D0750D4F515629DD0D3D5C6373F42CA3* G_B4_0 = NULL;
+	int32_t G_B6_0 = 0;
+	TwoModifiersComposite_t7B84C109D0750D4F515629DD0D3D5C6373F42CA3* G_B6_1 = NULL;
 	{
 		InputBindingCompositeContext_t961CAA1DF29D7D4E0AE0AEF22400B285E17B1390* L_0 = ___0_context;
 		int32_t L_1 = __this->___binding;
@@ -7444,23 +7609,58 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TwoModifiersComposite_FinishSetup_mE1307
 		int32_t* L_3 = (int32_t*)(&__this->___m_ValueSizeInBytes);
 		bool* L_4 = (bool*)(&__this->___m_BindingIsButton);
 		OneModifierComposite_DetermineValueTypeAndSize_m872B0A8E5DEA6864048B0D08DE31FFBA40C442AA(L_0, L_1, L_2, L_3, L_4, NULL);
-		bool L_5 = __this->___overrideModifiersNeedToBePressedFirst;
+		int32_t L_5 = __this->___modifiersOrder;
 		if (L_5)
 		{
-			goto IL_0039;
+			goto IL_004c;
 		}
 	}
 	{
-		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
-		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_6;
-		L_6 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
-		NullCheck(L_6);
-		bool L_7;
-		L_7 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_6, NULL);
-		__this->___overrideModifiersNeedToBePressedFirst = (bool)((((int32_t)L_7) == ((int32_t)0))? 1 : 0);
+		bool L_6 = __this->___overrideModifiersNeedToBePressedFirst;
+		if (!L_6)
+		{
+			goto IL_0036;
+		}
+	}
+	{
+		__this->___modifiersOrder = 2;
+		return;
 	}
 
-IL_0039:
+IL_0036:
+	{
+		il2cpp_codegen_runtime_class_init_inline(InputSystem_t4120CA4FE7DCFD56AF9391933FC3F1F485350164_il2cpp_TypeInfo_var);
+		InputSettings_tBA8835B505722A59702A08BCBA46ECF0B0274EEF* L_7;
+		L_7 = InputSystem_get_settings_m8E3E9C0907904CBDBAE96354142AB0A87C7A3B74(NULL);
+		NullCheck(L_7);
+		bool L_8;
+		L_8 = InputSettings_get_shortcutKeysConsumeInput_m916DC677CCE3E4F3AD3BA48C5723965007CBE670_inline(L_7, NULL);
+		if (L_8)
+		{
+			G_B5_0 = __this;
+			goto IL_0046;
+		}
+		G_B4_0 = __this;
+	}
+	{
+		G_B6_0 = 2;
+		G_B6_1 = G_B4_0;
+		goto IL_0047;
+	}
+
+IL_0046:
+	{
+		G_B6_0 = 1;
+		G_B6_1 = G_B5_0;
+	}
+
+IL_0047:
+	{
+		NullCheck(G_B6_1);
+		G_B6_1->___modifiersOrder = G_B6_0;
+	}
+
+IL_004c:
 	{
 		return;
 	}
@@ -7507,6 +7707,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TwoModifiersComposite__ctor_m46086F35D8E
 		return;
 	}
 }
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif

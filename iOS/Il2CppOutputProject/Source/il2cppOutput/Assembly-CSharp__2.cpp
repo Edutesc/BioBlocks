@@ -1262,6 +1262,8 @@ struct Question_t35761F125A42117976F01C87B80AAC49FEF779CD  : public RuntimeObjec
 	int32_t ___correctIndex;
 	int32_t ___questionNumber;
 	bool ___isImageAnswer;
+	bool ___isImageQuestion;
+	String_t* ___questionImagePath;
 };
 struct String_t  : public RuntimeObject
 {

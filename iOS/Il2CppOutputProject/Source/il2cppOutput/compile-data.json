@@ -63,7 +63,7 @@
     "Emscripten": {},
     "Platform": "iOS",
     "Architecture": "arm64",
-    "Outputpath": "/Users/lucianopuzer/Library/Developer/Xcode/DerivedData/Unity-iPhone-aazgitqztekfepbwezeoxvijwumi/Build/Products/Debug-iphoneos/libGameAssembly.a",
+    "Outputpath": "/Users/lucianopuzer/Library/Developer/Xcode/DerivedData/Unity-iPhone-ejqexnqmkipjpogsoqglwrkewhxr/Build/Products/Debug-iphoneos/libGameAssembly.a",
     "DontDeployBaselib": false,
     "Verbose": false,
     "Forcerebuild": false,
