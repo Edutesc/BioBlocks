@@ -9,8 +9,9 @@ public class QuestionLoadManager : MonoBehaviour
 {
     private IQuestionDatabase currentDatabase;
     private List<Question> questions;
-    private string databankName;
+    public string databankName;
     private bool isInitialized = false;
+    public string DatabankName => databankName;
 
     private async void Start()
     {

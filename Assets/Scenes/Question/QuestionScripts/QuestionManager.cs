@@ -1,6 +1,7 @@
 using UnityEngine;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -221,4 +222,5 @@ public class QuestionManager : MonoBehaviour
             uiManager.ShowFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", false, true);
         }
     }
+
 }
