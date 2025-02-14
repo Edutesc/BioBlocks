@@ -16571,14 +16571,14 @@ struct U3CStartU3Ed__6_tE792700BC81B5FA65D030EA0AC92164443C28B42
 	QuestionLoadManager_t411A10225086B679A6AE6DD9219394F65754E153* ___U3CU3E4__this;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__1;
 };
-struct U3CU3CSetupNavigationButtonsU3Eb__14_1U3Ed_t47791B12EB1D51674D34674C6D0B72B0F84D0EFE 
+struct U3CU3CSetupNavigationButtonsU3Eb__15_1U3Ed_tC45EE53DF5748AF4E289166274B8FEAB4A3937E3 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncVoidMethodBuilder_t253E37B63E7E7B504878AE6563347C147F98EF2D ___U3CU3Et__builder;
 	QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213* ___U3CU3E4__this;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__1;
 };
-struct U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23 
+struct U3CCheckAnswerU3Ed__12_tC379F5518605ECCD1E739A17F092BC48C8FC610B 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncVoidMethodBuilder_t253E37B63E7E7B504878AE6563347C147F98EF2D ___U3CU3Et__builder;
@@ -16586,14 +16586,14 @@ struct U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23
 	QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213* ___U3CU3E4__this;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__1;
 };
-struct U3CHandleTimeUpU3Ed__13_tBD082A7C54D31AA984C22A8CB43B98A144B6B9F4 
+struct U3CHandleTimeUpU3Ed__14_tD5AAF85D4FAB2606112BF33FE3D7971DDB14C315 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncVoidMethodBuilder_t253E37B63E7E7B504878AE6563347C147F98EF2D ___U3CU3Et__builder;
 	QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213* ___U3CU3E4__this;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__1;
 };
-struct U3CStartU3Ed__7_t664C756B2E61D19E4A0AA3D7F886BBECE0A895A2 
+struct U3CStartU3Ed__8_tF468B7A5EC85EB04ED90377FFD5F01B5BA0CBCB4 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncVoidMethodBuilder_t253E37B63E7E7B504878AE6563347C147F98EF2D ___U3CU3Et__builder;
@@ -19107,7 +19107,7 @@ struct U3CWaitForAnsweredQuestionsManagerU3Ed__8_t3E327772E1CB36FB2AB2BA06D0BF1D
 	int32_t ___U3CcurrentAttemptU3E5__3;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__1;
 };
-struct U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB4AB07 
+struct U3CCheckAndLoadMoreQuestionsU3Ed__18_t0FC1F9B9CDA27677C09971862ECB9DF2CC717049 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_t7A5128C134547B5918EB1AA24FE47ED4C1DF3F06 ___U3CU3Et__builder;
@@ -19115,14 +19115,14 @@ struct U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB
 	TaskAwaiter_1_t2EACF1B5CD3779B202951ED569E0E17E81AAF2FB ___U3CU3Eu__1;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__2;
 };
-struct U3CHandleNextQuestionU3Ed__15_tF1D277FB6064135F1FCDFDB4E0EDD6D25704AE04 
+struct U3CHandleNextQuestionU3Ed__17_t159605C5003DFF6309CD27D29691ED66EAE0CACB 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_t7A5128C134547B5918EB1AA24FE47ED4C1DF3F06 ___U3CU3Et__builder;
 	QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213* ___U3CU3E4__this;
 	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__1;
 };
-struct U3CInitializeSessionU3Ed__9_tD7626BF87225B9EA90C6985CA4E0143682E0320A 
+struct U3CInitializeSessionU3Ed__10_t6A7AC7946C0EF1CC40C1F76F3836277845F7CF9B 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_t7A5128C134547B5918EB1AA24FE47ED4C1DF3F06 ___U3CU3Et__builder;
@@ -20480,6 +20480,7 @@ struct QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213  : public MonoB
 	QuestionAnswerManager_tA16B329C4DDB71C89D89734FC9990A99A4B28E11* ___answerManager;
 	QuestionTransitionManager_t455AEE08D878B40A715048994E58259BD201600E* ___transitionManager;
 	QuestionScoreManager_tA203BA7804F2788401ABB2FF96BA29D7F4914057* ___scoreManager;
+	String_t* ___targetScene;
 	QuestionSession_t95043376FA26B3E7F77578C819A83849C0A425F2* ___currentSession;
 };
 struct QuestionScoreManager_tA203BA7804F2788401ABB2FF96BA29D7F4914057  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
@@ -24187,28 +24188,28 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6020[4] =
 	static_cast<int32_t>(offsetof(QuestionLoadManager_t411A10225086B679A6AE6DD9219394F65754E153, ___currentDatabase)),static_cast<int32_t>(offsetof(QuestionLoadManager_t411A10225086B679A6AE6DD9219394F65754E153, ___questions)),static_cast<int32_t>(offsetof(QuestionLoadManager_t411A10225086B679A6AE6DD9219394F65754E153, ___databankName)),static_cast<int32_t>(offsetof(QuestionLoadManager_t411A10225086B679A6AE6DD9219394F65754E153, ___isInitialized)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6021[4] = 
 {
-	static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__14_1U3Ed_t47791B12EB1D51674D34674C6D0B72B0F84D0EFE, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__14_1U3Ed_t47791B12EB1D51674D34674C6D0B72B0F84D0EFE, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__14_1U3Ed_t47791B12EB1D51674D34674C6D0B72B0F84D0EFE, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__14_1U3Ed_t47791B12EB1D51674D34674C6D0B72B0F84D0EFE, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__15_1U3Ed_tC45EE53DF5748AF4E289166274B8FEAB4A3937E3, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__15_1U3Ed_tC45EE53DF5748AF4E289166274B8FEAB4A3937E3, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__15_1U3Ed_tC45EE53DF5748AF4E289166274B8FEAB4A3937E3, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CU3CSetupNavigationButtonsU3Eb__15_1U3Ed_tC45EE53DF5748AF4E289166274B8FEAB4A3937E3, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6022[5] = 
 {
-	static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB4AB07, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB4AB07, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB4AB07, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB4AB07, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__16_t889646EAEF4242257EB409BC9DB6A9687AB4AB07, ___U3CU3Eu__2)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__18_t0FC1F9B9CDA27677C09971862ECB9DF2CC717049, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__18_t0FC1F9B9CDA27677C09971862ECB9DF2CC717049, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__18_t0FC1F9B9CDA27677C09971862ECB9DF2CC717049, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__18_t0FC1F9B9CDA27677C09971862ECB9DF2CC717049, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAndLoadMoreQuestionsU3Ed__18_t0FC1F9B9CDA27677C09971862ECB9DF2CC717049, ___U3CU3Eu__2)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6023[5] = 
 {
-	static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23, ___selectedAnswerIndex)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__11_tEDE892624532521207A4436EEA86E8D0ED447D23, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__12_tC379F5518605ECCD1E739A17F092BC48C8FC610B, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__12_tC379F5518605ECCD1E739A17F092BC48C8FC610B, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__12_tC379F5518605ECCD1E739A17F092BC48C8FC610B, ___selectedAnswerIndex)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__12_tC379F5518605ECCD1E739A17F092BC48C8FC610B, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CCheckAnswerU3Ed__12_tC379F5518605ECCD1E739A17F092BC48C8FC610B, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6024[4] = 
 {
-	static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__15_tF1D277FB6064135F1FCDFDB4E0EDD6D25704AE04, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__15_tF1D277FB6064135F1FCDFDB4E0EDD6D25704AE04, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__15_tF1D277FB6064135F1FCDFDB4E0EDD6D25704AE04, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__15_tF1D277FB6064135F1FCDFDB4E0EDD6D25704AE04, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__17_t159605C5003DFF6309CD27D29691ED66EAE0CACB, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__17_t159605C5003DFF6309CD27D29691ED66EAE0CACB, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__17_t159605C5003DFF6309CD27D29691ED66EAE0CACB, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleNextQuestionU3Ed__17_t159605C5003DFF6309CD27D29691ED66EAE0CACB, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6025[4] = 
 {
-	static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__13_tBD082A7C54D31AA984C22A8CB43B98A144B6B9F4, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__13_tBD082A7C54D31AA984C22A8CB43B98A144B6B9F4, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__13_tBD082A7C54D31AA984C22A8CB43B98A144B6B9F4, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__13_tBD082A7C54D31AA984C22A8CB43B98A144B6B9F4, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__14_tD5AAF85D4FAB2606112BF33FE3D7971DDB14C315, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__14_tD5AAF85D4FAB2606112BF33FE3D7971DDB14C315, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__14_tD5AAF85D4FAB2606112BF33FE3D7971DDB14C315, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleTimeUpU3Ed__14_tD5AAF85D4FAB2606112BF33FE3D7971DDB14C315, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6026[4] = 
 {
-	static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__9_tD7626BF87225B9EA90C6985CA4E0143682E0320A, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__9_tD7626BF87225B9EA90C6985CA4E0143682E0320A, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__9_tD7626BF87225B9EA90C6985CA4E0143682E0320A, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__9_tD7626BF87225B9EA90C6985CA4E0143682E0320A, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__10_t6A7AC7946C0EF1CC40C1F76F3836277845F7CF9B, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__10_t6A7AC7946C0EF1CC40C1F76F3836277845F7CF9B, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__10_t6A7AC7946C0EF1CC40C1F76F3836277845F7CF9B, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CInitializeSessionU3Ed__10_t6A7AC7946C0EF1CC40C1F76F3836277845F7CF9B, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6027[4] = 
 {
-	static_cast<int32_t>(offsetof(U3CStartU3Ed__7_t664C756B2E61D19E4A0AA3D7F886BBECE0A895A2, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CStartU3Ed__7_t664C756B2E61D19E4A0AA3D7F886BBECE0A895A2, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CStartU3Ed__7_t664C756B2E61D19E4A0AA3D7F886BBECE0A895A2, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CStartU3Ed__7_t664C756B2E61D19E4A0AA3D7F886BBECE0A895A2, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6028[7] = 
+	static_cast<int32_t>(offsetof(U3CStartU3Ed__8_tF468B7A5EC85EB04ED90377FFD5F01B5BA0CBCB4, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CStartU3Ed__8_tF468B7A5EC85EB04ED90377FFD5F01B5BA0CBCB4, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CStartU3Ed__8_tF468B7A5EC85EB04ED90377FFD5F01B5BA0CBCB4, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CStartU3Ed__8_tF468B7A5EC85EB04ED90377FFD5F01B5BA0CBCB4, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6028[8] = 
 {
-	static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___uiManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___timerManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___loadManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___answerManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___transitionManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___scoreManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___currentSession)),};
+	static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___uiManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___timerManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___loadManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___answerManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___transitionManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___scoreManager)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___targetScene)),static_cast<int32_t>(offsetof(QuestionManager_tE0BC8F13441778B5C9F1D1AEF488221FBB444213, ___currentSession)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6029[8] = 
 {
 	static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___scoreToAdd)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___question)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___isCorrect)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___U3CnewScoreU3E5__2)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CUpdateScoreU3Ed__3_t73EB2CBF0809E9219F6556DA4A81E678E4C13667, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};

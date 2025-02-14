@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private QuestionAnswerManager answerManager;
     [SerializeField] private QuestionTransitionManager transitionManager;
     [SerializeField] private QuestionScoreManager scoreManager;
+    private string targetScene;
 
     private QuestionSession currentSession;
 
@@ -190,6 +190,13 @@ public class QuestionManager : MonoBehaviour
                 await HandleNextQuestion();
             }
         );
+    }
+
+    public void NavigateTo(string scene)
+    {
+        Debug.LogError($"Inciando a cena {targetScene}");
+        NavigationManager.Instance.NavigateTo(scene);
+        Debug.LogError($"Navegação para {targetScene} completada");
     }
 
     private async Task HandleNextQuestion()
