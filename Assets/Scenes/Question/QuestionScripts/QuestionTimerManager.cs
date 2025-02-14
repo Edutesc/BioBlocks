@@ -39,12 +39,6 @@ public class QuestionTimerManager : MonoBehaviour
                 Debug.LogError("TimePanel não encontrado!");
             }
         }
-
-        // Inicialmente desativado
-        if (timePanel != null)
-        {
-            timePanel.SetActive(false);
-        }
     }
 
     public void StartTimer()
@@ -72,12 +66,6 @@ public class QuestionTimerManager : MonoBehaviour
     {
         isRunning = false;
         StopAllCoroutines();
-        
-        // Opcional: desativar o painel quando parar o timer
-        if (timePanel != null)
-        {
-            timePanel.SetActive(false);
-        }
     }
 
     private void UpdateTimerDisplay()

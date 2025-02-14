@@ -66,7 +66,7 @@ public class QuestionUIManager : MonoBehaviour
                     uiElements.NextQuestionButton.interactable = false;
 
                 if (uiElements.TimePanel != null)
-                    uiElements.TimePanel.SetActive(false);
+                    uiElements.TimePanel.SetActive(true);
             }
 
             if (canvasGroups != null)
