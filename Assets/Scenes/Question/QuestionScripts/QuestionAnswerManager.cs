@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using QuestionSystem;
 using TMPro;
-
 public class QuestionAnswerManager : MonoBehaviour
 {
     [Header("Answer Buttons")]
-    [SerializeField] private Button[] textAnswerButtons;
+    [SerializeField] private Button[] textAnswerButtons;    // Para respostas em texto
+    [SerializeField] private Button[] imageAnswerButtons;   // Para respostas em imagem
+    
     private TextMeshProUGUI[] buttonTexts;
+    private Image[] buttonImages;
 
-    // Evento para notificar quando uma resposta foi selecionada
     public event System.Action<int> OnAnswerSelected;
 
     private void Start()
@@ -19,16 +20,14 @@ public class QuestionAnswerManager : MonoBehaviour
 
     private void InitializeButtons()
     {
+        // Inicializa botões de texto
         buttonTexts = new TextMeshProUGUI[textAnswerButtons.Length];
-
         for (int i = 0; i < textAnswerButtons.Length; i++)
         {
             if (textAnswerButtons[i] != null)
             {
                 buttonTexts[i] = textAnswerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-
-                // Configura o listener para cada botão
-                int index = i; // Importante: criar uma variável local para o closure
+                int index = i;
                 textAnswerButtons[i].onClick.AddListener(() => HandleAnswerClick(index));
 
                 if (buttonTexts[i] == null)
@@ -38,7 +37,28 @@ public class QuestionAnswerManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Botão {i} não está atribuído no QuestionAnswerManager");
+                Debug.LogError($"Botão de texto {i} não está atribuído no QuestionAnswerManager");
+            }
+        }
+
+        // Inicializa botões de imagem
+        buttonImages = new Image[imageAnswerButtons.Length];
+        for (int i = 0; i < imageAnswerButtons.Length; i++)
+        {
+            if (imageAnswerButtons[i] != null)
+            {
+                buttonImages[i] = imageAnswerButtons[i].GetComponent<Image>();
+                int index = i;
+                imageAnswerButtons[i].onClick.AddListener(() => HandleAnswerClick(index));
+
+                if (buttonImages[i] == null)
+                {
+                    Debug.LogError($"Image não encontrado no botão {i}");
+                }
+            }
+            else
+            {
+                Debug.LogError($"Botão de imagem {i} não está atribuído no QuestionAnswerManager");
             }
         }
     }
@@ -57,6 +77,40 @@ public class QuestionAnswerManager : MonoBehaviour
             return;
         }
 
+        if (question.isImageAnswer)
+        {
+            SetupImageAnswers(question);
+        }
+        else
+        {
+            SetupTextAnswers(question);
+        }
+    }
+
+    private void SetupImageAnswers(Question question)
+    {
+        for (int i = 0; i < imageAnswerButtons.Length && i < question.answers.Length; i++)
+        {
+            if (imageAnswerButtons[i] != null && buttonImages[i] != null)
+            {
+                // Carrega a imagem do caminho especificado em answers
+                Sprite sprite = Resources.Load<Sprite>(question.answers[i]);
+                if (sprite != null)
+                {
+                    buttonImages[i].sprite = sprite;
+                    imageAnswerButtons[i].interactable = true;
+                    Debug.Log($"Imagem carregada para o botão {i}: {question.answers[i]}");
+                }
+                else
+                {
+                    Debug.LogError($"Falha ao carregar imagem: {question.answers[i]}");
+                }
+            }
+        }
+    }
+
+    private void SetupTextAnswers(Question question)
+    {
         for (int i = 0; i < textAnswerButtons.Length && i < question.answers.Length; i++)
         {
             if (textAnswerButtons[i] != null && buttonTexts[i] != null)
@@ -70,7 +124,17 @@ public class QuestionAnswerManager : MonoBehaviour
 
     public void DisableAllButtons()
     {
+        // Desativa botões de texto
         foreach (var button in textAnswerButtons)
+        {
+            if (button != null)
+            {
+                button.interactable = false;
+            }
+        }
+
+        // Desativa botões de imagem
+        foreach (var button in imageAnswerButtons)
         {
             if (button != null)
             {
@@ -81,7 +145,17 @@ public class QuestionAnswerManager : MonoBehaviour
 
     public void EnableAllButtons()
     {
+        // Ativa botões de texto
         foreach (var button in textAnswerButtons)
+        {
+            if (button != null)
+            {
+                button.interactable = true;
+            }
+        }
+
+        // Ativa botões de imagem
+        foreach (var button in imageAnswerButtons)
         {
             if (button != null)
             {
@@ -90,4 +164,3 @@ public class QuestionAnswerManager : MonoBehaviour
         }
     }
 }
-
