@@ -1,28 +1,28 @@
 using UnityEngine;
 
-public class QuestionCanvasGroups : MonoBehaviour
+public class AnswerTextCanvasGroups : MonoBehaviour
 {
     [SerializeField] private CanvasGroup loadingCanvasGroup;
-    [SerializeField] private CanvasGroup questionCanvasGroup;
-    [SerializeField] private CanvasGroup questionImageCanvasGroup;
+    [SerializeField] private CanvasGroup answerTextCanvasGroup;
+    [SerializeField] private CanvasGroup answerImageCanvasGroup;
     [SerializeField] private CanvasGroup questionsCompletedFeedback;
     [SerializeField] private CanvasGroup bottomBar;
-    [SerializeField] private CanvasGroup questionTextBackground;
+    [SerializeField] private CanvasGroup questionTextContainer;
     [SerializeField] private CanvasGroup questionImageContainer;
 
     public void ValidateComponents()
     {
         if (loadingCanvasGroup == null)
             Debug.LogError("LoadingCanvasGroup não está atribuído");
-        if (questionCanvasGroup == null)
+        if (answerTextCanvasGroup == null)
             Debug.LogError("QuestionCanvasGroup não está atribuído");
-        if (questionImageCanvasGroup == null)
+        if (answerImageCanvasGroup == null)
             Debug.LogError("QuestionImageCanvasGroup não está atribuído");
         if (questionsCompletedFeedback == null)
             Debug.LogError("QuestionsCompletedFeedback não está atribuído");
         if (bottomBar == null)
             Debug.LogError("BottomBar não está atribuído");
-        if (questionTextBackground == null)
+        if (questionTextContainer == null)
             Debug.LogError("QuestionTextBackground não está atribuído");
         if (questionImageContainer == null)
             Debug.LogError("QuestionImageContainer não está atribuído");
@@ -30,11 +30,11 @@ public class QuestionCanvasGroups : MonoBehaviour
 
     // Propriedades públicas para acesso
     public CanvasGroup LoadingCanvasGroup => loadingCanvasGroup;
-    public CanvasGroup QuestionCanvasGroup => questionCanvasGroup;
-    public CanvasGroup QuestionImageCanvasGroup => questionImageCanvasGroup;
+    public CanvasGroup AnswerTextCanvasGroup => answerTextCanvasGroup;
+    public CanvasGroup AnswerImageCanvasGroup => answerImageCanvasGroup;
     public CanvasGroup QuestionsCompletedFeedback => questionsCompletedFeedback;
     public CanvasGroup BottomBar => bottomBar;
-    public CanvasGroup QuestionTextBackground => questionTextBackground;
+    public CanvasGroup QuestionTextContainer => questionTextContainer;
     public CanvasGroup QuestionImageContainer => questionImageContainer;
 
     public void InitializeCanvasGroups()
@@ -55,11 +55,11 @@ public class QuestionCanvasGroups : MonoBehaviour
         return new CanvasGroup[]
         {
             loadingCanvasGroup,
-            questionCanvasGroup,
-            questionImageCanvasGroup,
+            answerTextCanvasGroup,
+            answerImageCanvasGroup,
             questionsCompletedFeedback,
             bottomBar,
-            questionTextBackground
+            questionTextContainer
         };
     }
 }

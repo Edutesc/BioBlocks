@@ -1,14 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using QuestionSystem;
 using TMPro;
-using System.Linq;
-using System;
 using System.Collections;
-using UnityEngine.Events;
 
 public class QuestionTimerManager : MonoBehaviour
 {

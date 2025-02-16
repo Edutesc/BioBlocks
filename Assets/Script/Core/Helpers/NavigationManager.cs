@@ -13,9 +13,23 @@ public class NavigationManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                var go = new GameObject("NavigationManager");
-                _instance = go.AddComponent<NavigationManager>();
-                DontDestroyOnLoad(go);
+                // Primeiro procura uma instância existente
+                _instance = FindFirstObjectByType<NavigationManager>();
+                
+                if (_instance == null)
+                {
+                    // Se não encontrar, cria uma nova na raiz
+                    var go = new GameObject("NavigationManager");
+                    go.transform.SetParent(null); // Garante que está na raiz
+                    _instance = go.AddComponent<NavigationManager>();
+                    DontDestroyOnLoad(go);
+                }
+                else
+                {
+                    // Se encontrou uma instância, garante que está na raiz
+                    _instance.transform.SetParent(null);
+                    DontDestroyOnLoad(_instance.gameObject);
+                }
             }
             return _instance;
         }
@@ -30,6 +44,7 @@ public class NavigationManager : MonoBehaviour
         }
         
         _instance = this;
+        transform.SetParent(null); // Garante que está na raiz
         DontDestroyOnLoad(gameObject);
     }
 
