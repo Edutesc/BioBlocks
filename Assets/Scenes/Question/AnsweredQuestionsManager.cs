@@ -147,14 +147,32 @@ public class AnsweredQuestionsManager : MonoBehaviour
 
                     if (questionsList != null)
                     {
-                        int count = questionsList.Count;
+                        // Remover possíveis duplicatas
+                        var distinctQuestions = questionsList.Distinct().ToList();
+
+                        // Se houver diferença entre as listas, log para debug
+                        if (distinctQuestions.Count != questionsList.Count)
+                        {
+                            Debug.LogWarning($"Encontradas {questionsList.Count - distinctQuestions.Count} questões duplicadas em {databankName}");
+                            Debug.LogWarning($"Lista original: {string.Join(", ", questionsList)}");
+                            Debug.LogWarning($"Lista sem duplicatas: {string.Join(", ", distinctQuestions)}");
+                        }
+
+                        int count = distinctQuestions.Count;
+
+                        // Validar se o count não excede o limite
+                        if (count > 50)
+                        {
+                            Debug.LogError($"ERRO: Número de questões ({count}) excede o limite de 50 para {databankName}");
+                            count = 50; // Forçar limite máximo
+                        }
+
                         answeredCounts[databankName] = count;
                         AnsweredQuestionsListStore.UpdateAnsweredQuestionsCount(userId, databankName, count);
-                        Debug.Log($"Atualizado {databankName}: {count} questões respondidas");
+                        Debug.Log($"Atualizado {databankName}: {count} questões respondidas (Lista: {string.Join(", ", distinctQuestions)})");
                     }
                 }
 
-                // Dispara o evento com os novos dados
                 Debug.Log($"Disparando evento OnAnsweredQuestionsUpdated com {answeredCounts.Count} bancos de dados");
                 OnAnsweredQuestionsUpdated?.Invoke(answeredCounts);
             }
@@ -205,8 +223,19 @@ public class AnsweredQuestionsManager : MonoBehaviour
         {
             string databankName = kvp.Key;
             int count = kvp.Value;
-            int totalQuestions = 50; // Número total de questões em cada banco
-            int percentageAnswered = (count * 100) / totalQuestions;
+
+            // Validar novamente o count
+            if (count > 50)
+            {
+                Debug.LogError($"ERRO: Count inválido detectado em UpdateUI para {databankName}: {count}");
+                count = 50;
+            }
+
+            int totalQuestions = 50;
+            int percentageAnswered = (int)Math.Floor((count * 100.0) / totalQuestions);
+
+            // Garantir que a porcentagem não exceda 100%
+            percentageAnswered = Math.Min(percentageAnswered, 100);
 
             string objectName = $"{databankName}PorcentageText";
             GameObject textObject = GameObject.Find(objectName);
