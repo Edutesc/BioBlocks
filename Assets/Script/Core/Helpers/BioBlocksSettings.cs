@@ -5,7 +5,7 @@ public class BioBlocksSettings : MonoBehaviour
     private static BioBlocksSettings _instance;
 
     [Header("Debug Settings")]
-    [SerializeField] private bool isDebugMode = true;
+    [SerializeField] private bool isDebugMode = false;
 
     public static BioBlocksSettings Instance
     {

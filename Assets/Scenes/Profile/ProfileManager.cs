@@ -99,8 +99,25 @@ public class ProfileManager : MonoBehaviour
     {
         try
         {
+            // Obter o ID do usuário atual antes de limpar os dados
+            string currentUserId = UserDataStore.CurrentUserData?.UserId;
+
+            // Limpar dados do usuário atual
+            UserDataStore.CurrentUserData = null;
+
+            // Resetar o AnsweredQuestionsManager
+            AnsweredQuestionsManager.Instance.ResetManager();
+
+            // Limpar a store de questões respondidas do usuário específico
+            if (!string.IsNullOrEmpty(currentUserId))
+            {
+                AnsweredQuestionsListStore.ClearUserAnsweredQuestions(currentUserId);
+            }
+
+            // Fazer logout no Firebase
             await AuthenticationRepository.Instance.LogoutAsync();
             Debug.Log("Logout realizado com sucesso");
+
             Navigate("LoginView");
         }
         catch (System.Exception ex)

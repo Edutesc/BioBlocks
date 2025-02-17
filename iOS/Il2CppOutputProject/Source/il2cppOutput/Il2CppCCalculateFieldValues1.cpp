@@ -20393,6 +20393,7 @@ struct U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A
 	LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310* ___U3CU3E4__this;
 	String_t* ___U3CemailU3E5__2;
 	TaskAwaiter_1_tADA841AA332B16647844B3ED54A1B87E27857ECA ___U3CU3Eu__1;
+	TaskAwaiter_t9B661AC8C2EFA6BAB94C77BB24A5DDA82D61F833 ___U3CU3Eu__2;
 };
 struct LoginAttempt_t9EFA626449BD5BA3BB65AA23ED887DE85D8D0C1A  : public RuntimeObject
 {
@@ -38046,9 +38047,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable5967[3] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable5969[3] = 
 {
 	static_cast<int32_t>(offsetof(LoginAttempt_t9EFA626449BD5BA3BB65AA23ED887DE85D8D0C1A, ___U3CAttemptsU3Ek__BackingField)),static_cast<int32_t>(offsetof(LoginAttempt_t9EFA626449BD5BA3BB65AA23ED887DE85D8D0C1A, ___U3CLastAttemptU3Ek__BackingField)),static_cast<int32_t>(offsetof(LoginAttempt_t9EFA626449BD5BA3BB65AA23ED887DE85D8D0C1A, ___U3CLockoutUntilU3Ek__BackingField)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable5970[5] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable5970[6] = 
 {
-	static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CemailU3E5__2)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+	static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3E1__state)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3Et__builder)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3E4__this)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CemailU3E5__2)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3Eu__1)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(U3CHandleLoginU3Ed__14_t864D0D7994B5021D0208F4FF182B041DB8D2908A, ___U3CU3Eu__2)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable5971[12] = 
 {
 	static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___emailInput)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___passwordInput)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___loginButton)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___registerButton)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___logoLoading)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___feedbackManager)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___spinnerRotationSpeed)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___loadingSpinner)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___auth)),static_cast<int32_t>(offsetof(LoginManager_tACCBB36C3DECDFBCA298AA72420871F60AF08310, ___loginAttempts)),0,0,};

@@ -17,7 +17,7 @@ public class LoginManager : MonoBehaviour
     [SerializeField] private FeedbackManager feedbackManager;
 
     [Header("Loading Spinner Configuration")]
-    [SerializeField] private float spinnerRotationSpeed = 100f;    
+    [SerializeField] private float spinnerRotationSpeed = 100f;
     [SerializeField] private Image loadingSpinner;
 
     private FirebaseAuth auth;
@@ -81,6 +81,10 @@ public class LoginManager : MonoBehaviour
             }
 
             UserDataStore.CurrentUserData = userData;
+
+            // Forçar atualização dos dados de questões respondidas
+            await AnsweredQuestionsManager.Instance.ForceUpdate();
+
             SceneManager.LoadScene("PathwayScene");
         }
         catch (FirebaseException e)
