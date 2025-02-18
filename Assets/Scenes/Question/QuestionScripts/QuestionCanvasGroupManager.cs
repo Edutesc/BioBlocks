@@ -21,6 +21,12 @@ public class QuestionCanvasGroupManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!AreAllCanvasGroupsAssigned())
+        {
+            Debug.LogError("Alguns CanvasGroups não estão atribuídos corretamente!");
+            return;
+        }
+
         ValidateComponents();
         InitializeCanvasGroups();
     }
@@ -53,14 +59,47 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         SetCanvasGroupState(bottomBar, false);
     }
 
-    public void ShowQuestion(bool hasImage = false)
+    public void ShowQuestion(bool isImageQuestion, bool isImageAnswer)
     {
+        Debug.Log($"ShowQuestion chamado - isImageQuestion: {isImageQuestion}, isImageAnswer: {isImageAnswer}");
+
         SetCanvasGroupState(loadingCanvasGroup, false);
-        SetCanvasGroupState(questionTextContainer, true);
-        SetCanvasGroupState(questionImageContainer, hasImage);
-        SetCanvasGroupState(answerTextCanvasGroup, true);
-        SetCanvasGroupState(answerImageCanvasGroup, hasImage);
+
+        // Configurar visualização da questão
+        SetCanvasGroupState(questionTextContainer, !isImageQuestion);
+        SetCanvasGroupState(questionImageContainer, isImageQuestion);
+
+        // Configurar visualização das respostas
+        SetCanvasGroupState(answerTextCanvasGroup, !isImageAnswer);
+        SetCanvasGroupState(answerImageCanvasGroup, isImageAnswer);
+
         SetCanvasGroupState(bottomBar, true);
+
+        Debug.Log($"Estado dos CanvasGroups após configuração:");
+        Debug.Log($"QuestionTextContainer: {(questionTextContainer?.alpha > 0 ? "Visível" : "Invisível")} (deve ser {(!isImageQuestion ? "Visível" : "Invisível")})");
+        Debug.Log($"QuestionImageContainer: {(questionImageContainer?.alpha > 0 ? "Visível" : "Invisível")} (deve ser {(isImageQuestion ? "Visível" : "Invisível")})");
+        Debug.Log($"AnswerTextCanvasGroup: {(answerTextCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")} (deve ser {(!isImageAnswer ? "Visível" : "Invisível")})");
+        Debug.Log($"AnswerImageCanvasGroup: {(answerImageCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")} (deve ser {(isImageAnswer ? "Visível" : "Invisível")})");
+    }
+
+    private void LogRectTransformInfo(RectTransform rect, string name)
+    {
+        if (rect != null)
+        {
+            Debug.Log($"{name} RectTransform - Pos: {rect.position}, AnchoredPos: {rect.anchoredPosition}, " +
+                      $"Pivot: {rect.pivot}, Size: {rect.sizeDelta}");
+        }
+    }
+
+
+    private void LogCanvasGroupStates()
+    {
+        Debug.Log($"Estado dos CanvasGroups:");
+        Debug.Log($"QuestionTextContainer: {(questionTextContainer?.alpha > 0 ? "Visível" : "Invisível")}");
+        Debug.Log($"QuestionImageContainer: {(questionImageContainer?.alpha > 0 ? "Visível" : "Invisível")}");
+        Debug.Log($"AnswerTextCanvasGroup: {(answerTextCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
+        Debug.Log($"AnswerImageCanvasGroup: {(answerImageCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
+        Debug.Log($"BottomBar: {(bottomBar?.alpha > 0 ? "Visível" : "Invisível")}");
     }
 
     public void ShowAnswerFeedback(bool isCorrect, Color correctColor, Color incorrectColor)
@@ -113,10 +152,17 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     {
         if (canvasGroup == null) return;
 
+        canvasGroup.gameObject.SetActive(true); // Garantir que o GameObject está ativo
         canvasGroup.alpha = active ? 1f : 0f;
         canvasGroup.interactable = active;
         canvasGroup.blocksRaycasts = active;
+
+        Debug.Log($"SetCanvasGroupState para {canvasGroup.gameObject.name}: " +
+                  $"GameObject ativo: {canvasGroup.gameObject.activeInHierarchy}, " +
+                  $"Alpha: {canvasGroup.alpha}, " +
+                  $"Interactable: {canvasGroup.interactable}");
     }
+
 
     private void SetCanvasGroupInteractable(CanvasGroup canvasGroup, bool interactable)
     {
@@ -148,4 +194,37 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     public CanvasGroup BottomBar => bottomBar;
     public CanvasGroup QuestionTextContainer => questionTextContainer;
     public CanvasGroup QuestionImageContainer => questionImageContainer;
+
+
+    public bool AreAllCanvasGroupsAssigned()
+    {
+        bool allAssigned = true;
+
+        if (answerImageCanvasGroup == null)
+        {
+            Debug.LogError("AnswerImageCanvasGroup não está atribuído no Inspector");
+            allAssigned = false;
+        }
+
+        if (answerTextCanvasGroup == null)
+        {
+            Debug.LogError("AnswerTextCanvasGroup não está atribuído no Inspector");
+            allAssigned = false;
+        }
+
+        if (questionImageContainer == null)
+        {
+            Debug.LogError("QuestionImageContainer não está atribuído no Inspector");
+            allAssigned = false;
+        }
+
+        if (questionTextContainer == null)
+        {
+            Debug.LogError("QuestionTextContainer não está atribuído no Inspector");
+            allAssigned = false;
+        }
+
+        return allAssigned;
+    }
+
 }

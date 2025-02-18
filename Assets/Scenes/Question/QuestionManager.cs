@@ -121,11 +121,16 @@ public class QuestionManager : MonoBehaviour
             // Configurar botões de resposta
             answerManager.SetupAnswerButtons(currentQuestion);
 
-            // Ativar CanvasGroups apropriados
-            questionCanvasGroupManager.ShowQuestion(currentQuestion.isImageQuestion);
+            // Ativar CanvasGroups apropriados - agora passamos dois parâmetros
+            questionCanvasGroupManager.ShowQuestion(
+                isImageQuestion: currentQuestion.isImageQuestion,
+                isImageAnswer: currentQuestion.isImageAnswer
+            );
 
             // Iniciar timer
             timerManager.StartTimer();
+
+            Debug.Log($"Questão iniciada - isImageQuestion: {currentQuestion.isImageQuestion}, isImageAnswer: {currentQuestion.isImageAnswer}");
         }
         catch (Exception e)
         {
