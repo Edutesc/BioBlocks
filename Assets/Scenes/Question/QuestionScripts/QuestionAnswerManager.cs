@@ -6,8 +6,8 @@ using TMPro;
 public class QuestionAnswerManager : MonoBehaviour
 {
     [Header("Answer Buttons")]
-    [SerializeField] private Button[] textAnswerButtons;    // Para respostas em texto
-    [SerializeField] private Button[] imageAnswerButtons;   // Para respostas em imagem
+    [SerializeField] private Button[] textAnswerButtons;
+    [SerializeField] private Button[] imageAnswerButtons;
     
     private TextMeshProUGUI[] buttonTexts;
     private Image[] buttonImages;
@@ -21,7 +21,6 @@ public class QuestionAnswerManager : MonoBehaviour
 
     private void InitializeButtons()
     {
-        // Inicializa botões de texto
         buttonTexts = new TextMeshProUGUI[textAnswerButtons.Length];
         for (int i = 0; i < textAnswerButtons.Length; i++)
         {
@@ -42,7 +41,6 @@ public class QuestionAnswerManager : MonoBehaviour
             }
         }
 
-        // Inicializa botões de imagem
         buttonImages = new Image[imageAnswerButtons.Length];
         for (int i = 0; i < imageAnswerButtons.Length; i++)
         {

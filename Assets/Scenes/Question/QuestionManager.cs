@@ -8,13 +8,14 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private TopBarUIManager topBarManager;
     [SerializeField] private BottomUIManager bottomBarManager;
     [SerializeField] private QuestionUIManager questionUIManager;
-    
+    [SerializeField] private QuestionCanvasGroupManager questionCanvasGroupManager;
+    [SerializeField] private FeedbackUIElements feedbackElements;
+
     [Header("Game Logic Managers")]
     [SerializeField] private QuestionTimerManager timerManager;
     [SerializeField] private QuestionLoadManager loadManager;
     [SerializeField] private QuestionAnswerManager answerManager;
     [SerializeField] private QuestionScoreManager scoreManager;
-    [SerializeField] private FeedbackUIElements feedbackElements;
 
     private QuestionSession currentSession;
 
@@ -33,12 +34,13 @@ public class QuestionManager : MonoBehaviour
 
     private bool ValidateManagers()
     {
-        return topBarManager != null && 
-               bottomBarManager != null && 
+        return topBarManager != null &&
+               bottomBarManager != null &&
                questionUIManager != null &&
-               timerManager != null && 
-               loadManager != null && 
-               answerManager != null && 
+               questionCanvasGroupManager != null &&
+               timerManager != null &&
+               loadManager != null &&
+               answerManager != null &&
                scoreManager != null &&
                feedbackElements != null;
     }
@@ -74,12 +76,12 @@ public class QuestionManager : MonoBehaviour
         {
             if (isCorrect)
             {
-                ShowFeedback("Resposta correta!\n+5 pontos", true);
+                ShowAnswerFeedback("Resposta correta!\n+5 pontos", true);
                 await scoreManager.UpdateScore(5, true, currentQuestion);
             }
             else
             {
-                ShowFeedback("Resposta errada!\n-2 Pontos.", false);
+                ShowAnswerFeedback("Resposta errada!\n-2 Pontos.", false);
                 await scoreManager.UpdateScore(-2, false, currentQuestion);
             }
 
@@ -92,20 +94,19 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
-    private void ShowFeedback(string message, bool isCorrect, bool isCompleted = false)
+    private void ShowAnswerFeedback(string message, bool isCorrect, bool isCompleted = false)
     {
         if (isCompleted)
         {
             feedbackElements.QuestionsCompletedFeedbackText.text = message;
-            feedbackElements.QuestionsCompletedFeedbackText.gameObject.SetActive(true);
+            questionCanvasGroupManager.ShowCompletionFeedback();
+            Debug.Log("Feedback de conclusão ativado");
             return;
         }
 
         feedbackElements.FeedbackText.text = message;
-        feedbackElements.FeedbackPanel.gameObject.SetActive(true);
-        
         Color backgroundColor = isCorrect ? HexToColor("#D4EDDA") : HexToColor("#F8D7DA");
-        feedbackElements.FeedbackPanel.color = backgroundColor;
+        questionCanvasGroupManager.ShowAnswerFeedback(isCorrect, HexToColor("#D4EDDA"), HexToColor("#F8D7DA"));
     }
 
     private void StartQuestion()
@@ -113,8 +114,17 @@ public class QuestionManager : MonoBehaviour
         try
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
+
+            // Mostrar conteúdo da questão
             questionUIManager.ShowQuestion(currentQuestion);
+
+            // Configurar botões de resposta
             answerManager.SetupAnswerButtons(currentQuestion);
+
+            // Ativar CanvasGroups apropriados
+            questionCanvasGroupManager.ShowQuestion(currentQuestion.isImageQuestion);
+
+            // Iniciar timer
             timerManager.StartTimer();
         }
         catch (Exception e)
@@ -126,7 +136,7 @@ public class QuestionManager : MonoBehaviour
     private async void HandleTimeUp()
     {
         answerManager.DisableAllButtons();
-        ShowFeedback("Tempo Esgotado!\n-1 ponto", false);
+        ShowAnswerFeedback("Tempo Esgotado!\n-1 ponto", false);
         await scoreManager.UpdateScore(-1, false, currentSession.GetCurrentQuestion());
         bottomBarManager.EnableNavigationButtons();
         SetupNavigationButtons();
@@ -135,20 +145,27 @@ public class QuestionManager : MonoBehaviour
     private void SetupNavigationButtons()
     {
         bottomBarManager.SetupNavigationButtons(
-            () => {
-                HideFeedback();
+            () =>
+            {
+                HideAnswerFeedback();
                 NavigationManager.Instance.NavigateTo("PathwayScene");
             },
-            async () => {
-                HideFeedback();
+            async () =>
+            {
+                HideAnswerFeedback();
                 await HandleNextQuestion();
             }
         );
     }
 
-    private void HideFeedback()
+    public void ReturnToPathway()
     {
-        feedbackElements.FeedbackPanel.gameObject.SetActive(false);
+        NavigationManager.Instance.NavigateTo("PathwayScene");
+    }
+
+    private void HideAnswerFeedback()
+    {
+        questionCanvasGroupManager.HideAnswerFeedback();
     }
 
     private async Task HandleNextQuestion()
@@ -177,7 +194,7 @@ public class QuestionManager : MonoBehaviour
         }
         else
         {
-            ShowFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", false, true);
+            ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", false, true);
         }
     }
 
