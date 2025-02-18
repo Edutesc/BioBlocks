@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using QuestionSystem;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private QuestionUIManager questionUIManager;
     [SerializeField] private QuestionCanvasGroupManager questionCanvasGroupManager;
     [SerializeField] private FeedbackUIElements feedbackElements;
+    [SerializeField] private QuestionTransitionManager transitionManager;
 
     [Header("Game Logic Managers")]
     [SerializeField] private QuestionTimerManager timerManager;
@@ -19,7 +23,7 @@ public class QuestionManager : MonoBehaviour
 
     private QuestionSession currentSession;
 
-    private async void Start()
+    private void Start()
     {
         if (!ValidateManagers())
         {
@@ -27,9 +31,18 @@ public class QuestionManager : MonoBehaviour
             return;
         }
 
+        InitializeAndStartSession();
+    }
+
+    private async void InitializeAndStartSession()
+    {
         await InitializeSession();
-        SetupEventHandlers();
-        StartQuestion();
+
+        if (currentSession != null)
+        {
+            SetupEventHandlers();
+            StartQuestion();
+        }
     }
 
     private bool ValidateManagers()
@@ -49,12 +62,30 @@ public class QuestionManager : MonoBehaviour
     {
         try
         {
-            var questions = await loadManager.LoadQuestionsForSet(QuestionSetManager.GetCurrentQuestionSet());
+            QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
+            var questions = await loadManager.LoadQuestionsForSet(currentSet);
+
+            // Verificar se há questões disponíveis
+            if (questions == null || questions.Count == 0)
+            {
+                string currentDatabaseName = loadManager.DatabankName; // Usar o nome que já foi obtido
+                Debug.Log($"Não há questões disponíveis em {currentDatabaseName}. Redirecionando para ResetDatabaseView");
+
+                SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
+                SceneManager.LoadScene("ResetDatabaseView");
+                return;
+            }
+
             currentSession = new QuestionSession(questions);
         }
         catch (Exception e)
         {
             Debug.LogError($"Erro ao inicializar sessão: {e.Message}");
+
+            // Em caso de erro, ainda podemos pegar o nome do banco atual
+            string currentDatabaseName = loadManager.DatabankName;
+            SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
+            SceneManager.LoadScene("ResetDatabaseView");
         }
     }
 
@@ -179,6 +210,7 @@ public class QuestionManager : MonoBehaviour
 
         if (!currentSession.IsLastQuestion())
         {
+            await transitionManager.TransitionToNextQuestion();
             currentSession.NextQuestion();
             StartQuestion();
         }
