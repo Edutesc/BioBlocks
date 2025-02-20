@@ -1,110 +1,196 @@
-using UnityEngine;
-using UnityEngine.UI;
-using Firebase.Firestore;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Firebase.Firestore;
 
 public class UserFeedbackManager : MonoBehaviour
 {
-    [Header("UI Sections")]
-    [SerializeField] private GameObject userProfileSection;
-    [SerializeField] private GameObject appExperienceSection;
-    [SerializeField] private GameObject learningImpactSection;
-    [SerializeField] private GameObject engagementSection;
-    [SerializeField] private GameObject suggestionsSection;
-
-    [Header("Navigation")]
-    [SerializeField] private Button nextButton;
-    [SerializeField] private Button previousButton;
-    [SerializeField] private Button submitButton;
-
-    private int currentSection = 0;
-    private GameObject[] sections;
-    private FeedbackData feedbackData;
-
+    [Header("Configuração")]
+    [SerializeField] private Transform questionsContainer;
+    [SerializeField] private GameObject nextButton;
+    [SerializeField] private GameObject prevButton;
+    [SerializeField] private GameObject submitButton;
+    
+    [Header("Prefabs")]
+    [SerializeField] private GameObject textQuestionPrefab;
+    [SerializeField] private GameObject ratingQuestionPrefab;
+    [SerializeField] private GameObject toggleQuestionPrefab;
+    
+    [Header("Navegação")]
+    [SerializeField] private int questionsPerPage = 3;
+    [SerializeField] private bool groupByCategory = true;
+    
+    private IFeedbackDatabase currentDatabase;
+    private Dictionary<string, object> feedbackResults = new Dictionary<string, object>();
+    private List<IFeedbackQuestionController> questionControllers = new List<IFeedbackQuestionController>();
+    private int currentPageIndex = 0;
+    private List<FeedbackQuestion> allQuestions = new List<FeedbackQuestion>();
+    
     private void Start()
     {
-        sections = new GameObject[] 
+        // Encontra o banco de dados de feedback na cena
+        currentDatabase = FindFirstObjectByType<AppUsabilityFeedbackDatabase>();
+        if (currentDatabase == null)
         {
-            userProfileSection,
-            appExperienceSection,
-            learningImpactSection,
-            engagementSection,
-            suggestionsSection
-        };
-
-        feedbackData = new FeedbackData();
-        SetupNavigation();
-        ShowCurrentSection();
-    }
-
-    private void SetupNavigation()
-    {
-        nextButton.onClick.AddListener(NextSection);
-        previousButton.onClick.AddListener(PreviousSection);
-        submitButton.onClick.AddListener(SubmitFeedback);
+            Debug.LogError("Nenhum banco de dados de feedback encontrado na cena!");
+            return;
+        }
         
-        submitButton.gameObject.SetActive(false);
+        allQuestions = currentDatabase.GetQuestions();
+        InstantiateQuestions();
+        UpdateNavigationButtons();
     }
-
-    private void ShowCurrentSection()
+    
+    private void InstantiateQuestions()
     {
-        for (int i = 0; i < sections.Length; i++)
+        // Limpa qualquer questão anterior
+        foreach (Transform child in questionsContainer)
         {
-            sections[i].SetActive(i == currentSection);
+            Destroy(child.gameObject);
         }
-
-        previousButton.gameObject.SetActive(currentSection > 0);
-        nextButton.gameObject.SetActive(currentSection < sections.Length - 1);
-        submitButton.gameObject.SetActive(currentSection == sections.Length - 1);
-    }
-
-    private void NextSection()
-    {
-        if (currentSection < sections.Length - 1)
+        questionControllers.Clear();
+        
+        List<FeedbackQuestion> sortedQuestions = allQuestions;
+        if (groupByCategory)
         {
-            currentSection++;
-            ShowCurrentSection();
+            // Organiza as perguntas por categoria
+            sortedQuestions.Sort((a, b) => string.Compare(a.category, b.category));
         }
-    }
-
-    private void PreviousSection()
-    {
-        if (currentSection > 0)
+        
+        // Instancia as questões
+        foreach (var question in sortedQuestions)
         {
-            currentSection--;
-            ShowCurrentSection();
+            GameObject prefab = null;
+            
+            switch (question.feedbackAnswerType)
+            {
+                case FeedbackAnswerType.Text:
+                    prefab = textQuestionPrefab;
+                    break;
+                case FeedbackAnswerType.Rating:
+                    prefab = ratingQuestionPrefab;
+                    break;
+                case FeedbackAnswerType.Toggle:
+                    prefab = toggleQuestionPrefab;
+                    break;
+            }
+            
+            if (prefab != null)
+            {
+                GameObject questionObj = Instantiate(prefab, questionsContainer);
+                IFeedbackQuestionController controller = questionObj.GetComponent<IFeedbackQuestionController>();
+                if (controller != null)
+                {
+                    controller.SetupQuestion(question);
+                    questionControllers.Add(controller);
+                }
+            }
         }
+        
+        // Mostra apenas as questões da página atual
+        UpdateQuestionsVisibility();
     }
-
-    private async void SubmitFeedback()
+    
+    private void UpdateQuestionsVisibility()
     {
-        try
+        int startIndex = currentPageIndex * questionsPerPage;
+        
+        for (int i = 0; i < questionControllers.Count; i++)
         {
-            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-            await db.Collection("feedback").AddAsync(feedbackData.ToDictionary());
-            Debug.Log("Feedback submitted successfully!");
-            // Mostrar mensagem de sucesso e voltar para a cena principal
+            bool isVisible = (i >= startIndex && i < startIndex + questionsPerPage);
+            questionControllers[i].SetVisible(isVisible);
         }
-        catch (Exception e)
+    }
+    
+    private void UpdateNavigationButtons()
+    {
+        prevButton.SetActive(currentPageIndex > 0);
+        
+        bool isLastPage = (currentPageIndex + 1) * questionsPerPage >= questionControllers.Count;
+        nextButton.SetActive(!isLastPage);
+        submitButton.SetActive(isLastPage);
+    }
+    
+    public void NextPage()
+    {
+        if (ValidateCurrentPage())
         {
-            Debug.LogError($"Error submitting feedback: {e.Message}");
-            // Mostrar mensagem de erro
+            CollectCurrentPageAnswers();
+            currentPageIndex++;
+            UpdateQuestionsVisibility();
+            UpdateNavigationButtons();
         }
     }
-
-    // Métodos para coletar respostas das diferentes seções
-    public void SetUserProfileData(bool previousExperience, int familiarityLevel)
+    
+    public void PreviousPage()
     {
-        feedbackData.PreviousExperience = previousExperience;
-        feedbackData.FamiliarityLevel = familiarityLevel;
+        currentPageIndex--;
+        UpdateQuestionsVisibility();
+        UpdateNavigationButtons();
     }
-
-    public void SetAppExperienceData(int easeOfUse, int interfaceRating, string technicalIssues)
+    
+    private bool ValidateCurrentPage()
     {
-        feedbackData.EaseOfUse = easeOfUse;
-        feedbackData.InterfaceRating = interfaceRating;
-        feedbackData.TechnicalIssues = technicalIssues;
+        int startIndex = currentPageIndex * questionsPerPage;
+        int endIndex = Mathf.Min(startIndex + questionsPerPage, questionControllers.Count);
+        
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            if (!questionControllers[i].Validate())
+            {
+                return false;
+            }
+        }
+        
+        return true;
     }
-
-    // ... métodos similares para outras seções
+    
+    private void CollectCurrentPageAnswers()
+    {
+        int startIndex = currentPageIndex * questionsPerPage;
+        int endIndex = Mathf.Min(startIndex + questionsPerPage, questionControllers.Count);
+        
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            var result = questionControllers[i].GetResult();
+            feedbackResults[result.Key] = result.Value;
+        }
+    }
+    
+    public async void SubmitFeedback()
+    {
+        if (ValidateCurrentPage())
+        {
+            CollectCurrentPageAnswers();
+            
+            // Adiciona metadados
+            feedbackResults["submissionDate"] = DateTime.UtcNow;
+            feedbackResults["databaseName"] = currentDatabase.GetDatabaseName();
+            
+            try
+            {
+                FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+                await db.Collection("feedback").AddAsync(feedbackResults);
+                Debug.Log("Feedback enviado com sucesso!");
+                
+                // Mostra tela de agradecimento ou volta para menu principal
+                ShowThankYouScreen();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Erro ao enviar feedback: {e.Message}");
+                ShowErrorScreen();
+            }
+        }
+    }
+    
+    private void ShowThankYouScreen()
+    {
+        // Implementar lógica para mostrar tela de agradecimento
+    }
+    
+    private void ShowErrorScreen()
+    {
+        // Implementar lógica para mostrar erro
+    }
 }
