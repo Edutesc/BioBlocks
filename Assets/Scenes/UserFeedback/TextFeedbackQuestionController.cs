@@ -4,13 +4,34 @@ using UnityEngine;
 
 public class TextFeedbackQuestionController : MonoBehaviour, IFeedbackQuestionController
 {
+    [SerializeField] private TextMeshProUGUI categoryText;
     [SerializeField] private TextMeshProUGUI questionText;
     [SerializeField] private TextMeshProUGUI helperText;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TextMeshProUGUI errorText;
-    [SerializeField] private TextMeshProUGUI categoryText;
+    
+    [Header("Character Limit Settings")]
+    [SerializeField] private bool useDefaultCharLimit = true;
+    [SerializeField] private int defaultCharLimit = 1000;
     
     private FeedbackQuestion questionData;
+    
+    private void OnValidate()
+    {
+        // Isso será chamado no Editor sempre que houver alterações no Inspector
+        if (inputField != null && useDefaultCharLimit)
+        {
+            inputField.characterLimit = defaultCharLimit;
+        }
+    }
+    
+    private void Awake()
+    {
+        if (useDefaultCharLimit && inputField != null)
+        {
+            inputField.characterLimit = defaultCharLimit;
+        }
+    }
     
     public void SetupQuestion(FeedbackQuestion question)
     {
@@ -26,9 +47,19 @@ public class TextFeedbackQuestionController : MonoBehaviour, IFeedbackQuestionCo
         helperText.gameObject.SetActive(!string.IsNullOrEmpty(question.helperText));
         helperText.text = question.helperText;
         
-        inputField.characterLimit = question.maxCharacters;
-        inputField.placeholder.GetComponent<TextMeshProUGUI>().text = 
-            !string.IsNullOrEmpty(question.placeholderText) ? question.placeholderText : "Digite sua resposta...";
+        if (useDefaultCharLimit)
+        {
+            inputField.characterLimit = defaultCharLimit;
+        }
+        else if (question.maxCharacters > 0)
+        {
+            inputField.characterLimit = question.maxCharacters;
+        }
+        
+        if (!string.IsNullOrEmpty(question.placeholderText))
+        {
+            inputField.placeholder.GetComponent<TextMeshProUGUI>().text = question.placeholderText;
+        }
         
         errorText.gameObject.SetActive(false);
     }

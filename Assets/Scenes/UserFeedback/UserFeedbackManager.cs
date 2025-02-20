@@ -29,7 +29,7 @@ public class UserFeedbackManager : MonoBehaviour
     private void Start()
     {
         // Encontra o banco de dados de feedback na cena
-        currentDatabase = FindFirstObjectByType<AppUsabilityFeedbackDatabase>();
+        currentDatabase = FindFirstObjectByType<UserFeedbackQuestionsDatabase>();
         if (currentDatabase == null)
         {
             Debug.LogError("Nenhum banco de dados de feedback encontrado na cena!");

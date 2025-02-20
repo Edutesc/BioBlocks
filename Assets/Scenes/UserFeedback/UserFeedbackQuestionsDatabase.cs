@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppUsabilityFeedbackDatabase : MonoBehaviour, IFeedbackDatabase
+public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
 {
     private List<FeedbackQuestion> questions = new List<FeedbackQuestion>
     {
