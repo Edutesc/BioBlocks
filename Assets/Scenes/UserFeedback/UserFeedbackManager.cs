@@ -30,6 +30,11 @@ public class UserFeedbackManager : MonoBehaviour
     [SerializeField] private int questionsPerPage = 3;
     [SerializeField] private bool groupByCategory = true;
 
+    [System.Serializable] public class QuestionChangedEvent : UnityEvent<int, FeedbackQuestion> { }
+    [System.Serializable] public class QuestionsLoadedEvent : UnityEvent<List<FeedbackQuestion>> { }
+    public QuestionChangedEvent OnQuestionChanged = new QuestionChangedEvent();
+    public QuestionsLoadedEvent OnQuestionsLoaded = new QuestionsLoadedEvent();
+
     private IFeedbackDatabase currentDatabase;
     private Dictionary<string, object> feedbackResults = new Dictionary<string, object>();
     private List<IFeedbackQuestionController> questionControllers = new List<IFeedbackQuestionController>();
@@ -84,6 +89,7 @@ public class UserFeedbackManager : MonoBehaviour
 
         InstantiateQuestions();
         UpdateNavigationButtons();
+        OnQuestionsLoaded?.Invoke(allQuestions);
     }
 
     private void Update()
@@ -160,6 +166,10 @@ public class UserFeedbackManager : MonoBehaviour
         }
 
         UpdateQuestionsVisibility();
+        if (allQuestions != null && allQuestions.Count > 0)
+        {
+            OnQuestionChanged?.Invoke(0, allQuestions[0]);
+        }
     }
 
     private void UpdateQuestionsVisibility()
@@ -207,6 +217,7 @@ public class UserFeedbackManager : MonoBehaviour
                 if (startIndex < questionControllers.Count && allQuestions != null && startIndex < allQuestions.Count)
                 {
                     var currentQuestion = allQuestions[startIndex];
+                    OnQuestionChanged?.Invoke(startIndex, currentQuestion);
                 }
             }
             else
@@ -221,6 +232,13 @@ public class UserFeedbackManager : MonoBehaviour
         currentPageIndex--;
         UpdateQuestionsVisibility();
         UpdateNavigationButtons();
+
+        int startIndex = currentPageIndex * questionsPerPage;
+        if (startIndex >= 0 && startIndex < allQuestions.Count)
+        {
+            var currentQuestion = allQuestions[startIndex];
+            OnQuestionChanged?.Invoke(startIndex, currentQuestion);
+        }
     }
 
     private bool ValidateCurrentPage()
