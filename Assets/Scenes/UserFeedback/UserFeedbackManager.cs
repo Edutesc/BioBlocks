@@ -15,6 +15,7 @@ public class UserFeedbackManager : MonoBehaviour
     [SerializeField] private Button prevButton;
     [SerializeField] private Button submitButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private TopBarUIManager topBarManager;
 
     [Header("Loading Spinner Configuration")]
     [SerializeField] private float spinnerRotationSpeed = 100f;
