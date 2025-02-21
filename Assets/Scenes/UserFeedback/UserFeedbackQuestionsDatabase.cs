@@ -10,12 +10,11 @@ public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
         {
             id = "previous_experience",
             titleText = "Você usa, ou já usou, outro aplicativo para estudar bioquímica antes deste?",
-            helperText = "Se sim, qual aplicativo",
-            feedbackAnswerType = FeedbackAnswerType.Toggle,
+            feedbackAnswerType = FeedbackAnswerType.Text,
             isRequired = false,
-            category = "Perfil do Usuário",
-            toggleTrueLabel = "Sim",
-            toggleFalseLabel = "Não"
+            category = "Experiência com o Aplicativo",
+            maxCharacters = 1000,
+            placeholderText = "Se sim, qual aplicativo?"
         },
         new FeedbackQuestion
         {
@@ -118,19 +117,10 @@ public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
             feedbackAnswerType = FeedbackAnswerType.Text,
             isRequired = false,
             category = "Engajamento e Estratégias de Uso",
-            maxCharacters = 300
+            maxCharacters = 300,
+            placeholderText = "Por favor, comente..."
         },
-        new FeedbackQuestion
-        {
-            id = "session_duration",
-            titleText = "Quanto tempo, em média, você usava o aplicativo por sessão?",
-            feedbackAnswerType = FeedbackAnswerType.Text,
-            isRequired = false,
-            category = "Engajamento e Estratégias de Uso",
-            maxCharacters = 100,
-            placeholderText = "Ex: 5-15 min, 15-30 min, etc."
-        },
-        
+
         // Sugestões e Comentários
         new FeedbackQuestion
         {
@@ -139,7 +129,8 @@ public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
             feedbackAnswerType = FeedbackAnswerType.Text,
             isRequired = false,
             category = "Sugestões e Comentários",
-            maxCharacters = 500
+            maxCharacters = 500,
+            placeholderText = "Por favor, comente..."
         },
         new FeedbackQuestion
         {
@@ -148,7 +139,8 @@ public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
             feedbackAnswerType = FeedbackAnswerType.Text,
             isRequired = false,
             category = "Sugestões e Comentários",
-            maxCharacters = 500
+            maxCharacters = 500,
+            placeholderText = "Por favor, comente..."
         },
         new FeedbackQuestion
         {
@@ -167,7 +159,8 @@ public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
             feedbackAnswerType = FeedbackAnswerType.Text,
             isRequired = false,
             category = "Sugestões e Comentários",
-            maxCharacters = 500
+            maxCharacters = 500,
+            placeholderText = "Por favor, comente..."
         }
     };
 
