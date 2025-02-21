@@ -23035,7 +23035,7 @@ struct SpriteDataObject_t9D25639DD8A0581779E5EEBBD10DB66EB1A1978F  : public Runt
 	List_1_t4627353295F8415A37CF5B575A1EE871A8174EF0* ___frames;
 	Meta_tCCCCDDA9D2E4CBAC052062C6FBE9029798702B47 ___meta;
 };
-struct U3CSubmitFeedbackU3Ed__36_tC9CA7D5A966ABB0EF83658F0A2BED8E10993808D 
+struct U3CSubmitFeedbackU3Ed__37_t6FC5BB203F518AB901B4277CDE65FA5549D5E536 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_1_t651E7BA5C7209C40335555F361280911CF711AAA ___U3CU3Et__builder;
@@ -26565,7 +26565,7 @@ struct TransactionCallbackDelegate_t1609743C8223499A75D806BA9B6613C9E88719C9  : 
 struct BuiltInUriParser_t10EEE60CFC0DBDCA1FE4288FE19E87DA97BDFF2C  : public UriParser_t920B0868286118827C08B08A15A9456AF6C19D81
 {
 };
-struct U3CHandleSubmitFeedbackU3Ed__35_t129F6E3555CDA4D0C6F0192C76625F56E9BFFB12 
+struct U3CHandleSubmitFeedbackU3Ed__36_tC9739C515EC3C22762D9691D69595B6738096E45 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_t7A5128C134547B5918EB1AA24FE47ED4C1DF3F06 ___U3CU3Et__builder;
@@ -28794,6 +28794,7 @@ struct UserFeedbackManager_tFF666B389E89EFDDBCA303576216B79EC93FE424  : public M
 	Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* ___prevButton;
 	Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* ___submitButton;
 	Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* ___backButton;
+	TopBarUIManager_t6DEE3A6E3DB86C3D488928002B44BC4831197D86* ___topBarManager;
 	float ___spinnerRotationSpeed;
 	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ___loadingSpinner;
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___logoLoading;
@@ -31825,7 +31826,7 @@ struct U3CU3Ec_t45BBC976D9C98C8E40A99BAAFA23D3C74BA8F311_StaticFields
 struct U3CU3Ec_t7D95B781E075ACE93B7F1999C9C37503F26469B2_StaticFields
 {
 	U3CU3Ec_t7D95B781E075ACE93B7F1999C9C37503F26469B2* ___U3CU3E9;
-	Comparison_1_t5F397A068FF2597296B19C993C3406CCE0C5CEFF* ___U3CU3E9__27_0;
+	Comparison_1_t5F397A068FF2597296B19C993C3406CCE0C5CEFF* ___U3CU3E9__28_0;
 };
 struct TableEntry_tC168732547D3913880E602CC895BCCDAED550A04_StaticFields
 {
@@ -34414,9 +34415,9 @@ const Il2CppTypeDefinitionSizes g_typeDefinitionSize6089 = { sizeof(QuestionsLoa
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6090;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize6090 = { sizeof(U3CU3Ec_t7D95B781E075ACE93B7F1999C9C37503F26469B2), -1, sizeof(U3CU3Ec_t7D95B781E075ACE93B7F1999C9C37503F26469B2_StaticFields), 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6091;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6091 = { sizeof(U3CHandleSubmitFeedbackU3Ed__35_t129F6E3555CDA4D0C6F0192C76625F56E9BFFB12)+ sizeof(RuntimeObject), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6091 = { sizeof(U3CHandleSubmitFeedbackU3Ed__36_tC9739C515EC3C22762D9691D69595B6738096E45)+ sizeof(RuntimeObject), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6092;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6092 = { sizeof(U3CSubmitFeedbackU3Ed__36_tC9CA7D5A966ABB0EF83658F0A2BED8E10993808D)+ sizeof(RuntimeObject), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6092 = { sizeof(U3CSubmitFeedbackU3Ed__37_t6FC5BB203F518AB901B4277CDE65FA5549D5E536)+ sizeof(RuntimeObject), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6093;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize6093 = { sizeof(UserFeedbackManager_tFF666B389E89EFDDBCA303576216B79EC93FE424), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6094;
