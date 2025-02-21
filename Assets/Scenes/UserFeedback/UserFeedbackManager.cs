@@ -1,16 +1,25 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Firebase.Firestore;
+using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Firebase.Firestore;
 
 public class UserFeedbackManager : MonoBehaviour
 {
     [Header("Configuração")]
     [SerializeField] private Transform questionsContainer;
-    [SerializeField] private GameObject nextButton;
-    [SerializeField] private GameObject prevButton;
-    [SerializeField] private GameObject submitButton;
+    [SerializeField] private CanvasGroup questionsCanvasGroup;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button prevButton;
+    [SerializeField] private Button submitButton;
+    [SerializeField] private Button backButton;
+
+    [Header("Loading Spinner Configuration")]
+    [SerializeField] private float spinnerRotationSpeed = 100f;
+    [SerializeField] private Image loadingSpinner;
+    [SerializeField] private GameObject logoLoading;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject textQuestionPrefab;
@@ -27,11 +36,6 @@ public class UserFeedbackManager : MonoBehaviour
     private int currentPageIndex = 0;
     private List<FeedbackQuestion> allQuestions = new List<FeedbackQuestion>();
 
-    [System.Serializable] public class QuestionChangedEvent : UnityEvent<int, FeedbackQuestion> { }
-    [System.Serializable] public class QuestionsLoadedEvent : UnityEvent<List<FeedbackQuestion>> { }
-    public QuestionChangedEvent OnQuestionChanged = new QuestionChangedEvent();
-    public QuestionsLoadedEvent OnQuestionsLoaded = new QuestionsLoadedEvent();
-
     public FeedbackQuestion GetQuestionAtIndex(int index)
     {
         if (index >= 0 && index < allQuestions.Count)
@@ -43,7 +47,25 @@ public class UserFeedbackManager : MonoBehaviour
 
     private void Start()
     {
-        // Encontra o banco de dados de feedback na cena
+        logoLoading.SetActive(false);
+        if (questionsContainer == null)
+        {
+            Debug.LogError("QuestionsContainer não foi atribuído no Inspector!");
+            return;
+        }
+
+        if (questionsCanvasGroup == null)
+        {
+            Debug.LogError("QuestionsCanvasGroup não foi atribuído no Inspector!");
+            return;
+        }
+
+        if (nextButton == null || prevButton == null || submitButton == null || backButton == null)
+        {
+            Debug.LogError("Um ou mais botões de navegação não foram atribuídos no Inspector!");
+            return;
+        }
+
         currentDatabase = FindFirstObjectByType<UserFeedbackQuestionsDatabase>();
         if (currentDatabase == null)
         {
@@ -52,14 +74,50 @@ public class UserFeedbackManager : MonoBehaviour
         }
 
         allQuestions = currentDatabase.GetQuestions();
+        if (allQuestions == null || allQuestions.Count == 0)
+        {
+            Debug.LogError("Nenhuma questão encontrada no banco de dados!");
+            return;
+        }
+
+        backButton.onClick.AddListener(OnBackButtonClick);
+
         InstantiateQuestions();
         UpdateNavigationButtons();
-        OnQuestionsLoaded.Invoke(allQuestions);
+    }
+
+    private void Update()
+    {
+        if (loadingSpinner != null && logoLoading.activeSelf)
+        {
+            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private void ShowLoading(bool show)
+    {
+        if (logoLoading != null)
+            logoLoading.SetActive(show);
+
+        if (questionsCanvasGroup != null)
+        {
+            questionsCanvasGroup.alpha = show ? 0f : 1f;
+            questionsCanvasGroup.interactable = !show;
+            questionsCanvasGroup.blocksRaycasts = !show;
+        }
+
+        if (nextButton != null)
+            nextButton.interactable = !show;
+        if (prevButton != null)
+            prevButton.interactable = !show;
+        if (submitButton != null)
+            submitButton.interactable = !show;
+        if (backButton != null)
+            backButton.interactable = !show;
     }
 
     private void InstantiateQuestions()
     {
-        // Limpa qualquer questão anterior
         foreach (Transform child in questionsContainer)
         {
             Destroy(child.gameObject);
@@ -69,11 +127,9 @@ public class UserFeedbackManager : MonoBehaviour
         List<FeedbackQuestion> sortedQuestions = allQuestions;
         if (groupByCategory)
         {
-            // Organiza as perguntas por categoria
             sortedQuestions.Sort((a, b) => string.Compare(a.category, b.category));
         }
 
-        // Instancia as questões
         foreach (var question in sortedQuestions)
         {
             GameObject prefab = null;
@@ -103,7 +159,6 @@ public class UserFeedbackManager : MonoBehaviour
             }
         }
 
-        // Mostra apenas as questões da página atual
         UpdateQuestionsVisibility();
     }
 
@@ -120,11 +175,19 @@ public class UserFeedbackManager : MonoBehaviour
 
     private void UpdateNavigationButtons()
     {
-        prevButton.SetActive(currentPageIndex > 0);
+        if (prevButton != null)
+            prevButton.gameObject.SetActive(currentPageIndex > 0);
 
         bool isLastPage = (currentPageIndex + 1) * questionsPerPage >= questionControllers.Count;
-        nextButton.SetActive(!isLastPage);
-        submitButton.SetActive(isLastPage);
+
+        if (nextButton != null)
+            nextButton.gameObject.SetActive(!isLastPage);
+
+        if (submitButton != null)
+            submitButton.gameObject.SetActive(isLastPage);
+
+        if (backButton != null)
+            backButton.gameObject.SetActive(!isLastPage);
     }
 
     public void NextPage()
@@ -133,14 +196,22 @@ public class UserFeedbackManager : MonoBehaviour
         {
             CollectCurrentPageAnswers();
             currentPageIndex++;
-            UpdateQuestionsVisibility();
-            UpdateNavigationButtons();
 
-            int startIndex = currentPageIndex * questionsPerPage;
-            if (startIndex < questionControllers.Count)
+            // Verifica se há controladores antes de atualizar
+            if (questionControllers != null && questionControllers.Count > 0)
             {
-                var currentQuestion = allQuestions[startIndex];
-                OnQuestionChanged.Invoke(startIndex, currentQuestion);
+                UpdateQuestionsVisibility();
+                UpdateNavigationButtons();
+
+                int startIndex = currentPageIndex * questionsPerPage;
+                if (startIndex < questionControllers.Count && allQuestions != null && startIndex < allQuestions.Count)
+                {
+                    var currentQuestion = allQuestions[startIndex];
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Não há questões para avançar");
             }
         }
     }
@@ -180,36 +251,117 @@ public class UserFeedbackManager : MonoBehaviour
         }
     }
 
-    public async void SubmitFeedback()
+    public void OnSubmitButtonClick()
     {
-        if (ValidateCurrentPage())
+        if (submitButton != null)
+            submitButton.interactable = false;
+
+        _ = HandleSubmitFeedback();
+    }
+
+    private async Task HandleSubmitFeedback()
+    {
+        ShowLoading(true);
+
+        try
         {
-            CollectCurrentPageAnswers();
-
-            // Adiciona metadados
-            feedbackResults["submissionDate"] = DateTime.UtcNow;
-            feedbackResults["databaseName"] = currentDatabase.GetDatabaseName();
-
-            try
+            if (UserDataStore.CurrentUserData == null)
             {
-                FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-                await db.Collection("feedback").AddAsync(feedbackResults);
-                Debug.Log("Feedback enviado com sucesso!");
-
-                // Mostra tela de agradecimento ou volta para menu principal
-                ShowThankYouScreen();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Erro ao enviar feedback: {e.Message}");
+                Debug.LogError("UserData não inicializado!");
                 ShowErrorScreen();
+                return;
             }
+
+            bool success = await SubmitFeedback();
+
+            if (success)
+            {
+                Debug.Log("Feedback submetido com sucesso");
+                NavigationManager.Instance.NavigateTo("ProfileScene");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro durante o envio do feedback: {e.Message}");
+            ShowErrorScreen();
+        }
+        finally
+        {
+            ShowLoading(false);
         }
     }
 
-    private void ShowThankYouScreen()
+    public async Task<bool> SubmitFeedback()
     {
-        // Implementar lógica para mostrar tela de agradecimento
+        if (!ValidateCurrentPage())
+            return false;
+
+        string userId = UserDataStore.CurrentUserData.UserId;
+
+        try
+        {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+            DocumentReference userFeedbackDoc = db.Collection("UserFeedback").Document(userId);
+            DocumentSnapshot docSnapshot = await userFeedbackDoc.GetSnapshotAsync();
+
+            if (docSnapshot.Exists)
+            {
+                CollectionReference historyCollection = userFeedbackDoc.Collection("history");
+                Dictionary<string, object> currentData = docSnapshot.ToDictionary();
+                currentData["isLatest"] = false;
+                await historyCollection.AddAsync(currentData);
+            }
+
+            CollectCurrentPageAnswers();
+            feedbackResults["submissionDate"] = DateTime.UtcNow;
+            feedbackResults["databaseName"] = currentDatabase.GetDatabaseName();
+            feedbackResults["userId"] = userId;
+            feedbackResults["isLatest"] = true;
+            feedbackResults["appVersion"] = Application.version;
+            feedbackResults["userDaysActive"] = CalculateDaysActive();
+
+            await userFeedbackDoc.SetAsync(feedbackResults);
+
+            Debug.Log($"UserFeedback enviado com sucesso para o usuário: {userId}");
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao enviar UserFeedback: {e.Message}");
+            ShowErrorScreen();
+            return false;
+        }
+    }
+
+    private int CalculateDaysActive()
+    {
+        try
+        {
+            DateTime createdDate = UserDataStore.CurrentUserData.GetCreatedDateTime();
+            TimeSpan timeUsing = DateTime.UtcNow - createdDate;
+            return Mathf.Max(1, (int)timeUsing.TotalDays);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao calcular dias ativos: {e.Message}");
+            return 1;
+        }
+    }
+
+    public void OnBackButtonClick()
+    {
+        ClearAllAnswers();
+        NavigationManager.Instance.NavigateTo("ProfileScene");
+    }
+
+    private void ClearAllAnswers()
+    {
+        feedbackResults.Clear();
+
+        foreach (var controller in questionControllers)
+        {
+            controller.ClearAnswer();
+        }
     }
 
     private void ShowErrorScreen()
@@ -217,3 +369,5 @@ public class UserFeedbackManager : MonoBehaviour
         // Implementar lógica para mostrar erro
     }
 }
+
+

@@ -176,7 +176,7 @@ public class UserFeedbackQuestionsDatabase : MonoBehaviour, IFeedbackDatabase
 
     public string GetDatabaseName()
     {
-        return "AppUsabilityFeedbackDatabase";
+        return "UserFeedbackQuestionsDatabase";
     }
 
     public string GetDatabaseDescription()

@@ -7,4 +7,5 @@ public interface IFeedbackQuestionController
     bool Validate();
     KeyValuePair<string, object> GetResult();
     void SetVisible(bool visible);
+    void ClearAnswer();
 }

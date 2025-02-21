@@ -21,10 +21,6 @@ public class UserFeedbackProgressIndicator : MonoBehaviour
             Debug.LogError("FeedbackProgressIndicator: Não foi possível encontrar o UserFeedbackManager");
             return;
         }
-
-        // Inscreve-se para eventos de navegação
-        feedbackManager.OnQuestionChanged.AddListener(UpdateProgress);
-        feedbackManager.OnQuestionsLoaded.AddListener(InitializeProgressIndicator);
     }
 
     public void InitializeProgressIndicator(List<FeedbackQuestion> questions)
