@@ -26,11 +26,11 @@ public class BioBlocksSettings : MonoBehaviour
     }
 
     #if DEBUG
-        public const string VERSION = "2.3.0-dev";
+        public const string VERSION = "2.2.0-dev";
         public const bool IS_DEBUG = true;
         public const string ENVIRONMENT = "Development";
     #else
-        public const string VERSION = "2.3.0";
+        public const string VERSION = "2.2.0";
         public const bool IS_DEBUG = false;
         public const string ENVIRONMENT = "Production";
     #endif
