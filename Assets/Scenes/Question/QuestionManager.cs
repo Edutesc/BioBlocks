@@ -145,22 +145,14 @@ public class QuestionManager : MonoBehaviour
         try
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
-
-            // Mostrar conteúdo da questão
             questionUIManager.ShowQuestion(currentQuestion);
-
-            // Configurar botões de resposta
             answerManager.SetupAnswerButtons(currentQuestion);
-
-            // Ativar CanvasGroups apropriados - agora passamos dois parâmetros
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
                 isImageAnswer: currentQuestion.isImageAnswer
             );
 
-            // Iniciar timer
             timerManager.StartTimer();
-
             Debug.Log($"Questão iniciada - isImageQuestion: {currentQuestion.isImageQuestion}, isImageAnswer: {currentQuestion.isImageAnswer}");
         }
         catch (Exception e)
@@ -210,8 +202,8 @@ public class QuestionManager : MonoBehaviour
 
         if (!currentSession.IsLastQuestion())
         {
-            await transitionManager.TransitionToNextQuestion();
             currentSession.NextQuestion();
+            await transitionManager.TransitionToNextQuestion();
             StartQuestion();
         }
         else
