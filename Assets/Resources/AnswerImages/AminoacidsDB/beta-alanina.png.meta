@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: de2ce8f9cd5c54e3fbea5de513034136
+guid: a667c26309f8946d8b94e9f943e4766f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3293700300792577526
-    second: alanina_0
+      213: -3079259268543469641
+    second: beta-alanina_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: alanina_0
+      name: beta-alanina_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a0249a6f60d6a42d0800000000000000
-      internalID: -3293700300792577526
+      spriteID: 7b7232782064445d0800000000000000
+      internalID: -3079259268543469641
       vertices: []
       indices: 
       edges: []

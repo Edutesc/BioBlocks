@@ -69,7 +69,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "AnswerImages/AminoacidsDB/alanina",
                 "AnswerImages/AminoacidsDB/3-amino-2-butanona",
-                "AnswerImages/AminoacidsDB/beta_alanina",
+                "AnswerImages/AminoacidsDB/beta-alanina",
                 "AnswerImages/AminoacidsDB/2-amino-propanoato-de-metila"
             },
             correctIndex = 1,
