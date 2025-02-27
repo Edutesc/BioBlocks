@@ -39,10 +39,10 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "AminoacidQuestionDatabase",
             questionText = "Identifique o aminoácido cuja cadeia lateral apresenta característica polar não carregada.",
             answers = new string[] {
-                "AnswerImages/treonina",
-                "AnswerImages/glicina",
-                "AnswerImages/histidina",
-                "AnswerImages/alanina"
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/glicina",
+                "AnswerImages/AminoacidsDB/histidina",
+                "AnswerImages/AminoacidsDB/alanina"
             },
             correctIndex = 0,
             questionNumber = 3,
