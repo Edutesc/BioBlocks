@@ -107,16 +107,17 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Qual aminoácido possui um anel aromático no radical R?",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Fenilalanina",
-                "Serina"
+               "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/cisteina",
+                "AnswerImages/AminoacidsDB/d-alanina"
             },
-            correctIndex = 2,
+            correctIndex = 3,
             questionNumber = 8,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/AminoacidsDB/ImageQuestionContainer8"
         },
         new Question
         {
