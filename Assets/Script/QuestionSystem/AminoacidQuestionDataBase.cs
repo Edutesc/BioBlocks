@@ -65,14 +65,14 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Identifique o alfa-aminoácido",
+            questionText = "Identifique o alfa-aminoácido abaixo",
             answers = new string[] {
                 "AnswerImages/AminoacidsDB/alanina",
                 "AnswerImages/AminoacidsDB/3-amino-2-butanona",
                 "AnswerImages/AminoacidsDB/beta-alanina",
                 "AnswerImages/AminoacidsDB/2-amino-propanoato-de-metila"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 5,
             isImageAnswer = true
         },
@@ -93,16 +93,16 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com cadeias laterais aromáticas contêm:",
+            questionText = "Identifique o aminoácido que absorve o comprimento de onda de 280 nm.",
             answers = new string[] {
-                "Anéis de hidrocarbonetos.",
-                "Cadeias alifáticas ramificadas.",
-                "Grupos hidroxila.",
-                "Grupos sulfidrila."
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/cisteina",
+                "AnswerImages/AminoacidsDB/fenilalanina"
             },
-            correctIndex = 0,
+            correctIndex = 3,
             questionNumber = 7,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
