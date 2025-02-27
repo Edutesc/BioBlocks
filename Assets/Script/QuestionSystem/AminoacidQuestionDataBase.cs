@@ -55,7 +55,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "O grupo amino.",
                 "O grupo carboxila.",
-                "O radical R.",
+                "A sua cadeia lateral (R).",
                 "O átomo de carbono alfa."
             },
             correctIndex = 2,
@@ -65,16 +65,16 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Qual aminoácido possui o menor radical R?",
+            questionText = "Identifique o alfa-aminoácido",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Valina",
-                "Leucina"
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/3-amino-2-butanona",
+                "AnswerImages/AminoacidsDB/beta_alanina",
+                "AnswerImages/AminoacidsDB/2-amino-propanoato-de-metila"
             },
             correctIndex = 1,
             questionNumber = 5,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
@@ -306,7 +306,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Uma molécula com um carbono quiral é:",
             answers = new string[] {
                 "Apolar",
-                "Quiral",
+                "Assimétrica",
                 "Linear",
                 "Simétrica"
             },
