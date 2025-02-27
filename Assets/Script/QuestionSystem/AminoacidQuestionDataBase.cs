@@ -122,16 +122,17 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A tirosina difere da fenilalanina pela presença de:",
             answers = new string[] {
-                "Um grupo metil.",
-                "Um grupo sulfidrila.",
-                "Um grupo hidroxila.",
-                "Um anel aromático."
+                "pH = 2,3",
+                "pH = 9,7",
+                "pH = 6",
+                "pH = 0"
             },
             correctIndex = 2,
             questionNumber = 9,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer9"
         },
         new Question
         {
