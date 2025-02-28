@@ -108,7 +108,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         {
             questionDatabankName = "AminoacidQuestionDatabase",
             answers = new string[] {
-               "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/alanina",
                 "AnswerImages/AminoacidsDB/treonina",
                 "AnswerImages/AminoacidsDB/cisteina",
                 "AnswerImages/AminoacidsDB/d-alanina"
@@ -137,16 +137,17 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com grupos hidroxila no radical R são:",
             answers = new string[] {
-                "Apolares.",
-                "Polares.",
-                "Carregados positivamente.",
-                "Carregados negativamente."
+                "AnswerImages/AminoacidsDB/isoleucina",
+                "AnswerImages/AminoacidsDB/isoleucina_carga0",
+                "AnswerImages/AminoacidsDB/isoleucina_cargaPlus",
+                "AnswerImages/AminoacidsDB/isoleucina_cargaMinus"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 10,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer10"
         },
         new Question
         {
