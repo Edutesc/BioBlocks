@@ -149,33 +149,35 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             isImageQuestion = true,
             questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer10"
         },
-        new Question
+         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com grupos sulfidrila no radical R são:",
             answers = new string[] {
-                "Apolares.",
-                "Polares.",
-                "Carregados positivamente.",
-                "Carregados negativamente."
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/prolina_carga0",
+                "AnswerImages/AminoacidsDB/prolina_cargaPlus",
+                "AnswerImages/AminoacidsDB/prolina_cargaMinus"
             },
             correctIndex = 1,
             questionNumber = 11,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer11"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos contêm enxofre em seus radicais R?",
             answers = new string[] {
-                "Serina e Treonina",
-                "Metionina e Cisteína",
-                "Asparagina e Glutamina",
-                "Lisina e Arginina"
+                "pH = 5,5",
+                "pH = 9,0",
+                "pH = 10,7",
+                "pH = 12,5"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 12,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer12"
         },
         new Question
         {
