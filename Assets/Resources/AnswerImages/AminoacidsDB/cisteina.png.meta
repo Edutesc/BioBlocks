@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cisteina_0: -4803975237149117993
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

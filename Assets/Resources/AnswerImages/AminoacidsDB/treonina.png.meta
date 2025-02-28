@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      treonina_0: 4195662751767183566
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

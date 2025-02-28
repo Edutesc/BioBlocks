@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      beta-alanina_0: -3079259268543469641
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

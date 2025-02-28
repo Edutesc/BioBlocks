@@ -182,16 +182,17 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos são considerados ácidos?",
             answers = new string[] {
-                "Lisina e Arginina",
-                "Aspartato e Glutamato",
-                "Serina e Treonina",
-                "Fenilalanina e Tirosina"
+                "pH = 3,0",
+                "pH = 5,5",
+                "pH = 3,9",
+                "pH = 9,8"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 13,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer13"
         },
         new Question
         {
@@ -210,54 +211,54 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos são considerados básicos?",
+            questionText = "Identifique abaixo o aminoácido cuja cadeia lateral é considerada básica",
             answers = new string[] {
-                "Aspartato e Glutamato",
-                "Lisina, Arginina e Histidina",
-                "Serina e Treonina",
-                "Fenilalanina e Tirosina"
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/isoleucina",
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/arginina"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 15,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A lisina, arginina e histidina possuem:",
+            questionText = "Identifique abaixo o aminoácido cuja cadeia lateral é considerada ácida",
             answers = new string[] {
-                "Grupos carboxila em seus radicais R.",
-                "Grupos amino em seus radicais R.",
-                "Grupos sulfidrila em seus radicais R.",
-                "Anéis aromáticos em seus radicais R."
+                "AnswerImages/AminoacidsDB/fenilalanina",
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/arginina"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 16,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Qual aminoácido forma um anel com seu grupamento R?",
+             questionText = "Identifique abaixo o aminoácido cuja cadeixa lateral apresenta um grupo funcional álcool.",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Prolina",
-                "Serina"
+                "AnswerImages/AminoacidsDB/tirosina",
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/leucina"
             },
             correctIndex = 2,
             questionNumber = 17,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com carga líquida nula em pH 7 são:",
+            questionText = "Em pH ácido, o estado de protonação da maioria dos aminoácidos presentes na solução terá carga líquida:",
             answers = new string[] {
-                "Completamente protonados.",
-                "Completamente desprotonados.",
-                "Parcialmente protonados.",
-                "Não possuem carga."
+                "Negativa",
+                "Neutra",
+                "Positiva",
+                "Variável"
             },
             correctIndex = 2,
             questionNumber = 18,
@@ -266,21 +267,21 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em pH ácido, a maioria dos aminoácidos terá carga líquida:",
+             questionText = "Identifique abaixo o aminoácido que absorve luz de comprimento de onda 280 nm.",
             answers = new string[] {
-                "Negativa",
-                "Neutra",
-                "Positiva",
-                "Variável"
+                "AnswerImages/AminoacidsDB/triptofano",
+                "AnswerImages/AminoacidsDB/glutamina",
+                "AnswerImages/AminoacidsDB/glicina",
+                "AnswerImages/AminoacidsDB/alanina"
             },
-            correctIndex = 2,
+            correctIndex = 0,
             questionNumber = 19,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em pH básico, a maioria dos aminoácidos terá carga líquida:",
+            questionText = "Em pH básico, o estado de protonação da maioria dos aminoácidos presentes na solução terá carga líquida:",
             answers = new string[] {
                 "Positiva",
                 "Neutra",
@@ -392,72 +393,75 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A fenilcetonúria é causada por uma deficiência na enzima que metaboliza:",
             answers = new string[] {
-                "Tirosina",
-                "Fenilalanina",
-                "Triptofano",
-                "Glicina"
+                "Uma amida",
+                "H<sup><size=150%> +</size></sup>",
+                "Água",
+                "OH<sup><size=150%> -</size></sup>"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 28,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer28"
         },
-        new Question
+       new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "O triptofano é um precursor de:",
+            questionText = "Qual é o nome da ligação que ocorre entre os aminoácidos para forma proteínas",
             answers = new string[] {
-                "Hormônios",
-                "Neurotransmissores",
-                "Vitaminas",
-                "Todas as anteriores."
+                "Ponte de hidrogênio",
+                "Ligação proteica",
+                "Ligação peptídica",
+                "Ligação eletrostática"
             },
-            correctIndex = 3,
+            correctIndex = 2,
             questionNumber = 29,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos absorvem luz ultravioleta?",
+            questionText = "Qual o nome do grupo funcional é criado pela condensação de dois aminoácidos para formar um peptídeo?",
             answers = new string[] {
-                "Alanina e Valina",
-                "Fenilalanina, Tirosina e Triptofano",
-                "Serina e Treonina",
-                "Asparagina e Glutamina"
+                "Grupo funcional álcool",
+                "Grupo funcional amina",
+                "Grupo funcional ácido carboxílico",
+                "Grupo funcional amida"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 30,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A serina difere da alanina pela presença de:",
             answers = new string[] {
-                "Um grupo metil.",
-                "Um grupo sulfidrila.",
-                "Um grupo hidroxila.",
-                "Um anel aromático."
+                "2 aminoácidos",
+                "3 aminoácidos",
+                "4 aminoácidos",
+                "5 aminoácidos"
             },
             correctIndex = 2,
             questionNumber = 31,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer31"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A treonina difere da serina pela presença de:",
             answers = new string[] {
-                "Um grupo hidroxila.",
-                "Um grupo metil.",
-                "Um grupo sulfidrila.",
-                "Um anel aromático."
+                "Aminoácido",
+                "Dipeptídeo",
+                "Tripeptídeo",
+                "Tetrapeptídeo"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 32,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer32"
         },
         new Question
         {
