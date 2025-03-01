@@ -209,7 +209,7 @@ public class AnsweredQuestionsManager : MonoBehaviour
             Debug.LogError($"Erro em ForceUpdate: {e.Message}");
         }
     }
-
+    
     private void UpdateUI(Dictionary<string, int> answeredCounts)
     {
         if (SceneManager.GetActiveScene().name != "PathwayScene")
@@ -224,14 +224,19 @@ public class AnsweredQuestionsManager : MonoBehaviour
             string databankName = kvp.Key;
             int count = kvp.Value;
 
-            // Validar novamente o count
-            if (count > 50)
+            // Obter o número total de questões neste banco de dados
+            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(databankName);
+
+            // Se não tiver informações do banco de dados, usar o valor padrão (para compatibilidade com bancos de dados antigos)
+            if (totalQuestions <= 0)
             {
-                Debug.LogError($"ERRO: Count inválido detectado em UpdateUI para {databankName}: {count}");
-                count = 50;
+                totalQuestions = 50; // Valor padrão
+                Debug.LogWarning($"Número total de questões para {databankName} não encontrado. Usando valor padrão: {totalQuestions}");
             }
 
-            int totalQuestions = 50;
+            // Garantir que a contagem não exceda o total
+            count = Mathf.Min(count, totalQuestions);
+
             int percentageAnswered = (int)Math.Floor((count * 100.0) / totalQuestions);
 
             // Garantir que a porcentagem não exceda 100%
@@ -254,22 +259,22 @@ public class AnsweredQuestionsManager : MonoBehaviour
             }
 
             tmpText.text = $"{percentageAnswered}%";
-            Debug.Log($"DatabankName: {databankName}, Count: {count}, Percentage: {percentageAnswered}%");
+            Debug.Log($"DatabankName: {databankName}, Count: {count}/{totalQuestions}, Percentage: {percentageAnswered}%");
         }
 
         // Verificar e atualizar bancos de dados sem respostas
         string[] allDatabases = new string[]
         {
-            "AcidBaseBufferQuestionDatabase",
-            "AminoacidQuestionDatabase",
-            "BiochemistryIntroductionQuestionDatabase",
-            "CarbohydratesQuestionDatabase",
-            "EnzymeQuestionDatabase",
-            "LipidsQuestionDatabase",
-            "MembranesQuestionDatabase",
-            "NucleicAcidsQuestionDatabase",
-            "ProteinQuestionDatabase",
-            "WaterQuestionDatabase"
+        "AcidBaseBufferQuestionDatabase",
+        "AminoacidQuestionDatabase",
+        "BiochemistryIntroductionQuestionDatabase",
+        "CarbohydratesQuestionDatabase",
+        "EnzymeQuestionDatabase",
+        "LipidsQuestionDatabase",
+        "MembranesQuestionDatabase",
+        "NucleicAcidsQuestionDatabase",
+        "ProteinQuestionDatabase",
+        "WaterQuestionDatabase"
         };
 
         foreach (string databankName in allDatabases)
