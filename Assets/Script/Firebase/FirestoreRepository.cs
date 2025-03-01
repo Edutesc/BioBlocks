@@ -226,20 +226,91 @@ public class FirestoreRepository : MonoBehaviour
         }
     }
 
-    public void ListenToUserScore(string userId, Action<int> onScoreChanged)
+    public async Task UpdateUserData(UserData userData)
+    {
+        try
+        {
+            if (!isInitialized) throw new System.Exception("Firestore não inicializado");
+
+            if (string.IsNullOrEmpty(userData.UserId))
+                throw new ArgumentException("UserId não pode ser vazio");
+
+            DocumentReference docRef = db.Collection("Users").Document(userData.UserId);
+
+            // Usar o método ToDictionary para garantir consistência nos campos
+            Dictionary<string, object> userDataDict = userData.ToDictionary();
+
+            await docRef.UpdateAsync(userDataDict);
+            Debug.Log($"Dados do usuário {userData.UserId} atualizados com sucesso");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Erro ao atualizar dados do usuário: {e.Message}");
+            throw;
+        }
+    }
+
+    public void ListenToUserData(string userId, Action<int> onScoreChanged = null, Action<Dictionary<string, List<int>>> onAnsweredQuestionsChanged = null)
     {
         db.Collection("Users").Document(userId)
-            .Listen(snapshot =>
+        .Listen(snapshot =>
+        {
+            if (snapshot.Exists)
             {
-                if (snapshot.Exists)
+                Dictionary<string, object> data = snapshot.ToDictionary();
+
+                // Processa alterações no Score
+                if (onScoreChanged != null && data.ContainsKey("Score"))
                 {
-                    Dictionary<string, object> data = snapshot.ToDictionary();
                     int newScore = Convert.ToInt32(data["Score"]);
                     UserDataStore.UpdateScore(newScore);
-                    onScoreChanged?.Invoke(newScore);
+                    onScoreChanged.Invoke(newScore);
                     Debug.Log($"Score atualizado do Firestore: {newScore}");
                 }
-            });
+
+                // Processa alterações em AnsweredQuestions
+                if (onAnsweredQuestionsChanged != null && data.ContainsKey("AnsweredQuestions"))
+                {
+                    try
+                    {
+                        Dictionary<string, List<int>> answeredQuestions = new Dictionary<string, List<int>>();
+                        var answeredQuestionsData = data["AnsweredQuestions"] as Dictionary<string, object>;
+
+                        if (answeredQuestionsData != null)
+                        {
+                            foreach (var kvp in answeredQuestionsData)
+                            {
+                                string databankName = kvp.Key;
+                                var questionsList = kvp.Value as IEnumerable<object>;
+
+                                if (questionsList != null)
+                                {
+                                    answeredQuestions[databankName] = questionsList
+                                        .Select(q => Convert.ToInt32(q))
+                                        .ToList();
+
+                                    // Atualiza o AnsweredQuestionsListStore
+                                    AnsweredQuestionsListStore.UpdateAnsweredQuestionsCount(
+                                        userId,
+                                        databankName,
+                                        answeredQuestions[databankName].Count
+                                    );
+
+                                    Debug.Log($"Questões respondidas atualizadas para {databankName}: {answeredQuestions[databankName].Count}");
+                                }
+                            }
+
+                            // Notifica o callback
+                            onAnsweredQuestionsChanged.Invoke(answeredQuestions);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError($"Erro ao processar AnsweredQuestions do Firestore: {ex.Message}");
+                    }
+                }
+            }
+        });
     }
 
     public async Task UpdateUserProgress(string userId, int progress)
@@ -395,6 +466,7 @@ public class FirestoreRepository : MonoBehaviour
             throw;
         }
     }
+
 }
 
 
