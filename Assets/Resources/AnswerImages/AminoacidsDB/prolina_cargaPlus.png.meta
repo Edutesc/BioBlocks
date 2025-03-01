@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ae9cb4e3946054588a4bce2bb2823578
+guid: aee07ee4448b44a398921a54679db866
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4836466599182851629
-    second: ImageQuestionContainer48_0
+      213: -4605869439247212278
+    second: prolina_cargaPlus_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ImageQuestionContainer48_0
+      name: prolina_cargaPlus_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 935
-        height: 288
+        width: 480
+        height: 473
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d2ed55c4fb49e1340800000000000000
-      internalID: 4836466599182851629
+      spriteID: a01a7dfd52aa410c0800000000000000
+      internalID: -4605869439247212278
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ImageQuestionContainer48_0: 4836466599182851629
+      prolina_cargaPlus_0: -4605869439247212278
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

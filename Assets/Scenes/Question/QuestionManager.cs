@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using QuestionSystem;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private QuestionScoreManager scoreManager;
 
     private QuestionSession currentSession;
+    private Question nextQuestionToShow;
 
     private void Start()
     {
@@ -93,6 +95,9 @@ public class QuestionManager : MonoBehaviour
     {
         timerManager.OnTimerComplete += HandleTimeUp;
         answerManager.OnAnswerSelected += CheckAnswer;
+
+        transitionManager.OnBeforeTransitionStart += PrepareNextQuestion;
+        transitionManager.OnTransitionMidpoint += ApplyPreparedQuestion;
     }
 
     private async void CheckAnswer(int selectedAnswerIndex)
@@ -140,17 +145,96 @@ public class QuestionManager : MonoBehaviour
         questionCanvasGroupManager.ShowAnswerFeedback(isCorrect, HexToColor("#D4EDDA"), HexToColor("#F8D7DA"));
     }
 
+    private async void PrepareNextQuestion()
+    {
+        if (!currentSession.IsLastQuestion())
+        {
+            // Avança para a próxima questão no objeto de sessão
+            currentSession.NextQuestion();
+
+            // Armazena a referência à próxima questão, mas ainda não a mostra
+            nextQuestionToShow = currentSession.GetCurrentQuestion();
+
+            // Pré-carrega quaisquer recursos necessários (imagens, etc.)
+            await PreloadQuestionResources(nextQuestionToShow);
+        }
+        else
+        {
+            // Se for a última questão, prepara para verificar e carregar mais
+            nextQuestionToShow = null;
+        }
+    }
+
+    private async Task PreloadQuestionResources(Question question)
+    {
+        // Usa o QuestionUIManager para pré-carregar imagens
+        if (question.isImageQuestion)
+        {
+            await questionUIManager.PreloadQuestionImage(question);
+        }
+
+        // Pré-configura os botões de resposta, se necessário
+        // Isso pode variar dependendo da sua implementação do AnswerManager
+        if (question.isImageAnswer)
+        {
+            // Se houver imagens nas respostas, você pode pré-carregá-las aqui
+            // Por exemplo: await answerManager.PreloadAnswerImages(question);
+        }
+    }
+
+    private void ApplyPreparedQuestion()
+    {
+        if (nextQuestionToShow != null)
+        {
+            answerManager.SetupAnswerButtons(nextQuestionToShow);
+            questionCanvasGroupManager.ShowQuestion(
+                isImageQuestion: nextQuestionToShow.isImageQuestion,
+                isImageAnswer: nextQuestionToShow.isImageAnswer
+            );
+            questionUIManager.ShowQuestion(nextQuestionToShow);
+            nextQuestionToShow = null;
+        }
+        else
+        {
+            StartCoroutine(HandleNoMoreQuestions());
+        }
+    }
+
+    private void CleanupPreloadedResources()
+    {
+        questionUIManager.ClearPreloadedResources();
+    }
+
+    private IEnumerator HandleNoMoreQuestions()
+    {
+        // Corrotina para executar o CheckAndLoadMoreQuestions de forma assíncrona
+        var task = CheckAndLoadMoreQuestions();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (currentSession != null && currentSession.GetCurrentQuestion() != null)
+        {
+            // Se novas questões foram carregadas, configura a UI
+            var newQuestion = currentSession.GetCurrentQuestion();
+            answerManager.SetupAnswerButtons(newQuestion);
+            questionCanvasGroupManager.ShowQuestion(
+                isImageQuestion: newQuestion.isImageQuestion,
+                isImageAnswer: newQuestion.isImageAnswer
+            );
+            questionUIManager.ShowQuestion(newQuestion);
+        }
+    }
+
     private void StartQuestion()
     {
         try
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
-            questionUIManager.ShowQuestion(currentQuestion);
             answerManager.SetupAnswerButtons(currentQuestion);
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
                 isImageAnswer: currentQuestion.isImageAnswer
             );
+            questionUIManager.ShowQuestion(currentQuestion);
 
             timerManager.StartTimer();
             Debug.Log($"Questão iniciada - isImageQuestion: {currentQuestion.isImageQuestion}, isImageAnswer: {currentQuestion.isImageAnswer}");
@@ -200,15 +284,25 @@ public class QuestionManager : MonoBehaviour
     {
         bottomBarManager.DisableNavigationButtons();
 
-        if (!currentSession.IsLastQuestion())
+        // Inicia a transição - a lógica de avançar a questão agora é tratada pelos eventos
+        await transitionManager.TransitionToNextQuestion();
+
+        // Inicia o timer para a nova questão
+        timerManager.StartTimer();
+    }
+
+    private void OnDestroy()
+    {
+        if (timerManager != null)
+            timerManager.OnTimerComplete -= HandleTimeUp;
+
+        if (answerManager != null)
+            answerManager.OnAnswerSelected -= CheckAnswer;
+
+        if (transitionManager != null)
         {
-            currentSession.NextQuestion();
-            await transitionManager.TransitionToNextQuestion();
-            StartQuestion();
-        }
-        else
-        {
-            await CheckAndLoadMoreQuestions();
+            transitionManager.OnBeforeTransitionStart -= PrepareNextQuestion;
+            transitionManager.OnTransitionMidpoint -= ApplyPreparedQuestion;
         }
     }
 

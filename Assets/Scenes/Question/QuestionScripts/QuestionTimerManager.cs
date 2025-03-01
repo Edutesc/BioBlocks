@@ -6,7 +6,7 @@ public class QuestionTimerManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject timePanel; // Referência ao TimePanel
-    [SerializeField] private float initialTime = 20f;
+    [SerializeField] private float initialTime = 30f;
     private float currentTime;
     private bool isRunning;
     

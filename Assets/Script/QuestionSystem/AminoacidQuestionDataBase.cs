@@ -442,7 +442,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "4 aminoácidos",
                 "5 aminoácidos"
             },
-            correctIndex = 2,
+            correctIndex = 3,
             questionNumber = 31,
             isImageQuestion = true,
             isImageAnswer = false,
@@ -672,7 +672,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Três Pontes Dissulfeto",
                 "Não há Pontes Dissulfeto"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 47,
             isImageQuestion = true,
             isImageAnswer = false,
@@ -687,7 +687,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Esturuta Terciária",
                 "Esturuta Quaternária"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 48,
             isImageQuestion = true,
             isImageAnswer = false,
@@ -717,10 +717,10 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Permitem que as proteínas interajam com outras moléculas hidrofóbicas",
                 "Estabilizam moléculas de água no interior das proteínas"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 50,
             isImageAnswer = false
-        },
+        }
         // new Question
         // {
         //     questionDatabankName = "AminoacidQuestionDatabase",

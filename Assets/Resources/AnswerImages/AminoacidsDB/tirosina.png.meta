@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tirosina_0: 7303092845378667130
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

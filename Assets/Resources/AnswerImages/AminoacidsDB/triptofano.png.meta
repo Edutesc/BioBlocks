@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      triptofano_0: 6890650881579861846
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
