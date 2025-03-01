@@ -293,37 +293,34 @@ public class QuestionManager : MonoBehaviour
         questionCanvasGroupManager.HideAnswerFeedback();
     }
 
-    // private async Task HandleNextQuestion()
-    // {
-    //     bottomBarManager.DisableNavigationButtons();
-
-    //     // Inicia a transição - a lógica de avançar a questão agora é tratada pelos eventos
-    //     await transitionManager.TransitionToNextQuestion();
-
-    //     // Inicia o timer para a nova questão
-    //     timerManager.StartTimer();
-    // }
-
     private async Task HandleNextQuestion()
     {
         bottomBarManager.DisableNavigationButtons();
 
+        // Verificar se estamos na última questão e todas foram respondidas
         if (currentSession.IsLastQuestion())
         {
+            // Verificar se todas as questões deste banco já foram respondidas
             string currentDatabaseName = loadManager.DatabankName;
             List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             int answeredCount = answeredQuestions.Count;
 
-            if (answeredCount >= 50)
+            // Se todas as questões foram respondidas, mostrar o feedback de conclusão
+            // sem iniciar a transição para a próxima questão
+            if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
             {
-                Debug.Log("HandleNextQuestion: Todas as questões respondidas. Exibindo feedback de conclusão.");
-                ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", true, true);
-                return; 
+                int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
+                Debug.Log($"HandleNextQuestion: Todas as {totalQuestions} questões respondidas. Exibindo feedback de conclusão.");
+                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+                return; // Importante: sair do método sem iniciar a transição
             }
         }
 
+        // Se não for a última questão ou ainda houver questões não respondidas,
+        // continuar com o fluxo normal de transição
         await transitionManager.TransitionToNextQuestion();
 
+        // Inicia o timer para a nova questão
         timerManager.StartTimer();
     }
 
@@ -354,51 +351,46 @@ public class QuestionManager : MonoBehaviour
 
             // Obter a lista de números de questões respondidas para esse banco de dados
             List<string> answeredQuestionsIds = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
+            int answeredCount = answeredQuestionsIds.Count;
 
-            // Converter para inteiros para facilitar a comparação
-            List<int> answeredQuestionNumbers = answeredQuestionsIds
-                .Select(id => int.TryParse(id, out int num) ? num : -1)
-                .Where(num => num != -1)
-                .ToList();
+            // Obter o número total de questões neste banco de dados
+            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
 
-            Debug.Log($"Questões respondidas: {string.Join(", ", answeredQuestionNumbers)}");
-            Debug.Log($"Total de questões respondidas: {answeredQuestionNumbers.Count}/50");
+            Debug.Log($"CheckAndLoadMoreQuestions: Banco {currentDatabaseName}, questões respondidas: {answeredCount}/{totalQuestions}");
 
-            // Se todas as 50 questões foram respondidas, mostrar feedback de conclusão
-            if (answeredQuestionNumbers.Count >= 50)
+            // Se todas as questões foram respondidas, mostrar feedback de conclusão
+            if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
             {
-                Debug.Log("Todas as 50 questões foram respondidas corretamente! Mostrando feedback de conclusão.");
-                ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", true, true);
+                Debug.Log($"Todas as {totalQuestions} questões foram respondidas corretamente! Mostrando feedback de conclusão.");
+                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
                 return;
             }
 
-            // Carregar todas as questões disponíveis para este conjunto
-            var allQuestions = await loadManager.LoadQuestionsForSet(currentSet);
+            // Se ainda há questões para responder, carregá-las
+            var newQuestions = await loadManager.LoadQuestionsForSet(currentSet);
 
-            if (allQuestions == null || allQuestions.Count == 0)
+            if (newQuestions == null || newQuestions.Count == 0)
             {
-                Debug.LogWarning("Não foi possível carregar questões para este conjunto");
+                Debug.LogWarning("Não foi possível carregar novas questões");
+                ShowAnswerFeedback("Não foi possível carregar mais questões. Volte ao menu principal.", false, true);
                 return;
             }
 
-            // Filtrar apenas as questões que ainda não foram respondidas
-            var unansweredQuestions = allQuestions
-                .Where(q => !answeredQuestionNumbers.Contains(q.questionNumber))
+            // Checar se há questões não respondidas
+            var unansweredQuestions = newQuestions
+                .Where(q => !answeredQuestionsIds.Contains(q.questionNumber.ToString()))
                 .ToList();
 
-            Debug.Log($"Questões não respondidas: {unansweredQuestions.Count}");
-
-            if (unansweredQuestions.Count > 0)
+            if (unansweredQuestions.Count == 0)
             {
-                // Ainda há questões para responder
-                currentSession = new QuestionSession(unansweredQuestions);
-                StartQuestion();
+                Debug.Log("Não há mais questões pendentes! Mostrando feedback de conclusão.");
+                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
             }
             else
             {
-                // Não há mais questões para responder - todas foram respondidas
-                Debug.Log("Não há mais questões pendentes! Mostrando feedback de conclusão.");
-                ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", true, true);
+                // Ainda há questões não respondidas
+                currentSession = new QuestionSession(newQuestions);
+                StartQuestion();
             }
         }
         catch (Exception ex)

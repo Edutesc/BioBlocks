@@ -9,19 +9,19 @@ public class PathwayManager : MonoBehaviour
 
     private void Start()
     {
-        #if DEBUG
-            Debug.Log($"PathwayManager initialized in {BioBlocksSettings.ENVIRONMENT} mode");
-        #endif
+#if DEBUG
+        Debug.Log($"PathwayManager initialized in {BioBlocksSettings.ENVIRONMENT} mode");
+#endif
 
         if (UserDataStore.CurrentUserData != null)
         {
             UpdateUI(UserDataStore.CurrentUserData);
-            FirestoreRepository.Instance.ListenToUserScore(UserDataStore.CurrentUserData.UserId, UpdateScoreUI);
+            FirestoreRepository.Instance.ListenToUserData(UserDataStore.CurrentUserData.UserId, UpdateScoreUI);
             UserDataStore.OnUserDataChanged += OnUserDataChanged;
-            
+
             // Inscreve no evento de atualização de questões respondidas
             AnsweredQuestionsManager.OnAnsweredQuestionsUpdated += HandleAnsweredQuestionsUpdated;
-            
+
             UpdateAnsweredQuestionsPercentages();
         }
         else
@@ -42,9 +42,9 @@ public class PathwayManager : MonoBehaviour
     private void HandleAnsweredQuestionsUpdated(Dictionary<string, int> answeredCounts)
     {
         if (this == null) return; // Proteção contra chamadas após destruição do objeto
-        
+
         Debug.Log("Received update from AnsweredQuestionsManager");
-        
+
         // Atualiza o AnsweredQuestionsListStore com os novos valores
         if (UserDataStore.CurrentUserData != null)
         {
@@ -54,7 +54,7 @@ public class PathwayManager : MonoBehaviour
                 AnsweredQuestionsListStore.UpdateAnsweredQuestionsCount(userId, kvp.Key, kvp.Value);
             }
         }
-        
+
         // Atualiza a UI
         UpdateAnsweredQuestionsPercentages();
     }
@@ -66,9 +66,9 @@ public class PathwayManager : MonoBehaviour
 
     private void UpdateUI(UserData userData)
     {
-        #if DEBUG
-            Debug.Log($"Updating UI for user: {userData.NickName}");
-        #endif
+#if DEBUG
+        Debug.Log($"Updating UI for user: {userData.NickName}");
+#endif
         nameText.text = $"{userData.NickName}";
         scoreText.text = $"{userData.Score}";
     }
@@ -91,23 +91,31 @@ public class PathwayManager : MonoBehaviour
 
         string[] allDatabases = new string[]
         {
-            "AcidBaseBufferQuestionDatabase",
-            "AminoacidQuestionDatabase",
-            "BiochemistryIntroductionQuestionDatabase",
-            "CarbohydratesQuestionDatabase",
-            "EnzymeQuestionDatabase",
-            "LipidsQuestionDatabase",
-            "MembranesQuestionDatabase",
-            "NucleicAcidsQuestionDatabase",
-            "ProteinQuestionDatabase",
-            "WaterQuestionDatabase"
+        "AcidBaseBufferQuestionDatabase",
+        "AminoacidQuestionDatabase",
+        "BiochemistryIntroductionQuestionDatabase",
+        "CarbohydratesQuestionDatabase",
+        "EnzymeQuestionDatabase",
+        "LipidsQuestionDatabase",
+        "MembranesQuestionDatabase",
+        "NucleicAcidsQuestionDatabase",
+        "ProteinQuestionDatabase",
+        "WaterQuestionDatabase"
         };
 
         foreach (string databankName in allDatabases)
         {
             int count = userCounts.ContainsKey(databankName) ? userCounts[databankName] : 0;
-            int totalQuestions = 50;
-            int percentageAnswered = (count * 100) / totalQuestions;
+
+            // Obter o número total de questões dinamicamente
+            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(databankName);
+            if (totalQuestions <= 0) totalQuestions = 50; // Valor padrão se não houver estatísticas
+
+            // Calcular a porcentagem com base no total real
+            int percentageAnswered = totalQuestions > 0 ? (count * 100) / totalQuestions : 0;
+
+            // Garantir que a porcentagem não exceda 100%
+            percentageAnswered = Mathf.Min(percentageAnswered, 100);
 
             string objectName = $"{databankName}PorcentageText";
             GameObject textObject = GameObject.Find(objectName);
@@ -118,7 +126,7 @@ public class PathwayManager : MonoBehaviour
                 if (tmpText != null)
                 {
                     tmpText.text = $"{percentageAnswered}%";
-                    Debug.Log($"{databankName}PorcentageText updated to {percentageAnswered}%");
+                    Debug.Log($"{databankName}PorcentageText updated to {percentageAnswered}% ({count}/{totalQuestions})");
                 }
             }
         }

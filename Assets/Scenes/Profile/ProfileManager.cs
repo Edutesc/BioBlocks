@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using TMPro;
 
 public class ProfileManager : MonoBehaviour
@@ -48,19 +49,39 @@ public class ProfileManager : MonoBehaviour
         if (currentUserData != null)
         {
             UpdateUI();
-            UserDataStore.OnUserDataChanged += OnUserDataChanged;
+
+            // Configurar listener para atualizações automáticas
+            FirestoreRepository.Instance.ListenToUserData(
+                currentUserData.UserId,
+                (newScore) =>
+                {
+                    // Atualizar o score na UI
+                    if (scoreText != null)
+                    {
+                        scoreText.text = $"{newScore} XP";
+                    }
+                },
+                (answeredQuestions) =>
+                {
+                    // Este callback será invocado quando houver mudanças nas questões respondidas
+                    Debug.Log("ProfileManager: Recebeu atualização de questões respondidas via listener");
+                    DisplayAnsweredQuestionsCount();
+                }
+            );
+
+            // Exibir questões respondidas inicialmente
+            DisplayAnsweredQuestionsCount();
         }
         else
         {
             Debug.LogError("User data not loaded. Redirecting to Login.");
         }
-
-        DisplayAnsweredQuestionsCount();
     }
 
     private void OnDestroy()
     {
-        UserDataStore.OnUserDataChanged -= OnUserDataChanged;
+        // Código específico para limpeza ao destruir o objeto, se necessário
+        // (Os eventos já são tratados em OnDisable)
     }
 
     private void OnUserDataChanged(UserData userData)
@@ -283,29 +304,74 @@ public class ProfileManager : MonoBehaviour
 
         var userAnsweredQuestions = AnsweredQuestionsListStore.GetAnsweredQuestionsCountForUser(currentUserData.UserId);
 
-        foreach (var kvp in userAnsweredQuestions)
+        // Lista de todos os bancos de dados possíveis
+        string[] allDatabases = new string[]
         {
-            string databankName = kvp.Key;
-            int answeredCount = kvp.Value;
+        "AcidBaseBufferQuestionDatabase",
+        "AminoacidQuestionDatabase",
+        "BiochemistryIntroductionQuestionDatabase",
+        "CarbohydratesQuestionDatabase",
+        "EnzymeQuestionDatabase",
+        "LipidsQuestionDatabase",
+        "MembranesQuestionDatabase",
+        "NucleicAcidsQuestionDatabase",
+        "ProteinQuestionDatabase",
+        "WaterQuestionDatabase"
+        };
+
+        // Atualizar todos os bancos de dados
+        foreach (string databankName in allDatabases)
+        {
+            int answeredCount = userAnsweredQuestions.ContainsKey(databankName) ? userAnsweredQuestions[databankName] : 0;
+
+            // Obter o número total de questões de forma dinâmica
+            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(databankName);
+            if (totalQuestions <= 0) totalQuestions = 50; // Valor padrão se não houver estatísticas
 
             string objectName = $"{databankName}CountText";
             GameObject textObject = GameObject.Find(objectName);
 
             if (textObject == null)
             {
-                Debug.LogError($"Não foi possível encontrar o GameObject: {objectName}");
+                Debug.LogWarning($"Não foi possível encontrar o GameObject: {objectName}");
                 continue;
             }
 
             TextMeshProUGUI tmpText = textObject.GetComponent<TextMeshProUGUI>();
             if (tmpText == null)
             {
-                Debug.LogError($"Componente TextMeshProUGUI não encontrado no GameObject: {objectName}");
+                Debug.LogWarning($"Componente TextMeshProUGUI não encontrado no GameObject: {objectName}");
                 continue;
             }
 
-            tmpText.text = $"{answeredCount}";
-            Debug.Log($"Usuário {currentUserData.UserId} - Banco de Dados: {databankName}, Questões Respondidas: {answeredCount}");
+            // Exibir no formato X/Y para melhor compreensão
+            tmpText.text = $"{answeredCount}/{totalQuestions}";
+            Debug.Log($"Usuário {currentUserData.UserId} - Banco de Dados: {databankName}, Questões Respondidas: {answeredCount}/{totalQuestions}");
         }
     }
+
+    private void OnEnable()
+    {
+        // Registre-se nos eventos quando o componente for habilitado
+        UserDataStore.OnUserDataChanged += OnUserDataChanged;
+        AnsweredQuestionsManager.OnAnsweredQuestionsUpdated += HandleAnsweredQuestionsUpdated;
+    }
+
+    private void OnDisable()
+    {
+        // Cancele o registro quando o componente for desabilitado
+        UserDataStore.OnUserDataChanged -= OnUserDataChanged;
+        AnsweredQuestionsManager.OnAnsweredQuestionsUpdated -= HandleAnsweredQuestionsUpdated;
+    }
+
+    private void HandleAnsweredQuestionsUpdated(Dictionary<string, int> answeredCounts)
+    {
+        if (this == null) return; // Proteção contra chamadas após destruição do objeto
+
+        Debug.Log("ProfileManager: Recebeu atualização do AnsweredQuestionsManager");
+
+        // Atualizar a UI com os novos valores
+        DisplayAnsweredQuestionsCount();
+    }
+
 }

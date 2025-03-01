@@ -7,7 +7,6 @@ using System.Linq;
 
 public class QuestionLoadManager : MonoBehaviour
 {
-    private IQuestionDatabase currentDatabase;
     private List<Question> questions;
     public string databankName;
     private bool isInitialized = false;
@@ -142,6 +141,11 @@ public class QuestionLoadManager : MonoBehaviour
                 databankName = database.GetDatabankName();
                 Debug.Log($"Nome do banco definido: {databankName}");
             }
+            
+            // Registrar o número total de questões neste banco de dados
+            int totalQuestions = allQuestions.Count;
+            QuestionBankStatistics.SetTotalQuestions(databankName, totalQuestions);
+            Debug.Log($"Total de questões em {databankName}: {totalQuestions}");
 
             List<string> answeredQuestions = await AnsweredQuestionsManager.Instance
                 .FetchUserAnsweredQuestionsInTargetDatabase(databankName);
@@ -152,7 +156,15 @@ public class QuestionLoadManager : MonoBehaviour
                 .Where(q => q != null && !answeredQuestions.Contains(q.questionNumber.ToString()))
                 .ToList();
 
-            Debug.Log($"Restam {unansweredQuestions.Count} questões não respondidas");
+            Debug.Log($"Restam {unansweredQuestions.Count} questões não respondidas de um total de {totalQuestions}");
+            
+            // Se todas as questões já foram respondidas, retorna todas para permitir revisão
+            if (unansweredQuestions.Count == 0)
+            {
+                Debug.Log($"Todas as {totalQuestions} questões já foram respondidas. Retornando todas para revisão.");
+                questions = allQuestions;
+                return questions;
+            }
             
             questions = unansweredQuestions;
             return questions;
