@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using QuestionSystem;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -22,6 +24,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private QuestionScoreManager scoreManager;
 
     private QuestionSession currentSession;
+    private Question nextQuestionToShow;
 
     private void Start()
     {
@@ -93,6 +96,9 @@ public class QuestionManager : MonoBehaviour
     {
         timerManager.OnTimerComplete += HandleTimeUp;
         answerManager.OnAnswerSelected += CheckAnswer;
+
+        transitionManager.OnBeforeTransitionStart += PrepareNextQuestion;
+        transitionManager.OnTransitionMidpoint += ApplyPreparedQuestion;
     }
 
     private async void CheckAnswer(int selectedAnswerIndex)
@@ -129,15 +135,106 @@ public class QuestionManager : MonoBehaviour
     {
         if (isCompleted)
         {
+            // Se for o feedback de conclusão, usar o texto e canvas group corretos
             feedbackElements.QuestionsCompletedFeedbackText.text = message;
             questionCanvasGroupManager.ShowCompletionFeedback();
-            Debug.Log("Feedback de conclusão ativado");
+            Debug.Log("Feedback de conclusão ativado com mensagem: " + message);
+
+            // Desabilitar a navegação para próxima questão, apenas permitir voltar ao menu
+            bottomBarManager.SetupNavigationButtons(
+                () =>
+                {
+                    NavigationManager.Instance.NavigateTo("PathwayScene");
+                },
+                null  // Não permitir avançar para próxima questão
+            );
+
             return;
         }
 
+        // Feedback normal para respostas
         feedbackElements.FeedbackText.text = message;
         Color backgroundColor = isCorrect ? HexToColor("#D4EDDA") : HexToColor("#F8D7DA");
         questionCanvasGroupManager.ShowAnswerFeedback(isCorrect, HexToColor("#D4EDDA"), HexToColor("#F8D7DA"));
+    }
+
+    private async void PrepareNextQuestion()
+    {
+        if (!currentSession.IsLastQuestion())
+        {
+            // Avança para a próxima questão no objeto de sessão
+            currentSession.NextQuestion();
+
+            // Armazena a referência à próxima questão, mas ainda não a mostra
+            nextQuestionToShow = currentSession.GetCurrentQuestion();
+
+            // Pré-carrega quaisquer recursos necessários (imagens, etc.)
+            await PreloadQuestionResources(nextQuestionToShow);
+        }
+        else
+        {
+            // Se for a última questão, prepara para verificar e carregar mais
+            nextQuestionToShow = null;
+        }
+    }
+
+    private async Task PreloadQuestionResources(Question question)
+    {
+        // Usa o QuestionUIManager para pré-carregar imagens
+        if (question.isImageQuestion)
+        {
+            await questionUIManager.PreloadQuestionImage(question);
+        }
+
+        // Pré-configura os botões de resposta, se necessário
+        // Isso pode variar dependendo da sua implementação do AnswerManager
+        if (question.isImageAnswer)
+        {
+            // Se houver imagens nas respostas, você pode pré-carregá-las aqui
+            // Por exemplo: await answerManager.PreloadAnswerImages(question);
+        }
+    }
+
+    private void ApplyPreparedQuestion()
+    {
+        if (nextQuestionToShow != null)
+        {
+            answerManager.SetupAnswerButtons(nextQuestionToShow);
+            questionCanvasGroupManager.ShowQuestion(
+                isImageQuestion: nextQuestionToShow.isImageQuestion,
+                isImageAnswer: nextQuestionToShow.isImageAnswer
+            );
+            questionUIManager.ShowQuestion(nextQuestionToShow);
+            nextQuestionToShow = null;
+        }
+        else
+        {
+            StartCoroutine(HandleNoMoreQuestions());
+        }
+    }
+
+    private void CleanupPreloadedResources()
+    {
+        questionUIManager.ClearPreloadedResources();
+    }
+
+    private IEnumerator HandleNoMoreQuestions()
+    {
+        // Corrotina para executar o CheckAndLoadMoreQuestions de forma assíncrona
+        var task = CheckAndLoadMoreQuestions();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (currentSession != null && currentSession.GetCurrentQuestion() != null)
+        {
+            // Se novas questões foram carregadas, configura a UI
+            var newQuestion = currentSession.GetCurrentQuestion();
+            answerManager.SetupAnswerButtons(newQuestion);
+            questionCanvasGroupManager.ShowQuestion(
+                isImageQuestion: newQuestion.isImageQuestion,
+                isImageAnswer: newQuestion.isImageAnswer
+            );
+            questionUIManager.ShowQuestion(newQuestion);
+        }
     }
 
     private void StartQuestion()
@@ -145,12 +242,12 @@ public class QuestionManager : MonoBehaviour
         try
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
-            questionUIManager.ShowQuestion(currentQuestion);
             answerManager.SetupAnswerButtons(currentQuestion);
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
                 isImageAnswer: currentQuestion.isImageAnswer
             );
+            questionUIManager.ShowQuestion(currentQuestion);
 
             timerManager.StartTimer();
             Debug.Log($"Questão iniciada - isImageQuestion: {currentQuestion.isImageQuestion}, isImageAnswer: {currentQuestion.isImageAnswer}");
@@ -196,34 +293,119 @@ public class QuestionManager : MonoBehaviour
         questionCanvasGroupManager.HideAnswerFeedback();
     }
 
+    // private async Task HandleNextQuestion()
+    // {
+    //     bottomBarManager.DisableNavigationButtons();
+
+    //     // Inicia a transição - a lógica de avançar a questão agora é tratada pelos eventos
+    //     await transitionManager.TransitionToNextQuestion();
+
+    //     // Inicia o timer para a nova questão
+    //     timerManager.StartTimer();
+    // }
+
     private async Task HandleNextQuestion()
     {
         bottomBarManager.DisableNavigationButtons();
 
-        if (!currentSession.IsLastQuestion())
+        if (currentSession.IsLastQuestion())
         {
-            currentSession.NextQuestion();
-            await transitionManager.TransitionToNextQuestion();
-            StartQuestion();
+            string currentDatabaseName = loadManager.DatabankName;
+            List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
+            int answeredCount = answeredQuestions.Count;
+
+            if (answeredCount >= 50)
+            {
+                Debug.Log("HandleNextQuestion: Todas as questões respondidas. Exibindo feedback de conclusão.");
+                ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", true, true);
+                return; 
+            }
         }
-        else
+
+        await transitionManager.TransitionToNextQuestion();
+
+        timerManager.StartTimer();
+    }
+
+    private void OnDestroy()
+    {
+        if (timerManager != null)
+            timerManager.OnTimerComplete -= HandleTimeUp;
+
+        if (answerManager != null)
+            answerManager.OnAnswerSelected -= CheckAnswer;
+
+        if (transitionManager != null)
         {
-            await CheckAndLoadMoreQuestions();
+            transitionManager.OnBeforeTransitionStart -= PrepareNextQuestion;
+            transitionManager.OnTransitionMidpoint -= ApplyPreparedQuestion;
         }
     }
 
     private async Task CheckAndLoadMoreQuestions()
     {
-        var newQuestions = await loadManager.LoadQuestionsForSet(QuestionSetManager.GetCurrentQuestionSet());
+        try
+        {
+            // Obter o banco de dados atual
+            QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
+            string currentDatabaseName = loadManager.DatabankName;
 
-        if (newQuestions != null && newQuestions.Count > 0)
-        {
-            currentSession = new QuestionSession(newQuestions);
-            StartQuestion();
+            Debug.Log($"Verificando questões para o banco: {currentDatabaseName}");
+
+            // Obter a lista de números de questões respondidas para esse banco de dados
+            List<string> answeredQuestionsIds = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
+
+            // Converter para inteiros para facilitar a comparação
+            List<int> answeredQuestionNumbers = answeredQuestionsIds
+                .Select(id => int.TryParse(id, out int num) ? num : -1)
+                .Where(num => num != -1)
+                .ToList();
+
+            Debug.Log($"Questões respondidas: {string.Join(", ", answeredQuestionNumbers)}");
+            Debug.Log($"Total de questões respondidas: {answeredQuestionNumbers.Count}/50");
+
+            // Se todas as 50 questões foram respondidas, mostrar feedback de conclusão
+            if (answeredQuestionNumbers.Count >= 50)
+            {
+                Debug.Log("Todas as 50 questões foram respondidas corretamente! Mostrando feedback de conclusão.");
+                ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", true, true);
+                return;
+            }
+
+            // Carregar todas as questões disponíveis para este conjunto
+            var allQuestions = await loadManager.LoadQuestionsForSet(currentSet);
+
+            if (allQuestions == null || allQuestions.Count == 0)
+            {
+                Debug.LogWarning("Não foi possível carregar questões para este conjunto");
+                return;
+            }
+
+            // Filtrar apenas as questões que ainda não foram respondidas
+            var unansweredQuestions = allQuestions
+                .Where(q => !answeredQuestionNumbers.Contains(q.questionNumber))
+                .ToList();
+
+            Debug.Log($"Questões não respondidas: {unansweredQuestions.Count}");
+
+            if (unansweredQuestions.Count > 0)
+            {
+                // Ainda há questões para responder
+                currentSession = new QuestionSession(unansweredQuestions);
+                StartQuestion();
+            }
+            else
+            {
+                // Não há mais questões para responder - todas foram respondidas
+                Debug.Log("Não há mais questões pendentes! Mostrando feedback de conclusão.");
+                ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", true, true);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            ShowAnswerFeedback("Parabéns!! Você respondeu todas as perguntas desta lista corretamente!", false, true);
+            Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}\n{ex.StackTrace}");
+            // Em caso de erro, para evitar loop infinito, mostrar algum feedback
+            ShowAnswerFeedback("Ocorreu um erro ao verificar questões. Volte ao menu principal.", false, true);
         }
     }
 

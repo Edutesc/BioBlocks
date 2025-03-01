@@ -6810,6 +6810,14 @@ void RegisterAllStrippedInternalCalls()
 
 	//Start Registrations for type : UnityEngine.Time
 
+		//System.Double UnityEngine.Time::get_realtimeSinceStartupAsDouble()
+		void Register_UnityEngine_Time_get_realtimeSinceStartupAsDouble();
+		Register_UnityEngine_Time_get_realtimeSinceStartupAsDouble();
+
+		//System.Double UnityEngine.Time::get_timeAsDouble()
+		void Register_UnityEngine_Time_get_timeAsDouble();
+		Register_UnityEngine_Time_get_timeAsDouble();
+
 		//System.Int32 UnityEngine.Time::get_frameCount()
 		void Register_UnityEngine_Time_get_frameCount();
 		Register_UnityEngine_Time_get_frameCount();

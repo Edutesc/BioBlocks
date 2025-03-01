@@ -121,14 +121,57 @@ public class QuestionCanvasGroupManager : MonoBehaviour
 
     public void ShowCompletionFeedback()
     {
-        // Desativar grupos da questão e respostas
-        SetCanvasGroupState(questionTextContainer, false);
-        SetCanvasGroupState(questionImageContainer, false);
-        SetCanvasGroupState(answerTextCanvasGroup, false);
-        SetCanvasGroupState(answerImageCanvasGroup, false);
+        Debug.Log("Iniciando exibição do feedback de conclusão...");
+        if (questionTextContainer != null) questionTextContainer.gameObject.SetActive(false);
+        if (questionImageContainer != null) questionImageContainer.gameObject.SetActive(false);
+        if (answerTextCanvasGroup != null) answerTextCanvasGroup.gameObject.SetActive(false);
+        if (answerImageCanvasGroup != null) answerImageCanvasGroup.gameObject.SetActive(false);
 
-        // Ativar feedback de conclusão
-        SetCanvasGroupState(questionsCompletedFeedback, true);
+        if (feedbackPanel != null)
+        {
+            feedbackPanel.gameObject.SetActive(false);
+        }
+
+        foreach (var canvasGroup in GetAllCanvasGroups())
+        {
+            if (canvasGroup != null && canvasGroup != questionsCompletedFeedback)
+            {
+                SetCanvasGroupState(canvasGroup, false);
+                Debug.Log($"Desativado canvas group: {canvasGroup.gameObject.name}");
+            }
+        }
+
+        SetCanvasGroupState(bottomBar, false);
+
+        if (questionsCompletedFeedback != null)
+        {
+            questionsCompletedFeedback.gameObject.SetActive(true);
+            questionsCompletedFeedback.alpha = 1f;
+            questionsCompletedFeedback.interactable = true;
+            questionsCompletedFeedback.blocksRaycasts = true;
+            Debug.Log("Canvas Group de feedback de conclusão ativado");
+        }
+        else
+        {
+            Debug.LogError("Erro crítico: questionsCompletedFeedback é nulo!");
+        }
+
+        if (questionsCompletedFeedback != null)
+        {
+            Debug.Log($"Estado final do feedback de conclusão: " +
+                     $"GameObject ativo: {questionsCompletedFeedback.gameObject.activeInHierarchy}, " +
+                     $"Alpha: {questionsCompletedFeedback.alpha}, " +
+                     $"Interactable: {questionsCompletedFeedback.interactable}");
+        }
+    }
+
+    public void HideCompletionFeedback()
+    {
+        if (questionsCompletedFeedback != null)
+        {
+            questionsCompletedFeedback.gameObject.SetActive(false);
+            SetCanvasGroupState(questionsCompletedFeedback, false);
+        }
     }
 
     public void DisableAnswers()

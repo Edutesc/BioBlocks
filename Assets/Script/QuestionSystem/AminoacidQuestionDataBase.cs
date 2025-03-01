@@ -39,10 +39,10 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "AminoacidQuestionDatabase",
             questionText = "Identifique o aminoácido cuja cadeia lateral apresenta característica polar não carregada.",
             answers = new string[] {
-                "AnswerImages/treonina",
-                "AnswerImages/glicina",
-                "AnswerImages/histidina",
-                "AnswerImages/alanina"
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/glicina",
+                "AnswerImages/AminoacidsDB/histidina",
+                "AnswerImages/AminoacidsDB/alanina"
             },
             correctIndex = 0,
             questionNumber = 3,
@@ -55,7 +55,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "O grupo amino.",
                 "O grupo carboxila.",
-                "O radical R.",
+                "A sua cadeia lateral (R).",
                 "O átomo de carbono alfa."
             },
             correctIndex = 2,
@@ -65,16 +65,16 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Qual aminoácido possui o menor radical R?",
+            questionText = "Identifique o alfa-aminoácido abaixo",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Valina",
-                "Leucina"
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/3-amino-2-butanona",
+                "AnswerImages/AminoacidsDB/beta-alanina",
+                "AnswerImages/AminoacidsDB/2-amino-propanoato-de-metila"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 5,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
@@ -93,100 +93,106 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com cadeias laterais aromáticas contêm:",
+            questionText = "Identifique o aminoácido que absorve o comprimento de onda de 280 nm.",
             answers = new string[] {
-                "Anéis de hidrocarbonetos.",
-                "Cadeias alifáticas ramificadas.",
-                "Grupos hidroxila.",
-                "Grupos sulfidrila."
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/cisteina",
+                "AnswerImages/AminoacidsDB/fenilalanina"
             },
-            correctIndex = 0,
+            correctIndex = 3,
             questionNumber = 7,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Qual aminoácido possui um anel aromático no radical R?",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Fenilalanina",
-                "Serina"
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/cisteina",
+                "AnswerImages/AminoacidsDB/d-alanina"
             },
-            correctIndex = 2,
+            correctIndex = 3,
             questionNumber = 8,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/AminoacidsDB/ImageQuestionContainer8"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A tirosina difere da fenilalanina pela presença de:",
             answers = new string[] {
-                "Um grupo metil.",
-                "Um grupo sulfidrila.",
-                "Um grupo hidroxila.",
-                "Um anel aromático."
+                "pH = 2,3",
+                "pH = 9,7",
+                "pH = 6",
+                "pH = 0"
             },
             correctIndex = 2,
             questionNumber = 9,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer9"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com grupos hidroxila no radical R são:",
             answers = new string[] {
-                "Apolares.",
-                "Polares.",
-                "Carregados positivamente.",
-                "Carregados negativamente."
+                "AnswerImages/AminoacidsDB/isoleucina",
+                "AnswerImages/AminoacidsDB/isoleucina_carga0",
+                "AnswerImages/AminoacidsDB/isoleucina_cargaPlus",
+                "AnswerImages/AminoacidsDB/isoleucina_cargaMinus"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 10,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer10"
         },
-        new Question
+         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com grupos sulfidrila no radical R são:",
             answers = new string[] {
-                "Apolares.",
-                "Polares.",
-                "Carregados positivamente.",
-                "Carregados negativamente."
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/prolina_carga0",
+                "AnswerImages/AminoacidsDB/prolina_cargaPlus",
+                "AnswerImages/AminoacidsDB/prolina_cargaMinus"
             },
             correctIndex = 1,
             questionNumber = 11,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer11"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos contêm enxofre em seus radicais R?",
             answers = new string[] {
-                "Serina e Treonina",
-                "Metionina e Cisteína",
-                "Asparagina e Glutamina",
-                "Lisina e Arginina"
+                "pH = 5,5",
+                "pH = 9,0",
+                "pH = 10,7",
+                "pH = 12,5"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 12,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer12"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos são considerados ácidos?",
             answers = new string[] {
-                "Lisina e Arginina",
-                "Aspartato e Glutamato",
-                "Serina e Treonina",
-                "Fenilalanina e Tirosina"
+                "pH = 3,0",
+                "pH = 5,5",
+                "pH = 3,9",
+                "pH = 9,8"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 13,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer13"
         },
         new Question
         {
@@ -205,54 +211,54 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos são considerados básicos?",
+            questionText = "Identifique abaixo o aminoácido cuja cadeia lateral é considerada básica",
             answers = new string[] {
-                "Aspartato e Glutamato",
-                "Lisina, Arginina e Histidina",
-                "Serina e Treonina",
-                "Fenilalanina e Tirosina"
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/isoleucina",
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/arginina"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 15,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A lisina, arginina e histidina possuem:",
+            questionText = "Identifique abaixo o aminoácido cuja cadeia lateral é considerada ácida",
             answers = new string[] {
-                "Grupos carboxila em seus radicais R.",
-                "Grupos amino em seus radicais R.",
-                "Grupos sulfidrila em seus radicais R.",
-                "Anéis aromáticos em seus radicais R."
+                "AnswerImages/AminoacidsDB/fenilalanina",
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/arginina"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 16,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Qual aminoácido forma um anel com seu grupamento R?",
+             questionText = "Identifique abaixo o aminoácido cuja cadeixa lateral apresenta um grupo funcional álcool.",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Prolina",
-                "Serina"
+                "AnswerImages/AminoacidsDB/tirosina",
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/leucina"
             },
             correctIndex = 2,
             questionNumber = 17,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com carga líquida nula em pH 7 são:",
+            questionText = "Em pH ácido, o estado de protonação da maioria dos aminoácidos presentes na solução terá carga líquida:",
             answers = new string[] {
-                "Completamente protonados.",
-                "Completamente desprotonados.",
-                "Parcialmente protonados.",
-                "Não possuem carga."
+                "Negativa",
+                "Neutra",
+                "Positiva",
+                "Variável"
             },
             correctIndex = 2,
             questionNumber = 18,
@@ -261,21 +267,21 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em pH ácido, a maioria dos aminoácidos terá carga líquida:",
+             questionText = "Identifique abaixo o aminoácido que absorve luz de comprimento de onda 280 nm.",
             answers = new string[] {
-                "Negativa",
-                "Neutra",
-                "Positiva",
-                "Variável"
+                "AnswerImages/AminoacidsDB/triptofano",
+                "AnswerImages/AminoacidsDB/glutamina",
+                "AnswerImages/AminoacidsDB/glicina",
+                "AnswerImages/AminoacidsDB/alanina"
             },
-            correctIndex = 2,
+            correctIndex = 0,
             questionNumber = 19,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em pH básico, a maioria dos aminoácidos terá carga líquida:",
+            questionText = "Em pH básico, o estado de protonação da maioria dos aminoácidos presentes na solução terá carga líquida:",
             answers = new string[] {
                 "Positiva",
                 "Neutra",
@@ -306,7 +312,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Uma molécula com um carbono quiral é:",
             answers = new string[] {
                 "Apolar",
-                "Quiral",
+                "Assimétrica",
                 "Linear",
                 "Simétrica"
             },
@@ -387,72 +393,75 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A fenilcetonúria é causada por uma deficiência na enzima que metaboliza:",
             answers = new string[] {
-                "Tirosina",
-                "Fenilalanina",
-                "Triptofano",
-                "Glicina"
+                "Uma amida",
+                "H<sup><size=150%> +</size></sup>",
+                "Água",
+                "OH<sup><size=150%> -</size></sup>"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 28,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer28"
         },
-        new Question
+       new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "O triptofano é um precursor de:",
+            questionText = "Qual é o nome da ligação que ocorre entre os aminoácidos para forma proteínas",
             answers = new string[] {
-                "Hormônios",
-                "Neurotransmissores",
-                "Vitaminas",
-                "Todas as anteriores."
+                "Ponte de hidrogênio",
+                "Ligação proteica",
+                "Ligação peptídica",
+                "Ligação eletrostática"
             },
-            correctIndex = 3,
+            correctIndex = 2,
             questionNumber = 29,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Quais aminoácidos absorvem luz ultravioleta?",
+            questionText = "Qual o nome do grupo funcional é criado pela condensação de dois aminoácidos para formar um peptídeo?",
             answers = new string[] {
-                "Alanina e Valina",
-                "Fenilalanina, Tirosina e Triptofano",
-                "Serina e Treonina",
-                "Asparagina e Glutamina"
+                "Grupo funcional álcool",
+                "Grupo funcional amina",
+                "Grupo funcional ácido carboxílico",
+                "Grupo funcional amida"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 30,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A serina difere da alanina pela presença de:",
             answers = new string[] {
-                "Um grupo metil.",
-                "Um grupo sulfidrila.",
-                "Um grupo hidroxila.",
-                "Um anel aromático."
+                "2 aminoácidos",
+                "3 aminoácidos",
+                "4 aminoácidos",
+                "5 aminoácidos"
             },
-            correctIndex = 2,
+            correctIndex = 3,
             questionNumber = 31,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer31"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A treonina difere da serina pela presença de:",
             answers = new string[] {
-                "Um grupo hidroxila.",
-                "Um grupo metil.",
-                "Um grupo sulfidrila.",
-                "Um anel aromático."
+                "Aminoácido",
+                "Dipeptídeo",
+                "Tripeptídeo",
+                "Tetrapeptídeo"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 32,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer32"
         },
         new Question
         {
@@ -546,7 +555,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "O pH em que ocorre a primeira dissociação.",
                 "O pH em que ocorre a última dissociação.",
                 "O pH em que a carga líquida do aminoácido é zero.",
-                "O pH em que a concentração de H+ é máxima."
+                "O pH em que a concentração de H<sup><size=150%> +</size></sup> é máxima."
             },
             correctIndex = 2,
             questionNumber = 39,
@@ -555,82 +564,86 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos apolares são geralmente:",
+            questionText = "Qual o nível estrutural de uma proteína que corresponde à sequência linear de aminoácidos?",
             answers = new string[] {
-                "Solúveis em água.",
-                "Insolúveis em água.",
-                "Anfipáticos.",
-                "Carregados."
+                "Estrutura secundária",
+                "Estrutura terciária",
+                "Estrutura quaternária",
+                "Estrutura primária"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 40,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos polares são geralmente:",
             answers = new string[] {
-                "Insolúveis em água.",
-                "Solúveis em água.",
-                "Anfipáticos.",
-                "Neutros."
+                "2 aminoácidos",
+                "3 aminoácidos",
+                "4 aminoácidos",
+                "5 aminoácidos"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 41,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer41"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com grupos R carregados positivamente são:",
             answers = new string[] {
-                "Ácidos",
-                "Básicos",
-                "Neutros",
-                "Apolares"
+                "2 ligações peptídicas",
+                "3 ligações peptídicas",
+                "4 ligações peptídicas",
+                "5 ligações peptídicas"
             },
             correctIndex = 1,
             questionNumber = 42,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer42"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Aminoácidos com grupos R carregados negativamente são:",
+            answers = new string[] {
+                "Ponte de Hidrogênio",
+                "Ponte Dissulfeto",
+                "Interação hidrofóbica",
+                "Interação eletrostática"
+            },
+            correctIndex = 1,
+            questionNumber = 43,
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer43"
+        },
+        new Question
+        {
+            questionDatabankName = "AminoacidQuestionDatabase",
+            answers = new string[] {
+                "Ponte de Hidrogênio",
+                "Ponte Dissulfeto",
+                "Interação hidrofóbica",
+                "Interação eletrostática"
+            },
+            correctIndex = 0,
+            questionNumber = 44,
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer44"
+        },
+        new Question
+        {
+            questionDatabankName = "AminoacidQuestionDatabase",
+            questionText = "Aminoácidos com a cadeia lateral R carregada negativamente são:",
             answers = new string[] {
                 "Básicos",
                 "Ácidos",
                 "Neutros",
                 "Apolares"
-            },
-            correctIndex = 1,
-            questionNumber = 43,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A técnica de eletroforese SDS-Page separa proteínas com base em:",
-            answers = new string[] {
-                "Seu tamanho.",
-                "Sua carga líquida.",
-                "Sua sequência de aminoácidos.",
-                "Sua estrutura terciária."
-            },
-            correctIndex = 0,
-            questionNumber = 44,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em eletroforese com focalização isoelétrica, um aminoácido com carga líquida positiva migrará para o pólo:",
-            answers = new string[] {
-                "Positivo",
-                "Negativo",
-                "Não migrará",
-                "Depende do pH"
             },
             correctIndex = 1,
             questionNumber = 45,
@@ -639,54 +652,56 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em eletroforese com focalização isoelétrica, um aminoácido com carga líquida negativa migrará para o pólo:",
+            questionText = "Aminoácidos com a cadeia lateral R carregada positivamente são:",
             answers = new string[] {
-                "Negativo",
-                "Positivo",
-                "Não migrará",
-                "Depende do pH"
+                "Básicos",
+                "Ácidos",
+                "Neutros",
+                "Apolares"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 46,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "Em eletroforese com focalização isoelétrica, um aminoácido no seu ponto isoelétrico:",
             answers = new string[] {
-                "Migrará para o pólo positivo.",
-                "Migrará para o pólo negativo.",
-                "Não migrará.",
-                "Migrará para ambos os pólos."
+                "Uma Ponte Dissulfeto",
+                "Duas Pontes Dissulfeto",
+                "Três Pontes Dissulfeto",
+                "Não há Pontes Dissulfeto"
             },
             correctIndex = 2,
             questionNumber = 47,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer47"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A 4-hidroxiprolina e a 5-hidroxilisina são encontradas em:",
             answers = new string[] {
-                "Todas as proteínas",
-                "Proteínas de membrana",
-                "Colágeno",
-                "Enzimas"
+                "Esturuta Primária",
+                "Esturuta Secundária",
+                "Esturuta Terciária",
+                "Esturuta Quaternária"
             },
-            correctIndex = 2,
+            correctIndex = 3,
             questionNumber = 48,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/AminoacidsDB/imageQuestionContainer48"
         },
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A ornitina e a citrulina são:",
+            questionText = "O que é a estrutura terciárica de uma proteínas?",
             answers = new string[] {
-                "Aminoácidos comuns em proteínas",
-                "Aminoácidos envolvidos em vias metabólicas",
-                "Aminoácidos essenciais",
-                "Aminoácidos não-essenciais"
+                "A sua sequência linear de aminoácidos",
+                "É a estrutura tridimensional da proteína",
+                "São pequenas diferentes estruturas conservadas que dão forma a proteína.",
+                "É a estrutura de três proteínas contectadas"
             },
             correctIndex = 1,
             questionNumber = 49,
@@ -695,17 +710,115 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "AminoacidQuestionDatabase",
-            questionText = "A fenilcetonúria é um distúrbio metabólico causado pela deficiência da enzima que metaboliza:",
+            questionText = "Qual a importância das interações hidrofóbicas em proteínas?",
             answers = new string[] {
-                "Tirosina",
-                "Triptofano",
-                "Fenilalanina",
-                "Glicina"
+                "Não há interações hidrofóbicas em proteínas",
+                "Servem para estabilizar as ligações peptídicas",
+                "Permitem que as proteínas interajam com outras moléculas hidrofóbicas",
+                "Estabilizam moléculas de água no interior das proteínas"
             },
             correctIndex = 2,
             questionNumber = 50,
             isImageAnswer = false
         }
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "A técnica de eletroforese SDS-Page separa proteínas com base em:",
+        //     answers = new string[] {
+        //         "Seu tamanho.",
+        //         "Sua carga líquida.",
+        //         "Sua sequência de aminoácidos.",
+        //         "Sua estrutura terciária."
+        //     },
+        //     correctIndex = 0,
+        //     questionNumber = 44,
+        //     isImageAnswer = false
+        // },
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "Em eletroforese com focalização isoelétrica, um aminoácido com carga líquida positiva migrará para o pólo:",
+        //     answers = new string[] {
+        //         "Positivo",
+        //         "Negativo",
+        //         "Não migrará",
+        //         "Depende do pH"
+        //     },
+        //     correctIndex = 1,
+        //     questionNumber = 45,
+        //     isImageAnswer = false
+        // },
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "Em eletroforese com focalização isoelétrica, um aminoácido com carga líquida negativa migrará para o pólo:",
+        //     answers = new string[] {
+        //         "Negativo",
+        //         "Positivo",
+        //         "Não migrará",
+        //         "Depende do pH"
+        //     },
+        //     correctIndex = 1,
+        //     questionNumber = 46,
+        //     isImageAnswer = false
+        // },
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "Em eletroforese com focalização isoelétrica, um aminoácido no seu ponto isoelétrico:",
+        //     answers = new string[] {
+        //         "Migrará para o pólo positivo.",
+        //         "Migrará para o pólo negativo.",
+        //         "Não migrará.",
+        //         "Migrará para ambos os pólos."
+        //     },
+        //     correctIndex = 2,
+        //     questionNumber = 47,
+        //     isImageAnswer = false
+        // },
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "A 4-hidroxiprolina e a 5-hidroxilisina são encontradas em:",
+        //     answers = new string[] {
+        //         "Todas as proteínas",
+        //         "Proteínas de membrana",
+        //         "Colágeno",
+        //         "Enzimas"
+        //     },
+        //     correctIndex = 2,
+        //     questionNumber = 48,
+        //     isImageAnswer = false
+        // },
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "A ornitina e a citrulina são:",
+        //     answers = new string[] {
+        //         "Aminoácidos comuns em proteínas",
+        //         "Aminoácidos envolvidos em vias metabólicas",
+        //         "Aminoácidos essenciais",
+        //         "Aminoácidos não-essenciais"
+        //     },
+        //     correctIndex = 1,
+        //     questionNumber = 49,
+        //     isImageAnswer = false
+        // },
+        // new Question
+        // {
+        //     questionDatabankName = "AminoacidQuestionDatabase",
+        //     questionText = "A fenilcetonúria é um distúrbio metabólico causado pela deficiência da enzima que metaboliza:",
+        //     answers = new string[] {
+        //         "Tirosina",
+        //         "Triptofano",
+        //         "Fenilalanina",
+        //         "Glicina"
+        //     },
+        //     correctIndex = 2,
+        //     questionNumber = 50,
+        //     isImageAnswer = false
+        // }
     };
 
     public List<Question> GetQuestions()

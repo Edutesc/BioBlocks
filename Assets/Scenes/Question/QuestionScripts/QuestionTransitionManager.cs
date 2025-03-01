@@ -1,6 +1,7 @@
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class QuestionTransitionManager : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class QuestionTransitionManager : MonoBehaviour
     private RectTransform questionObjectsRect;
     private Vector2 screenCenter;
     private bool isTransitioning;
+    
+    public event Action OnBeforeTransitionStart; 
+    public event Action OnTransitionMidpoint;   
 
     private void Awake()
     {
@@ -31,6 +35,8 @@ public class QuestionTransitionManager : MonoBehaviour
     {
         if (isTransitioning) return;
 
+        OnBeforeTransitionStart?.Invoke();
+        
         var tcs = new TaskCompletionSource<bool>();
         StartCoroutine(TransitionCoroutine(tcs));
         await tcs.Task;
@@ -64,6 +70,8 @@ public class QuestionTransitionManager : MonoBehaviour
             yield return null;
         }
 
+        OnTransitionMidpoint?.Invoke();
+        
         questionObjectsRect.anchoredPosition = enterPos;
         
         elapsedTime = 0;
