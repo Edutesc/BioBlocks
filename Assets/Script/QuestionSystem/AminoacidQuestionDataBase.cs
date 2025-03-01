@@ -563,7 +563,7 @@ public class AminoacidQuestionDatabase : MonoBehaviour, IQuestionDatabase
         },
         new Question
         {
-            questionDatabankName = "ProteinQuestionDatabase",
+            questionDatabankName = "AminoacidQuestionDatabase",
             questionText = "Qual o nível estrutural de uma proteína que corresponde à sequência linear de aminoácidos?",
             answers = new string[] {
                 "Estrutura secundária",
