@@ -149,7 +149,7 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Seqüência de aminoácidos.",
                 "Arranjo espacial de alfa-hélices e folhas beta.",
                 "Interações entre diferentes cadeias polipeptídicas.",
-                "Dobramento tridimensional da proteína."
+                "Estrutura tridimensional de uma sequência de aminoácidos."
             },
             correctIndex = 3,
             questionNumber = 10,
