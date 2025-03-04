@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9d195db6476eb4f0e9be0a34598cf655
+guid: 69d0a72e2f87a4b44b131e6f69366d51
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7425857990738829655
-    second: proteinQuestion_6_0
+      213: 2740680894709423285
+    second: methodsQuestions20_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: proteinQuestion_6_0
+      name: methodsQuestions20_0
       rect:
         serializedVersion: 2
         x: 3
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ae1485508d02f890800000000000000
-      internalID: -7425857990738829655
+      spriteID: 5bcdad3c0cad80620800000000000000
+      internalID: 2740680894709423285
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      proteinQuestion_6_0: -7425857990738829655
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -33,7 +33,8 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 2,
             questionNumber = 2,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -47,21 +48,23 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 0,
             questionNumber = 3,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
             questionText = "Identifique abaixo o aminoácido que pode formar pontes dissulfeto em proteínas",
             answers = new string[] {
-                "AnswerImages/AminoacidsDB/cisteína",
+                "AnswerImages/AminoacidsDB/cisteina",
                 "AnswerImages/AminoacidsDB/treonina",
                 "AnswerImages/AminoacidsDB/alanina",
                 "AnswerImages/AminoacidsDB/fenilalanina"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 4,
-            isImageAnswer = true
+            isImageAnswer = true,
+            isImageQuestion = false
         },
         new Question
         {
@@ -75,7 +78,8 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 3,
             questionNumber = 5,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -86,10 +90,10 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "A imagem representa apenas a estrutura primária de uma proteína",
                 "Não há estrutura definida",
             },
-            correctIndex = 1,
-            questionNumber = 1,
-            isImageQuestion = true,
+            correctIndex = 0,
+            questionNumber = 6,
             isImageAnswer = false,
+            isImageQuestion = true,
             questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_6"
         },
         new Question
@@ -97,14 +101,15 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "ProteinQuestionDatabase",
             questionText = "Quais são os principais elementos de estrutura secundária?",
             answers = new string[] {
-                "Alfa-hélices e folhas beta",
+                "Alfa-hélices e fitas-betas",
                 "Alfa-hélices e pontes dissulfeto",
-                "Folhas beta e ligações peptídicas",
+                "Fitas-betas e ligações peptídicas",
                 "Voltas e ligações iônicas"
             },
             correctIndex = 0,
             questionNumber = 7,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -117,8 +122,8 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 1,
             questionNumber = 8,
-            isImageQuestion = true,
             isImageAnswer = false,
+            isImageQuestion = true,
             questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_8"
         },
         new Question
@@ -133,6 +138,7 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             correctIndex = 3,
             questionNumber = 9,
             isImageAnswer = true,
+            isImageQuestion = true,
             questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_9"
         },
         new Question
@@ -147,7 +153,8 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 3,
             questionNumber = 10,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -161,49 +168,8 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 1,
             questionNumber = 11,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Qual técnica utiliza cristais de proteína para determinar sua estrutura?",
-            answers = new string[] {
-                "Espectrometria de massas",
-                "Cristalografia de raios-X",
-                "Ressonância magnética nuclear (RMN)",
-                "Microscopia eletrônica"
-            },
-            correctIndex = 1,
-            questionNumber = 12,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            answers = new string[] {
-                "AnswerImages/AminoacidsDB/acido_aspartico",
-                "AnswerImages/AminoacidsDB/treonina",
-                "AnswerImages/AminoacidsDB/arginina",
-                "AnswerImages/AminoacidsDB/isoleucina"
-            },
-            correctIndex = 1,
-            questionNumber = 13,
-            isImageAnswer = true,
-            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_13"
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            answers = new string[] {
-                "AnswerImages/AminoacidsDB/triptofano",
-                "AnswerImages/AminoacidsDB/isoleucina",
-                "AnswerImages/AminoacidsDB/arginina",
-                "AnswerImages/AminoacidsDB/fenilalanina"
-            },
-            correctIndex = 1,
-            questionNumber = 14,
-            isImageAnswer = true,
-            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_14"
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -216,13 +182,44 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "AnswerImages/ProteinDB/estrutura_quaternaria"
             },
             correctIndex = 1,
-            questionNumber = 15,
-            isImageAnswer = true
+            questionNumber = 12,
+            isImageAnswer = true,
+            isImageQuestion = false
         },
-                new Question
+        new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-             questionText = "Identifique abaixo a melhor representação de estrutura quaternaria",
+            answers = new string[] {
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/arginina",
+                "AnswerImages/AminoacidsDB/isoleucina"
+            },
+            correctIndex = 3,
+            questionNumber = 13,
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_13"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "AnswerImages/AminoacidsDB/triptofano",
+                "AnswerImages/AminoacidsDB/isoleucina",
+                "AnswerImages/AminoacidsDB/arginina",
+                "AnswerImages/AminoacidsDB/fenilalanina"
+            },
+            correctIndex = 2,
+            questionNumber = 14,
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_14"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Identifique abaixo a melhor representação de estrutura quaternaria",
             answers = new string[] {
                 "AnswerImages/ProteinDB/estrutura_primaria",
                 "AnswerImages/ProteinDB/estrutura_secundaria",
@@ -230,8 +227,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "AnswerImages/ProteinDB/estrutura_quaternaria"
             },
             correctIndex = 3,
-            questionNumber = 16,
-            isImageAnswer = true
+            questionNumber = 15,
+            isImageAnswer = true,
+            isImageQuestion = false
         },
         new Question
         {
@@ -244,13 +242,14 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "AnswerImages/ProteinDB/estrutura_quaternaria"
             },
             correctIndex = 0,
-            questionNumber = 17,
-            isImageAnswer = true
+            questionNumber = 16,
+            isImageAnswer = true,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-             questionText = "Identifique abaixo a melhor representação de estrutura terciária",
+            questionText = "Identifique abaixo a melhor representação de estrutura terciária",
             answers = new string[] {
                 "AnswerImages/ProteinDB/estrutura_primaria",
                 "AnswerImages/ProteinDB/estrutura_secundaria",
@@ -258,8 +257,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "AnswerImages/ProteinDB/estrutura_quaternaria"
             },
             correctIndex = 2,
-            questionNumber = 18,
-            isImageAnswer = true
+            questionNumber = 17,
+            isImageAnswer = true,
+            isImageQuestion = false
         },
          new Question
         {
@@ -271,9 +271,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "beta-hélices",
             },
             correctIndex = 0,
-            questionNumber = 19,
-            isImageQuestion = true,
+            questionNumber = 18,
             isImageAnswer = false,
+            isImageQuestion = true,
             questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_19"
         },
         new Question
@@ -286,41 +286,72 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "beta-hélices",
             },
             correctIndex = 1,
-            questionNumber = 20,
-            isImageQuestion = true,
+            questionNumber = 19,
             isImageAnswer = false,
+            isImageQuestion = true,
             questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_20"
         },
-       
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O colágeno é uma proteína fibrosa encontrada em:",
             answers = new string[] {
-                "Cabelos",
-                "Ossos, cartilagens e tendões.",
-                "Músculos",
-                "Enzimas"
-            },
-            correctIndex = 1,
-            questionNumber = 33,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A estrutura do colágeno é:",
-            answers = new string[] {
-                "Uma única hélice alfa.",
-                "Uma dupla hélice alfa.",
-                "Uma tripla hélice.",
-                "Uma folha beta."
+                "Cromatografia de focalização isoelétrica",
+                "Cromatografia de gel filtração",
+                "Cromatrografia de troca iônica",
+                "Cromatrografia de afinidade",
             },
             correctIndex = 2,
-            questionNumber = 34,
-            isImageAnswer = false
+            questionNumber = 20,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/methodsQuestions20"
         },
-         new Question
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "Cromatografia de focalização isoelétrica",
+                "Cromatografia de gel filtração",
+                "Cromatrografia de troca iônica",
+                "Cromatrografia de afinidade",
+            },
+            correctIndex = 1,
+            questionNumber = 21,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/methodsQuestions21"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Imagine uma mistura de duas proteínas (15 kDa e 45 kDa). Usando uma coluna de exclusão que interage com proteínas de até 20 kDa, qual proteína sairá primeiro da coluna?",
+            answers = new string[] {
+                "Ambas saírão juntas",
+                "12 kDa sairá primeiro",
+                "45 kDa sairá primeiro",
+                "A coluna não conseguirá separar as proteínas",
+            },
+            correctIndex = 2,
+            questionNumber = 22,
+            isImageAnswer = false,
+            isImageQuestion = false
+        },
+                new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Imagine uma mistura de duas proteínas com pI = 6 e pI = 12. Usando uma coluna trocadora de cátions, qual proteína sairá primeiro da coluna com uma fase móvel com pH = 9?",
+            answers = new string[] {
+                "Ambas saírão juntas",
+                "Proteína com pI = 6 sairá primeiro",
+                "Proteína com pI = 9 sairá primeiro",
+                "A coluna não conseguirá separar as proteínas",
+            },
+            correctIndex = 1,
+            questionNumber = 23,
+            isImageAnswer = false,
+            isImageQuestion = false
+        },
+        new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
             questionText = "A técnica de eletroforese SDS-Page separa proteínas com base em:",
@@ -331,8 +362,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Sua estrutura terciária."
             },
             correctIndex = 0,
-            questionNumber = 15,
-            isImageAnswer = false
+            questionNumber = 24,
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -345,8 +377,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Depende do pH"
             },
             correctIndex = 1,
-            questionNumber = 16,
-            isImageAnswer = false
+            questionNumber = 25,
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -359,8 +392,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Depende do pH"
             },
             correctIndex = 1,
-            questionNumber = 17,
-            isImageAnswer = false
+            questionNumber = 26,
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -373,8 +407,84 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Migrará para ambos os pólos."
             },
             correctIndex = 2,
-            questionNumber = 18,
-            isImageAnswer = false
+            questionNumber = 27,
+            isImageAnswer = false,
+            isImageQuestion = false
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "A curva na cor vermelha refere-se a uma proteína",
+                "A curva na cor azul refere-se a uma proteína",
+                "A curva na cor vermelha refere-se ao aminoácido alanina",
+                "A curva na cor azul refere-se ao aminoácido leucina"
+            },
+            correctIndex = 1,
+            questionNumber = 28,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/methodsQuestions28"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "Transportar oxigênio",
+                "Manter estrutura das hemácias",
+                "Contração dos pulmões",
+                "Armazenar oxigênio"
+            },
+            correctIndex = 3,
+            questionNumber = 29,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure29"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "Transportar oxigênio",
+                "Manter estrutura das hemácias",
+                "Contração dos pulmões",
+                "Armazenar oxigênio"
+            },
+            correctIndex = 0,
+            questionNumber = 30,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure30"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "Hemoglobina",
+                "Mioglobina",
+                "Não há diferença",
+                "Ambas as proteínas tem baixa afinidade por oxigênio"
+            },
+            correctIndex = 1,
+            questionNumber = 31,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure31"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "A mioglobina tem uma estrutura quaternária que facilita a ligação com O<sub><size=150%>2</size></sub>",
+                "A hemoblogina pode assumir duas conformações, R e T, que têm diferentes afinidades por O<sub><size=150%>2</size></sub> ",
+                "As proteínas não apresentam diferenças de afinidade por O<sub><size=150%>2</size></sub>",
+                "Porque a hoglobina liga-se a quatro grupos heme"
+            },
+            correctIndex = 1,
+            questionNumber = 32,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure32"
         },
     };
 
