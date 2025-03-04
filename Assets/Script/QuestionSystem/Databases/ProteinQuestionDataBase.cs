@@ -6,19 +6,20 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
 {
     private List<Question> questions = new List<Question>
     {
-        new Question
+         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Qual o nível estrutural de uma proteína que corresponde à sequência linear de aminoácidos?",
             answers = new string[] {
-                "Estrutura secundária",
-                "Estrutura terciária",
-                "Estrutura quaternária",
-                "Estrutura primária"
+                "A = Ponte de Hidrogênio, B = Interação Eletrostática, C = Interação Hidrofóbica, D = Ponte Dissulfeto",
+                "A = Ponte de Dissulfeto, B = Interação Eletrostática, C = Interação Hidrofóbica, D = Ponte de Hidrogênio",
+                "A = Interação Hidrofóbica, B = Ponte de Hidrogênio, C = Ponte Dissulfeto, D = Interação Eletrostática",
+                "A = Interação Eletrostática, B = Ponte de Hidrogênio, C = Interação Hidrofóbica, D = Ponte Dissulfeto",
             },
-            correctIndex = 3,
+            correctIndex = 2,
             questionNumber = 1,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_1"
         },
         new Question
         {
@@ -32,7 +33,8 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 2,
             questionNumber = 2,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -46,21 +48,23 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 0,
             questionNumber = 3,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Pontes dissulfeto são formadas entre resíduos de:",
+            questionText = "Identifique abaixo o aminoácido que pode formar pontes dissulfeto em proteínas",
             answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Cisteína",
-                "Prolina"
+                "AnswerImages/AminoacidsDB/cisteina",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/fenilalanina"
             },
-            correctIndex = 2,
+            correctIndex = 0,
             questionNumber = 4,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = false
         },
         new Question
         {
@@ -74,54 +78,42 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             },
             correctIndex = 3,
             questionNumber = 5,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A estrutura secundária de uma proteína é estabilizada principalmente por:",
             answers = new string[] {
-                "Pontes dissulfeto",
-                "Ligações peptídicas",
-                "Ligações de hidrogênio",
-                "Interações hidrofóbicas"
+                "Uma estrutura formada basicamente por alfa-hélices",
+                "Uma estrutura formada basicamente por fitas-betas",
+                "A imagem representa apenas a estrutura primária de uma proteína",
+                "Não há estrutura definida",
             },
-            correctIndex = 2,
+            correctIndex = 0,
             questionNumber = 6,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_6"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
             questionText = "Quais são os principais elementos de estrutura secundária?",
             answers = new string[] {
-                "Alfa-hélices e folhas beta",
+                "Alfa-hélices e fitas-betas",
                 "Alfa-hélices e pontes dissulfeto",
-                "Folhas beta e ligações peptídicas",
+                "Fitas-betas e ligações peptídicas",
                 "Voltas e ligações iônicas"
             },
             correctIndex = 0,
             questionNumber = 7,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Em uma alfa-hélice, os grupamentos R dos aminoácidos ficam:",
-            answers = new string[] {
-                "No interior da hélice.",
-                "No exterior da hélice.",
-                "Aleatoriamente distribuídos.",
-                "Em um plano específico."
-            },
-            correctIndex = 1,
-            questionNumber = 8,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "As folhas beta são estabilizadas por:",
             answers = new string[] {
                 "Interações hidrofóbicas",
                 "Pontes de hidrogênio",
@@ -129,64 +121,25 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Pontes dissulfeto"
             },
             correctIndex = 1,
+            questionNumber = 8,
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_8"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/glutamina",
+                "AnswerImages/AminoacidsDB/arginina",
+                "AnswerImages/AminoacidsDB/prolina"
+            },
+            correctIndex = 3,
             questionNumber = 9,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Em folhas beta, as cadeias polipeptídicas podem ser:",
-            answers = new string[] {
-                "Apenas paralelas.",
-                "Apenas antiparalelas.",
-                "Paralelas ou antiparalelas.",
-                "Não são encontradas em folhas beta."
-            },
-            correctIndex = 2,
-            questionNumber = 10,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "As voltas (dobras) em proteínas conectam:",
-            answers = new string[] {
-                "Somente alfa-hélices.",
-                "Somente folhas beta.",
-                "Alfa-hélices e folhas beta.",
-                "Apenas regiões da mesma cadeia polipeptídica."
-            },
-            correctIndex = 2,
-            questionNumber = 11,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A prolina é uma má formadora de alfa-hélices porque:",
-            answers = new string[] {
-                "É um aminoácido pequeno.",
-                "Seu nitrogênio faz parte de um anel.",
-                "É um aminoácido apolar.",
-                "Possui uma cadeia lateral grande."
-            },
-            correctIndex = 1,
-            questionNumber = 12,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A glicina é uma má formadora de alfa-hélices porque:",
-            answers = new string[] {
-                "É um aminoácido grande.",
-                "É um aminoácido carregado.",
-                "Possui alta flexibilidade.",
-                "Forma pontes dissulfeto."
-            },
-            correctIndex = 2,
-            questionNumber = 13,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_9"
         },
         new Question
         {
@@ -199,8 +152,9 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Dobramento tridimensional da proteína."
             },
             correctIndex = 3,
-            questionNumber = 14,
-            isImageAnswer = false
+            questionNumber = 10,
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
@@ -208,504 +162,330 @@ public class ProteinQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Quais forças mantêm a estrutura terciária de uma proteína?",
             answers = new string[] {
                 "Apenas ligações peptídicas.",
-                "Pontes de hidrogênio, interações hidrofóbicas, interações iônicas, pontes dissulfeto, e forças de van der Waals.",
+                "Pontes de hidrogênio, interações hidrofóbicas, interações iônicas e pontes dissulfeto.",
                 "Apenas pontes dissulfeto.",
                 "Apenas ligações de hidrogênio."
             },
             correctIndex = 1,
-            questionNumber = 15,
-            isImageAnswer = false
+            questionNumber = 11,
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Qual técnica utiliza cristais de proteína para determinar sua estrutura?",
+             questionText = "Identifique abaixo a melhor representação de estrutura secundaria",
             answers = new string[] {
-                "Espectrometria de massas",
-                "Cristalografia de raios-X",
-                "Ressonância magnética nuclear (RMN)",
-                "Microscopia eletrônica"
+                "AnswerImages/ProteinDB/estrutura_primaria",
+                "AnswerImages/ProteinDB/estrutura_secundaria",
+                "AnswerImages/ProteinDB/estrutura_terciaria",
+                "AnswerImages/ProteinDB/estrutura_quaternaria"
             },
             correctIndex = 1,
-            questionNumber = 16,
-            isImageAnswer = false
+            questionNumber = 12,
+            isImageAnswer = true,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Qual técnica utiliza proteínas em solução para determinar sua estrutura?",
             answers = new string[] {
-                "Cristalografia de raios-X",
-                "Espectrometria de massas",
-                "Ressonância magnética nuclear (RMN)",
-                "Microscopia eletrônica"
+                "AnswerImages/AminoacidsDB/acido_aspartico",
+                "AnswerImages/AminoacidsDB/treonina",
+                "AnswerImages/AminoacidsDB/arginina",
+                "AnswerImages/AminoacidsDB/isoleucina"
+            },
+            correctIndex = 3,
+            questionNumber = 13,
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_13"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "AnswerImages/AminoacidsDB/triptofano",
+                "AnswerImages/AminoacidsDB/isoleucina",
+                "AnswerImages/AminoacidsDB/arginina",
+                "AnswerImages/AminoacidsDB/fenilalanina"
+            },
+            correctIndex = 2,
+            questionNumber = 14,
+            isImageAnswer = true,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_14"
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Identifique abaixo a melhor representação de estrutura quaternaria",
+            answers = new string[] {
+                "AnswerImages/ProteinDB/estrutura_primaria",
+                "AnswerImages/ProteinDB/estrutura_secundaria",
+                "AnswerImages/ProteinDB/estrutura_terciaria",
+                "AnswerImages/ProteinDB/estrutura_quaternaria"
+            },
+            correctIndex = 3,
+            questionNumber = 15,
+            isImageAnswer = true,
+            isImageQuestion = false
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+             questionText = "Identifique abaixo a melhor representação de estrutura primaria",
+            answers = new string[] {
+                "AnswerImages/ProteinDB/estrutura_primaria",
+                "AnswerImages/ProteinDB/estrutura_secundaria",
+                "AnswerImages/ProteinDB/estrutura_terciaria",
+                "AnswerImages/ProteinDB/estrutura_quaternaria"
+            },
+            correctIndex = 0,
+            questionNumber = 16,
+            isImageAnswer = true,
+            isImageQuestion = false
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Identifique abaixo a melhor representação de estrutura terciária",
+            answers = new string[] {
+                "AnswerImages/ProteinDB/estrutura_primaria",
+                "AnswerImages/ProteinDB/estrutura_secundaria",
+                "AnswerImages/ProteinDB/estrutura_terciaria",
+                "AnswerImages/ProteinDB/estrutura_quaternaria"
             },
             correctIndex = 2,
             questionNumber = 17,
-            isImageAnswer = false
+            isImageAnswer = true,
+            isImageQuestion = false
         },
-        new Question
+         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Em geral, aminoácidos apolares são encontrados principalmente:",
             answers = new string[] {
-                "Na superfície da proteína.",
-                "No interior da proteína.",
-                "Em ambos os locais igualmente.",
-                "Ligados a grupamentos prostéticos."
+                "alfa-hélices",
+                "fitas-beta",
+                "folhas-beta",
+                "beta-hélices",
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 18,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_19"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Em geral, aminoácidos polares são encontrados principalmente:",
             answers = new string[] {
-                "No interior da proteína.",
-                "Na superfície da proteína.",
-                "Em ambos os locais igualmente.",
-                "Ligados a grupamentos prostéticos."
+                "alfa-hélices",
+                "fitas-beta",
+                "fitas-alfa",
+                "beta-hélices",
             },
             correctIndex = 1,
             questionNumber = 19,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/proteinQuestion_20"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O enovelamento protéico é o processo de:",
             answers = new string[] {
-                "Formação da estrutura primária de uma proteína.",
-                "Formação da estrutura secundária de uma proteína.",
-                "Formação da estrutura terciária de uma proteína.",
-                "Degradação de uma proteína."
+                "Cromatografia de focalização isoelétrica",
+                "Cromatografia de gel filtração",
+                "Cromatrografia de troca iônica",
+                "Cromatrografia de afinidade",
             },
             correctIndex = 2,
             questionNumber = 20,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/methodsQuestions20"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O experimento de Anfinsen demonstrou que:",
             answers = new string[] {
-                "As proteínas se enovelam com a ajuda de chaperonas.",
-                "A seqüência primária determina a estrutura terciária.",
-                "A estrutura terciária é aleatória.",
-                "As proteínas não se enovelam espontaneamente."
+                "Cromatografia de focalização isoelétrica",
+                "Cromatografia de gel filtração",
+                "Cromatrografia de troca iônica",
+                "Cromatrografia de afinidade",
             },
             correctIndex = 1,
             questionNumber = 21,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath =  "AnswerImages/ProteinDB/methodsQuestions21"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Chaperonas moleculares são:",
+            questionText = "Imagine uma mistura de duas proteínas (15 kDa e 45 kDa). Usando uma coluna de exclusão que interage com proteínas de até 20 kDa, qual proteína sairá primeiro da coluna?",
             answers = new string[] {
-                "Proteínas que auxiliam o enovelamento protéico.",
-                "Proteínas que degradam outras proteínas.",
-                "Moléculas de RNA que auxiliam a síntese protéica.",
-                "Moléculas de DNA que auxiliam a síntese protéica."
+                "Ambas saírão juntas",
+                "12 kDa sairá primeiro",
+                "45 kDa sairá primeiro",
+                "A coluna não conseguirá separar as proteínas",
             },
-            correctIndex = 0,
+            correctIndex = 2,
             questionNumber = 22,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
-        new Question
+                new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "As proteínas de choque térmico atuam principalmente:",
+            questionText = "Imagine uma mistura de duas proteínas com pI = 6 e pI = 12. Usando uma coluna trocadora de cátions, qual proteína sairá primeiro da coluna com uma fase móvel com pH = 9?",
             answers = new string[] {
-                "Em baixas temperaturas.",
-                "Em altas temperaturas.",
-                "Em pHs ácidos.",
-                "Em pHs básicos."
+                "Ambas saírão juntas",
+                "Proteína com pI = 6 sairá primeiro",
+                "Proteína com pI = 9 sairá primeiro",
+                "A coluna não conseguirá separar as proteínas",
             },
             correctIndex = 1,
             questionNumber = 23,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Chaperoninas são:",
+            questionText = "A técnica de eletroforese SDS-Page separa proteínas com base em:",
             answers = new string[] {
-                "Proteínas que atuam em baixas temperaturas.",
-                "Proteínas que auxiliam no enovelamento protéico.",
-                "Proteínas que degradam proteínas.",
-                "Enzimas que quebram ligações peptídicas."
-            },
-            correctIndex = 1,
-            questionNumber = 24,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A dissulfeto isomerase catalisa a formação de:",
-            answers = new string[] {
-                "Ligações peptídicas",
-                "Pontes de hidrogênio",
-                "Pontes dissulfeto",
-                "Ligações iônicas"
-            },
-            correctIndex = 2,
-            questionNumber = 25,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A peptidil-prolil isomerase atua sobre:",
-            answers = new string[] {
-                "Ligações peptídicas",
-                "Pontes dissulfeto",
-                "Isômeros de prolina",
-                "Grupamentos carboxila"
-            },
-            correctIndex = 2,
-            questionNumber = 26,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O que são proteínas homólogas?",
-            answers = new string[] {
-                "Proteínas com a mesma função em diferentes espécies.",
-                "Proteínas com estruturas terciárias idênticas.",
-                "Proteínas que interagem entre si.",
-                "Proteínas que são sintetizadas simultaneamente."
+                "Seu tamanho.",
+                "Sua carga líquida.",
+                "Sua sequência de aminoácidos.",
+                "Sua estrutura terciária."
             },
             correctIndex = 0,
-            questionNumber = 27,
-            isImageAnswer = false
+            questionNumber = 24,
+            isImageAnswer = false,
+            isImageQuestion = false
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Proteínas homólogas são usadas para estudos de:",
+            questionText = "Em eletroforese com focalização isoelétrica, um aminoácido com carga líquida positiva migrará para o pólo:",
             answers = new string[] {
-                "Metabolismo celular",
-                "Filogenia",
-                "Estruturas terciárias",
-                "Enovelamento protéico"
+                "Positivo",
+                "Negativo",
+                "Não migrará",
+                "Depende do pH"
+            },
+            correctIndex = 1,
+            questionNumber = 25,
+            isImageAnswer = false,
+            isImageQuestion = false
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Em eletroforese com focalização isoelétrica, um aminoácido com carga líquida negativa migrará para o pólo:",
+            answers = new string[] {
+                "Negativo",
+                "Positivo",
+                "Não migrará",
+                "Depende do pH"
+            },
+            correctIndex = 1,
+            questionNumber = 26,
+            isImageAnswer = false,
+            isImageQuestion = false
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            questionText = "Em eletroforese com focalização isoelétrica, um aminoácido no seu ponto isoelétrico:",
+            answers = new string[] {
+                "Migrará para o pólo positivo.",
+                "Migrará para o pólo negativo.",
+                "Não migrará.",
+                "Migrará para ambos os pólos."
+            },
+            correctIndex = 2,
+            questionNumber = 27,
+            isImageAnswer = false,
+            isImageQuestion = false
+        },
+        new Question
+        {
+            questionDatabankName = "ProteinQuestionDatabase",
+            answers = new string[] {
+                "A curva na cor vermelha refere-se a uma proteína",
+                "A curva na cor azul refere-se a uma proteína",
+                "A curva na cor vermelha refere-se ao aminoácido alanina",
+                "A curva na cor azul refere-se ao aminoácido leucina"
             },
             correctIndex = 1,
             questionNumber = 28,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/methodsQuestions28"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Proteínas fibrosas geralmente apresentam:",
             answers = new string[] {
-                "Uma forma globular.",
-                "Uma forma filamentosa.",
-                "Uma estrutura terciária complexa.",
-                "Muitos grupamentos prostéticos."
+                "Transportar oxigênio",
+                "Manter estrutura das hemácias",
+                "Contração dos pulmões",
+                "Armazenar oxigênio"
             },
-            correctIndex = 1,
+            correctIndex = 3,
             questionNumber = 29,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure29"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A alfa-queratina é uma proteína fibrosa encontrada em:",
             answers = new string[] {
-                "Ossos",
-                "Cabelos, unhas e pêlos.",
-                "Músculos",
-                "Enzimas"
+                "Transportar oxigênio",
+                "Manter estrutura das hemácias",
+                "Contração dos pulmões",
+                "Armazenar oxigênio"
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 30,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure30"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A estrutura da alfa-queratina é rica em:",
             answers = new string[] {
-                "Folhas beta",
-                "Alfa-hélices",
-                "Voltas beta",
-                "Pontes dissulfeto"
+                "Hemoglobina",
+                "Mioglobina",
+                "Não há diferença",
+                "Ambas as proteínas tem baixa afinidade por oxigênio"
             },
             correctIndex = 1,
             questionNumber = 31,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure31"
         },
         new Question
         {
             questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A alta resistência da alfa-queratina se deve a:",
             answers = new string[] {
-                "Sua baixa massa molecular.",
-                "Sua alta solubilidade em água.",
-                "A formação de super-hélices.",
-                "Sua estrutura primária simples."
+                "A mioglobina tem uma estrutura quaternária que facilita a ligação com O<sub><size=150%>2</size></sub>",
+                "A hemoblogina pode assumir duas conformações, R e T, que têm diferentes afinidades por O<sub><size=150%>2</size></sub> ",
+                "As proteínas não apresentam diferenças de afinidade por O<sub><size=150%>2</size></sub>",
+                "Porque a hoglobina liga-se a quatro grupos heme"
             },
-            correctIndex = 2,
+            correctIndex = 1,
             questionNumber = 32,
-            isImageAnswer = false
+            isImageAnswer = false,
+            isImageQuestion = true,
+            questionImagePath = "AnswerImages/ProteinDB/function_and_structure32"
         },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O colágeno é uma proteína fibrosa encontrada em:",
-            answers = new string[] {
-                "Cabelos",
-                "Ossos, cartilagens e tendões.",
-                "Músculos",
-                "Enzimas"
-            },
-            correctIndex = 1,
-            questionNumber = 33,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A estrutura do colágeno é:",
-            answers = new string[] {
-                "Uma única hélice alfa.",
-                "Uma dupla hélice alfa.",
-                "Uma tripla hélice.",
-                "Uma folha beta."
-            },
-            correctIndex = 2,
-            questionNumber = 34,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Qual aminoácido é mais abundante no colágeno?",
-            answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Prolina",
-                "Hidroxiprolina"
-            },
-            correctIndex = 1,
-            questionNumber = 35,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A hidroxiprolina é uma modificação da:",
-            answers = new string[] {
-                "Alanina",
-                "Glicina",
-                "Prolina",
-                "Serina"
-            },
-            correctIndex = 2,
-            questionNumber = 36,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A fibroína da seda é uma proteína fibrosa cuja estrutura é rica em:",
-            answers = new string[] {
-                "Alfa-hélices",
-                "Folhas beta",
-                "Voltas",
-                "Pontes dissulfeto"
-            },
-            correctIndex = 1,
-            questionNumber = 37,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A fibroína da seda é um exemplo de proteína com estrutura rica em:",
-            answers = new string[] {
-                "Alfa-hélices",
-                "Folhas beta antiparalelas",
-                "Voltas",
-                "Pontes dissulfeto"
-            },
-            correctIndex = 1,
-            questionNumber = 38,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A resistência da fibroína da seda se deve principalmente a:",
-            answers = new string[] {
-                "Sua estrutura helicoidal.",
-                "Sua alta massa molecular.",
-                "O empacotamento denso das folhas beta.",
-                "Sua alta quantidade de cisteína."
-            },
-            correctIndex = 2,
-            questionNumber = 39,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O que causa a mudança conformacional na proteína prion?",
-            answers = new string[] {
-                "Mutações genéticas",
-                "Modificações pós-traducionais",
-                "Ação de enzimas",
-                "Ainda não se conhece a causa"
-            },
-            correctIndex = 3,
-            questionNumber = 40,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A forma patogênica da proteína prion é chamada de:",
-            answers = new string[] {
-                "PrPC",
-                "PrPSC",
-                "PrP",
-                "APP"
-            },
-            correctIndex = 1,
-            questionNumber = 41,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A Doença da Vaca Louca é causada por:",
-            answers = new string[] {
-                "Um vírus",
-                "Uma bactéria",
-                "Uma proteína mal enovelada",
-                "Um fungo"
-            },
-            correctIndex = 2,
-            questionNumber = 42,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O mal de Alzheimer é causado por:",
-            answers = new string[] {
-                "Uma proteína mal enovelada",
-                "Um vírus",
-                "Uma bactéria",
-                "Um fungo"
-            },
-            correctIndex = 0,
-            questionNumber = 43,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O peptídeo β-amilóide é derivado da proteína:",
-            answers = new string[] {
-                "PrP",
-                "APP",
-                "Tau",
-                "alfa-sinucleína"
-            },
-            correctIndex = 1,
-            questionNumber = 44,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "As placas senis no cérebro de pacientes com Alzheimer são formadas por:",
-            answers = new string[] {
-                "Agregados de proteína Tau",
-                "Agregados de peptídeo β-amilóide",
-                "Fibras de colágeno",
-                "Micelas de lipídios"
-            },
-            correctIndex = 1,
-            questionNumber = 45,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Qual a principal característica das proteínas amiloidogênicas?",
-            answers = new string[] {
-                "Alta solubilidade em água",
-                "Formação de fibrilas amilóides",
-                "Baixa massa molecular",
-                "Função enzimática"
-            },
-            correctIndex = 1,
-            questionNumber = 46,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "A agregação de proteínas amiloidogênicas ocorre principalmente devido a:",
-            answers = new string[] {
-                "Interações hidrofílicas",
-                "Interações hidrofóbicas",
-                "Ligações peptídicas",
-                "Pontes de hidrogênio"
-            },
-            correctIndex = 1,
-            questionNumber = 47,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Doenças priônicas são causadas por:",
-            answers = new string[] {
-                "Vírus",
-                "Bactérias",
-                "Prions",
-                "Fungos"
-            },
-            correctIndex = 2,
-            questionNumber = 48,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "Um exemplo de encefalopatia espongiforme transmissível é:",
-            answers = new string[] {
-                "Doença de Alzheimer",
-                "Mal de Parkinson",
-                "Doença da Vaca Louca",
-                "Febre aftosa"
-            },
-            correctIndex = 2,
-            questionNumber = 49,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "ProteinQuestionDatabase",
-            questionText = "O que caracteriza um vírus?",
-            answers = new string[] {
-                "Organismo unicelular.",
-                "Organismo multicelular.",
-                "Partícula infecciosa composta de ácido nucléico e capsídeo protéico.",
-                "Uma proteína com função enzimática."
-            },
-            correctIndex = 2,
-            questionNumber = 50,
-            isImageAnswer = false
-        }
     };
 
     public List<Question> GetQuestions()
