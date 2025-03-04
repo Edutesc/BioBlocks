@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using System.Collections;
 
 public class PathwayManager : MonoBehaviour
 {
@@ -22,7 +23,20 @@ public class PathwayManager : MonoBehaviour
             // Inscreve no evento de atualização de questões respondidas
             AnsweredQuestionsManager.OnAnsweredQuestionsUpdated += HandleAnsweredQuestionsUpdated;
 
-            UpdateAnsweredQuestionsPercentages();
+            // Verifica se as estatísticas estão disponíveis
+            if (DatabaseStatisticsManager.Instance.IsInitialized)
+            {
+                // Se já estiver inicializado, atualiza imediatamente
+                UpdateAnsweredQuestionsPercentages();
+            }
+            else
+            {
+                // Se não estiver inicializado, registra para o evento e inicializa
+                DatabaseStatisticsManager.OnStatisticsReady += OnDatabaseStatisticsReady;
+
+                // Inicia a inicialização se ainda não foi iniciada
+                StartCoroutine(InitializeDatabaseStatistics());
+            }
         }
         else
         {
@@ -31,11 +45,42 @@ public class PathwayManager : MonoBehaviour
         }
     }
 
+    private IEnumerator InitializeDatabaseStatistics()
+    {
+        // Espera um frame para garantir que outros componentes estejam prontos
+        yield return null;
+
+        Debug.Log("PathwayManager iniciando inicialização das estatísticas");
+        var task = DatabaseStatisticsManager.Instance.Initialize();
+
+        // Aguarda a conclusão da inicialização
+        while (!task.IsCompleted)
+        {
+            yield return null;
+        }
+
+        // Se ocorreu um erro, registra
+        if (task.IsFaulted)
+        {
+            Debug.LogError($"Erro ao inicializar estatísticas: {task.Exception}");
+        }
+    }
+
+    private void OnDatabaseStatisticsReady()
+    {
+        // Este método é chamado quando as estatísticas estão prontas
+        Debug.Log("PathwayManager: Estatísticas prontas, atualizando porcentagens");
+        UpdateAnsweredQuestionsPercentages();
+
+        // Cancela o registro do evento após o uso
+        DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
+    }
+
     private void OnDestroy()
     {
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
-        // Remove a inscrição do evento quando o objeto for destruído
         AnsweredQuestionsManager.OnAnsweredQuestionsUpdated -= HandleAnsweredQuestionsUpdated;
+        DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
     }
 
     // Método atualizado para corresponder ao delegate

@@ -25,9 +25,9 @@ public class InitializationManager : MonoBehaviour
     {
         // Garante que o BioBlocksSettings seja inicializado primeiro
         BioBlocksSettings.Instance.IsDebugMode();
-        #if DEBUG
-            Debug.Log($"Bioblocks initialized in {BioBlocksSettings.ENVIRONMENT} mode"); 
-        #endif
+#if DEBUG
+        Debug.Log($"Bioblocks initialized in {BioBlocksSettings.ENVIRONMENT} mode");
+#endif
     }
 
     private void Start()
@@ -52,10 +52,10 @@ public class InitializationManager : MonoBehaviour
 
     private async void StartInitialization()
     {
-        #if DEBUG
-            Debug.Log($"Starting app initialization in {BioBlocksSettings.ENVIRONMENT} mode...");
-            Debug.Log($"App Version: {BioBlocksSettings.VERSION}");
-        #endif
+#if DEBUG
+        Debug.Log($"Starting app initialization in {BioBlocksSettings.ENVIRONMENT} mode...");
+        Debug.Log($"App Version: {BioBlocksSettings.VERSION}");
+#endif
         Debug.Log("Starting app initialization...");
         float startTime = Time.time;
 
@@ -69,7 +69,7 @@ public class InitializationManager : MonoBehaviour
             // Verificar autenticação
             UpdateStatus("Verificando autenticação...");
             bool isAuthenticated = await CheckAuthentication();
-            UpdateProgress(0.6f);
+            UpdateProgress(0.5f);
 
             // Carregar dados do usuário se autenticado
             bool userDataLoaded = false;
@@ -77,7 +77,15 @@ public class InitializationManager : MonoBehaviour
             {
                 UpdateStatus("Carregando dados do usuário...");
                 userDataLoaded = await LoadUserData();
-                UpdateProgress(0.9f);
+                UpdateProgress(0.7f);
+
+                if (userDataLoaded)
+                {
+                    // Inicializar estatísticas dos bancos de dados
+                    UpdateStatus("Carregando bancos de questões...");
+                    await DatabaseStatisticsManager.Instance.Initialize();
+                    UpdateProgress(0.9f);
+                }
             }
 
             // Garantir tempo mínimo de loading
@@ -98,11 +106,11 @@ public class InitializationManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            #if DEBUG
-                Debug.LogError($"Detailed initialization error: {e.Message}\nStackTrace: {e.StackTrace}");
-            #else
-                Debug.LogError("An initialization error occurred.");
-            #endif
+#if DEBUG
+            Debug.LogError($"Detailed initialization error: {e.Message}\nStackTrace: {e.StackTrace}");
+#else
+            Debug.LogError("An initialization error occurred.");
+#endif
             ShowError("Falha na inicialização. Por favor, verifique sua conexão e tente novamente.");
         }
     }
@@ -125,7 +133,7 @@ public class InitializationManager : MonoBehaviour
         Debug.Log("Firestore initialized successfully");
 
         // Inicializar Storage
-        StorageRepository.Instance.Initialize(); 
+        StorageRepository.Instance.Initialize();
         Debug.Log("Storage initialized successfully");
     }
 

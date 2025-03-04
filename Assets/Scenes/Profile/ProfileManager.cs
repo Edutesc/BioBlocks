@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
+using System.Collections;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -49,8 +50,6 @@ public class ProfileManager : MonoBehaviour
         if (currentUserData != null)
         {
             UpdateUI();
-
-            // Configurar listener para atualizações automáticas
             FirestoreRepository.Instance.ListenToUserData(
                 currentUserData.UserId,
                 (newScore) =>
@@ -63,14 +62,24 @@ public class ProfileManager : MonoBehaviour
                 },
                 (answeredQuestions) =>
                 {
-                    // Este callback será invocado quando houver mudanças nas questões respondidas
                     Debug.Log("ProfileManager: Recebeu atualização de questões respondidas via listener");
-                    DisplayAnsweredQuestionsCount();
+
+                    if (DatabaseStatisticsManager.Instance.IsInitialized)
+                    {
+                        DisplayAnsweredQuestionsCount();
+                    }
                 }
             );
 
-            // Exibir questões respondidas inicialmente
-            DisplayAnsweredQuestionsCount();
+            if (DatabaseStatisticsManager.Instance.IsInitialized)
+            {
+                DisplayAnsweredQuestionsCount();
+            }
+            else
+            {
+                DatabaseStatisticsManager.OnStatisticsReady += OnDatabaseStatisticsReady;
+                StartCoroutine(InitializeDatabaseStatistics());
+            }
         }
         else
         {
@@ -78,10 +87,36 @@ public class ProfileManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private IEnumerator InitializeDatabaseStatistics()
     {
-        // Código específico para limpeza ao destruir o objeto, se necessário
-        // (Os eventos já são tratados em OnDisable)
+        yield return null;
+
+        Debug.Log("ProfileManager iniciando inicialização das estatísticas");
+        var task = DatabaseStatisticsManager.Instance.Initialize();
+
+        while (!task.IsCompleted)
+        {
+            yield return null;
+        }
+
+        if (task.IsFaulted)
+        {
+            Debug.LogError($"Erro ao inicializar estatísticas: {task.Exception}");
+        }
+    }
+
+    private void OnDatabaseStatisticsReady()
+    {
+        Debug.Log("ProfileManager: Estatísticas prontas, exibindo contagem de questões");
+        DisplayAnsweredQuestionsCount();
+        DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
+    }
+
+    private void OnDisable()
+    {
+        UserDataStore.OnUserDataChanged -= OnUserDataChanged;
+        AnsweredQuestionsManager.OnAnsweredQuestionsUpdated -= HandleAnsweredQuestionsUpdated;
+        DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
     }
 
     private void OnUserDataChanged(UserData userData)
@@ -120,22 +155,14 @@ public class ProfileManager : MonoBehaviour
     {
         try
         {
-            // Obter o ID do usuário atual antes de limpar os dados
             string currentUserId = UserDataStore.CurrentUserData?.UserId;
-
-            // Limpar dados do usuário atual
             UserDataStore.CurrentUserData = null;
-
-            // Resetar o AnsweredQuestionsManager
             AnsweredQuestionsManager.Instance.ResetManager();
-
-            // Limpar a store de questões respondidas do usuário específico
             if (!string.IsNullOrEmpty(currentUserId))
             {
                 AnsweredQuestionsListStore.ClearUserAnsweredQuestions(currentUserId);
             }
 
-            // Fazer logout no Firebase
             await AuthenticationRepository.Instance.LogoutAsync();
             Debug.Log("Logout realizado com sucesso");
 
@@ -352,16 +379,8 @@ public class ProfileManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Registre-se nos eventos quando o componente for habilitado
         UserDataStore.OnUserDataChanged += OnUserDataChanged;
         AnsweredQuestionsManager.OnAnsweredQuestionsUpdated += HandleAnsweredQuestionsUpdated;
-    }
-
-    private void OnDisable()
-    {
-        // Cancele o registro quando o componente for desabilitado
-        UserDataStore.OnUserDataChanged -= OnUserDataChanged;
-        AnsweredQuestionsManager.OnAnsweredQuestionsUpdated -= HandleAnsweredQuestionsUpdated;
     }
 
     private void HandleAnsweredQuestionsUpdated(Dictionary<string, int> answeredCounts)
@@ -370,7 +389,6 @@ public class ProfileManager : MonoBehaviour
 
         Debug.Log("ProfileManager: Recebeu atualização do AnsweredQuestionsManager");
 
-        // Atualizar a UI com os novos valores
         DisplayAnsweredQuestionsCount();
     }
 

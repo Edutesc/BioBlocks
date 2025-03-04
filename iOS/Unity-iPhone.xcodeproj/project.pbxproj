@@ -21,7 +21,7 @@
 		55B053CBD10B040ADB1E3E2A /* Pods_UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B758591BAC9D14181BD2607F /* Pods_UnityFramework.framework */; };
 		5623C57617FDCB0800090B9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		5623C57717FDCB0800090B9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830B5C100E5ED4C100C7819F /* UIKit.framework */; };
-		5623C57D17FDCB0900090B9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5623C57B17FDCB0900090B9E /* InfoPlist.strings */; };
+		5623C57D17FDCB0900090B9E = {isa = PBXBuildFile; fileRef = 5623C57B17FDCB0900090B9E /* InfoPlist.strings */; };
 		5623C57F17FDCB0900090B9E /* Unity_iPhone_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5623C57E17FDCB0900090B9E /* Unity_iPhone_Tests.m */; };
 		56A9086D77955EE3E8FD4CD4 /* libFirebaseCppApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9AFF07CBAEB644AECE0C90 /* libFirebaseCppApp.a */; };
 		56C56C9817D6015200616839 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56C56C9717D6015100616839 /* Images.xcassets */; };
@@ -223,6 +223,7 @@
 		196E9825E8305BAF49AC748B /* Unity.Mathematics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Unity.Mathematics.cpp; path = Il2CppOutputProject/Source/il2cppOutput/Unity.Mathematics.cpp; sourceTree = SOURCE_ROOT; };
 		1972A87589EFBAF4986775C2 /* Generics__65.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Generics__65.cpp; path = Il2CppOutputProject/Source/il2cppOutput/Generics__65.cpp; sourceTree = SOURCE_ROOT; };
 		1AD7B495D151BE15E389C2E2 /* UnityEngine.HierarchyCoreModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = UnityEngine.HierarchyCoreModule.cpp; path = Il2CppOutputProject/Source/il2cppOutput/UnityEngine.HierarchyCoreModule.cpp; sourceTree = SOURCE_ROOT; };
+		1CEA71E97957AE5C0124DAA6 /* dummy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = dummy.cpp; path = Il2CppOutputProject/Source/il2cppOutput/dummy.cpp; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* BioBlocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BioBlocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC31C363AA49E88C15788BB /* mscorlib__11.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = mscorlib__11.cpp; path = Il2CppOutputProject/Source/il2cppOutput/mscorlib__11.cpp; sourceTree = SOURCE_ROOT; };
@@ -849,18 +850,18 @@
 				08E06EF576D79C4643098BCC /* Il2CppOutputProject */,
 				D8A1C7220E80637F000160D3 /* Libraries */,
 				9DA3B0422174CB96001678C7 /* MainApp */,
+				ABF0F0370FA84576846C24CB /* Pods */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				5623C57817FDCB0800090B9E /* Unity-iPhone Tests */,
 				9D25AB9E213FB47800354C27 /* UnityFramework */,
 				AA31BF961B55660D0013FB1B /* Data */,
+				7E484769A71E8C0C8B4FD755 /* Dummy.swift */,
+				52D24FAD90AEA70389DE0888 /* GoogleService-Info.plist */,
 				56C56C9717D6015100616839 /* Images.xcassets */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				5A3A1B4C3FB1FC90023B942E /* LaunchScreen-iPhone.storyboard */,
 				1E24B93E9D27D99850693BAF /* LaunchScreen-iPhoneLandscape.png */,
 				681AA63C19788ACA381FB8C1 /* LaunchScreen-iPhonePortrait.png */,
-				52D24FAD90AEA70389DE0888 /* GoogleService-Info.plist */,
-				7E484769A71E8C0C8B4FD755 /* Dummy.swift */,
-				ABF0F0370FA84576846C24CB /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -883,13 +884,13 @@
 				960391211D6CE46E003BF157 /* MediaToolbox.framework */,
 				8A3831B4246956AA00CD74FD /* Metal.framework */,
 				83B2574B0E63022200468741 /* OpenAL.framework */,
+				B758591BAC9D14181BD2607F /* Pods_UnityFramework.framework */,
+				9A65FC55B66B5E2560758E93 /* Pods_Unity_iPhone.framework */,
 				83B2570A0E62FF8A00468741 /* QuartzCore.framework */,
 				5BAD78601F2B5A59006103DE /* Security.framework */,
 				56BCBA380FCF049A0030C3B2 /* SystemConfiguration.framework */,
 				830B5C100E5ED4C100C7819F /* UIKit.framework */,
 				9D0A618A21BFE7F30094DC33 /* libiconv.2.tbd */,
-				9A65FC55B66B5E2560758E93 /* Pods_Unity_iPhone.framework */,
-				B758591BAC9D14181BD2607F /* Pods_UnityFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1297,6 +1298,7 @@
 				87605856C2B447518B98EAF3 /* UnityICallRegistration.cpp */,
 				AED95C519544DEF0103B9C95 /* __Generated.cpp */,
 				8FE3E92069BB36F8854D7277 /* __Generated_CodeGen.c */,
+				1CEA71E97957AE5C0124DAA6 /* dummy.cpp */,
 				4ED0B579112CB1E12AEF01F5 /* mscorlib.cpp */,
 				470F4DBFC6CF22AFB4920379 /* mscorlib_CodeGen.c */,
 				F1F28F611D1E7EE7CCC25F71 /* mscorlib__1.cpp */,
@@ -1486,14 +1488,14 @@
 		ABF0F0370FA84576846C24CB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				A2CF1E6C31E96EF4D1257C5D /* Pods-Unity-iPhone.debug.xcconfig */,
 				094A0F04C658110DBFA86608 /* Pods-Unity-iPhone.release.xcconfig */,
 				735390A188456E94DBEF1C03 /* Pods-Unity-iPhone.releaseforprofiling.xcconfig */,
 				16CFC7D84887C9E585E134FA /* Pods-Unity-iPhone.releaseforrunning.xcconfig */,
-				A2CF1E6C31E96EF4D1257C5D /* Pods-Unity-iPhone.debug.xcconfig */,
+				5B7704D04A698F36FD1CC531 /* Pods-UnityFramework.debug.xcconfig */,
 				26DB04CAF43EC0022C3A4AE4 /* Pods-UnityFramework.release.xcconfig */,
 				6E04BE3EFCA63C246E242A42 /* Pods-UnityFramework.releaseforprofiling.xcconfig */,
 				99385658F2771E88D082F36D /* Pods-UnityFramework.releaseforrunning.xcconfig */,
-				5B7704D04A698F36FD1CC531 /* Pods-UnityFramework.debug.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1591,7 +1593,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unity-iPhone" */;
 			buildPhases = (
-				3354DA0FE8F775672C64C832 /* [CP] Check Pods Manifest.lock */,
+				3354DA0FE8F775672C64C832 /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				83D0C1FD0E6C8D7700EBCE5D /* CopyFiles */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -1648,12 +1650,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D25ABA6213FB47800354C27 /* Build configuration list for PBXNativeTarget "UnityFramework" */;
 			buildPhases = (
-				720962E1B2F3F21FD386AEC5 /* [CP] Check Pods Manifest.lock */,
+				720962E1B2F3F21FD386AEC5 /* ShellScript */,
 				9D25AB9A213FB47800354C27 /* Headers */,
 				9D25AB98213FB47800354C27 /* Sources */,
 				9D25AB99213FB47800354C27 /* Frameworks */,
 				9D25AB9B213FB47800354C27 /* Resources */,
-				D5BDA13BE7D478BD668726D9 /* [CP] Copy Pods Resources */,
+				D5BDA13BE7D478BD668726D9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1709,7 +1711,7 @@
 				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
-			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
+			productRefGroup = 19C28FACFE9D520D11CA2CBB;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1739,7 +1741,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5623C57D17FDCB0900090B9E /* InfoPlist.strings in Resources */,
+				5623C57D17FDCB0900090B9E,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1755,7 +1757,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3354DA0FE8F775672C64C832 /* [CP] Check Pods Manifest.lock */ = {
+		3354DA0FE8F775672C64C832 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1777,7 +1779,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		720962E1B2F3F21FD386AEC5 /* [CP] Check Pods Manifest.lock */ = {
+		720962E1B2F3F21FD386AEC5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1808,7 +1810,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export BEE_CACHE_BEHAVIOUR=\"RW\"\nexport CACHE_SERVER_ADDRESS=\"none_but_bee_still_wants_us_to_set_it\"\nexport REAPI_CACHE_CLIENT=\"Il2CppOutputProject/IL2CPP/BeeLocalCacheTool\"\nexport BEE_CACHE_DIRECTORY=\"$HOME/Library/Unity/cache/bee\"\nmkdir -p \"$CONFIGURATION_TEMP_DIR/artifacts/arm64/buildstate/\"\nmkdir -p \"$PROJECT_DIR/Il2CppTempDirArtifacts/$CONFIGURATION\"\nln -sF  \"$CONFIGURATION_TEMP_DIR/artifacts\" \"$PROJECT_DIR/Il2CppTempDirArtifacts/$CONFIGURATION/artifacts\"\nif [ \"$CONFIGURATION\" = \"Debug\" ];\nthen\n    IL2CPP_CONFIG=\"Debug\"\nelse\n    IL2CPP_CONFIG=\"Release\"\nfi\n\nHOST_ARCH=$(uname -m)\nif [ \"$HOST_ARCH\" = \"arm64\" ];\nthen\n    HOST_ARCH_BEE=\"arm64\"\nelse\n    HOST_ARCH_BEE=\"x64\"\nfi\n\nif [ \"$ARCHS\" = \"arm64\" ];\nthen\n    LIB_ARCH=\"arm64\"\nelif [ \"$ARCHS\" = \"x86_64\" ];\nthen\n   LIB_ARCH=\"x64\"\nelse\n   LIB_ARCH=\"$HOST_ARCH_BEE\"\nfi\n\necho \"Lib arch: $LIB_ARCH\"\necho \"Host arch: $HOST_ARCH\"\necho \"Bee arch: $HOST_ARCH_BEE\"\n\nIL2CPP_DIR=\"$PROJECT_DIR/Il2CppOutputProject/IL2CPP/build/deploy_$HOST_ARCH\"\nIL2CPP=\"$IL2CPP_DIR/il2cpp\"\nchmod +x \"$IL2CPP\"\nchmod +x \"$IL2CPP-compile\"\nchmod +x \"$IL2CPP_DIR/bee_backend/mac-$HOST_ARCH_BEE/bee_backend\"\n\n\"$IL2CPP\" --compile-cpp --platform=iOS --baselib-directory=\"Libraries\" --incremental-g-c-time-slice=3 --dotnetprofile=unityaot-macos --usymtool-path=\"/Applications/Unity/Hub/Editor/6000.0.27f1/Unity.app/Contents/Tools/macosx/usymtool\" --profiler-report --print-command-line --static-lib-il2-cpp --generatedcppdir=\"Il2CppOutputProject/Source/il2cppOutput\" --custom-il2-cpp-root=\"Il2CppOutputProject/IL2CPP\" --architecture=\"$LIB_ARCH\" --outputpath=\"$CONFIGURATION_BUILD_DIR/libGameAssembly.a\" --cachedirectory=\"Il2CppTempDirArtifacts/$CONFIGURATION/artifacts/$LIB_ARCH\" --configuration=\"$IL2CPP_CONFIG\" \nrm -rf \"$PROJECT_DIR/Il2CppTempDirArtifacts/$CONFIGURATION\"\n";
 		};
-		D5BDA13BE7D478BD668726D9 /* [CP] Copy Pods Resources */ = {
+		D5BDA13BE7D478BD668726D9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1970,7 +1972,7 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2CF1E6C31E96EF4D1257C5D /* Pods-Unity-iPhone.debug.xcconfig */;
+			baseConfigurationReference = A2CF1E6C31E96EF4D1257C5D;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2012,7 +2014,7 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 094A0F04C658110DBFA86608 /* Pods-Unity-iPhone.release.xcconfig */;
+			baseConfigurationReference = 094A0F04C658110DBFA86608;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2187,7 +2189,7 @@
 		};
 		56E860811D6757FF00A1AB2B /* ReleaseForRunning */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16CFC7D84887C9E585E134FA /* Pods-Unity-iPhone.releaseforrunning.xcconfig */;
+			baseConfigurationReference = 16CFC7D84887C9E585E134FA;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2312,7 +2314,7 @@
 		};
 		56E860841D67581C00A1AB2B /* ReleaseForProfiling */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 735390A188456E94DBEF1C03 /* Pods-Unity-iPhone.releaseforprofiling.xcconfig */;
+			baseConfigurationReference = 735390A188456E94DBEF1C03;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2549,7 +2551,7 @@
 		};
 		9D25ABA7213FB47800354C27 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26DB04CAF43EC0022C3A4AE4 /* Pods-UnityFramework.release.xcconfig */;
+			baseConfigurationReference = 26DB04CAF43EC0022C3A4AE4;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -2606,7 +2608,7 @@
 					CoreMotion,
 					"-weak-lSystem",
 					"$(OTHER_LDFLAGS_FRAMEWORK)",
-					$CONFIGURATION_BUILD_DIR/il2cpp.a,
+					"$CONFIGURATION_BUILD_DIR/il2cpp.a",
 					"-weak_framework",
 					PhotosUI,
 					"-framework",
@@ -2615,6 +2617,10 @@
 					MobileCoreServices,
 					"-framework",
 					ImageIO,
+					"-weak_framework PhotosUI",
+					"-framework Photos",
+					"-framework MobileCoreServices",
+					"-framework ImageIO",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unity3d.framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2633,7 +2639,7 @@
 		};
 		9D25ABA8213FB47800354C27 /* ReleaseForProfiling */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E04BE3EFCA63C246E242A42 /* Pods-UnityFramework.releaseforprofiling.xcconfig */;
+			baseConfigurationReference = 6E04BE3EFCA63C246E242A42;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -2691,7 +2697,7 @@
 					CoreMotion,
 					"-weak-lSystem",
 					"$(OTHER_LDFLAGS_FRAMEWORK)",
-					$CONFIGURATION_BUILD_DIR/il2cpp.a,
+					"$CONFIGURATION_BUILD_DIR/il2cpp.a",
 					"-weak_framework",
 					PhotosUI,
 					"-framework",
@@ -2700,6 +2706,10 @@
 					MobileCoreServices,
 					"-framework",
 					ImageIO,
+					"-weak_framework PhotosUI",
+					"-framework Photos",
+					"-framework MobileCoreServices",
+					"-framework ImageIO",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unity3d.framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2718,7 +2728,7 @@
 		};
 		9D25ABA9213FB47800354C27 /* ReleaseForRunning */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 99385658F2771E88D082F36D /* Pods-UnityFramework.releaseforrunning.xcconfig */;
+			baseConfigurationReference = 99385658F2771E88D082F36D;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -2777,7 +2787,7 @@
 					CoreMotion,
 					"-weak-lSystem",
 					"$(OTHER_LDFLAGS_FRAMEWORK)",
-					$CONFIGURATION_BUILD_DIR/il2cpp.a,
+					"$CONFIGURATION_BUILD_DIR/il2cpp.a",
 					"-weak_framework",
 					PhotosUI,
 					"-framework",
@@ -2786,6 +2796,10 @@
 					MobileCoreServices,
 					"-framework",
 					ImageIO,
+					"-weak_framework PhotosUI",
+					"-framework Photos",
+					"-framework MobileCoreServices",
+					"-framework ImageIO",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unity3d.framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2804,7 +2818,7 @@
 		};
 		9D25ABAA213FB47800354C27 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7704D04A698F36FD1CC531 /* Pods-UnityFramework.debug.xcconfig */;
+			baseConfigurationReference = 5B7704D04A698F36FD1CC531;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -2864,7 +2878,7 @@
 					CoreMotion,
 					"-weak-lSystem",
 					"$(OTHER_LDFLAGS_FRAMEWORK)",
-					$CONFIGURATION_BUILD_DIR/il2cpp.a,
+					"$CONFIGURATION_BUILD_DIR/il2cpp.a",
 					"-weak_framework",
 					PhotosUI,
 					"-framework",
@@ -2873,6 +2887,10 @@
 					MobileCoreServices,
 					"-framework",
 					ImageIO,
+					"-weak_framework PhotosUI",
+					"-framework Photos",
+					"-framework MobileCoreServices",
+					"-framework ImageIO",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.unity3d.framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
