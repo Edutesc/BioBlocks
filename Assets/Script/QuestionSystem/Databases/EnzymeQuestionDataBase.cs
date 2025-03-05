@@ -121,12 +121,12 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "O modelo de ajuste induzido descreve a interação enzima-substrato como:",
+            questionText = "Qual fator é essencial para que uma enzima exerça sua ativiade plenamente",
             answers = new string[] {
-                "Uma ligação covalente.",
-                "Um ajuste estrutural na enzima.",
-                "Um encaixe complementar.",
-                "Uma interação iônica."
+                "A sua estrutura primária",
+                "A estabilidade de sua estrutura terciária",
+                "A quantidade de alfa-hélices na estrutura da enzima",
+                "A formação de estrutura quaternária"
             },
             correctIndex = 1,
             questionNumber = 9,
@@ -135,26 +135,26 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A especificidade de uma enzima se deve principalmente a:",
+            questionText = "Por que enzimas podem ser usadas na indústria",
             answers = new string[] {
-                "Seu tamanho.",
-                "Sua forma tridimensional.",
-                "A interação entre o sítio ativo e o substrato.",
-                "Sua localização na célula."
+                "Reação enzimática ocorre em temperaturas brandas.",
+                "Enzimas são altamente específicas.",
+                "Necessita-se de quantidades bem pequenas de enzimas, mesmo em escala industrial.",
+                "Todas as alternativas são corretas."
             },
-            correctIndex = 2,
+            correctIndex = 3,
             questionNumber = 10,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A hipótese da chave-fechadura foi proposta por:",
+            questionText = "As enzimas podem ser agrupadas em seis grandes grupos, de acordo com o tipo de reação que ela catalisa. Abaixo temos alguns nome de grupos de enzimas, exceto: ",
             answers = new string[] {
-                "Linus Pauling",
-                "Emil Fischer",
-                "James Sumner",
-                "Daniel Koshland"
+                "Hidrolases",
+                "Ribolase",
+                "Oxidoredutases",
+                "Liases"
             },
             correctIndex = 1,
             questionNumber = 11,
@@ -163,16 +163,17 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A hipótese do ajuste induzido foi proposta por:",
             answers = new string[] {
-                "James Sumner",
-                "Emil Fischer",
-                "Daniel Koshland",
-                "Linus Pauling"
+                "Região da enzima responsável por interagir com a água",
+                "Região da enzima com grande afinidade por íons",
+                "Região da enzima que participa diretamente da catálise",
+                "Região da enzima altamente hidrofóbica"
             },
             correctIndex = 2,
             questionNumber = 12,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath = "AnswerImages/EnzymeDB/enzymeQuestion_12"
         },
         new Question
         {
@@ -286,42 +287,44 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionNumber = 20,
             isImageAnswer = false
         },
-        new Question
+       new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "Inibidores reversíveis competitivos competem com o:",
             answers = new string[] {
-                "Produto",
-                "Inibidor irreversível",
-                "Substrato",
-                "Cofator"
+                "Inibição Irreversível",
+                "Inibição Competitiva",
+                "Inibição  Não-Competitiva",
+                "Inibição A-Competitiva"
             },
             correctIndex = 2,
             questionNumber = 21,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath = "AnswerImages/EnzymeDB/enzymeQuestion_21"
         },
-        new Question
+       new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "Inibidores reversíveis não-competitivos se ligam à enzima em um sítio:",
             answers = new string[] {
-                "Igual ao do substrato.",
-                "Diferente do sítio ativo.",
-                "Somente em pH básico.",
-                "Somente em altas temperaturas."
+                "Inibição Irreversível",
+                "Inibição Competitiva",
+                "Inibição  Não-Competitiva",
+                "Inibição A-Competitiva"
             },
             correctIndex = 1,
             questionNumber = 22,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath = "AnswerImages/EnzymeDB/enzymeQuestion_22"
         },
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A constante de Michaelis (KM) indica:",
+            questionText = "A constante de Michaelis (Km) indica:",
             answers = new string[] {
                 "A velocidade máxima da reação.",
                 "A concentração de enzima.",
-                "A afinidade da enzima pelo substrato.",
+                "A concentração de substrato necessária para a enzima atingir metade da sua velocidade máxima.",
                 "A energia de ativação."
             },
             correctIndex = 2,
@@ -331,10 +334,10 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "Um KM baixo indica:",
+            questionText = "Um Km baixo indica:",
             answers = new string[] {
-                "Baixa afinidade da enzima pelo substrato.",
-                "Alta afinidade da enzima pelo substrato.",
+                "Baixa interação da enzima com substrato.",
+                "Alta interação da enzima com substrato.",
                 "Velocidade máxima de reação baixa.",
                 "Velocidade máxima de reação alta."
             },
@@ -345,14 +348,14 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "Um KM alto indica:",
+            questionText = "Um Km alto indica:",
             answers = new string[] {
-                "Alta afinidade da enzima pelo substrato.",
-                "Baixa afinidade da enzima pelo substrato.",
+                "Baixa interação da enzima com substrato.",
+                "Alta interação da enzima com substrato.",
                 "Velocidade máxima de reação alta.",
                 "Velocidade máxima de reação baixa."
             },
-            correctIndex = 1,
+            correctIndex = 0,
             questionNumber = 25,
             isImageAnswer = false
         },
@@ -361,7 +364,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "EnzymeQuestionDatabase",
             questionText = "A equação de Michaelis-Menten relaciona:",
             answers = new string[] {
-                "KM, Vmax e a concentração de substrato.",
+                "Km, Vmax e a concentração de substrato.",
                 "KM, pH e temperatura.",
                 "Vmax, temperatura e pH.",
                 "KM, pKa e a concentração de substrato."
@@ -384,24 +387,25 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionNumber = 27,
             isImageAnswer = false
         },
-        new Question
+       new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "Na equação de Lineweaver-Burk, o gráfico obtido é:",
             answers = new string[] {
-                "Uma hipérbole.",
-                "Uma reta.",
-                "Uma parábola.",
-                "Uma exponencial."
+                "Gráfico de Michaelis-Menten",
+                "Gráfico Enzimático",
+                "Gaáfico de Lineweaver-Burk",
+                "Gráfico Competitivo"
             },
-            correctIndex = 1,
+            correctIndex = 2,
             questionNumber = 28,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath = "AnswerImages/EnzymeDB/enzymeQuestion_28"
         },
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A enzima que quebra o RNA é:",
+            questionText = "A enzima que hidrolisa o RNA é:",
             answers = new string[] {
                 "DNA polimerase",
                 "RNA polimerase",
@@ -415,7 +419,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A enzima que quebra proteínas é:",
+            questionText = "A enzima que hidrolisa proteínas é:",
             answers = new string[] {
                 "Ribonuclease",
                 "Protease",
@@ -429,7 +433,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A enzima que quebra lipídios é:",
+            questionText = "A enzima que hidrolisa lipídios é:",
             answers = new string[] {
                 "Amílase",
                 "Protease",
@@ -443,7 +447,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A enzima que quebra amido é:",
+            questionText = "A enzima que hidrolisa amido é:",
             answers = new string[] {
                 "Lipase",
                 "Protease",
@@ -459,10 +463,10 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "EnzymeQuestionDatabase",
             questionText = "A pepsina é uma enzima:",
             answers = new string[] {
-                "Que quebra carboidratos.",
-                "Que quebra proteínas.",
-                "Que quebra lipídios.",
-                "Que quebra ácidos nucléicos."
+                "Que hidrolisa carboidratos.",
+                "Que hidrolisa proteínas.",
+                "Que hidrolisa lipídios.",
+                "Que hidrolisa ácidos nucléicos."
             },
             correctIndex = 1,
             questionNumber = 33,
@@ -487,10 +491,10 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "EnzymeQuestionDatabase",
             questionText = "A quimotripsina é uma enzima:",
             answers = new string[] {
-                "Que quebra carboidratos.",
-                "Que quebra proteínas.",
-                "Que quebra lipídios.",
-                "Que quebra ácidos nucléicos."
+                "Que hidrolisa carboidratos.",
+                "Que hidrolisa proteínas.",
+                "Que hidrolisa lipídios.",
+                "Que hidrolisa ácidos nucléicos."
             },
             correctIndex = 1,
             questionNumber = 35,
@@ -515,10 +519,10 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "EnzymeQuestionDatabase",
             questionText = "A amilase salivar é uma enzima:",
             answers = new string[] {
-                "Que quebra lipídios.",
-                "Que quebra proteínas.",
-                "Que quebra carboidratos.",
-                "Que quebra ácidos nucléicos."
+                "Que hidrolisa lipídios.",
+                "Que hidrolisa proteínas.",
+                "Que hidrolisa carboidratos.",
+                "Que hidrolisa ácidos nucléicos."
             },
             correctIndex = 2,
             questionNumber = 37,
@@ -541,48 +545,6 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A hexocinase é uma isoforma da enzima que catalisa a conversão de:",
-            answers = new string[] {
-                "Glicose em glicose-6-fosfato",
-                "Glicose em glicogênio",
-                "Glicogênio em glicose",
-                "Frutose em glicose"
-            },
-            correctIndex = 0,
-            questionNumber = 39,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A glicocinase é uma isoforma da enzima que catalisa a conversão de:",
-            answers = new string[] {
-                "Glicose em glicose-6-fosfato",
-                "Glicose em glicogênio",
-                "Glicogênio em glicose",
-                "Frutose em glicose"
-            },
-            correctIndex = 0,
-            questionNumber = 40,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "Qual enzima possui maior afinidade pela glicose, hexocinase ou glicocinase?",
-            answers = new string[] {
-                "Hexocinase",
-                "Glicocinase",
-                "Ambas possuem a mesma afinidade.",
-                "Depende do tecido."
-            },
-            correctIndex = 0,
-            questionNumber = 41,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
             questionText = "A inibição enzimática irreversível causa:",
             answers = new string[] {
                 "Uma diminuição temporária da atividade enzimática.",
@@ -591,7 +553,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Nenhuma alteração na atividade enzimática."
             },
             correctIndex = 1,
-            questionNumber = 42,
+            questionNumber = 39,
             isImageAnswer = false
         },
         new Question
@@ -605,7 +567,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Diminuição da concentração do substrato."
             },
             correctIndex = 2,
-            questionNumber = 43,
+            questionNumber = 40,
             isImageAnswer = false
         },
         new Question
@@ -619,21 +581,7 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Não pode ser superada."
             },
             correctIndex = 3,
-            questionNumber = 44,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A aspirina inibe a enzima:",
-            answers = new string[] {
-                "Hexokinase",
-                "Ciclooxigenase",
-                "Lipase",
-                "Protease"
-            },
-            correctIndex = 1,
-            questionNumber = 45,
+            questionNumber = 41,
             isImageAnswer = false
         },
         new Question
@@ -647,65 +595,9 @@ public class EnzymeQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Protease"
             },
             correctIndex = 1,
-            questionNumber = 46,
+            questionNumber = 42,
             isImageAnswer = false
         },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A inibição da ALAD pelo chumbo é um exemplo de inibição:",
-            answers = new string[] {
-                "Reversível competitiva",
-                "Reversível não-competitiva",
-                "Irreversível",
-                "Alostérica"
-            },
-            correctIndex = 2,
-            questionNumber = 47,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A luciferase é uma enzima que:",
-            answers = new string[] {
-                "Quebra proteínas.",
-                "Quebra lipídios.",
-                "Produz luz.",
-                "Quebra DNA."
-            },
-            correctIndex = 2,
-            questionNumber = 48,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A luciferina é:",
-            answers = new string[] {
-                "Um substrato da luciferase.",
-                "Uma enzima.",
-                "Um inibidor.",
-                "Um produto da reação."
-            },
-            correctIndex = 0,
-            questionNumber = 49,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "EnzymeQuestionDatabase",
-            questionText = "A biorremediação utiliza:",
-            answers = new string[] {
-                "Reagentes químicos para degradar poluentes.",
-                "Microorganismos para degradar poluentes.",
-                "Plantas para absorver poluentes.",
-                "Animais para consumir poluentes."
-            },
-            correctIndex = 1,
-            questionNumber = 50,
-            isImageAnswer = false
-        }
     };
     
     public List<Question> GetQuestions()
