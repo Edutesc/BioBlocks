@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      enzymeQuestion_22_0: 5501669355003760252
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
