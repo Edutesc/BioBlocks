@@ -212,9 +212,10 @@ public class RankingManager : MonoBehaviour
         Debug.Log($"Clicked on ranking for user: {ranking.userName}");
     }
 
-    public void LoadScene()
+    public void Navigate(string sceneName)
     {
-        NavigationManager.Instance.NavigateTo("PathwayScene");
+        Debug.Log($"Navigating to {sceneName}");
+        NavigationManager.Instance.NavigateTo(sceneName);
     }
 }
 
