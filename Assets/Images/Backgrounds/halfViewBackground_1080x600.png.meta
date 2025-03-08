@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0028635aabc4c4ad0a7e24b14bc707b8
+guid: 78ae61a7d18724214aea4fd5150c342f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3538561370546613823
-    second: halfViewBackground_1080x800_0
+      213: -8902278832372057623
+    second: halfViewBackground_1080x600_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: halfViewBackground_1080x800_0
+      name: halfViewBackground_1080x600_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1080
-        height: 800
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1c156ac7e2184eec0800000000000000
-      internalID: -3538561370546613823
+      spriteID: 9e9fbf87190c47480800000000000000
+      internalID: -8902278832372057623
       vertices: []
       indices: 
       edges: []

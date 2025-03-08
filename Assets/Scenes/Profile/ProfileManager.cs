@@ -23,6 +23,10 @@ public class ProfileManager : MonoBehaviour
     private bool firestoreDeleted = false;
     private bool storageDeleted = false;
 
+    [Header("Configurações de Overlay")]
+    [SerializeField] private GameObject deleteAccountDarkOverlay;
+    [SerializeField] private float overlayAlpha = 0.6f;
+
     [Header("ReAuthentication")]
     [SerializeField] private ReAuthenticationUI reAuthUI;
 
@@ -37,6 +41,10 @@ public class ProfileManager : MonoBehaviour
         else
         {
             Debug.Log("DeleteAccountPanel encontrado no ProfileManager");
+        }
+        if (deleteAccountDarkOverlay != null)
+        {
+            deleteAccountDarkOverlay.SetActive(false);
         }
 
         InitializeAccountManager();
@@ -117,6 +125,14 @@ public class ProfileManager : MonoBehaviour
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
         AnsweredQuestionsManager.OnAnsweredQuestionsUpdated -= HandleAnsweredQuestionsUpdated;
         DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
+
+        GameObject darkOverlay = GameObject.Find("DarkOverlay");
+        if (darkOverlay != null)
+        {
+            darkOverlay.SetActive(false);
+            Debug.Log("DarkOverlay desativado via OnDisable");
+        }
+
     }
 
     private void OnUserDataChanged(UserData userData)
@@ -178,10 +194,36 @@ public class ProfileManager : MonoBehaviour
     public void StartDeleteAccount()
     {
         Debug.Log("StartDeleteAccount chamado");
+
         if (deleteAccountPanel == null)
         {
             Debug.LogError("DeleteAccountPanel é null!");
             return;
+        }
+
+        // Verificar primeiro se o DarkOverlay já está ativo
+        bool overlayWasActive = false;
+        if (deleteAccountDarkOverlay != null)
+        {
+            overlayWasActive = deleteAccountDarkOverlay.activeSelf;
+
+            // Ativar apenas se ainda não estiver ativo
+            if (!overlayWasActive)
+            {
+                deleteAccountDarkOverlay.SetActive(true);
+                Debug.Log("DarkOverlay ativado para confirmação de exclusão");
+            }
+            else
+            {
+                Debug.Log("DarkOverlay já estava ativo, mantendo-o");
+            }
+
+            // Ajustar o sorting order em qualquer caso
+            Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
+            if (overlayCanvas != null)
+            {
+                overlayCanvas.sortingOrder = 109; // Logo abaixo do DeleteAccountCanvas
+            }
         }
 
         userDataTable.alpha = 0;
@@ -200,11 +242,52 @@ public class ProfileManager : MonoBehaviour
             return;
         }
 
+        // Desativar os overlays
+        if (deleteAccountDarkOverlay != null)
+        {
+            deleteAccountDarkOverlay.SetActive(false);
+        }
+
+        GameObject halfViewOverlay = GameObject.Find("HalfViewDarkOverlay");
+        if (halfViewOverlay != null)
+        {
+            halfViewOverlay.SetActive(false);
+        }
+
+        // NOVO: Reabilitar interações com os elementos da cena
+        ReenableSceneInteractions();
+
+        // Restore visibility
         userDataTable.alpha = 1;
         userDataTable.interactable = true;
         userDataTable.blocksRaycasts = true;
 
         deleteAccountPanel.HidePanel();
+    }
+
+    private void ReenableSceneInteractions()
+    {
+        // Encontra todos os elementos interativos da cena
+        Selectable[] selectables = FindObjectsOfType<Selectable>(true);
+        foreach (Selectable selectable in selectables)
+        {
+            // Reativa todos os elementos (exceto os que devem ficar desativados por design)
+            if (!ShouldStayDisabled(selectable.gameObject))
+            {
+                selectable.interactable = true;
+            }
+        }
+
+        Debug.Log("Todas as interações da cena reabilitadas");
+    }
+
+    private bool ShouldStayDisabled(GameObject obj)
+    {
+        // Aqui você pode adicionar lógica para elementos que devem permanecer desativados
+        // Por exemplo, botões que só devem estar ativos em certas condições
+
+        // Por padrão, todos os elementos são reabilitados
+        return false;
     }
 
     public void DeleteAccountButton()
@@ -273,6 +356,24 @@ public class ProfileManager : MonoBehaviour
                 // Sucesso total
                 if (deleteAccountButtonText != null) deleteAccountButtonText.text = "Até a próxima!";
                 deleteAccountPanel.HidePanel();
+
+                if (deleteAccountButtonText != null) deleteAccountButtonText.text = "Até a próxima!";
+                deleteAccountPanel.HidePanel();
+
+                // Desativar overlays
+                if (deleteAccountDarkOverlay != null)
+                {
+                    deleteAccountDarkOverlay.SetActive(false);
+                }
+
+                GameObject halfViewOverlay = GameObject.Find("HalfViewDarkOverlay");
+                if (halfViewOverlay != null)
+                {
+                    halfViewOverlay.SetActive(false);
+                }
+                
+                ReenableSceneInteractions();
+
                 Navigate("LoginView");
             }
             catch (ReauthenticationRequiredException)
