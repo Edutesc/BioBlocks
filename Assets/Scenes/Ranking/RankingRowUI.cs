@@ -7,7 +7,7 @@ public class RankingRowUI : MonoBehaviour
     [Header("Text Components")]
     [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text nickNameText;
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] public TMP_Text scoreText;
     [SerializeField] private Image backgroundImage;
 
     [Header("Image Components")]
@@ -83,7 +83,7 @@ public class RankingRowUI : MonoBehaviour
         ConfigureLayoutElements();
     }
 
-    private void ConfigureLayoutElements()
+    protected virtual void ConfigureLayoutElements()
     {
         if (rankLayout != null)
         {

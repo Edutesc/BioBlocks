@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 public class RankingManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] internal GameObject rankingRowPrefab;
-    [SerializeField] internal RectTransform rankingTableContent;
-    [SerializeField] internal ScrollRect scrollRect;
+    [SerializeField] protected GameObject rankingRowPrefab; // Mudado para protected
+    [SerializeField] protected RectTransform rankingTableContent; // Mudado para protected 
+    [SerializeField] protected ScrollRect scrollRect; // Mudado para protected
 
     [Header("UI References")]
-    [SerializeField] private TMP_Text headerScoreText;
-    [SerializeField] private TMP_Text headerNameText;
+    [SerializeField] protected TMP_Text headerNameText; // Mudado para protected
+    [SerializeField] protected TMP_Text headerScoreText; // Mudado para protected
 
-    private UserData currentUserData;
-    private List<Ranking> rankings;
-    private IRankingRepository rankingRepository;
+    protected UserData currentUserData; // Mudado para protected
+    protected List<Ranking> rankings; // Mudado para protected
+    protected IRankingRepository rankingRepository; // Mudado para protected
 
-    private void Start()
+    protected virtual void Start() // Mudado para protected virtual
     {
         if (rankingRowPrefab == null || rankingTableContent == null || scrollRect == null)
         {
@@ -33,7 +33,7 @@ public class RankingManager : MonoBehaviour
         InitializeRepository();
     }
 
-    private void InitializeRepository()
+    protected virtual void InitializeRepository() // Mudado para protected virtual
     {
         if (BioBlocksSettings.Instance.IsDebugMode())
         {
@@ -53,7 +53,7 @@ public class RankingManager : MonoBehaviour
         _ = InitializeRankingManager();
     }
 
-    private async Task InitializeRankingManager()
+    protected virtual async Task InitializeRankingManager() // Mudado para protected virtual
     {
         currentUserData = await rankingRepository.GetCurrentUserDataAsync();
         if (currentUserData != null)
@@ -68,19 +68,18 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-
-    private void OnDestroy()
+    protected virtual void OnDestroy() // Mudado para protected virtual
     {
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
     }
 
-    private void OnUserDataChanged(UserData userData)
+    protected virtual void OnUserDataChanged(UserData userData) // Mudado para protected virtual
     {
         currentUserData = userData;
         UpdateUI();
     }
 
-    private void UpdateUI()
+    protected virtual void UpdateUI() // Mudado para protected virtual
     {
         if (currentUserData == null) return;
 
@@ -88,7 +87,7 @@ public class RankingManager : MonoBehaviour
         headerScoreText.text = $"{currentUserData.Score} XP";
     }
 
-    public async Task FetchRankings()
+    public virtual async Task FetchRankings() // Mudado para public virtual
     {
         try
         {
@@ -121,7 +120,7 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private void UpdateRankingTable()
+    protected virtual void UpdateRankingTable() // Mudado para protected virtual
     {
         if (rankingTableContent == null)
         {
@@ -180,7 +179,7 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ScrollToCurrentUser()
+    protected virtual IEnumerator ScrollToCurrentUser() // Mudado para protected virtual
     {
         yield return new WaitForEndOfFrame();
 
@@ -192,7 +191,7 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private void CreateRankingRow(int rank, Ranking ranking, bool isCurrentUser)
+    protected virtual void CreateRankingRow(int rank, Ranking ranking, bool isCurrentUser) // Mudado para protected virtual
     {
         GameObject rowGO = Instantiate(rankingRowPrefab, rankingTableContent);
         var rowUI = rowGO.GetComponent<RankingRowUI>();
@@ -207,53 +206,53 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private void OnRankingRowClicked(Ranking ranking)
+    protected virtual void OnRankingRowClicked(Ranking ranking) // Mudado para protected virtual
     {
         Debug.Log($"Clicked on ranking for user: {ranking.userName}");
     }
 
-    public void Navigate(string sceneName)
+    public virtual void Navigate(string sceneName) // Mudado para public virtual
     {
         Debug.Log($"Navigating to {sceneName}");
         NavigationManager.Instance.NavigateTo(sceneName);
     }
 }
 
-public static class RankingManagerDebugExtension
-{
-    public static void AddDebugLogs(this RankingManager manager)
-    {
-        Debug.Log("=== RANKING DEBUG START ===");
+// public static class RankingManagerDebugExtension
+// {
+//     public static void AddDebugLogs(this RankingManager manager)
+//     {
+//         Debug.Log("=== RANKING DEBUG START ===");
 
-        // Verificar referências serializadas
-        Debug.Log($"rankingRowPrefab null? {manager.rankingRowPrefab == null}");
-        Debug.Log($"rankingTableContent null? {manager.rankingTableContent == null}");
-        Debug.Log($"scrollRect null? {manager.scrollRect == null}");
+//         // Verificar referências serializadas
+//         Debug.Log($"rankingRowPrefab null? {manager.rankingRowPrefab == null}");
+//         Debug.Log($"rankingTableContent null? {manager.rankingTableContent == null}");
+//         Debug.Log($"scrollRect null? {manager.scrollRect == null}");
 
-        // Verificar se o prefab tem todos os componentes necessários
-        var testRow = manager.rankingRowPrefab.GetComponent<RankingRowUI>();
-        Debug.Log($"RankingRowUI no prefab? {testRow != null}");
+//         // Verificar se o prefab tem todos os componentes necessários
+//         var testRow = manager.rankingRowPrefab.GetComponent<RankingRowUI>();
+//         Debug.Log($"RankingRowUI no prefab? {testRow != null}");
 
-        if (testRow != null)
-        {
-            // Verificar componentes do RankingRowUI
-            var imageManager = testRow.GetComponent<RankingImageManager>();
-            Debug.Log($"RankingImageManager encontrado? {imageManager != null}");
+//         if (testRow != null)
+//         {
+//             // Verificar componentes do RankingRowUI
+//             var imageManager = testRow.GetComponent<RankingImageManager>();
+//             Debug.Log($"RankingImageManager encontrado? {imageManager != null}");
 
-            // Verificar configuração do Canvas
-            var canvas = GameObject.Find("Canvas");
-            if (canvas != null)
-            {
-                var canvasScaler = canvas.GetComponent<CanvasScaler>();
-                Debug.Log($"CanvasScaler configurado? {canvasScaler != null}");
-                if (canvasScaler != null)
-                {
-                    Debug.Log($"UI Scale Mode: {canvasScaler.uiScaleMode}");
-                    Debug.Log($"Reference Resolution: {canvasScaler.referenceResolution}");
-                }
-            }
-        }
+//             // Verificar configuração do Canvas
+//             var canvas = GameObject.Find("Canvas");
+//             if (canvas != null)
+//             {
+//                 var canvasScaler = canvas.GetComponent<CanvasScaler>();
+//                 Debug.Log($"CanvasScaler configurado? {canvasScaler != null}");
+//                 if (canvasScaler != null)
+//                 {
+//                     Debug.Log($"UI Scale Mode: {canvasScaler.uiScaleMode}");
+//                     Debug.Log($"Reference Resolution: {canvasScaler.referenceResolution}");
+//                 }
+//             }
+//         }
 
-        Debug.Log("=== RANKING DEBUG END ===");
-    }
-}
+//         Debug.Log("=== RANKING DEBUG END ===");
+//     }
+// }
