@@ -7,13 +7,13 @@ public class RankingRowUI : MonoBehaviour
     [Header("Text Components")]
     [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text nickNameText;
-    [SerializeField] public TMP_Text scoreText;
+    [SerializeField] public TMP_Text totalScoreText; // Renomeado de scoreText para totalScoreText
+    [SerializeField] public TMP_Text weekScoreText; // Novo campo para o score semanal
     [SerializeField] private Image backgroundImage;
 
     [Header("Image Components")]
     [SerializeField] private RawImage profileImage;
     [SerializeField] private RankingImageManager imageManager;
-
 
     [Header("Layout Elements")]
     [SerializeField] private LayoutElement rankLayout;
@@ -23,6 +23,7 @@ public class RankingRowUI : MonoBehaviour
 
     private RectTransform rectTransform;
     private bool isExtraRow = false;
+    private bool isWeekRankingMode = false; // Flag para controlar o modo de exibição
 
     private void Awake()
     {
@@ -111,10 +112,22 @@ public class RankingRowUI : MonoBehaviour
             scoreLayout.minWidth = 100;
         }
 
+        // if (weekScoreLayout != null)
+        // {
+        //     weekScoreLayout.preferredWidth = 100;
+        //     weekScoreLayout.minWidth = 100;
+        // }
+
         Debug.Log("Layout configurado com sucesso");
     }
 
     public void Setup(int rank, string userName, int score, string profileImageUrl, bool isCurrentUser)
+    {
+        // Chama o novo método, passando 0 como weekScore
+        Setup(rank, userName, score, 0, profileImageUrl, isCurrentUser);
+    }
+
+    public void Setup(int rank, string userName, int totalScore, int weekScore, string profileImageUrl, bool isCurrentUser)
     {
         if (imageManager == null)
         {
@@ -124,7 +137,10 @@ public class RankingRowUI : MonoBehaviour
 
         rankText.text = isExtraRow ? "..." : $"{rank}.";
         nickNameText.text = userName;
-        scoreText.text = $"{score} XP";
+        totalScoreText.text = $"{totalScore} XP";
+
+        if (weekScoreText != null)
+            weekScoreText.text = $"{weekScore} XP";
 
         SetupColors(rank, isCurrentUser);
 
@@ -132,11 +148,16 @@ public class RankingRowUI : MonoBehaviour
         imageManager.LoadProfileImage(profileImageUrl);
     }
 
-
     public void SetupAsExtraRow(int actualRank, string userName, int score, string profileImageUrl)
     {
         isExtraRow = true;
-        Setup(actualRank, userName, score, profileImageUrl, true);
+        Setup(actualRank, userName, score, 0, profileImageUrl, true);
+    }
+
+    public void SetupAsExtraRow(int actualRank, string userName, int totalScore, int weekScore, string profileImageUrl)
+    {
+        isExtraRow = true;
+        Setup(actualRank, userName, totalScore, weekScore, profileImageUrl, true);
     }
 
     private void SetupColors(int rank, bool isCurrentUser)
@@ -183,7 +204,8 @@ public class RankingRowUI : MonoBehaviour
 
         if (rankText) rankText.color = textColor;
         if (nickNameText) nickNameText.color = textColor;
-        if (scoreText) scoreText.color = textColor;
+        if (totalScoreText) totalScoreText.color = textColor;
+        if (weekScoreText) weekScoreText.color = textColor;
         if (backgroundImage) backgroundImage.color = backgroundColor;
     }
 }
