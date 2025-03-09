@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      medal_fill_button_0: -2731107102467084851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
