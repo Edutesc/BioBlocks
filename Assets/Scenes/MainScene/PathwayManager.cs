@@ -173,6 +173,12 @@ public class PathwayManager : MonoBehaviour
                     tmpText.text = $"{percentageAnswered}%";
                     Debug.Log($"{databankName}PorcentageText updated to {percentageAnswered}% ({count}/{totalQuestions})");
                 }
+
+                CircularProgressIndicator progressIndicator = textObject.GetComponentInParent<CircularProgressIndicator>();
+                if (progressIndicator != null)
+                {
+                    progressIndicator.SetProgress(percentageAnswered);
+                }
             }
         }
     }
