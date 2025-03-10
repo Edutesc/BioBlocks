@@ -87,7 +87,7 @@ public class RankingManager : MonoBehaviour
         headerScoreText.text = $"{currentUserData.Score} XP";
     }
 
-    public virtual async Task FetchRankings() // Mudado para public virtual
+    public virtual async Task FetchRankings()
     {
         try
         {
@@ -97,13 +97,18 @@ public class RankingManager : MonoBehaviour
 
             if (rankings.Count > 0)
             {
-                rankings = rankings.OrderByDescending(r => r.userScore).ToList();
-                Debug.Log("Rankings ordenados por score");
+                // Ordenar primariamente pelo WeekScore e usar TotalScore como critério de desempate
+                rankings = rankings
+                    .OrderByDescending(r => r.userWeekScore)     // Primeiro critério: WeekScore (maior para menor)
+                    .ThenByDescending(r => r.userScore)         // Segundo critério: TotalScore para desempate
+                    .ToList();
+
+                Debug.Log("Rankings ordenados por WeekScore com desempate pelo TotalScore");
 
                 // Log dos top 5 para verificar
                 for (int i = 0; i < Math.Min(5, rankings.Count); i++)
                 {
-                    Debug.Log($"Top {i + 1}: {rankings[i].userName} - {rankings[i].userScore}XP");
+                    Debug.Log($"Top {i + 1}: {rankings[i].userName} - WeekScore: {rankings[i].userWeekScore}XP, TotalScore: {rankings[i].userScore}XP");
                 }
 
                 UpdateRankingTable();
@@ -120,13 +125,26 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    protected virtual void UpdateRankingTable() // Mudado para protected virtual
+    protected virtual void UpdateRankingTable()
     {
         if (rankingTableContent == null)
         {
             Debug.LogError("rankingTableContent é null!");
             return;
         }
+
+        // Configurar o VerticalLayoutGroup para espaçamento adequado
+        var verticalLayout = rankingTableContent.GetComponent<VerticalLayoutGroup>();
+        if (verticalLayout == null)
+            verticalLayout = rankingTableContent.gameObject.AddComponent<VerticalLayoutGroup>();
+
+        verticalLayout.spacing = 5; // Ajuste este valor para controlar o espaçamento entre linhas
+        verticalLayout.childAlignment = TextAnchor.UpperCenter;
+        verticalLayout.childControlHeight = false;
+        verticalLayout.childControlWidth = true;
+        verticalLayout.childForceExpandHeight = false;
+        verticalLayout.childForceExpandWidth = true;
+        verticalLayout.padding = new RectOffset(10, 10, 10, 10); // Adiciona padding ao redor da lista
 
         Debug.Log($"Atualizando ranking table com {rankings.Count} rankings");
         // Limpar linhas existentes
@@ -161,9 +179,10 @@ public class RankingManager : MonoBehaviour
                 var separatorUI = separatorGO.GetComponent<RankingRowUI>();
                 if (separatorUI != null)
                 {
-                    // Configurar linha de separação visual
+                    // Configurar linha de separação visual usando o método atualizado
                     separatorUI.SetupAsExtraRow(currentUserRank, currentUserRanking.userName,
-                        currentUserRanking.userScore, currentUserRanking.profileImageUrl);
+                        currentUserRanking.userScore, currentUserRanking.userWeekScore,
+                        currentUserRanking.profileImageUrl);
                 }
             }
         }
@@ -191,14 +210,15 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    protected virtual void CreateRankingRow(int rank, Ranking ranking, bool isCurrentUser) // Mudado para protected virtual
+    protected virtual void CreateRankingRow(int rank, Ranking ranking, bool isCurrentUser)
     {
         GameObject rowGO = Instantiate(rankingRowPrefab, rankingTableContent);
         var rowUI = rowGO.GetComponent<RankingRowUI>();
         if (rowUI != null)
         {
+            // Usar o método Setup que aceita tanto score total quanto semanal
             rowUI.Setup(rank, ranking.userName, ranking.userScore,
-                ranking.profileImageUrl, isCurrentUser);
+                        ranking.userWeekScore, ranking.profileImageUrl, isCurrentUser);
         }
         else
         {

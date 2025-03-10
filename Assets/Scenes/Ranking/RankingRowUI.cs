@@ -7,8 +7,8 @@ public class RankingRowUI : MonoBehaviour
     [Header("Text Components")]
     [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text nickNameText;
-    [SerializeField] public TMP_Text totalScoreText; // Renomeado de scoreText para totalScoreText
-    [SerializeField] public TMP_Text weekScoreText; // Novo campo para o score semanal
+    [SerializeField] public TMP_Text totalScoreText;
+    [SerializeField] public TMP_Text weekScoreText;
     [SerializeField] private Image backgroundImage;
 
     [Header("Image Components")]
@@ -19,7 +19,8 @@ public class RankingRowUI : MonoBehaviour
     [SerializeField] private LayoutElement rankLayout;
     [SerializeField] private LayoutElement profileLayout;
     [SerializeField] private LayoutElement nickNameLayout;
-    [SerializeField] private LayoutElement scoreLayout;
+    [SerializeField] private LayoutElement weekScoreLayout;
+    [SerializeField] private LayoutElement totalScoreLayout;
 
     private RectTransform rectTransform;
     private bool isExtraRow = false;
@@ -59,7 +60,7 @@ public class RankingRowUI : MonoBehaviour
 
     private void ConfigureLayout()
     {
-        // Configurar RectTransform
+        // Configurar RectTransform para garantir altura adequada
         if (rectTransform != null)
         {
             rectTransform.anchorMin = new Vector2(0, 0);
@@ -73,8 +74,8 @@ public class RankingRowUI : MonoBehaviour
         if (horizontalLayout == null)
             horizontalLayout = gameObject.AddComponent<HorizontalLayoutGroup>();
 
-        horizontalLayout.padding = new RectOffset(20, 20, 0, 0);
-        horizontalLayout.spacing = 15;
+        horizontalLayout.padding = new RectOffset(15, 15, 5, 5);
+        horizontalLayout.spacing = 12;
         horizontalLayout.childAlignment = TextAnchor.MiddleLeft;
         horizontalLayout.childControlWidth = false;
         horizontalLayout.childControlHeight = false;
@@ -88,37 +89,36 @@ public class RankingRowUI : MonoBehaviour
     {
         if (rankLayout != null)
         {
-            rankLayout.preferredWidth = 50;
-            rankLayout.minWidth = 50;
+            rankLayout.preferredWidth = 40;
+            rankLayout.minWidth = 40;
         }
 
         if (profileLayout != null)
         {
-            profileLayout.preferredWidth = 150;
-            profileLayout.preferredHeight = 150;
-            profileLayout.minWidth = 100;
-            profileLayout.minHeight = 100;
+            profileLayout.preferredWidth = 50;
+            profileLayout.preferredHeight = 50;
+            profileLayout.minWidth = 50;
+            profileLayout.minHeight = 50;
         }
 
         if (nickNameLayout != null)
         {
-            nickNameLayout.preferredWidth = 200;
-            nickNameLayout.flexibleWidth = 1;
+            nickNameLayout.preferredWidth = 300;
+            nickNameLayout.minWidth = 200;
+            nickNameLayout.flexibleWidth = 1; // Permite expandir
         }
 
-        if (scoreLayout != null)
+        if (totalScoreLayout != null)
         {
-            scoreLayout.preferredWidth = 100;
-            scoreLayout.minWidth = 100;
+            totalScoreLayout.preferredWidth = 200;
+            totalScoreLayout.minWidth = 170;
         }
 
-        // if (weekScoreLayout != null)
-        // {
-        //     weekScoreLayout.preferredWidth = 100;
-        //     weekScoreLayout.minWidth = 100;
-        // }
-
-        Debug.Log("Layout configurado com sucesso");
+        if (weekScoreLayout != null)
+        {
+            weekScoreLayout.preferredWidth = 180;
+            weekScoreLayout.minWidth = 150;
+        }
     }
 
     public void Setup(int rank, string userName, int score, string profileImageUrl, bool isCurrentUser)
@@ -137,10 +137,10 @@ public class RankingRowUI : MonoBehaviour
 
         rankText.text = isExtraRow ? "..." : $"{rank}.";
         nickNameText.text = userName;
-        totalScoreText.text = $"{totalScore} XP";
+        totalScoreText.text = $"Total de Pontos: {totalScore} XP"; // Formato como na imagem 1
 
         if (weekScoreText != null)
-            weekScoreText.text = $"{weekScore} XP";
+            weekScoreText.text = $"{weekScore} XP"; // Formato como na imagem 1
 
         SetupColors(rank, isCurrentUser);
 

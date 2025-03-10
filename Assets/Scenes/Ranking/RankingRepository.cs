@@ -27,8 +27,16 @@ public class RankingRepository : IRankingRepository
             List<Ranking> rankings = usersData.Select(userData => new Ranking(
                 userData.NickName,
                 userData.Score,
+                userData.WeekScore,
                 userData.ProfileImageUrl ?? ""
             )).ToList();
+
+            // Log para depuração
+            Debug.Log($"GetRankingsAsync - Amostra de rankings:");
+            for (int i = 0; i < Math.Min(3, rankings.Count); i++)
+            {
+                Debug.Log($"Usuário: {rankings[i].userName}, Score: {rankings[i].userScore}, WeekScore: {rankings[i].userWeekScore}");
+            }
 
             return rankings;
         }
