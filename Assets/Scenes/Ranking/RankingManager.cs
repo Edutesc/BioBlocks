@@ -84,7 +84,7 @@ public class RankingManager : MonoBehaviour
         if (currentUserData == null) return;
 
         headerNameText.text = currentUserData.NickName;
-        headerScoreText.text = $"{currentUserData.Score} XP";
+        headerScoreText.text = $"{currentUserData.WeekScore} XP";
     }
 
     public virtual async Task FetchRankings()
@@ -237,42 +237,3 @@ public class RankingManager : MonoBehaviour
         NavigationManager.Instance.NavigateTo(sceneName);
     }
 }
-
-// public static class RankingManagerDebugExtension
-// {
-//     public static void AddDebugLogs(this RankingManager manager)
-//     {
-//         Debug.Log("=== RANKING DEBUG START ===");
-
-//         // Verificar referências serializadas
-//         Debug.Log($"rankingRowPrefab null? {manager.rankingRowPrefab == null}");
-//         Debug.Log($"rankingTableContent null? {manager.rankingTableContent == null}");
-//         Debug.Log($"scrollRect null? {manager.scrollRect == null}");
-
-//         // Verificar se o prefab tem todos os componentes necessários
-//         var testRow = manager.rankingRowPrefab.GetComponent<RankingRowUI>();
-//         Debug.Log($"RankingRowUI no prefab? {testRow != null}");
-
-//         if (testRow != null)
-//         {
-//             // Verificar componentes do RankingRowUI
-//             var imageManager = testRow.GetComponent<RankingImageManager>();
-//             Debug.Log($"RankingImageManager encontrado? {imageManager != null}");
-
-//             // Verificar configuração do Canvas
-//             var canvas = GameObject.Find("Canvas");
-//             if (canvas != null)
-//             {
-//                 var canvasScaler = canvas.GetComponent<CanvasScaler>();
-//                 Debug.Log($"CanvasScaler configurado? {canvasScaler != null}");
-//                 if (canvasScaler != null)
-//                 {
-//                     Debug.Log($"UI Scale Mode: {canvasScaler.uiScaleMode}");
-//                     Debug.Log($"Reference Resolution: {canvasScaler.referenceResolution}");
-//                 }
-//             }
-//         }
-
-//         Debug.Log("=== RANKING DEBUG END ===");
-//     }
-// }

@@ -41,7 +41,7 @@ public class TopBarUIManager : MonoBehaviour
     {
         if (userData != null)
         {
-            UpdateScore(userData.Score);
+            UpdateScore(userData.WeekScore);
             UpdateName(userData.NickName);
         }
     }
