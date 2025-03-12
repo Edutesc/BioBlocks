@@ -74,6 +74,8 @@ public class FirestoreRepository : MonoBehaviour
                     Name = userData["Name"].ToString(),
                     Email = userData["Email"].ToString(),
                     Score = Convert.ToInt32(userData["Score"]),
+                    // Adicionar WeekScore, com valor padrão 0 se não existir
+                    WeekScore = userData.ContainsKey("WeekScore") ? Convert.ToInt32(userData["WeekScore"]) : 0,
                     Progress = Convert.ToInt32(userData["Progress"]),
                     ProfileImageUrl = userData["ProfileImageUrl"]?.ToString() ?? "",
                     CreatedTime = createdTime,
@@ -96,7 +98,7 @@ public class FirestoreRepository : MonoBehaviour
                     }
                 }
 
-                Debug.Log($"UserData carregado - NickName: {user.NickName}, Email: {user.Email}");
+                Debug.Log($"UserData carregado - NickName: {user.NickName}, Email: {user.Email}, Score: {user.Score}, WeekScore: {user.WeekScore}");
                 return user;
             }
             else
@@ -121,6 +123,10 @@ public class FirestoreRepository : MonoBehaviour
         userData.Email = (string)data["Email"];
         userData.ProfileImageUrl = (string)data["ProfileImageUrl"];
         userData.Score = Convert.ToInt32(data["Score"]);
+
+        // Adicionar WeekScore com verificação de existência
+        userData.WeekScore = data.ContainsKey("WeekScore") ? Convert.ToInt32(data["WeekScore"]) : 0;
+
         userData.Progress = Convert.ToInt32(data["Progress"]);
         userData.IsUserRegistered = Convert.ToBoolean(data["IsUserRegistered"]);
 
@@ -130,12 +136,16 @@ public class FirestoreRepository : MonoBehaviour
         }
 
         userData.AnsweredQuestions = new Dictionary<string, List<int>>();
-        var answeredQuestionsData = (Dictionary<string, object>)data["AnsweredQuestions"];
-        foreach (var kvp in answeredQuestionsData)
+        if (data.ContainsKey("AnsweredQuestions") && data["AnsweredQuestions"] is Dictionary<string, object> answeredQuestionsData)
         {
-            string databankName = kvp.Key;
-            var questionsList = (List<object>)kvp.Value;
-            userData.AnsweredQuestions[databankName] = questionsList.Select(x => Convert.ToInt32(x)).ToList();
+            foreach (var kvp in answeredQuestionsData)
+            {
+                string databankName = kvp.Key;
+                if (kvp.Value is List<object> questionsList)
+                {
+                    userData.AnsweredQuestions[databankName] = questionsList.Select(x => Convert.ToInt32(x)).ToList();
+                }
+            }
         }
 
         return userData;
@@ -151,16 +161,17 @@ public class FirestoreRepository : MonoBehaviour
                 throw new ArgumentException("UserId não pode ser vazio");
 
             var requiredFields = new Dictionary<string, object>
-            {
-                { "UserId", userData.UserId },
-                { "NickName", userData.NickName },
-                { "Name", userData.Name },
-                { "Email", userData.Email },
-                { "Score", userData.Score },
-                { "Progress", userData.Progress }, // Garante que Progress está presente
-                { "IsUserRegistered", userData.IsUserRegistered },
-                { "CreatedTime", userData.CreatedTime }
-            };
+        {
+            { "UserId", userData.UserId },
+            { "NickName", userData.NickName },
+            { "Name", userData.Name },
+            { "Email", userData.Email },
+            { "Score", userData.Score },
+            { "WeekScore", userData.WeekScore }, // Adicionar WeekScore
+            { "Progress", userData.Progress },
+            { "IsUserRegistered", userData.IsUserRegistered },
+            { "CreatedTime", userData.CreatedTime }
+        };
 
             DocumentReference docRef = db.Collection("Users").Document(userData.UserId);
             await docRef.SetAsync(requiredFields);
@@ -250,7 +261,7 @@ public class FirestoreRepository : MonoBehaviour
         }
     }
 
-    public void ListenToUserData(string userId, Action<int> onScoreChanged = null, Action<Dictionary<string, List<int>>> onAnsweredQuestionsChanged = null)
+    public void ListenToUserData(string userId, Action<int> onScoreChanged = null, Action<int> onWeekScoreChanged = null, Action<Dictionary<string, List<int>>> onAnsweredQuestionsChanged = null)
     {
         db.Collection("Users").Document(userId)
         .Listen(snapshot =>
@@ -266,6 +277,18 @@ public class FirestoreRepository : MonoBehaviour
                     UserDataStore.UpdateScore(newScore);
                     onScoreChanged.Invoke(newScore);
                     Debug.Log($"Score atualizado do Firestore: {newScore}");
+                }
+
+                // Processa alterações no WeekScore
+                if (onWeekScoreChanged != null && data.ContainsKey("WeekScore"))
+                {
+                    int newWeekScore = Convert.ToInt32(data["WeekScore"]);
+                    if (UserDataStore.CurrentUserData != null)
+                    {
+                        UserDataStore.UpdateWeekScore(newWeekScore);
+                    }
+                    onWeekScoreChanged.Invoke(newWeekScore);
+                    Debug.Log($"WeekScore atualizado do Firestore: {newWeekScore}");
                 }
 
                 // Processa alterações em AnsweredQuestions
@@ -463,6 +486,241 @@ public class FirestoreRepository : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"Erro ao buscar todos os usuários: {e.Message}");
+            throw;
+        }
+    }
+
+    public async Task UpdateUserWeekScore(string userId, int additionalScore)
+    {
+        try
+        {
+            if (!isInitialized) throw new System.Exception("Firestore não inicializado");
+
+            DocumentReference docRef = db.Collection("Users").Document(userId);
+
+            await db.RunTransactionAsync(async transaction =>
+            {
+                DocumentSnapshot snapshot = await transaction.GetSnapshotAsync(docRef);
+
+                if (snapshot.Exists)
+                {
+                    int currentWeekScore = 0;
+
+                    // Verificar se WeekScore já existe
+                    if (snapshot.ContainsField("WeekScore"))
+                    {
+                        currentWeekScore = Convert.ToInt32(snapshot.GetValue<object>("WeekScore"));
+                    }
+
+                    int newWeekScore = currentWeekScore + additionalScore;
+
+                    transaction.Update(docRef, "WeekScore", newWeekScore);
+
+                    // Atualizar localmente se for o usuário atual
+                    if (UserDataStore.CurrentUserData != null && UserDataStore.CurrentUserData.UserId == userId)
+                    {
+                        // Use o método UpdateWeekScore em vez de invocar o evento diretamente
+                        UserDataStore.UpdateWeekScore(newWeekScore);
+                    }
+
+                    Debug.Log($"WeekScore incrementado em {additionalScore}. Novo WeekScore: {newWeekScore}");
+                }
+                else
+                {
+                    Debug.LogError("User document not found during week score update!");
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao atualizar score semanal: {e.Message}");
+            throw;
+        }
+    }
+
+    public async Task UpdateUserScores(string userId, int additionalScore, int questionNumber, string databankName, bool isCorrect)
+    {
+        try
+        {
+            if (!isInitialized) throw new System.Exception("Firestore não inicializado");
+
+            // Buscar dados atuais do usuário
+            DocumentReference docRef = db.Collection("Users").Document(userId);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                // Obter scores atuais
+                int currentScore = Convert.ToInt32(snapshot.GetValue<object>("Score"));
+
+                // Verificar se WeekScore existe e obter seu valor, ou usar 0 como padrão
+                int currentWeekScore = 0;
+                if (snapshot.ContainsField("WeekScore")) // Usando ContainsField em vez de Contains
+                {
+                    currentWeekScore = Convert.ToInt32(snapshot.GetValue<object>("WeekScore"));
+                }
+
+                // Calcular novos scores
+                int newScore = currentScore + additionalScore;
+                int newWeekScore = currentWeekScore + additionalScore;
+
+                // Preparar atualizações
+                Dictionary<string, object> updates = new Dictionary<string, object>
+            {
+                { "Score", newScore },
+                { "WeekScore", newWeekScore }
+            };
+
+                // Atualizar AnsweredQuestions se necessário
+                if (isCorrect && !string.IsNullOrEmpty(databankName) && questionNumber > 0)
+                {
+                    Dictionary<string, List<int>> answeredQuestions = snapshot.GetValue<Dictionary<string, List<int>>>("AnsweredQuestions");
+
+                    if (answeredQuestions == null)
+                    {
+                        answeredQuestions = new Dictionary<string, List<int>>();
+                    }
+
+                    if (!answeredQuestions.ContainsKey(databankName))
+                    {
+                        answeredQuestions[databankName] = new List<int>();
+                    }
+
+                    if (!answeredQuestions[databankName].Contains(questionNumber))
+                    {
+                        answeredQuestions[databankName].Add(questionNumber);
+                        updates["AnsweredQuestions"] = answeredQuestions;
+                    }
+                }
+
+                // Aplicar atualizações
+                await docRef.UpdateAsync(updates);
+
+                // Atualizar localmente
+                if (UserDataStore.CurrentUserData != null && UserDataStore.CurrentUserData.UserId == userId)
+                {
+                    UserDataStore.CurrentUserData.Score = newScore;
+                    UserDataStore.CurrentUserData.WeekScore = newWeekScore;
+                    UserDataStore.UpdateScore(newScore); // Isso dispara o evento OnUserDataChanged
+                }
+
+                Debug.Log($"Scores atualizados - Score: {newScore}, WeekScore: {newWeekScore}");
+            }
+            else
+            {
+                Debug.LogError("Usuário não encontrado para atualização de score!");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao atualizar scores: {e.Message}");
+            throw;
+        }
+    }
+
+    public async Task ResetAllWeeklyScores()
+    {
+        try
+        {
+            if (!isInitialized) throw new System.Exception("Firestore não inicializado");
+
+            // Obter todos os usuários
+            QuerySnapshot querySnapshot = await db.Collection("Users").GetSnapshotAsync();
+
+            // Verificar se há documentos
+            // Corrigindo a linha problemática
+            if (querySnapshot.Documents.Count() == 0)  // Use Count() como método, não Count como propriedade
+            {
+                Debug.Log("Nenhum usuário encontrado para resetar scores semanais");
+                return;
+            }
+
+            // Usar batch para atualizar múltiplos documentos de uma vez
+            WriteBatch batch = db.StartBatch();
+            int userCount = 0;
+
+            foreach (DocumentSnapshot doc in querySnapshot.Documents)
+            {
+                batch.Update(doc.Reference, "WeekScore", 0);
+                userCount++;
+
+                // Firebase tem um limite de 500 operações por batch
+                if (userCount >= 450)
+                {
+                    await batch.CommitAsync();
+                    Debug.Log($"Lote de {userCount} usuários atualizado");
+                    batch = db.StartBatch();
+                    userCount = 0;
+                }
+            }
+
+            // Commit do batch final se houver operações pendentes
+            if (userCount > 0)
+            {
+                await batch.CommitAsync();
+                Debug.Log($"Lote final de {userCount} usuários atualizado");
+            }
+
+            // Atualizar localmente se houver um usuário atual
+            if (UserDataStore.CurrentUserData != null)
+            {
+                UserDataStore.CurrentUserData.WeekScore = 0;
+                UserDataStore.UpdateScore(UserDataStore.CurrentUserData.Score); // Dispara evento
+            }
+
+            Debug.Log("Todos os scores semanais foram resetados com sucesso");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao resetar scores semanais: {e.Message}");
+            throw;
+        }
+    }
+
+    public async Task EnsureWeekScoreField()
+    {
+        try
+        {
+            if (!isInitialized) throw new System.Exception("Firestore não inicializado");
+
+            // Obter todos os usuários
+            QuerySnapshot querySnapshot = await db.Collection("Users").GetSnapshotAsync();
+
+            // Usar batch para atualizar múltiplos documentos de uma vez
+            WriteBatch batch = db.StartBatch();
+            int userCount = 0;
+
+            foreach (DocumentSnapshot doc in querySnapshot.Documents)
+            {
+                // Verifica se o documento não tem o campo WeekScore
+                if (!doc.ContainsField("WeekScore")) // Usando ContainsField em vez de Contains
+                {
+                    batch.Update(doc.Reference, "WeekScore", 0);
+                    userCount++;
+
+                    // Firebase tem um limite de 500 operações por batch
+                    if (userCount >= 450)
+                    {
+                        await batch.CommitAsync();
+                        Debug.Log($"Lote de {userCount} usuários atualizado com WeekScore");
+                        batch = db.StartBatch();
+                        userCount = 0;
+                    }
+                }
+            }
+
+            // Commit do batch final se houver operações pendentes
+            if (userCount > 0)
+            {
+                await batch.CommitAsync();
+                Debug.Log($"Lote final de {userCount} usuários atualizado com WeekScore");
+            }
+
+            Debug.Log("Verificação de WeekScore concluída");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao verificar campo WeekScore: {e.Message}");
             throw;
         }
     }

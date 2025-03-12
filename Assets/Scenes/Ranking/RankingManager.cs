@@ -10,19 +10,23 @@ using System.Threading.Tasks;
 public class RankingManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] internal GameObject rankingRowPrefab;
-    [SerializeField] internal RectTransform rankingTableContent;
-    [SerializeField] internal ScrollRect scrollRect;
+    [SerializeField] protected GameObject rankingRowPrefab;
+    [SerializeField] protected RectTransform rankingTableContent;
+    [SerializeField] protected ScrollRect scrollRect;
 
     [Header("UI References")]
-    [SerializeField] private TMP_Text headerScoreText;
-    [SerializeField] private TMP_Text headerNameText;
+    [SerializeField] protected TMP_Text headerNameText;
+    [SerializeField] protected TMP_Text headerScoreText;
 
-    private UserData currentUserData;
-    private List<Ranking> rankings;
-    private IRankingRepository rankingRepository;
+    [Header("Week Reset Information")]
+    [SerializeField] private TMP_Text weekResetCountdownText;
+    private WeekResetCountdown resetCountdown;
 
-    private void Start()
+    protected UserData currentUserData;
+    protected List<Ranking> rankings;
+    protected IRankingRepository rankingRepository;
+
+    protected virtual void Start()
     {
         if (rankingRowPrefab == null || rankingTableContent == null || scrollRect == null)
         {
@@ -31,9 +35,22 @@ public class RankingManager : MonoBehaviour
         }
 
         InitializeRepository();
+        InitializeWeekResetCountdown();
     }
 
-    private void InitializeRepository()
+    private void InitializeWeekResetCountdown()
+    {
+        if (weekResetCountdownText != null)
+        {
+            // Adicionar o componente WeekResetCountdown a este GameObject
+            resetCountdown = gameObject.AddComponent<WeekResetCountdown>();
+
+            // Inicializar com a referência ao texto
+            resetCountdown.Initialize(weekResetCountdownText);
+        }
+    }
+
+    protected virtual void InitializeRepository()
     {
         if (BioBlocksSettings.Instance.IsDebugMode())
         {
@@ -53,7 +70,7 @@ public class RankingManager : MonoBehaviour
         _ = InitializeRankingManager();
     }
 
-    private async Task InitializeRankingManager()
+    protected virtual async Task InitializeRankingManager()
     {
         currentUserData = await rankingRepository.GetCurrentUserDataAsync();
         if (currentUserData != null)
@@ -68,27 +85,26 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
     }
 
-    private void OnUserDataChanged(UserData userData)
+    protected virtual void OnUserDataChanged(UserData userData)
     {
         currentUserData = userData;
         UpdateUI();
     }
 
-    private void UpdateUI()
+    protected virtual void UpdateUI()
     {
         if (currentUserData == null) return;
 
         headerNameText.text = currentUserData.NickName;
-        headerScoreText.text = $"{currentUserData.Score} XP";
+        headerScoreText.text = $"{currentUserData.WeekScore} XP";
     }
 
-    public async Task FetchRankings()
+    public virtual async Task FetchRankings()
     {
         try
         {
@@ -98,13 +114,18 @@ public class RankingManager : MonoBehaviour
 
             if (rankings.Count > 0)
             {
-                rankings = rankings.OrderByDescending(r => r.userScore).ToList();
-                Debug.Log("Rankings ordenados por score");
+                // Ordenar primariamente pelo WeekScore e usar TotalScore como critério de desempate
+                rankings = rankings
+                    .OrderByDescending(r => r.userWeekScore)     // Primeiro critério: WeekScore (maior para menor)
+                    .ThenByDescending(r => r.userScore)         // Segundo critério: TotalScore para desempate
+                    .ToList();
+
+                Debug.Log("Rankings ordenados por WeekScore com desempate pelo TotalScore");
 
                 // Log dos top 5 para verificar
                 for (int i = 0; i < Math.Min(5, rankings.Count); i++)
                 {
-                    Debug.Log($"Top {i + 1}: {rankings[i].userName} - {rankings[i].userScore}XP");
+                    Debug.Log($"Top {i + 1}: {rankings[i].userName} - WeekScore: {rankings[i].userWeekScore}XP, TotalScore: {rankings[i].userScore}XP");
                 }
 
                 UpdateRankingTable();
@@ -121,13 +142,26 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private void UpdateRankingTable()
+    protected virtual void UpdateRankingTable()
     {
         if (rankingTableContent == null)
         {
             Debug.LogError("rankingTableContent é null!");
             return;
         }
+
+        // Configurar o VerticalLayoutGroup para espaçamento adequado
+        var verticalLayout = rankingTableContent.GetComponent<VerticalLayoutGroup>();
+        if (verticalLayout == null)
+            verticalLayout = rankingTableContent.gameObject.AddComponent<VerticalLayoutGroup>();
+
+        verticalLayout.spacing = 5; // Ajuste este valor para controlar o espaçamento entre linhas
+        verticalLayout.childAlignment = TextAnchor.UpperCenter;
+        verticalLayout.childControlHeight = false;
+        verticalLayout.childControlWidth = true;
+        verticalLayout.childForceExpandHeight = false;
+        verticalLayout.childForceExpandWidth = true;
+        verticalLayout.padding = new RectOffset(10, 10, 10, 10); // Adiciona padding ao redor da lista
 
         Debug.Log($"Atualizando ranking table com {rankings.Count} rankings");
         // Limpar linhas existentes
@@ -162,9 +196,10 @@ public class RankingManager : MonoBehaviour
                 var separatorUI = separatorGO.GetComponent<RankingRowUI>();
                 if (separatorUI != null)
                 {
-                    // Configurar linha de separação visual
+                    // Configurar linha de separação visual usando o método atualizado
                     separatorUI.SetupAsExtraRow(currentUserRank, currentUserRanking.userName,
-                        currentUserRanking.userScore, currentUserRanking.profileImageUrl);
+                        currentUserRanking.userScore, currentUserRanking.userWeekScore,
+                        currentUserRanking.profileImageUrl);
                 }
             }
         }
@@ -180,7 +215,7 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ScrollToCurrentUser()
+    protected virtual IEnumerator ScrollToCurrentUser()
     {
         yield return new WaitForEndOfFrame();
 
@@ -192,14 +227,15 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private void CreateRankingRow(int rank, Ranking ranking, bool isCurrentUser)
+    protected virtual void CreateRankingRow(int rank, Ranking ranking, bool isCurrentUser)
     {
         GameObject rowGO = Instantiate(rankingRowPrefab, rankingTableContent);
         var rowUI = rowGO.GetComponent<RankingRowUI>();
         if (rowUI != null)
         {
+            // Usar o método Setup que aceita tanto score total quanto semanal
             rowUI.Setup(rank, ranking.userName, ranking.userScore,
-                ranking.profileImageUrl, isCurrentUser);
+                        ranking.userWeekScore, ranking.profileImageUrl, isCurrentUser);
         }
         else
         {
@@ -207,53 +243,14 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    private void OnRankingRowClicked(Ranking ranking)
+    protected virtual void OnRankingRowClicked(Ranking ranking)
     {
         Debug.Log($"Clicked on ranking for user: {ranking.userName}");
     }
 
-    public void Navigate(string sceneName)
+    public virtual void Navigate(string sceneName)
     {
         Debug.Log($"Navigating to {sceneName}");
         NavigationManager.Instance.NavigateTo(sceneName);
-    }
-}
-
-public static class RankingManagerDebugExtension
-{
-    public static void AddDebugLogs(this RankingManager manager)
-    {
-        Debug.Log("=== RANKING DEBUG START ===");
-
-        // Verificar referências serializadas
-        Debug.Log($"rankingRowPrefab null? {manager.rankingRowPrefab == null}");
-        Debug.Log($"rankingTableContent null? {manager.rankingTableContent == null}");
-        Debug.Log($"scrollRect null? {manager.scrollRect == null}");
-
-        // Verificar se o prefab tem todos os componentes necessários
-        var testRow = manager.rankingRowPrefab.GetComponent<RankingRowUI>();
-        Debug.Log($"RankingRowUI no prefab? {testRow != null}");
-
-        if (testRow != null)
-        {
-            // Verificar componentes do RankingRowUI
-            var imageManager = testRow.GetComponent<RankingImageManager>();
-            Debug.Log($"RankingImageManager encontrado? {imageManager != null}");
-
-            // Verificar configuração do Canvas
-            var canvas = GameObject.Find("Canvas");
-            if (canvas != null)
-            {
-                var canvasScaler = canvas.GetComponent<CanvasScaler>();
-                Debug.Log($"CanvasScaler configurado? {canvasScaler != null}");
-                if (canvasScaler != null)
-                {
-                    Debug.Log($"UI Scale Mode: {canvasScaler.uiScaleMode}");
-                    Debug.Log($"Reference Resolution: {canvasScaler.referenceResolution}");
-                }
-            }
-        }
-
-        Debug.Log("=== RANKING DEBUG END ===");
     }
 }

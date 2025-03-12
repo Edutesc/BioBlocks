@@ -86,7 +86,8 @@ public class AnsweredQuestionsManager : MonoBehaviour
             FirestoreRepository.Instance.ListenToUserData(
                 userId,
                 null,  // Não precisamos do callback de score aqui
-                HandleAnsweredQuestionsUpdate  // Novo método para processar atualizações
+                null,  // Não precisamos do callback de week score aqui
+                HandleAnsweredQuestionsUpdate  // Método para processar atualizações
             );
 
             await FetchUserAnsweredQuestions();

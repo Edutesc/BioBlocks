@@ -1950,6 +1950,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* SerializationInfoEnumerator_get_Nam
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool String_op_Equality_m030E1B219352228970A076136E455C4E568C02C1 (String_t* ___0_a, String_t* ___1_b, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* SerializationInfoEnumerator_get_Value_mBB22843FD639AD42D9A819A9745C21191C3B1DD9 (SerializationInfoEnumerator_t810DE600E5F6AA4F2B66A7F56074277CCD8F1540* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool SerializationInfoEnumerator_MoveNext_m4F052C960AE85EFED1048CAAAC538AB3714078A6 (SerializationInfoEnumerator_t810DE600E5F6AA4F2B66A7F56074277CCD8F1540* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SystemException__ctor_m0FC84CACD2A5D66222998AA601A5C41CEC36A611 (SystemException_tCC48D868298F4C0705279823E34B00F4FBDB7295* __this, String_t* ___0_message, Exception_t* ___1_innerException, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Exception_GetObjectData_mD69929DB0BB2512240908B9EEE21778CB7B72DA9 (Exception_t* __this, SerializationInfo_t3C47F63E24BEB9FCE2DC6309E027F238DC5C5E37* ___0_info, StreamingContext_t56760522A751890146EE45F82F866B55B7E33677 ___1_context, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Exception_ToString_m86C837E2A0387AD13424708D0F9292A27FA06A4B (Exception_t* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void EvidenceEnumerator__ctor_mD71E5FA6C3C3F99140A39D85BA1241AAB269B8FE (EvidenceEnumerator_tDAE0978A2396448B9A3F54CB0F011A7BCB8AA69F* __this, RuntimeObject* ___0_hostenum, RuntimeObject* ___1_assemblyenum, const RuntimeMethod* method) ;
@@ -21037,6 +21038,16 @@ IL_0040:
 		}
 	}
 	{
+		return;
+	}
+}
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SecurityException__ctor_m391348DD238BF0A84BA957ADB363F74EB7CF3059 (SecurityException_t025CB4C23107E67E07CF085826B40EDE72F8165C* __this, String_t* ___0_message, Exception_t* ___1_inner, const RuntimeMethod* method) 
+{
+	{
+		String_t* L_0 = ___0_message;
+		Exception_t* L_1 = ___1_inner;
+		SystemException__ctor_m0FC84CACD2A5D66222998AA601A5C41CEC36A611(__this, L_0, L_1, NULL);
+		Exception_set_HResult_m010A171183E240EBF4F7611E924B533FAB2E471F_inline(__this, ((int32_t)-2146233078), NULL);
 		return;
 	}
 }

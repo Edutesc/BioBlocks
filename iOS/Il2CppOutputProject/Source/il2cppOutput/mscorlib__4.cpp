@@ -294,6 +294,7 @@ struct SystemException_tCC48D868298F4C0705279823E34B00F4FBDB7295;
 struct TextInfo_tD3BAFCFD77418851E7D5CB8D2588F47019E414B4;
 struct ThreadStaticAttribute_tEF1F5B17146C9128DE715541D1875E4A69CC75E4;
 struct TimeZone_tDA9914185478D6D73730FB9D0179A34512F4736F;
+struct TimeZoneNotFoundException_t61B43FDE247A1DE4D43C76B96E89542CD1B8410F;
 struct TimeoutException_t7552449BA7E0911AEA1B6C7D1BEAC6534819305F;
 struct Type_t;
 struct TypeAccessException_tE5A715168AAF4BFC4BEE9C1242794621C98AE233;
@@ -2491,6 +2492,9 @@ struct StreamingContext_t56760522A751890146EE45F82F866B55B7E33677_marshaled_com
 struct SystemException_tCC48D868298F4C0705279823E34B00F4FBDB7295  : public Exception_t
 {
 };
+struct TimeZoneNotFoundException_t61B43FDE247A1DE4D43C76B96E89542CD1B8410F  : public Exception_t
+{
+};
 struct Type_t  : public MemberInfo_t
 {
 	RuntimeTypeHandle_t332A452B8B6179E4469B69525D0FE82A88030F7B ____impl;
@@ -3648,6 +3652,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int64_t TimeSpan_TimeToTicks_mBA709BC134A96A7
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeSpan__ctor_mF8B85616C009D35D860DA0254327E8AAF54822A1 (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, int32_t ___0_hours, int32_t ___1_minutes, int32_t ___2_seconds, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeSpan__ctor_m7DA95D0F449E6A1F71C74055EE55D799D4C98E10 (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, int32_t ___0_days, int32_t ___1_hours, int32_t ___2_minutes, int32_t ___3_seconds, int32_t ___4_milliseconds, const RuntimeMethod* method) ;
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int64_t TimeSpan_get_Ticks_mC50131E57621F29FACC53B3241432ABB874FA1B5_inline (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t TimeSpan_get_Days_m1317F48F8D9849E161D1CDBEB5CA08344EAAC107 (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t TimeSpan_get_Hours_m770B4B777A816E051EFDA317C28DA9A4F39D6CFB (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t TimeSpan_get_Minutes_m93E37D01CD6DA2DE5B35609D740D322E270B678F (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t TimeSpan_get_Seconds_m8CA21613DC31BD025C5D30D41BAD0ED50827578B (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) ;
@@ -3672,6 +3677,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* TimeSpan_ToString_m5B50613FCD29547F
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* TimeSpan_ToString_mDEB92B7F0214C221302BDCFA00ECDD283C22579E (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, String_t* ___0_format, RuntimeObject* ___1_formatProvider, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool TimeSpanFormat_TryFormat_mEF19FE4CC2635CD6813BE76FFAD3867B3AA0F1EA (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A ___0_value, Span_1_tEDDF15FCF9EC6DEBA0F696BAACDDBAB9D92C252D ___1_destination, int32_t* ___2_charsWritten, ReadOnlySpan_1_t59614EA6E51A945A32B02AB17FBCBDF9A5C419C1 ___3_format, RuntimeObject* ___4_formatProvider, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool TimeSpan_TryFormat_mC4C0834E4FA71761AF2C4E6B577B308C1E268A4A (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, Span_1_tEDDF15FCF9EC6DEBA0F696BAACDDBAB9D92C252D ___0_destination, int32_t* ___1_charsWritten, ReadOnlySpan_1_t59614EA6E51A945A32B02AB17FBCBDF9A5C419C1 ___2_format, RuntimeObject* ___3_formatProvider, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Exception__ctor_m203319D1EA1274689B380A947B4ADC8445662B8F (Exception_t* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Tuple_CombineHashCodes_m823D7EC829A9D4FE48FA8B40FBFE6F9DC0092F3C (int32_t ___0_h1, int32_t ___1_h2, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Type_t* Object_GetType_mE10A8FC1E57F3DF29972CCBC026C2DC3942263B3 (RuntimeObject* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Type_op_Equality_m99930A0E44E420A685FABA60E60BA1CC5FA0EBDC (Type_t* ___0_left, Type_t* ___1_right, const RuntimeMethod* method) ;
@@ -10119,6 +10125,22 @@ IL2CPP_EXTERN_C  int64_t TimeSpan_get_Ticks_mC50131E57621F29FACC53B3241432ABB874
 	_returnValue = TimeSpan_get_Ticks_mC50131E57621F29FACC53B3241432ABB874FA1B5_inline(_thisAdjusted, method);
 	return _returnValue;
 }
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t TimeSpan_get_Days_m1317F48F8D9849E161D1CDBEB5CA08344EAAC107 (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) 
+{
+	{
+		int64_t L_0 = __this->____ticks;
+		return ((int32_t)((int64_t)(L_0/((int64_t)864000000000LL))));
+	}
+}
+IL2CPP_EXTERN_C  int32_t TimeSpan_get_Days_m1317F48F8D9849E161D1CDBEB5CA08344EAAC107_AdjustorThunk (RuntimeObject* __this, const RuntimeMethod* method)
+{
+	TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* _thisAdjusted;
+	int32_t _offset = 1;
+	_thisAdjusted = reinterpret_cast<TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A*>(__this + _offset);
+	int32_t _returnValue;
+	_returnValue = TimeSpan_get_Days_m1317F48F8D9849E161D1CDBEB5CA08344EAAC107(_thisAdjusted, method);
+	return _returnValue;
+}
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t TimeSpan_get_Hours_m770B4B777A816E051EFDA317C28DA9A4F39D6CFB (TimeSpan_t8195C5B013A2C532FEBDF0B64B6911982E750F5A* __this, const RuntimeMethod* method) 
 {
 	{
@@ -11113,6 +11135,75 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeZone__ctor_mE178D688CAB2ACD059236825
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeZoneNotFoundException__ctor_m9CE805AF077CA768F27083A20A1AA548CD88093D (TimeZoneNotFoundException_t61B43FDE247A1DE4D43C76B96E89542CD1B8410F* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Exception_t_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		il2cpp_codegen_runtime_class_init_inline(Exception_t_il2cpp_TypeInfo_var);
+		Exception__ctor_m203319D1EA1274689B380A947B4ADC8445662B8F(__this, NULL);
+		return;
+	}
+}
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeZoneNotFoundException__ctor_m9CB8DAE220B33E8C84F7EAB0511FCC4CAF02DA22 (TimeZoneNotFoundException_t61B43FDE247A1DE4D43C76B96E89542CD1B8410F* __this, String_t* ___0_message, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Exception_t_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		String_t* L_0 = ___0_message;
+		il2cpp_codegen_runtime_class_init_inline(Exception_t_il2cpp_TypeInfo_var);
+		Exception__ctor_m9B2BD92CD68916245A75109105D9071C9D430E7F(__this, L_0, NULL);
+		return;
+	}
+}
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeZoneNotFoundException__ctor_m4331D5399511E335D85785C9F444E07BD6263EEE (TimeZoneNotFoundException_t61B43FDE247A1DE4D43C76B96E89542CD1B8410F* __this, String_t* ___0_message, Exception_t* ___1_innerException, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Exception_t_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		String_t* L_0 = ___0_message;
+		Exception_t* L_1 = ___1_innerException;
+		il2cpp_codegen_runtime_class_init_inline(Exception_t_il2cpp_TypeInfo_var);
+		Exception__ctor_m9BC141AAB08F47C34B7ED40C1A6C0C1ADDEC5CB3(__this, L_0, L_1, NULL);
+		return;
+	}
+}
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeZoneNotFoundException__ctor_m2007E124D439F8EDADD2FB5CB9865BA7DDB0215A (TimeZoneNotFoundException_t61B43FDE247A1DE4D43C76B96E89542CD1B8410F* __this, SerializationInfo_t3C47F63E24BEB9FCE2DC6309E027F238DC5C5E37* ___0_info, StreamingContext_t56760522A751890146EE45F82F866B55B7E33677 ___1_context, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Exception_t_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		SerializationInfo_t3C47F63E24BEB9FCE2DC6309E027F238DC5C5E37* L_0 = ___0_info;
+		StreamingContext_t56760522A751890146EE45F82F866B55B7E33677 L_1 = ___1_context;
+		il2cpp_codegen_runtime_class_init_inline(Exception_t_il2cpp_TypeInfo_var);
+		Exception__ctor_m412D5FC4D69035738F1DB88FD771ABD6B0E9E120(__this, L_0, L_1, NULL);
+		return;
+	}
+}
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif

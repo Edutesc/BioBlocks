@@ -17,7 +17,13 @@ public class PathwayManager : MonoBehaviour
         if (UserDataStore.CurrentUserData != null)
         {
             UpdateUI(UserDataStore.CurrentUserData);
-            FirestoreRepository.Instance.ListenToUserData(UserDataStore.CurrentUserData.UserId, UpdateScoreUI);
+            FirestoreRepository.Instance.ListenToUserData(
+                UserDataStore.CurrentUserData.UserId,
+                null, 
+                UpdateWeekScoreUI, 
+                null
+            );
+
             UserDataStore.OnUserDataChanged += OnUserDataChanged;
 
             // Inscreve no evento de atualização de questões respondidas
@@ -115,15 +121,15 @@ public class PathwayManager : MonoBehaviour
         Debug.Log($"Updating UI for user: {userData.NickName}");
 #endif
         nameText.text = $"{userData.NickName}";
-        scoreText.text = $"{userData.Score}";
+        scoreText.text = $"{userData.WeekScore}";
     }
 
-    private void UpdateScoreUI(int newScore)
+    private void UpdateWeekScoreUI(int newWeekScore)
     {
-        scoreText.text = $"{newScore} XP";
+        scoreText.text = $"{newWeekScore} XP";
         if (UserDataStore.CurrentUserData != null)
         {
-            UserDataStore.CurrentUserData.Score = newScore;
+            UserDataStore.CurrentUserData.WeekScore = newWeekScore;
         }
     }
 

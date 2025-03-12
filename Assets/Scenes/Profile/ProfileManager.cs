@@ -150,7 +150,7 @@ public class ProfileManager : MonoBehaviour
         }
 
         nickNameText.text = currentUserData.NickName;
-        scoreText.text = $"{currentUserData.Score} XP";
+        scoreText.text = $"{currentUserData.WeekScore} XP";
         nameText.text = currentUserData.Name;
         emailText.text = currentUserData.Email;
         createdTimeText.text = $"Conta criada em {currentUserData.GetFormattedCreatedTime()}";

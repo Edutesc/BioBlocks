@@ -7,22 +7,24 @@ public class RankingRowUI : MonoBehaviour
     [Header("Text Components")]
     [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text nickNameText;
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] public TMP_Text totalScoreText;
+    [SerializeField] public TMP_Text weekScoreText;
     [SerializeField] private Image backgroundImage;
 
     [Header("Image Components")]
     [SerializeField] private RawImage profileImage;
     [SerializeField] private RankingImageManager imageManager;
 
-
     [Header("Layout Elements")]
     [SerializeField] private LayoutElement rankLayout;
     [SerializeField] private LayoutElement profileLayout;
     [SerializeField] private LayoutElement nickNameLayout;
-    [SerializeField] private LayoutElement scoreLayout;
+    [SerializeField] private LayoutElement weekScoreLayout;
+    [SerializeField] private LayoutElement totalScoreLayout;
 
     private RectTransform rectTransform;
     private bool isExtraRow = false;
+    private bool isWeekRankingMode = false; // Flag para controlar o modo de exibição
 
     private void Awake()
     {
@@ -58,7 +60,7 @@ public class RankingRowUI : MonoBehaviour
 
     private void ConfigureLayout()
     {
-        // Configurar RectTransform
+        // Configurar RectTransform para garantir altura adequada
         if (rectTransform != null)
         {
             rectTransform.anchorMin = new Vector2(0, 0);
@@ -72,8 +74,8 @@ public class RankingRowUI : MonoBehaviour
         if (horizontalLayout == null)
             horizontalLayout = gameObject.AddComponent<HorizontalLayoutGroup>();
 
-        horizontalLayout.padding = new RectOffset(20, 20, 0, 0);
-        horizontalLayout.spacing = 15;
+        horizontalLayout.padding = new RectOffset(15, 15, 5, 5);
+        horizontalLayout.spacing = 12;
         horizontalLayout.childAlignment = TextAnchor.MiddleLeft;
         horizontalLayout.childControlWidth = false;
         horizontalLayout.childControlHeight = false;
@@ -83,38 +85,49 @@ public class RankingRowUI : MonoBehaviour
         ConfigureLayoutElements();
     }
 
-    private void ConfigureLayoutElements()
+    protected virtual void ConfigureLayoutElements()
     {
         if (rankLayout != null)
         {
-            rankLayout.preferredWidth = 50;
-            rankLayout.minWidth = 50;
+            rankLayout.preferredWidth = 40;
+            rankLayout.minWidth = 40;
         }
 
         if (profileLayout != null)
         {
-            profileLayout.preferredWidth = 150;
-            profileLayout.preferredHeight = 150;
-            profileLayout.minWidth = 100;
-            profileLayout.minHeight = 100;
+            profileLayout.preferredWidth = 50;
+            profileLayout.preferredHeight = 50;
+            profileLayout.minWidth = 50;
+            profileLayout.minHeight = 50;
         }
 
         if (nickNameLayout != null)
         {
-            nickNameLayout.preferredWidth = 200;
-            nickNameLayout.flexibleWidth = 1;
+            nickNameLayout.preferredWidth = 300;
+            nickNameLayout.minWidth = 200;
+            nickNameLayout.flexibleWidth = 1; // Permite expandir
         }
 
-        if (scoreLayout != null)
+        if (totalScoreLayout != null)
         {
-            scoreLayout.preferredWidth = 100;
-            scoreLayout.minWidth = 100;
+            totalScoreLayout.preferredWidth = 200;
+            totalScoreLayout.minWidth = 170;
         }
 
-        Debug.Log("Layout configurado com sucesso");
+        if (weekScoreLayout != null)
+        {
+            weekScoreLayout.preferredWidth = 180;
+            weekScoreLayout.minWidth = 150;
+        }
     }
 
     public void Setup(int rank, string userName, int score, string profileImageUrl, bool isCurrentUser)
+    {
+        // Chama o novo método, passando 0 como weekScore
+        Setup(rank, userName, score, 0, profileImageUrl, isCurrentUser);
+    }
+
+    public void Setup(int rank, string userName, int totalScore, int weekScore, string profileImageUrl, bool isCurrentUser)
     {
         if (imageManager == null)
         {
@@ -124,7 +137,10 @@ public class RankingRowUI : MonoBehaviour
 
         rankText.text = isExtraRow ? "..." : $"{rank}.";
         nickNameText.text = userName;
-        scoreText.text = $"{score} XP";
+        totalScoreText.text = $"Total de Pontos: {totalScore} XP"; // Formato como na imagem 1
+
+        if (weekScoreText != null)
+            weekScoreText.text = $"{weekScore} XP"; // Formato como na imagem 1
 
         SetupColors(rank, isCurrentUser);
 
@@ -132,11 +148,16 @@ public class RankingRowUI : MonoBehaviour
         imageManager.LoadProfileImage(profileImageUrl);
     }
 
-
     public void SetupAsExtraRow(int actualRank, string userName, int score, string profileImageUrl)
     {
         isExtraRow = true;
-        Setup(actualRank, userName, score, profileImageUrl, true);
+        Setup(actualRank, userName, score, 0, profileImageUrl, true);
+    }
+
+    public void SetupAsExtraRow(int actualRank, string userName, int totalScore, int weekScore, string profileImageUrl)
+    {
+        isExtraRow = true;
+        Setup(actualRank, userName, totalScore, weekScore, profileImageUrl, true);
     }
 
     private void SetupColors(int rank, bool isCurrentUser)
@@ -183,7 +204,8 @@ public class RankingRowUI : MonoBehaviour
 
         if (rankText) rankText.color = textColor;
         if (nickNameText) nickNameText.color = textColor;
-        if (scoreText) scoreText.color = textColor;
+        if (totalScoreText) totalScoreText.color = textColor;
+        if (weekScoreText) weekScoreText.color = textColor;
         if (backgroundImage) backgroundImage.color = backgroundColor;
     }
 }

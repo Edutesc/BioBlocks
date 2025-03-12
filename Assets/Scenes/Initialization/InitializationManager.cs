@@ -154,7 +154,7 @@ public class InitializationManager : MonoBehaviour
                 else
                 {
                     UserDataStore.CurrentUserData = userData;
-                    Debug.Log($"User data loaded: Name: {userData.NickName}, Id: {userData.UserId}, Score: {userData.Score}");
+                    Debug.Log($"User data loaded: Name: {userData.NickName}, Id: {userData.UserId}, WeekScore: {userData.WeekScore}");
                     return true;
                 }
             }

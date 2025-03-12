@@ -66,12 +66,52 @@ public class QuestionManager : MonoBehaviour
         try
         {
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
+
+            // Importante: obter o banco de dados correto antes de verificar as questões respondidas
+            IQuestionDatabase database = FindQuestionDatabase(currentSet);
+            if (database == null)
+            {
+                Debug.LogError($"Nenhum database encontrado para o QuestionSet: {currentSet}");
+                return;
+            }
+
+            string currentDatabaseName = database.GetDatabankName();
+            loadManager.databankName = currentDatabaseName; // Garante que o nome está definido no loadManager
+
+            Debug.Log($"Verificando questões respondidas para o banco: {currentDatabaseName}");
+
+            // Verificar se todas as questões já foram respondidas
+            List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
+            int answeredCount = answeredQuestions.Count;
+
+            // Registrar o número total de questões disponíveis
+            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
+            if (totalQuestions <= 0)
+            {
+                // Se não tiver informações do total, obtém do database
+                List<Question> allQuestions = database.GetQuestions();
+                totalQuestions = allQuestions.Count;
+                QuestionBankStatistics.SetTotalQuestions(currentDatabaseName, totalQuestions);
+                Debug.Log($"Total de questões definido para {currentDatabaseName}: {totalQuestions}");
+            }
+
+            bool allQuestionsAnswered = QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount);
+
+            if (allQuestionsAnswered)
+            {
+                Debug.Log($"Todas as questões do banco {currentDatabaseName} já foram respondidas. Redirecionando para ResetDatabaseView");
+                SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
+                SceneManager.LoadScene("ResetDatabaseView");
+                return;
+            }
+
+            // Se não estiverem todas respondidas, carrega as questões normalmente
             var questions = await loadManager.LoadQuestionsForSet(currentSet);
 
             // Verificar se há questões disponíveis
             if (questions == null || questions.Count == 0)
             {
-                string currentDatabaseName = loadManager.DatabankName; // Usar o nome que já foi obtido
+                Debug.Log($"Total de questoes = {questions?.Count ?? 0}");
                 Debug.Log($"Não há questões disponíveis em {currentDatabaseName}. Redirecionando para ResetDatabaseView");
 
                 SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
@@ -89,6 +129,33 @@ public class QuestionManager : MonoBehaviour
             string currentDatabaseName = loadManager.DatabankName;
             SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
             SceneManager.LoadScene("ResetDatabaseView");
+        }
+    }
+
+    // Método auxiliar para encontrar o QuestionDatabase correspondente
+    private IQuestionDatabase FindQuestionDatabase(QuestionSet targetSet)
+    {
+        try
+        {
+            MonoBehaviour[] allBehaviours = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
+
+            foreach (MonoBehaviour behaviour in allBehaviours)
+            {
+                if (behaviour is IQuestionDatabase database)
+                {
+                    if (database.GetQuestionSetType() == targetSet)
+                    {
+                        return database;
+                    }
+                }
+            }
+
+            return null;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao procurar database: {e.Message}");
+            return null;
         }
     }
 

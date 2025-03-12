@@ -7,7 +7,7 @@ Library: /Users/lucianopuzer/Library/Mobile Documents/com~apple~CloudDocs/Docume
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---linker-options=min-ios-version=15.0
+--linker-options=min-ios-version=13.0
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/lucianopuzer/Library/Mobile Documents/com~apple~CloudDocs/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/Temp/Burst
 --generate-static-linkage-methods
@@ -107,7 +107,7 @@ Library: /Users/lucianopuzer/Library/Mobile Documents/com~apple~CloudDocs/Docume
 --float-precision=Standard
 --target-framework=NetFramework
 --float-mode=Fast
---linker-options=min-ios-version=15.0
+--linker-options=min-ios-version=13.0
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/lucianopuzer/Library/Mobile Documents/com~apple~CloudDocs/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/Temp/Burst
 --generate-static-linkage-methods

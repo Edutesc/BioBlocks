@@ -882,10 +882,6 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_Application_OpenURL_Injected();
 		Register_UnityEngine_Application_OpenURL_Injected();
 
-		//System.Void UnityEngine.Application::SetLogCallbackDefined(System.Boolean)
-		void Register_UnityEngine_Application_SetLogCallbackDefined();
-		Register_UnityEngine_Application_SetLogCallbackDefined();
-
 		//System.Void UnityEngine.Application::get_persistentDataPath_Injected(UnityEngine.Bindings.ManagedSpanWrapper&)
 		void Register_UnityEngine_Application_get_persistentDataPath_Injected();
 		Register_UnityEngine_Application_get_persistentDataPath_Injected();
