@@ -45,16 +45,12 @@ public class HalfViewMenu : MonoBehaviour
 
     private void Awake()
     {
-        // Localiza o ProfileManager
         profileManager = FindFirstObjectByType<ProfileManager>();
-
-        // Inicializa o menuCanvas se necessário
         EnsureCanvasSetup();
     }
 
     private void OnEnable()
     {
-        // Reconfigurar botões toda vez que o objeto for ativado
         SetupButtonListeners();
     }
 
@@ -63,7 +59,6 @@ public class HalfViewMenu : MonoBehaviour
         FindBottomBar();
         SetupPositions();
 
-        // Inicia na posição escondida
         if (menuPanel != null)
         {
             menuPanel.anchoredPosition = hiddenPosition;
@@ -79,7 +74,6 @@ public class HalfViewMenu : MonoBehaviour
 
     private void EnsureCanvasSetup()
     {
-        // Garante que o Canvas está configurado corretamente
         if (menuCanvas == null)
         {
             menuCanvas = GetComponent<Canvas>();
@@ -92,7 +86,6 @@ public class HalfViewMenu : MonoBehaviour
         menuCanvas.overrideSorting = true;
         menuCanvas.sortingOrder = 100;
 
-        // CRÍTICO: Adiciona um GraphicRaycaster se não existir
         GraphicRaycaster raycaster = GetComponent<GraphicRaycaster>();
         if (raycaster == null)
         {
@@ -103,7 +96,6 @@ public class HalfViewMenu : MonoBehaviour
 
     private void FindBottomBar()
     {
-        // Código de detecção da bottomBar
         Canvas[] allCanvases = FindObjectsOfType<Canvas>(true);
         foreach (Canvas canvas in allCanvases)
         {
@@ -132,14 +124,12 @@ public class HalfViewMenu : MonoBehaviour
 
     private void SetupButtonListeners()
     {
-        // Remove listeners anteriores para evitar duplicação
         if (logoutButton != null)
         {
             logoutButton.onClick.RemoveAllListeners();
             logoutButton.onClick.AddListener(OnLogoutClicked);
             logoutButton.interactable = true;
 
-            // CRÍTICO: Garante que a imagem do botão tenha raycastTarget = true
             if (logoutButton.targetGraphic != null)
             {
                 logoutButton.targetGraphic.raycastTarget = true;
@@ -153,7 +143,6 @@ public class HalfViewMenu : MonoBehaviour
             deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
             deleteAccountButton.interactable = true;
 
-            // CRÍTICO: Garante que a imagem do botão tenha raycastTarget = true
             if (deleteAccountButton.targetGraphic != null)
             {
                 deleteAccountButton.targetGraphic.raycastTarget = true;
@@ -167,7 +156,6 @@ public class HalfViewMenu : MonoBehaviour
             closeButton.onClick.AddListener(HideMenu);
             closeButton.interactable = true;
 
-            // CRÍTICO: Garante que a imagem do botão tenha raycastTarget = true
             if (closeButton.targetGraphic != null)
             {
                 closeButton.targetGraphic.raycastTarget = true;
@@ -188,16 +176,14 @@ public class HalfViewMenu : MonoBehaviour
 
         halfViewDarkOverlay.SetActive(false);
 
-        // CRÍTICO: Garante que o Canvas do overlay tenha sorting order menor
         Canvas overlayCanvas = halfViewDarkOverlay.GetComponent<Canvas>();
         if (overlayCanvas == null)
         {
             overlayCanvas = halfViewDarkOverlay.AddComponent<Canvas>();
         }
         overlayCanvas.overrideSorting = true;
-        overlayCanvas.sortingOrder = 90; // Menor que a half view
-
-        // CRÍTICO: Garante que o overlay não bloqueie interações com a half view
+        overlayCanvas.sortingOrder = 90;
+        
         Image overlayImage = halfViewDarkOverlay.GetComponent<Image>();
         if (overlayImage != null)
         {
@@ -269,12 +255,10 @@ public class HalfViewMenu : MonoBehaviour
         CollectInteractableElements();
         DisableSceneInteraction();
 
-        // CRÍTICO: Garante configuração de Canvas e GraphicRaycaster
         EnsureCanvasSetup();
 
         gameObject.SetActive(true);
 
-        // CRÍTICO: Garante que o menuPanel não tenha nenhum CanvasGroup bloqueando raycasts
         CanvasGroup panelGroup = menuPanel.GetComponent<CanvasGroup>();
         if (panelGroup != null)
         {
@@ -286,7 +270,7 @@ public class HalfViewMenu : MonoBehaviour
         if (halfViewDarkOverlay != null)
         {
             halfViewDarkOverlay.SetActive(true);
-            halfViewDarkOverlay.transform.SetSiblingIndex(0); // Coloca overlay atrás da half view
+            halfViewDarkOverlay.transform.SetSiblingIndex(0);
         }
 
         AdjustSortingOrderForVisibility(true);
@@ -297,7 +281,6 @@ public class HalfViewMenu : MonoBehaviour
         animationCoroutine = StartCoroutine(AnimateMenu(hiddenPosition, visiblePosition));
         isVisible = true;
 
-        // CRÍTICO: Reconfigura os listeners dos botões após ativar o menu
         SetupButtonListeners();
     }
 
@@ -327,7 +310,6 @@ public class HalfViewMenu : MonoBehaviour
         {
             if (interactableElements[i] != null)
             {
-                // Não desabilitar elementos do DeleteAccountCanvas
                 if (!IsPartOfDeleteAccountCanvas(interactableElements[i].gameObject))
                 {
                     originalInteractableStates[i] = interactableElements[i].interactable;
@@ -368,7 +350,6 @@ public class HalfViewMenu : MonoBehaviour
         {
             if (show)
             {
-                // CRÍTICO: Garante alta prioridade para a half view
                 menuCanvas.sortingOrder = 100;
 
                 if (bottomBarCanvas != null)
@@ -423,14 +404,12 @@ public class HalfViewMenu : MonoBehaviour
         }
         else
         {
-            // CRÍTICO: Reconfigura os botões mais uma vez após a animação
             SetupButtonListeners();
         }
 
         animationCoroutine = null;
     }
 
-    // Funções de callback para os botões
     private void OnLogoutClicked()
     {
         Debug.Log("[HalfViewMenu] OnLogoutClicked chamado");
@@ -450,54 +429,38 @@ public class HalfViewMenu : MonoBehaviour
     private void OnDeleteAccountClicked()
     {
         Debug.Log("OnDeleteAccountClicked chamado");
-
-        // Referência ao DarkOverlay (para reutilizar)
         GameObject overlay = halfViewDarkOverlay;
 
         if (profileManager != null)
         {
-            // Importante: NÃO desativar o overlay aqui
-            // Apenas fechar o painel da half view
-
-            // Animação de saída da half view sem desativar o overlay
             if (animationCoroutine != null)
                 StopCoroutine(animationCoroutine);
 
             animationCoroutine = StartCoroutine(AnimateMenuWithoutHidingOverlay(visiblePosition, hiddenPosition));
             isVisible = false;
 
-            // Aguarda um curto período para chamar o StartDeleteAccount
-            // para que a animação de saída da half view comece primeiro
             StartCoroutine(DelayedDeleteAccount());
         }
         else
         {
             Debug.LogError("ProfileManager não encontrado!");
-            HideMenu(); // Neste caso, fechar normalmente
+            HideMenu(); 
         }
     }
 
     private IEnumerator DelayedDeleteAccount()
     {
-        // Pequeno atraso para permitir que a animação comece
         yield return new WaitForSeconds(0.1f);
-
-        // NOVO: Desativar o HalfViewDarkOverlay
         if (halfViewDarkOverlay != null)
         {
             halfViewDarkOverlay.SetActive(false);
             Debug.Log("HalfViewDarkOverlay desativado antes de mostrar DeleteAccountPanel");
         }
 
-        // Chama o método do ProfileManager
         profileManager.StartDeleteAccount();
-
-        // O menuPanel da half view ainda deve ser desativado
-        // após a animação terminar
         gameObject.SetActive(false);
     }
 
-    // Método especial para animação sem desativar o overlay
     private IEnumerator AnimateMenuWithoutHidingOverlay(Vector2 startPos, Vector2 endPos)
     {
         if (menuPanel == null) yield break;
@@ -517,30 +480,6 @@ public class HalfViewMenu : MonoBehaviour
         }
 
         menuPanel.anchoredPosition = endPos;
-
-        // Não desativamos o overlay aqui, só o painel da half view
-        // O overlay continuará ativo para ser usado pelo DeleteAccountCanvas
-
         animationCoroutine = null;
     }
-
-    // // Método temporário para teste direto dentro do jogo
-    // public void TestDirectClick(string buttonType)
-    // {
-    //     if (buttonType.Equals("logout", System.StringComparison.OrdinalIgnoreCase))
-    //     {
-    //         Debug.Log("[HalfViewMenu] Teste de clique direto no botão de logout");
-    //         OnLogoutClicked();
-    //     }
-    //     else if (buttonType.Equals("delete", System.StringComparison.OrdinalIgnoreCase))
-    //     {
-    //         Debug.Log("[HalfViewMenu] Teste de clique direto no botão de deletar conta");
-    //         OnDeleteAccountClicked();
-    //     }
-    //     else if (buttonType.Equals("close", System.StringComparison.OrdinalIgnoreCase))
-    //     {
-    //         Debug.Log("[HalfViewMenu] Teste de clique direto no botão de fechar");
-    //         HideMenu();
-    //     }
-    // }
 }

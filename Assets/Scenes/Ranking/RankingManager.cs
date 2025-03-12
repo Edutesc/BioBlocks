@@ -1,11 +1,11 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class RankingManager : MonoBehaviour
 {
@@ -13,10 +13,6 @@ public class RankingManager : MonoBehaviour
     [SerializeField] protected GameObject rankingRowPrefab;
     [SerializeField] protected RectTransform rankingTableContent;
     [SerializeField] protected ScrollRect scrollRect;
-
-    [Header("UI References")]
-    [SerializeField] protected TMP_Text headerNameText;
-    [SerializeField] protected TMP_Text headerScoreText;
 
     [Header("Week Reset Information")]
     [SerializeField] private TMP_Text weekResetCountdownText;
@@ -42,10 +38,7 @@ public class RankingManager : MonoBehaviour
     {
         if (weekResetCountdownText != null)
         {
-            // Adicionar o componente WeekResetCountdown a este GameObject
             resetCountdown = gameObject.AddComponent<WeekResetCountdown>();
-
-            // Inicializar com a referência ao texto
             resetCountdown.Initialize(weekResetCountdownText);
         }
     }
@@ -75,7 +68,6 @@ public class RankingManager : MonoBehaviour
         currentUserData = await rankingRepository.GetCurrentUserDataAsync();
         if (currentUserData != null)
         {
-            UpdateUI();
             UserDataStore.OnUserDataChanged += OnUserDataChanged;
             await FetchRankings();
         }
@@ -93,15 +85,7 @@ public class RankingManager : MonoBehaviour
     protected virtual void OnUserDataChanged(UserData userData)
     {
         currentUserData = userData;
-        UpdateUI();
-    }
-
-    protected virtual void UpdateUI()
-    {
-        if (currentUserData == null) return;
-
-        headerNameText.text = currentUserData.NickName;
-        headerScoreText.text = $"{currentUserData.WeekScore} XP";
+        _ = FetchRankings(); // Recarregar os rankings quando os dados do usuário mudarem
     }
 
     public virtual async Task FetchRankings()
@@ -116,8 +100,8 @@ public class RankingManager : MonoBehaviour
             {
                 // Ordenar primariamente pelo WeekScore e usar TotalScore como critério de desempate
                 rankings = rankings
-                    .OrderByDescending(r => r.userWeekScore)     // Primeiro critério: WeekScore (maior para menor)
-                    .ThenByDescending(r => r.userScore)         // Segundo critério: TotalScore para desempate
+                    .OrderByDescending(r => r.userWeekScore)   
+                    .ThenByDescending(r => r.userScore) 
                     .ToList();
 
                 Debug.Log("Rankings ordenados por WeekScore com desempate pelo TotalScore");
@@ -150,18 +134,17 @@ public class RankingManager : MonoBehaviour
             return;
         }
 
-        // Configurar o VerticalLayoutGroup para espaçamento adequado
         var verticalLayout = rankingTableContent.GetComponent<VerticalLayoutGroup>();
         if (verticalLayout == null)
             verticalLayout = rankingTableContent.gameObject.AddComponent<VerticalLayoutGroup>();
 
-        verticalLayout.spacing = 5; // Ajuste este valor para controlar o espaçamento entre linhas
+        verticalLayout.spacing = 5;
         verticalLayout.childAlignment = TextAnchor.UpperCenter;
         verticalLayout.childControlHeight = false;
         verticalLayout.childControlWidth = true;
         verticalLayout.childForceExpandHeight = false;
         verticalLayout.childForceExpandWidth = true;
-        verticalLayout.padding = new RectOffset(10, 10, 10, 10); // Adiciona padding ao redor da lista
+        verticalLayout.padding = new RectOffset(10, 10, 10, 10); 
 
         Debug.Log($"Atualizando ranking table com {rankings.Count} rankings");
         // Limpar linhas existentes
@@ -172,18 +155,14 @@ public class RankingManager : MonoBehaviour
 
         var top20Rankings = rankings.Take(20).ToList();
 
-        // Criar as primeiras 20 linhas
         for (int i = 0; i < top20Rankings.Count; i++)
         {
             var ranking = top20Rankings[i];
             bool isCurrentUser = ranking.userName == currentUserData.NickName;
-
-            // Só aplicar estilo de currentUser se não estiver no top 3
             bool applyCurrentUserStyle = isCurrentUser && (i + 1) > 3;
             CreateRankingRow(i + 1, ranking, applyCurrentUserStyle);
         }
 
-        // Se o usuário atual não estiver no top 20, adicionar uma linha extra no final
         if (!top20Rankings.Any(r => r.userName == currentUserData.NickName))
         {
             int currentUserRank = rankings.FindIndex(r => r.userName == currentUserData.NickName) + 1;
@@ -191,12 +170,10 @@ public class RankingManager : MonoBehaviour
 
             if (currentUserRanking != null && currentUserRank > 20)
             {
-                // Adicionar linha separadora (...)
                 GameObject separatorGO = Instantiate(rankingRowPrefab, rankingTableContent);
                 var separatorUI = separatorGO.GetComponent<RankingRowUI>();
                 if (separatorUI != null)
                 {
-                    // Configurar linha de separação visual usando o método atualizado
                     separatorUI.SetupAsExtraRow(currentUserRank, currentUserRanking.userName,
                         currentUserRanking.userScore, currentUserRanking.userWeekScore,
                         currentUserRanking.profileImageUrl);
@@ -204,11 +181,9 @@ public class RankingManager : MonoBehaviour
             }
         }
 
-        // Forçar atualização do layout
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rankingTableContent);
 
-        // Opcional: Rolar para mostrar a linha do usuário atual se estiver fora da vista
         if (scrollRect != null)
         {
             StartCoroutine(ScrollToCurrentUser());
@@ -219,11 +194,10 @@ public class RankingManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        // Se o usuário atual estiver nas últimas posições, rolar para baixo
         int currentUserRank = rankings.FindIndex(r => r.userName == currentUserData.NickName) + 1;
-        if (currentUserRank > 15) // Ajuste este número conforme necessário
+        if (currentUserRank > 15)
         {
-            scrollRect.verticalNormalizedPosition = 0f; // Rola para o final
+            scrollRect.verticalNormalizedPosition = 0f;
         }
     }
 
@@ -233,7 +207,6 @@ public class RankingManager : MonoBehaviour
         var rowUI = rowGO.GetComponent<RankingRowUI>();
         if (rowUI != null)
         {
-            // Usar o método Setup que aceita tanto score total quanto semanal
             rowUI.Setup(rank, ranking.userName, ranking.userScore,
                         ranking.userWeekScore, ranking.profileImageUrl, isCurrentUser);
         }
