@@ -10,7 +10,6 @@ using System.Linq;
 public class QuestionManager : MonoBehaviour
 {
     [Header("UI Managers")]
-    [SerializeField] private TopBarUIManager topBarManager;
     [SerializeField] private BottomUIManager bottomBarManager;
     [SerializeField] private QuestionUIManager questionUIManager;
     [SerializeField] private QuestionCanvasGroupManager questionCanvasGroupManager;
@@ -50,8 +49,7 @@ public class QuestionManager : MonoBehaviour
 
     private bool ValidateManagers()
     {
-        return topBarManager != null &&
-               bottomBarManager != null &&
+        return bottomBarManager != null &&
                questionUIManager != null &&
                questionCanvasGroupManager != null &&
                timerManager != null &&

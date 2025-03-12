@@ -4,14 +4,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class NavigationTopBarManager : MonoBehaviour
+public class TopBarManager : MonoBehaviour
 {
     [System.Serializable]
     public class TopButton
     {
         public string buttonName;
         public Button button;
-        public List<string> visibleInScenes = new List<string>(); // Lista de cenas onde este botão deve aparecer
+        public Image buttonImage; 
+        public List<string> visibleInScenes = new List<string>();
     }
 
     [Header("Textos da TopBar")]
@@ -19,20 +20,21 @@ public class NavigationTopBarManager : MonoBehaviour
     [SerializeField] private TMP_Text nickname;
 
     [Header("Botões da TopBar")]
-    [SerializeField] private TopButton hubButton; 
+    [SerializeField] private TopButton hubButton;
     [SerializeField] private TopButton engineButton;
 
     [Header("Configurações")]
     [SerializeField] private string currentScene = "";
     [SerializeField] private bool debugLogs = true;
+    [SerializeField] private Color inactiveButtonColor = new Color(1, 1, 1, 0); 
     
     [Header("Persistência")]
     [SerializeField] private List<string> scenesWithoutTopBar = new List<string>() { "Login", "Splash" };
 
     private List<TopButton> allButtons = new List<TopButton>();
-    private static NavigationTopBarManager _instance;
+    private static TopBarManager _instance;
 
-    public static NavigationTopBarManager Instance
+    public static TopBarManager Instance
     {
         get { return _instance; }
     }
@@ -61,14 +63,29 @@ public class NavigationTopBarManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         InitializeButtons();
         
-        if (debugLogs) Debug.Log("NavigationTopBarManager inicializado");
+        if (debugLogs) Debug.Log("TopBarManager inicializado");
     }
 
     private void InitializeButtons()
     {
         allButtons.Clear();
-        if (hubButton.button != null) allButtons.Add(hubButton);
-        if (engineButton.button != null) allButtons.Add(engineButton);
+        
+        if (hubButton.button != null)
+        {
+            if (hubButton.buttonImage == null)
+                hubButton.buttonImage = hubButton.button.GetComponent<Image>();
+            
+            allButtons.Add(hubButton);
+        }
+        
+        if (engineButton.button != null)
+        {
+            if (engineButton.buttonImage == null)
+                engineButton.buttonImage = engineButton.button.GetComponent<Image>();
+            
+            allButtons.Add(engineButton);
+        }
+        
         SetupButtonListeners();
     }
 
@@ -80,9 +97,10 @@ public class NavigationTopBarManager : MonoBehaviour
             hubButton.button.onClick.AddListener(() => 
             {
                 if (debugLogs) Debug.Log($"Botão {hubButton.buttonName} clicado");
+                
                 if (NavigationManager.Instance != null)
                 {
-                        // Implementar a lógica do botão, você pode personalizá-la conforme necessário
+                    // Implementar a lógica do botão conforme necessário
                 }
                 else
                 {
@@ -98,7 +116,7 @@ public class NavigationTopBarManager : MonoBehaviour
             {
                 if (debugLogs) Debug.Log($"Botão {engineButton.buttonName} clicado");
                 
-                // Implementar a lógica do botão, você pode personalizá-la conforme necessário
+                // Implementar a lógica do botão conforme necessário
             });
         }
     }
@@ -124,6 +142,8 @@ public class NavigationTopBarManager : MonoBehaviour
 
         UpdateButtonVisibility(currentScene);
         AdjustVisibilityForCurrentScene();
+        UserDataStore.OnUserDataChanged += OnUserDataChanged;
+        UpdateFromCurrentUserData();
     }
     
     private void OnDestroy()
@@ -132,10 +152,49 @@ public class NavigationTopBarManager : MonoBehaviour
         {
             NavigationManager.Instance.OnSceneChanged -= OnSceneChanged;
         }
+
+        UserDataStore.OnUserDataChanged -= OnUserDataChanged;
         
         if (_instance == this)
         {
             _instance = null;
+        }
+    }
+    
+    private void OnUserDataChanged(UserData userData)
+    {
+        if (userData != null)
+        {
+            UpdateUserInfoDisplay(userData);
+            if (debugLogs) Debug.Log($"TopBarManager: Dados do usuário atualizados - WeekScore: {userData.WeekScore}, Nickname: {userData.NickName}");
+        }
+    }
+
+    private void UpdateUserInfoDisplay(UserData userData)
+    {
+        if (weekScore != null)
+        {
+            weekScore.text = userData.WeekScore.ToString();
+        }
+        
+        if (nickname != null)
+        {
+            nickname.text = userData.NickName;
+        }
+    }
+    
+    private void UpdateFromCurrentUserData()
+    {
+        UserData currentUserData = UserDataStore.CurrentUserData;
+        if (currentUserData != null)
+        {
+            UpdateUserInfoDisplay(currentUserData);
+            
+            if (debugLogs) Debug.Log($"TopBarManager: Carregados dados iniciais - WeekScore: {currentUserData.WeekScore}, Nickname: {currentUserData.NickName}");
+        }
+        else if (debugLogs)
+        {
+            Debug.LogWarning("TopBarManager: CurrentUserData é null, não foi possível carregar dados iniciais");
         }
     }
 
@@ -161,14 +220,23 @@ public class NavigationTopBarManager : MonoBehaviour
 
         foreach (var button in allButtons)
         {
-            if (button != null && button.button != null)
+            if (button != null && button.button != null && button.buttonImage != null)
             {
-                bool isVisible = button.visibleInScenes.Contains(sceneName);
-                button.button.gameObject.SetActive(isVisible);
+                bool isActive = button.visibleInScenes.Contains(sceneName);
+                
+                // Importante: Vamos apenas definir o alpha da imagem, mantendo a interatividade do botão 
+                // apenas quando ele estiver visível
+                
+                // Tornar botão interativo apenas quando visível
+                button.button.interactable = isActive;
+                
+                // Ajustar visibilidade da imagem (transparente quando não ativo)
+                Color buttonColor = button.buttonImage.color;
+                button.buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, isActive ? 1 : 0);
                 
                 if (debugLogs)
                 {
-                    Debug.Log($"Botão: {button.buttonName} - Visível: {isVisible} na cena {sceneName}");
+                    Debug.Log($"Botão: {button.buttonName} - Visível e interativo: {isActive} na cena {sceneName}");
                 }
             }
         }
@@ -186,7 +254,7 @@ public class NavigationTopBarManager : MonoBehaviour
             nickname.text = subtitle;
         }
         
-        if (debugLogs) Debug.Log($"TopBar textos definidos: Título = {title}, Subtítulo = {subtitle}");
+        if (debugLogs) Debug.Log($"TopBar textos definidos manualmente: Score = {title}, Nickname = {subtitle}");
     }
 
     public void AddSceneToButtonVisibility(string buttonName, string sceneName)
