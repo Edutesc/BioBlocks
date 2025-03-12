@@ -33,6 +33,7 @@ public class TopBarManager : MonoBehaviour
 
     private List<TopButton> allButtons = new List<TopButton>();
     private static TopBarManager _instance;
+    private HalfViewMenu halfViewMenu;
 
     public static TopBarManager Instance
     {
@@ -97,10 +98,9 @@ public class TopBarManager : MonoBehaviour
             hubButton.button.onClick.AddListener(() => 
             {
                 if (debugLogs) Debug.Log($"Botão {hubButton.buttonName} clicado");
-                
                 if (NavigationManager.Instance != null)
                 {
-                    // Implementar a lógica do botão conforme necessário
+                    NavigationManager.Instance.NavigateTo("ProfileScene");
                 }
                 else
                 {
@@ -115,10 +115,31 @@ public class TopBarManager : MonoBehaviour
             engineButton.button.onClick.AddListener(() => 
             {
                 if (debugLogs) Debug.Log($"Botão {engineButton.buttonName} clicado");
-                
-                // Implementar a lógica do botão conforme necessário
+                if (currentScene == "ProfileScene")
+                {
+                    ActivateHalfViewMenu();
+                }
             });
         }
+    }
+
+    private void ActivateHalfViewMenu()
+    {
+        if (halfViewMenu == null)
+        {
+            halfViewMenu = FindFirstObjectByType<HalfViewMenu>();
+            
+            if (halfViewMenu == null)
+            {
+                Debug.LogWarning("HalfViewMenu não encontrado na cena ProfileScene!");
+                return;
+            }
+        }
+        
+        halfViewMenu.gameObject.SetActive(true);
+        halfViewMenu.ShowMenu();
+        
+        if (debugLogs) Debug.Log("HalfViewMenu ativado pela TopBar");
     }
 
     private void Start()
@@ -204,6 +225,31 @@ public class TopBarManager : MonoBehaviour
         currentScene = sceneName;
         UpdateButtonVisibility(currentScene);
         AdjustVisibilityForCurrentScene();
+        
+        if (sceneName != "ProfileScene")
+        {
+            halfViewMenu = null;
+        }
+        else
+        {
+            StartCoroutine(FindHalfViewMenuAfterDelay());
+        }
+    }
+    
+    private System.Collections.IEnumerator FindHalfViewMenuAfterDelay()
+    {
+        yield return null;
+        
+        halfViewMenu = FindFirstObjectByType<HalfViewMenu>();
+        
+        if (halfViewMenu != null)
+        {
+            if (debugLogs) Debug.Log("HalfViewMenu encontrado na ProfileScene");
+        }
+        else
+        {
+            Debug.LogWarning("HalfViewMenu não encontrado na ProfileScene!");
+        }
     }
 
     private void AdjustVisibilityForCurrentScene()
@@ -224,13 +270,9 @@ public class TopBarManager : MonoBehaviour
             {
                 bool isActive = button.visibleInScenes.Contains(sceneName);
                 
-                // Importante: Vamos apenas definir o alpha da imagem, mantendo a interatividade do botão 
-                // apenas quando ele estiver visível
-                
                 // Tornar botão interativo apenas quando visível
                 button.button.interactable = isActive;
                 
-                // Ajustar visibilidade da imagem (transparente quando não ativo)
                 Color buttonColor = button.buttonImage.color;
                 button.buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, isActive ? 1 : 0);
                 
@@ -259,29 +301,63 @@ public class TopBarManager : MonoBehaviour
 
     public void AddSceneToButtonVisibility(string buttonName, string sceneName)
     {
-        var button = allButtons.Find(b => b.buttonName == buttonName);
-        if (button != null && !button.visibleInScenes.Contains(sceneName))
+        TopButton targetButton = null;
+        if (hubButton.buttonName == buttonName)
         {
-            button.visibleInScenes.Add(sceneName);
-
-            if (currentScene == sceneName)
+            targetButton = hubButton;
+        }
+        else if (engineButton.buttonName == buttonName)
+        {
+            targetButton = engineButton;
+        }
+        
+        if (targetButton != null)
+        {
+            if (!targetButton.visibleInScenes.Contains(sceneName))
             {
-                UpdateButtonVisibility(currentScene);
+                targetButton.visibleInScenes.Add(sceneName);
+
+                if (currentScene == sceneName)
+                {
+                    UpdateButtonVisibility(currentScene);
+                }
             }
+        }
+        else
+        {
+            Debug.LogError($"Botão com nome '{buttonName}' não encontrado!");
+            Debug.Log($"Botões disponíveis: hubButton='{hubButton.buttonName}', engineButton='{engineButton.buttonName}'");
         }
     }
     
     public void RemoveSceneFromButtonVisibility(string buttonName, string sceneName)
     {
-        var button = allButtons.Find(b => b.buttonName == buttonName);
-        if (button != null && button.visibleInScenes.Contains(sceneName))
+        TopButton targetButton = null;
+        if (hubButton.buttonName == buttonName)
         {
-            button.visibleInScenes.Remove(sceneName);
+            targetButton = hubButton;
+        }
 
-            if (currentScene == sceneName)
+        else if (engineButton.buttonName == buttonName)
+        {
+            targetButton = engineButton;
+        }
+        
+        if (targetButton != null)
+        {
+            if (targetButton.visibleInScenes.Contains(sceneName))
             {
-                UpdateButtonVisibility(currentScene);
+                targetButton.visibleInScenes.Remove(sceneName);
+
+                if (currentScene == sceneName)
+                {
+                    UpdateButtonVisibility(currentScene);
+                }
             }
+        }
+        else
+        {
+            Debug.LogError($"Botão com nome '{buttonName}' não encontrado!");
         }
     }
 
@@ -299,5 +375,18 @@ public class TopBarManager : MonoBehaviour
         {
             scenesWithoutTopBar.Remove(sceneName);
         }
+    }
+    
+    public void DebugListButtons()
+    {
+        Debug.Log("=== TopBarManager - Lista de Botões ===");
+        
+        Debug.Log($"hubButton: {hubButton.buttonName}");
+        Debug.Log($"Cenas visíveis para hubButton: {string.Join(", ", hubButton.visibleInScenes)}");
+        
+        Debug.Log($"engineButton: {engineButton.buttonName}");
+        Debug.Log($"Cenas visíveis para engineButton: {string.Join(", ", engineButton.visibleInScenes)}");
+        
+        Debug.Log("=====================================");
     }
 }

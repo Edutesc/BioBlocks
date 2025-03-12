@@ -1,13 +1,11 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
+using System.Collections.Generic;
 using System.Collections;
+using System.Threading.Tasks;
 
 public class PathwayManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TMP_Text nameText;
-
     private void Start()
     {
 #if DEBUG
@@ -16,31 +14,26 @@ public class PathwayManager : MonoBehaviour
 
         if (UserDataStore.CurrentUserData != null)
         {
-            UpdateUI(UserDataStore.CurrentUserData);
             FirestoreRepository.Instance.ListenToUserData(
                 UserDataStore.CurrentUserData.UserId,
-                null, 
-                UpdateWeekScoreUI, 
+                null,
+                null,
                 null
             );
 
             UserDataStore.OnUserDataChanged += OnUserDataChanged;
 
-            // Inscreve no evento de atualização de questões respondidas
+            InitializeTopBar();
+
             AnsweredQuestionsManager.OnAnsweredQuestionsUpdated += HandleAnsweredQuestionsUpdated;
 
-            // Verifica se as estatísticas estão disponíveis
             if (DatabaseStatisticsManager.Instance.IsInitialized)
             {
-                // Se já estiver inicializado, atualiza imediatamente
                 UpdateAnsweredQuestionsPercentages();
             }
             else
             {
-                // Se não estiver inicializado, registra para o evento e inicializa
                 DatabaseStatisticsManager.OnStatisticsReady += OnDatabaseStatisticsReady;
-
-                // Inicia a inicialização se ainda não foi iniciada
                 StartCoroutine(InitializeDatabaseStatistics());
             }
         }
@@ -51,21 +44,33 @@ public class PathwayManager : MonoBehaviour
         }
     }
 
+    private void InitializeTopBar()
+    {
+        if (TopBarManager.Instance != null)
+        {
+            Debug.Log("Configurando TopBar na PathwayManager...");
+            TopBarManager.Instance.AddSceneToButtonVisibility("HubButton", "ProfileScene");
+            TopBarManager.Instance.AddSceneToButtonVisibility("EngineButton", "ProfileScene");
+            TopBarManager.Instance.DebugListButtons();
+            Debug.Log("TopBar configurada na PathwayManager");
+        }
+        else
+        {
+            Debug.LogWarning("TopBarManager não encontrado na cena!");
+        }
+    }
+
     private IEnumerator InitializeDatabaseStatistics()
     {
-        // Espera um frame para garantir que outros componentes estejam prontos
         yield return null;
 
         Debug.Log("PathwayManager iniciando inicialização das estatísticas");
         var task = DatabaseStatisticsManager.Instance.Initialize();
-
-        // Aguarda a conclusão da inicialização
         while (!task.IsCompleted)
         {
             yield return null;
         }
 
-        // Se ocorreu um erro, registra
         if (task.IsFaulted)
         {
             Debug.LogError($"Erro ao inicializar estatísticas: {task.Exception}");
@@ -74,11 +79,8 @@ public class PathwayManager : MonoBehaviour
 
     private void OnDatabaseStatisticsReady()
     {
-        // Este método é chamado quando as estatísticas estão prontas
         Debug.Log("PathwayManager: Estatísticas prontas, atualizando porcentagens");
         UpdateAnsweredQuestionsPercentages();
-
-        // Cancela o registro do evento após o uso
         DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
     }
 
@@ -89,14 +91,12 @@ public class PathwayManager : MonoBehaviour
         DatabaseStatisticsManager.OnStatisticsReady -= OnDatabaseStatisticsReady;
     }
 
-    // Método atualizado para corresponder ao delegate
     private void HandleAnsweredQuestionsUpdated(Dictionary<string, int> answeredCounts)
     {
-        if (this == null) return; // Proteção contra chamadas após destruição do objeto
+        if (this == null) return;
 
         Debug.Log("Received update from AnsweredQuestionsManager");
 
-        // Atualiza o AnsweredQuestionsListStore com os novos valores
         if (UserDataStore.CurrentUserData != null)
         {
             string userId = UserDataStore.CurrentUserData.UserId;
@@ -106,31 +106,12 @@ public class PathwayManager : MonoBehaviour
             }
         }
 
-        // Atualiza a UI
         UpdateAnsweredQuestionsPercentages();
     }
 
     private void OnUserDataChanged(UserData userData)
     {
-        UpdateUI(userData);
-    }
-
-    private void UpdateUI(UserData userData)
-    {
-#if DEBUG
-        Debug.Log($"Updating UI for user: {userData.NickName}");
-#endif
-        nameText.text = $"{userData.NickName}";
-        scoreText.text = $"{userData.WeekScore}";
-    }
-
-    private void UpdateWeekScoreUI(int newWeekScore)
-    {
-        scoreText.text = $"{newWeekScore} XP";
-        if (UserDataStore.CurrentUserData != null)
-        {
-            UserDataStore.CurrentUserData.WeekScore = newWeekScore;
-        }
+        // Pode incluir aqui qualquer evento a partir da atualização dos dados do usuário
     }
 
     private void UpdateAnsweredQuestionsPercentages()
@@ -157,15 +138,11 @@ public class PathwayManager : MonoBehaviour
         foreach (string databankName in allDatabases)
         {
             int count = userCounts.ContainsKey(databankName) ? userCounts[databankName] : 0;
-
-            // Obter o número total de questões dinamicamente
             int totalQuestions = QuestionBankStatistics.GetTotalQuestions(databankName);
-            if (totalQuestions <= 0) totalQuestions = 50; // Valor padrão se não houver estatísticas
+            if (totalQuestions <= 0) totalQuestions = 50;
 
-            // Calcular a porcentagem com base no total real
             int percentageAnswered = totalQuestions > 0 ? (count * 100) / totalQuestions : 0;
 
-            // Garantir que a porcentagem não exceda 100%
             percentageAnswered = Mathf.Min(percentageAnswered, 100);
 
             string objectName = $"{databankName}PorcentageText";

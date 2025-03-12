@@ -9,8 +9,6 @@ using System.Collections;
 public class ProfileManager : MonoBehaviour
 {
     [Header("UserData UI")]
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TMP_Text nickNameText;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text emailText;
     [SerializeField] private TMP_Text createdTimeText;
@@ -58,16 +56,10 @@ public class ProfileManager : MonoBehaviour
         if (currentUserData != null)
         {
             UpdateUI();
+
             FirestoreRepository.Instance.ListenToUserData(
                 currentUserData.UserId,
-                (newScore) =>
-                {
-                    // Atualizar o score na UI
-                    if (scoreText != null)
-                    {
-                        scoreText.text = $"{newScore} XP";
-                    }
-                },
+                null, 
                 (answeredQuestions) =>
                 {
                     Debug.Log("ProfileManager: Recebeu atualização de questões respondidas via listener");
@@ -149,8 +141,6 @@ public class ProfileManager : MonoBehaviour
             return;
         }
 
-        nickNameText.text = currentUserData.NickName;
-        scoreText.text = $"{currentUserData.WeekScore} XP";
         nameText.text = currentUserData.Name;
         emailText.text = currentUserData.Email;
         createdTimeText.text = $"Conta criada em {currentUserData.GetFormattedCreatedTime()}";
@@ -201,13 +191,11 @@ public class ProfileManager : MonoBehaviour
             return;
         }
 
-        // Verificar primeiro se o DarkOverlay já está ativo
         bool overlayWasActive = false;
         if (deleteAccountDarkOverlay != null)
         {
             overlayWasActive = deleteAccountDarkOverlay.activeSelf;
 
-            // Ativar apenas se ainda não estiver ativo
             if (!overlayWasActive)
             {
                 deleteAccountDarkOverlay.SetActive(true);
@@ -218,11 +206,10 @@ public class ProfileManager : MonoBehaviour
                 Debug.Log("DarkOverlay já estava ativo, mantendo-o");
             }
 
-            // Ajustar o sorting order em qualquer caso
             Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
             if (overlayCanvas != null)
             {
-                overlayCanvas.sortingOrder = 109; // Logo abaixo do DeleteAccountCanvas
+                overlayCanvas.sortingOrder = 109; 
             }
         }
 
@@ -242,7 +229,6 @@ public class ProfileManager : MonoBehaviour
             return;
         }
 
-        // Desativar os overlays
         if (deleteAccountDarkOverlay != null)
         {
             deleteAccountDarkOverlay.SetActive(false);
@@ -254,24 +240,18 @@ public class ProfileManager : MonoBehaviour
             halfViewOverlay.SetActive(false);
         }
 
-        // NOVO: Reabilitar interações com os elementos da cena
         ReenableSceneInteractions();
-
-        // Restore visibility
         userDataTable.alpha = 1;
         userDataTable.interactable = true;
         userDataTable.blocksRaycasts = true;
-
         deleteAccountPanel.HidePanel();
     }
 
     private void ReenableSceneInteractions()
     {
-        // Encontra todos os elementos interativos da cena
         Selectable[] selectables = FindObjectsOfType<Selectable>(true);
         foreach (Selectable selectable in selectables)
         {
-            // Reativa todos os elementos (exceto os que devem ficar desativados por design)
             if (!ShouldStayDisabled(selectable.gameObject))
             {
                 selectable.interactable = true;
@@ -283,10 +263,7 @@ public class ProfileManager : MonoBehaviour
 
     private bool ShouldStayDisabled(GameObject obj)
     {
-        // Aqui você pode adicionar lógica para elementos que devem permanecer desativados
-        // Por exemplo, botões que só devem estar ativos em certas condições
-
-        // Por padrão, todos os elementos são reabilitados
+        // Adicionar lógica para elementos que devem permanecer desativados
         return false;
     }
 
@@ -371,7 +348,7 @@ public class ProfileManager : MonoBehaviour
                 {
                     halfViewOverlay.SetActive(false);
                 }
-                
+
                 ReenableSceneInteractions();
 
                 Navigate("LoginView");
@@ -386,7 +363,6 @@ public class ProfileManager : MonoBehaviour
                     deleteAccountButtonText.text = "Deletar Conta";
                 }
 
-                // Mostrar painel de reautenticação
                 deleteAccountPanel.HidePanel();
                 Debug.Log($"Mostrando painel de reautenticação para email: {currentUserData.Email}");
                 reAuthUI.ShowReAuthPanel(currentUserData.Email, async () =>
@@ -447,12 +423,9 @@ public class ProfileManager : MonoBehaviour
         "WaterQuestionDatabase"
         };
 
-        // Atualizar todos os bancos de dados
         foreach (string databankName in allDatabases)
         {
             int answeredCount = userAnsweredQuestions.ContainsKey(databankName) ? userAnsweredQuestions[databankName] : 0;
-
-            // Obter o número total de questões de forma dinâmica
             int totalQuestions = QuestionBankStatistics.GetTotalQuestions(databankName);
             if (totalQuestions <= 0) totalQuestions = 50; // Valor padrão se não houver estatísticas
 
@@ -472,7 +445,6 @@ public class ProfileManager : MonoBehaviour
                 continue;
             }
 
-            // Exibir no formato X/Y para melhor compreensão
             tmpText.text = $"{answeredCount}/{totalQuestions}";
             Debug.Log($"Usuário {currentUserData.UserId} - Banco de Dados: {databankName}, Questões Respondidas: {answeredCount}/{totalQuestions}");
         }
@@ -486,7 +458,7 @@ public class ProfileManager : MonoBehaviour
 
     private void HandleAnsweredQuestionsUpdated(Dictionary<string, int> answeredCounts)
     {
-        if (this == null) return; // Proteção contra chamadas após destruição do objeto
+        if (this == null) return; 
 
         Debug.Log("ProfileManager: Recebeu atualização do AnsweredQuestionsManager");
 

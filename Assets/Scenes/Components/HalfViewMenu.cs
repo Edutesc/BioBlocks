@@ -523,24 +523,4 @@ public class HalfViewMenu : MonoBehaviour
 
         animationCoroutine = null;
     }
-
-    // // Método temporário para teste direto dentro do jogo
-    // public void TestDirectClick(string buttonType)
-    // {
-    //     if (buttonType.Equals("logout", System.StringComparison.OrdinalIgnoreCase))
-    //     {
-    //         Debug.Log("[HalfViewMenu] Teste de clique direto no botão de logout");
-    //         OnLogoutClicked();
-    //     }
-    //     else if (buttonType.Equals("delete", System.StringComparison.OrdinalIgnoreCase))
-    //     {
-    //         Debug.Log("[HalfViewMenu] Teste de clique direto no botão de deletar conta");
-    //         OnDeleteAccountClicked();
-    //     }
-    //     else if (buttonType.Equals("close", System.StringComparison.OrdinalIgnoreCase))
-    //     {
-    //         Debug.Log("[HalfViewMenu] Teste de clique direto no botão de fechar");
-    //         HideMenu();
-    //     }
-    // }
 }
