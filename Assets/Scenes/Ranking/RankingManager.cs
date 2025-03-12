@@ -10,19 +10,23 @@ using System.Threading.Tasks;
 public class RankingManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] protected GameObject rankingRowPrefab; // Mudado para protected
-    [SerializeField] protected RectTransform rankingTableContent; // Mudado para protected 
-    [SerializeField] protected ScrollRect scrollRect; // Mudado para protected
+    [SerializeField] protected GameObject rankingRowPrefab;
+    [SerializeField] protected RectTransform rankingTableContent;
+    [SerializeField] protected ScrollRect scrollRect;
 
     [Header("UI References")]
-    [SerializeField] protected TMP_Text headerNameText; // Mudado para protected
-    [SerializeField] protected TMP_Text headerScoreText; // Mudado para protected
+    [SerializeField] protected TMP_Text headerNameText;
+    [SerializeField] protected TMP_Text headerScoreText;
 
-    protected UserData currentUserData; // Mudado para protected
-    protected List<Ranking> rankings; // Mudado para protected
-    protected IRankingRepository rankingRepository; // Mudado para protected
+    [Header("Week Reset Information")]
+    [SerializeField] private TMP_Text weekResetCountdownText;
+    private WeekResetCountdown resetCountdown;
 
-    protected virtual void Start() // Mudado para protected virtual
+    protected UserData currentUserData;
+    protected List<Ranking> rankings;
+    protected IRankingRepository rankingRepository;
+
+    protected virtual void Start()
     {
         if (rankingRowPrefab == null || rankingTableContent == null || scrollRect == null)
         {
@@ -31,9 +35,22 @@ public class RankingManager : MonoBehaviour
         }
 
         InitializeRepository();
+        InitializeWeekResetCountdown();
     }
 
-    protected virtual void InitializeRepository() // Mudado para protected virtual
+    private void InitializeWeekResetCountdown()
+    {
+        if (weekResetCountdownText != null)
+        {
+            // Adicionar o componente WeekResetCountdown a este GameObject
+            resetCountdown = gameObject.AddComponent<WeekResetCountdown>();
+
+            // Inicializar com a referência ao texto
+            resetCountdown.Initialize(weekResetCountdownText);
+        }
+    }
+
+    protected virtual void InitializeRepository()
     {
         if (BioBlocksSettings.Instance.IsDebugMode())
         {
@@ -53,7 +70,7 @@ public class RankingManager : MonoBehaviour
         _ = InitializeRankingManager();
     }
 
-    protected virtual async Task InitializeRankingManager() // Mudado para protected virtual
+    protected virtual async Task InitializeRankingManager()
     {
         currentUserData = await rankingRepository.GetCurrentUserDataAsync();
         if (currentUserData != null)
@@ -68,18 +85,18 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    protected virtual void OnDestroy() // Mudado para protected virtual
+    protected virtual void OnDestroy()
     {
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
     }
 
-    protected virtual void OnUserDataChanged(UserData userData) // Mudado para protected virtual
+    protected virtual void OnUserDataChanged(UserData userData)
     {
         currentUserData = userData;
         UpdateUI();
     }
 
-    protected virtual void UpdateUI() // Mudado para protected virtual
+    protected virtual void UpdateUI()
     {
         if (currentUserData == null) return;
 
@@ -198,7 +215,7 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    protected virtual IEnumerator ScrollToCurrentUser() // Mudado para protected virtual
+    protected virtual IEnumerator ScrollToCurrentUser()
     {
         yield return new WaitForEndOfFrame();
 
@@ -226,12 +243,12 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    protected virtual void OnRankingRowClicked(Ranking ranking) // Mudado para protected virtual
+    protected virtual void OnRankingRowClicked(Ranking ranking)
     {
         Debug.Log($"Clicked on ranking for user: {ranking.userName}");
     }
 
-    public virtual void Navigate(string sceneName) // Mudado para public virtual
+    public virtual void Navigate(string sceneName)
     {
         Debug.Log($"Navigating to {sceneName}");
         NavigationManager.Instance.NavigateTo(sceneName);
