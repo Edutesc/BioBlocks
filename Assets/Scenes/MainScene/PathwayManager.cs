@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
-using System.Threading.Tasks;
 
 public class PathwayManager : MonoBehaviour
 {

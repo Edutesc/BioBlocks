@@ -68,7 +68,6 @@ public class BioBlocksSettings : MonoBehaviour
     #if DEBUG
     private void HandleLog(string logString, string stackTrace, LogType type)
     {
-        // Adicionar lógica adicional para logging em modo debug
         if (type == LogType.Error || type == LogType.Exception)
         {
             // Implementar sistema de analytics
@@ -79,15 +78,14 @@ public class BioBlocksSettings : MonoBehaviour
     public bool IsDebugMode()
     {
         #if RELEASE
-            return false; // Força modo release em builds finais
+            return false;
         #elif DEBUG
-            return isDebugMode; // Em modo debug, usa a configuração do Inspector
+            return isDebugMode; 
         #else
-            return false; // Se não tiver nenhuma definição, assume release por segurança
+            return false; 
         #endif
     }
 
-    // Método para alternar o modo debug em runtime (útil para testes)
     public void ToggleDebugMode()
     {
         #if DEBUG
@@ -96,7 +94,6 @@ public class BioBlocksSettings : MonoBehaviour
         #endif
     }
 
-    // Método para definir o modo debug diretamente
     public void SetDebugMode(bool debug)
     {
         #if DEBUG

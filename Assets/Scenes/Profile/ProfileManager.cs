@@ -408,7 +408,6 @@ public class ProfileManager : MonoBehaviour
 
         var userAnsweredQuestions = AnsweredQuestionsListStore.GetAnsweredQuestionsCountForUser(currentUserData.UserId);
 
-        // Lista de todos os bancos de dados possíveis
         string[] allDatabases = new string[]
         {
         "AcidBaseBufferQuestionDatabase",
