@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -43,6 +44,20 @@ public class ProfileManager : MonoBehaviour
         if (deleteAccountDarkOverlay != null)
         {
             deleteAccountDarkOverlay.SetActive(false);
+        }
+        
+        // Configurar o HalfView para esta cena
+        HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(SceneManager.GetActiveScene().name);
+        if (halfView != null)
+        {
+            halfView.Configure(
+                "Opções da Conta",
+                "Escolha uma das opções abaixo:",
+                "Sair da Conta",
+                () => LogoutButton(),
+                "Deletar Conta",
+                () => StartDeleteAccount()
+            );
         }
 
         InitializeAccountManager();

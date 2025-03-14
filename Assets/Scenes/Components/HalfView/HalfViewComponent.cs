@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class HalfViewComponent : MonoBehaviour
@@ -10,7 +11,7 @@ public class HalfViewComponent : MonoBehaviour
     [Header("Referências do Painel")]
     [SerializeField] private RectTransform menuPanel;
     [SerializeField] private Canvas menuCanvas;
-    
+
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI messageText;
@@ -56,6 +57,10 @@ public class HalfViewComponent : MonoBehaviour
     private void Awake()
     {
         EnsureCanvasSetup();
+
+        // Registra este componente para a cena atual
+        string sceneName = SceneManager.GetActiveScene().name;
+        HalfViewRegistry.RegisterHalfView(sceneName, this);
     }
 
     private void OnEnable()
@@ -84,6 +89,13 @@ public class HalfViewComponent : MonoBehaviour
         }
 
         Debug.Log("[HalfViewComponent] Iniciado com sucesso");
+    }
+
+    private void OnDestroy()
+    {
+        // Cancela o registro ao destruir o componente
+        string sceneName = SceneManager.GetActiveScene().name;
+        HalfViewRegistry.UnregisterHalfView(sceneName);
     }
 
     private void EnsureCanvasSetup()
@@ -141,7 +153,8 @@ public class HalfViewComponent : MonoBehaviour
         if (primaryButton != null)
         {
             primaryButton.onClick.RemoveAllListeners();
-            primaryButton.onClick.AddListener(() => {
+            primaryButton.onClick.AddListener(() =>
+            {
                 OnPrimaryButtonClicked?.Invoke();
                 // Por padrão, fechamos o menu após o clique
                 HideMenu();
@@ -158,7 +171,8 @@ public class HalfViewComponent : MonoBehaviour
         if (secondaryButton != null)
         {
             secondaryButton.onClick.RemoveAllListeners();
-            secondaryButton.onClick.AddListener(() => {
+            secondaryButton.onClick.AddListener(() =>
+            {
                 OnSecondaryButtonClicked?.Invoke();
                 // Por padrão, fechamos o menu após o clique
                 HideMenu();
@@ -175,7 +189,8 @@ public class HalfViewComponent : MonoBehaviour
         if (closeButton != null)
         {
             closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(() => {
+            closeButton.onClick.AddListener(() =>
+            {
                 OnCloseButtonClicked?.Invoke();
                 HideMenu();
             });
@@ -432,7 +447,7 @@ public class HalfViewComponent : MonoBehaviour
         }
 
         triggerButton = button;
-        
+
         if (triggerButton != null)
         {
             triggerButton.onClick.AddListener(ToggleMenu);
@@ -471,7 +486,8 @@ public class HalfViewComponent : MonoBehaviour
         {
             primaryButtonText.text = text;
             primaryButton.onClick.RemoveAllListeners();
-            primaryButton.onClick.AddListener(() => {
+            primaryButton.onClick.AddListener(() =>
+            {
                 onClickAction?.Invoke();
                 if (hideAfterClick)
                 {
@@ -491,7 +507,8 @@ public class HalfViewComponent : MonoBehaviour
         {
             secondaryButtonText.text = text;
             secondaryButton.onClick.RemoveAllListeners();
-            secondaryButton.onClick.AddListener(() => {
+            secondaryButton.onClick.AddListener(() =>
+            {
                 onClickAction?.Invoke();
                 if (hideAfterClick)
                 {
@@ -527,13 +544,13 @@ public class HalfViewComponent : MonoBehaviour
     /// <summary>
     /// Configura a HalfView completa de uma vez.
     /// </summary>
-    public void Configure(string title, string message, 
-                         string primaryButtonText, Action primaryAction, 
+    public void Configure(string title, string message,
+                         string primaryButtonText, Action primaryAction,
                          string secondaryButtonText = null, Action secondaryAction = null)
     {
         SetTitle(title);
         SetMessage(message);
-        
+
         if (!string.IsNullOrEmpty(primaryButtonText) && primaryAction != null)
         {
             SetPrimaryButton(primaryButtonText, primaryAction);
@@ -542,7 +559,7 @@ public class HalfViewComponent : MonoBehaviour
         {
             HidePrimaryButton();
         }
-        
+
         if (!string.IsNullOrEmpty(secondaryButtonText) && secondaryAction != null)
         {
             SetSecondaryButton(secondaryButtonText, secondaryAction);
