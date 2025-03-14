@@ -21,6 +21,26 @@ public class ReAuthenticationUI : MonoBehaviour
     private void Awake()
     {
         HideReAuthPanel();
+
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null)
+        {
+            Debug.Log("Canvas não encontrado no parent, adicionando ao gameObject atual");
+            canvas = gameObject.AddComponent<Canvas>();
+        }
+
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 1000;
+
+        GraphicRaycaster raycaster = GetComponentInParent<GraphicRaycaster>();
+        if (raycaster == null)
+        {
+            Debug.Log("GraphicRaycaster não encontrado, adicionando um");
+            raycaster = gameObject.AddComponent<GraphicRaycaster>();
+        }
+
+        Debug.Log($"ReAuthenticationUI inicializado com Canvas.sortingOrder={canvas.sortingOrder}");
+
     }
 
     private void Start()
@@ -59,6 +79,19 @@ public class ReAuthenticationUI : MonoBehaviour
         Debug.Log($"ShowReAuthPanel chamado para email: {userEmail}");
         onReauthenticationSuccess = onSuccess;
 
+        // Verificar e configurar o Canvas novamente quando o painel é mostrado
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas != null)
+        {
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 1000; // Garantir que esteja no topo
+            Debug.Log($"Canvas sortingOrder definido para {canvas.sortingOrder}");
+        }
+        else
+        {
+            Debug.LogWarning("Canvas não encontrado ao mostrar ReAuthPanel!");
+        }
+
         // Configurar UI
         if (emailInput != null)
         {
@@ -87,6 +120,19 @@ public class ReAuthenticationUI : MonoBehaviour
         reAuthCanvasGroup.interactable = true;
         reAuthCanvasGroup.blocksRaycasts = true;
 
+        // Verificar se os botões estão interativos
+        if (authenticateButton != null)
+        {
+            authenticateButton.interactable = true;
+            Debug.Log("Botão authenticate definido como interativo");
+        }
+
+        if (cancelButton != null)
+        {
+            cancelButton.interactable = true;
+            Debug.Log("Botão cancel definido como interativo");
+        }
+
         // Focar no campo de senha
         if (passwordInput != null)
         {
@@ -109,17 +155,28 @@ public class ReAuthenticationUI : MonoBehaviour
 
     public async void OnAuthenticateClick()
     {
+        Debug.Log("OnAuthenticateClick chamado");
+
+        if (passwordInput == null)
+        {
+            Debug.LogError("passwordInput é null!");
+            return;
+        }
+
         if (string.IsNullOrEmpty(passwordInput.text))
         {
-            errorText.text = "Por favor, insira sua senha";
+            if (errorText != null)
+            {
+                errorText.text = "Por favor, insira sua senha";
+            }
             return;
         }
 
         try
         {
-            authenticateButton.interactable = false;
-            authenticateButtonText.text = "Autenticando...";
-            errorText.text = "";
+            if (authenticateButton != null) authenticateButton.interactable = false;
+            if (authenticateButtonText != null) authenticateButtonText.text = "Autenticando...";
+            if (errorText != null) errorText.text = "";
 
             await AuthenticationRepository.Instance.ReauthenticateUser(emailInput.text, passwordInput.text);
             Debug.Log("Reautenticação bem-sucedida");
@@ -134,16 +191,27 @@ public class ReAuthenticationUI : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"Erro na reautenticação: {ex.Message}");
-            errorText.text = "Senha incorreta. Por favor, tente novamente.";
-            authenticateButton.interactable = true;
-            authenticateButtonText.text = "Confirmar";
+            if (errorText != null) errorText.text = "Senha incorreta. Por favor, tente novamente.";
+            if (authenticateButton != null) authenticateButton.interactable = true;
+            if (authenticateButtonText != null) authenticateButtonText.text = "Confirmar";
         }
     }
 
     public void OnCancelClick()
     {
+        Debug.Log("OnCancelClick chamado");
         HideReAuthPanel();
-        // Você pode adicionar aqui alguma lógica adicional para cancelamento
+
+        // Restaurar estado original
+        GameObject deleteAccountDarkOverlay = GameObject.Find("DeleteAccountDarkOverlay");
+        if (deleteAccountDarkOverlay != null)
+        {
+            Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
+            if (overlayCanvas != null)
+            {
+                overlayCanvas.sortingOrder = 109; // Restaurar para o valor original
+            }
+        }
     }
 
     private void OnDestroy()

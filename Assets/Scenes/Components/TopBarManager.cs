@@ -11,7 +11,7 @@ public class TopBarManager : MonoBehaviour
     {
         public string buttonName;
         public Button button;
-        public Image buttonImage; 
+        public Image buttonImage;
         public List<string> visibleInScenes = new List<string>();
     }
 
@@ -26,8 +26,8 @@ public class TopBarManager : MonoBehaviour
     [Header("Configurações")]
     [SerializeField] private string currentScene = "";
     [SerializeField] private bool debugLogs = true;
-    [SerializeField] private Color inactiveButtonColor = new Color(1, 1, 1, 0); 
-    
+    [SerializeField] private Color inactiveButtonColor = new Color(1, 1, 1, 0);
+
     [Header("Persistência")]
     [SerializeField] private List<string> scenesWithoutTopBar = new List<string>() { "Login", "Splash" };
 
@@ -40,13 +40,13 @@ public class TopBarManager : MonoBehaviour
         get { return _instance; }
     }
 
-    public string Title 
+    public string Title
     {
         get { return weekScore ? weekScore.text : ""; }
         set { if (weekScore) weekScore.text = value; }
     }
-    
-    public string Subtitle 
+
+    public string Subtitle
     {
         get { return nickname ? nickname.text : ""; }
         set { if (nickname) nickname.text = value; }
@@ -59,34 +59,34 @@ public class TopBarManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         _instance = this;
         DontDestroyOnLoad(gameObject);
         InitializeButtons();
-        
+
         if (debugLogs) Debug.Log("TopBarManager inicializado");
     }
 
     private void InitializeButtons()
     {
         allButtons.Clear();
-        
+
         if (hubButton.button != null)
         {
             if (hubButton.buttonImage == null)
                 hubButton.buttonImage = hubButton.button.GetComponent<Image>();
-            
+
             allButtons.Add(hubButton);
         }
-        
+
         if (engineButton.button != null)
         {
             if (engineButton.buttonImage == null)
                 engineButton.buttonImage = engineButton.button.GetComponent<Image>();
-            
+
             allButtons.Add(engineButton);
         }
-        
+
         SetupButtonListeners();
     }
 
@@ -95,7 +95,7 @@ public class TopBarManager : MonoBehaviour
         if (hubButton.button != null)
         {
             hubButton.button.onClick.RemoveAllListeners();
-            hubButton.button.onClick.AddListener(() => 
+            hubButton.button.onClick.AddListener(() =>
             {
                 if (debugLogs) Debug.Log($"Botão {hubButton.buttonName} clicado");
                 if (NavigationManager.Instance != null)
@@ -108,11 +108,11 @@ public class TopBarManager : MonoBehaviour
                 }
             });
         }
-        
+
         if (engineButton.button != null)
         {
             engineButton.button.onClick.RemoveAllListeners();
-            engineButton.button.onClick.AddListener(() => 
+            engineButton.button.onClick.AddListener(() =>
             {
                 if (debugLogs) Debug.Log($"Botão {engineButton.buttonName} clicado");
                 if (currentScene == "ProfileScene")
@@ -127,18 +127,19 @@ public class TopBarManager : MonoBehaviour
     {
         if (halfViewMenu == null)
         {
-            halfViewMenu = FindFirstObjectByType<HalfViewMenu>();
-            
+            // Try to find it regardless of active state
+            halfViewMenu = FindFirstObjectByType<HalfViewMenu>(FindObjectsInactive.Include);
+
             if (halfViewMenu == null)
             {
                 Debug.LogWarning("HalfViewMenu não encontrado na cena ProfileScene!");
                 return;
             }
         }
-        
+
         halfViewMenu.gameObject.SetActive(true);
         halfViewMenu.ShowMenu();
-        
+
         if (debugLogs) Debug.Log("HalfViewMenu ativado pela TopBar");
     }
 
@@ -147,7 +148,7 @@ public class TopBarManager : MonoBehaviour
         if (NavigationManager.Instance != null)
         {
             NavigationManager.Instance.OnSceneChanged += OnSceneChanged;
-            
+
             if (debugLogs) Debug.Log("Registrado com o NavigationManager");
         }
         else
@@ -166,7 +167,7 @@ public class TopBarManager : MonoBehaviour
         UserDataStore.OnUserDataChanged += OnUserDataChanged;
         UpdateFromCurrentUserData();
     }
-    
+
     private void OnDestroy()
     {
         if (NavigationManager.Instance != null)
@@ -175,13 +176,13 @@ public class TopBarManager : MonoBehaviour
         }
 
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
-        
+
         if (_instance == this)
         {
             _instance = null;
         }
     }
-    
+
     private void OnUserDataChanged(UserData userData)
     {
         if (userData != null)
@@ -197,20 +198,20 @@ public class TopBarManager : MonoBehaviour
         {
             weekScore.text = userData.WeekScore.ToString();
         }
-        
+
         if (nickname != null)
         {
             nickname.text = userData.NickName;
         }
     }
-    
+
     private void UpdateFromCurrentUserData()
     {
         UserData currentUserData = UserDataStore.CurrentUserData;
         if (currentUserData != null)
         {
             UpdateUserInfoDisplay(currentUserData);
-            
+
             if (debugLogs) Debug.Log($"TopBarManager: Carregados dados iniciais - WeekScore: {currentUserData.WeekScore}, Nickname: {currentUserData.NickName}");
         }
         else if (debugLogs)
@@ -225,7 +226,7 @@ public class TopBarManager : MonoBehaviour
         currentScene = sceneName;
         UpdateButtonVisibility(currentScene);
         AdjustVisibilityForCurrentScene();
-        
+
         if (sceneName != "ProfileScene")
         {
             halfViewMenu = null;
@@ -235,13 +236,13 @@ public class TopBarManager : MonoBehaviour
             StartCoroutine(FindHalfViewMenuAfterDelay());
         }
     }
-    
+
     private System.Collections.IEnumerator FindHalfViewMenuAfterDelay()
     {
         yield return null;
-        
-        halfViewMenu = FindFirstObjectByType<HalfViewMenu>();
-        
+
+        halfViewMenu = FindFirstObjectByType<HalfViewMenu>(FindObjectsInactive.Include);
+
         if (halfViewMenu != null)
         {
             if (debugLogs) Debug.Log("HalfViewMenu encontrado na ProfileScene");
@@ -256,7 +257,7 @@ public class TopBarManager : MonoBehaviour
     {
         bool shouldShowTopBar = !scenesWithoutTopBar.Contains(currentScene);
         gameObject.SetActive(shouldShowTopBar);
-        
+
         if (debugLogs) Debug.Log($"TopBar visibilidade na cena {currentScene}: {shouldShowTopBar}");
     }
 
@@ -269,13 +270,13 @@ public class TopBarManager : MonoBehaviour
             if (button != null && button.button != null && button.buttonImage != null)
             {
                 bool isActive = button.visibleInScenes.Contains(sceneName);
-                
+
                 // Tornar botão interativo apenas quando visível
                 button.button.interactable = isActive;
-                
+
                 Color buttonColor = button.buttonImage.color;
                 button.buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, isActive ? 1 : 0);
-                
+
                 if (debugLogs)
                 {
                     Debug.Log($"Botão: {button.buttonName} - Visível e interativo: {isActive} na cena {sceneName}");
@@ -290,12 +291,12 @@ public class TopBarManager : MonoBehaviour
         {
             weekScore.text = title;
         }
-        
+
         if (nickname != null)
         {
             nickname.text = subtitle;
         }
-        
+
         if (debugLogs) Debug.Log($"TopBar textos definidos manualmente: Score = {title}, Nickname = {subtitle}");
     }
 
@@ -310,7 +311,7 @@ public class TopBarManager : MonoBehaviour
         {
             targetButton = engineButton;
         }
-        
+
         if (targetButton != null)
         {
             if (!targetButton.visibleInScenes.Contains(sceneName))
@@ -329,7 +330,7 @@ public class TopBarManager : MonoBehaviour
             Debug.Log($"Botões disponíveis: hubButton='{hubButton.buttonName}', engineButton='{engineButton.buttonName}'");
         }
     }
-    
+
     public void RemoveSceneFromButtonVisibility(string buttonName, string sceneName)
     {
         TopButton targetButton = null;
@@ -342,7 +343,7 @@ public class TopBarManager : MonoBehaviour
         {
             targetButton = engineButton;
         }
-        
+
         if (targetButton != null)
         {
             if (targetButton.visibleInScenes.Contains(sceneName))
@@ -368,7 +369,7 @@ public class TopBarManager : MonoBehaviour
             scenesWithoutTopBar.Add(sceneName);
         }
     }
-    
+
     public void RemoveSceneWithoutTopBar(string sceneName)
     {
         if (scenesWithoutTopBar.Contains(sceneName))
@@ -376,17 +377,17 @@ public class TopBarManager : MonoBehaviour
             scenesWithoutTopBar.Remove(sceneName);
         }
     }
-    
+
     public void DebugListButtons()
     {
         Debug.Log("=== TopBarManager - Lista de Botões ===");
-        
+
         Debug.Log($"hubButton: {hubButton.buttonName}");
         Debug.Log($"Cenas visíveis para hubButton: {string.Join(", ", hubButton.visibleInScenes)}");
-        
+
         Debug.Log($"engineButton: {engineButton.buttonName}");
         Debug.Log($"Cenas visíveis para engineButton: {string.Join(", ", engineButton.visibleInScenes)}");
-        
+
         Debug.Log("=====================================");
     }
 }

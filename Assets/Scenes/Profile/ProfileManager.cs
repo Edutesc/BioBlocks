@@ -59,7 +59,7 @@ public class ProfileManager : MonoBehaviour
 
             FirestoreRepository.Instance.ListenToUserData(
                 currentUserData.UserId,
-                null, 
+                null,
                 (answeredQuestions) =>
                 {
                     Debug.Log("ProfileManager: Recebeu atualização de questões respondidas via listener");
@@ -209,7 +209,7 @@ public class ProfileManager : MonoBehaviour
             Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
             if (overlayCanvas != null)
             {
-                overlayCanvas.sortingOrder = 109; 
+                overlayCanvas.sortingOrder = 109;
             }
         }
 
@@ -364,6 +364,16 @@ public class ProfileManager : MonoBehaviour
                 }
 
                 deleteAccountPanel.HidePanel();
+
+                if (deleteAccountDarkOverlay != null)
+                {
+                    Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
+                    if (overlayCanvas != null)
+                    {
+                        overlayCanvas.sortingOrder = 150;
+                    }
+                }
+
                 Debug.Log($"Mostrando painel de reautenticação para email: {currentUserData.Email}");
                 reAuthUI.ShowReAuthPanel(currentUserData.Email, async () =>
                 {
@@ -457,7 +467,7 @@ public class ProfileManager : MonoBehaviour
 
     private void HandleAnsweredQuestionsUpdated(Dictionary<string, int> answeredCounts)
     {
-        if (this == null) return; 
+        if (this == null) return;
 
         Debug.Log("ProfileManager: Recebeu atualização do AnsweredQuestionsManager");
 

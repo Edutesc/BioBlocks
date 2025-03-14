@@ -65,9 +65,14 @@ public class HalfViewMenu : MonoBehaviour
         }
 
         SetupButtonListeners();
-        gameObject.SetActive(false);
         SetupOverlay();
         CollectInteractableElements();
+
+        // Only hide the menu, not the gameObject
+        if (halfViewDarkOverlay != null)
+        {
+            halfViewDarkOverlay.SetActive(false);
+        }
 
         Debug.Log("[HalfViewMenu] Iniciado com sucesso");
     }
@@ -183,7 +188,7 @@ public class HalfViewMenu : MonoBehaviour
         }
         overlayCanvas.overrideSorting = true;
         overlayCanvas.sortingOrder = 90;
-        
+
         Image overlayImage = halfViewDarkOverlay.GetComponent<Image>();
         if (overlayImage != null)
         {
@@ -444,7 +449,7 @@ public class HalfViewMenu : MonoBehaviour
         else
         {
             Debug.LogError("ProfileManager não encontrado!");
-            HideMenu(); 
+            HideMenu();
         }
     }
 
