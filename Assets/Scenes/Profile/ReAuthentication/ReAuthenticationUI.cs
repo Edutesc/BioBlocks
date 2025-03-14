@@ -16,6 +16,11 @@ public class ReAuthenticationUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private CanvasGroup deleteAccountCanvasGroup;
 
+    [Header("Loading Spinner Configuration")]
+    [SerializeField] private GameObject logoLoading;
+    [SerializeField] private float spinnerRotationSpeed = 100f;
+    [SerializeField] private Image loadingSpinner;
+
     private System.Action onReauthenticationSuccess;
 
     private void Awake()
@@ -45,6 +50,8 @@ public class ReAuthenticationUI : MonoBehaviour
 
     private void Start()
     {
+        logoLoading.SetActive(false);
+
         Debug.Log("ReAuthenticationUI inicializado");
 
         if (reAuthCanvasGroup == null)
@@ -71,6 +78,15 @@ public class ReAuthenticationUI : MonoBehaviour
         else
         {
             Debug.LogError("Botão de cancelamento não encontrado!");
+        }
+    }
+
+    private void Update()
+    {
+        // Rotacionar o spinner
+        if (loadingSpinner != null && logoLoading.activeSelf)
+        {
+            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
         }
     }
 
@@ -151,10 +167,13 @@ public class ReAuthenticationUI : MonoBehaviour
             reAuthCanvasGroup.interactable = false;
             reAuthCanvasGroup.blocksRaycasts = false;
         }
+
+        logoLoading.SetActive(false);
     }
 
     public async void OnAuthenticateClick()
     {
+        logoLoading.SetActive(true);
         Debug.Log("OnAuthenticateClick chamado");
 
         if (passwordInput == null)
