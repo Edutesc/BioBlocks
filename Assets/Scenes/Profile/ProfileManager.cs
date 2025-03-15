@@ -45,22 +45,35 @@ public class ProfileManager : MonoBehaviour
         {
             deleteAccountDarkOverlay.SetActive(false);
         }
-        
+
         // Configurar o HalfView para esta cena
         HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(SceneManager.GetActiveScene().name);
         if (halfView != null)
         {
             halfView.Configure(
-                "Opções da Conta",
-                "Escolha uma das opções abaixo:",
-                "Sair da Conta",
-                () => LogoutButton(),
-                "Deletar Conta",
-                () => StartDeleteAccount()
+            "Opções da Conta",
+            "Escolha uma das opções abaixo:",
+            "Sair da Conta",
+            () => LogoutButton(),
+            "Deletar Conta",
+            () =>
+            {
+                // Esconder a HalfView primeiro
+                halfView.HideMenu();
+
+                // Pequeno delay para garantir que a HalfView está escondida antes de mostrar o painel de deleção
+                StartCoroutine(DelayedStartDeleteAccount());
+            }
             );
         }
 
         InitializeAccountManager();
+    }
+
+    private IEnumerator DelayedStartDeleteAccount()
+    {
+        yield return new WaitForSeconds(0.1f);
+        StartDeleteAccount();
     }
 
     private void InitializeAccountManager()
@@ -224,15 +237,43 @@ public class ProfileManager : MonoBehaviour
             Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
             if (overlayCanvas != null)
             {
+                overlayCanvas.overrideSorting = true;
                 overlayCanvas.sortingOrder = 109;
+                Debug.Log($"Configurado sortingOrder do overlay para {overlayCanvas.sortingOrder}");
+            }
+            else
+            {
+                overlayCanvas = deleteAccountDarkOverlay.AddComponent<Canvas>();
+                overlayCanvas.overrideSorting = true;
+                overlayCanvas.sortingOrder = 109;
+                deleteAccountDarkOverlay.AddComponent<GraphicRaycaster>();
+                Debug.Log("Canvas adicionado ao DeleteAccountDarkOverlay");
+            }
+
+            Image overlayImage = deleteAccountDarkOverlay.GetComponent<Image>();
+            if (overlayImage != null)
+            {
+                Color color = overlayImage.color;
+                color.a = overlayAlpha;
+                overlayImage.color = color;
             }
         }
+        else
+        {
+            Debug.LogError("DeleteAccountDarkOverlay é null!");
+        }
 
+        // Esconder os detalhes do usuário
         userDataTable.alpha = 0;
         userDataTable.interactable = false;
         userDataTable.blocksRaycasts = false;
 
+        // Esconder qualquer HalfViewComponent ativo
+        HalfViewRegistry.HideHalfViewForCurrentScene();
+
+        // Mostrar o painel de confirmação
         deleteAccountPanel.ShowPanel();
+        Debug.Log("DeleteAccountPanel exibido com sucesso");
     }
 
     public void CancelDeleteAccount()
