@@ -16,11 +16,6 @@ public class ReAuthenticationUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private CanvasGroup deleteAccountCanvasGroup;
 
-    [Header("Loading Spinner Configuration")]
-    [SerializeField] private GameObject logoLoading;
-    [SerializeField] private float spinnerRotationSpeed = 100f;
-    [SerializeField] private Image loadingSpinner;
-
     private System.Action onReauthenticationSuccess;
 
     private void Awake()
@@ -45,13 +40,10 @@ public class ReAuthenticationUI : MonoBehaviour
         }
 
         Debug.Log($"ReAuthenticationUI inicializado com Canvas.sortingOrder={canvas.sortingOrder}");
-
     }
 
     private void Start()
     {
-        logoLoading.SetActive(false);
-
         Debug.Log("ReAuthenticationUI inicializado");
 
         if (reAuthCanvasGroup == null)
@@ -81,25 +73,14 @@ public class ReAuthenticationUI : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        // Rotacionar o spinner
-        if (loadingSpinner != null && logoLoading.activeSelf)
-        {
-            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
-        }
-    }
-
     public void ShowReAuthPanel(string userEmail, System.Action onSuccess)
     {
         Debug.Log($"ShowReAuthPanel chamado para email: {userEmail}");
         onReauthenticationSuccess = onSuccess;
 
-        // Garantir que o Canvas está configurado corretamente
         Canvas reAuthCanvas = GetComponent<Canvas>();
         if (reAuthCanvas != null)
         {
-            // Certificar-se que o Canvas tem sortingOrder alto para aparecer acima de qualquer overlay
             reAuthCanvas.overrideSorting = true;
             if (reAuthCanvas.sortingOrder < 200)
             {
@@ -175,14 +156,7 @@ public class ReAuthenticationUI : MonoBehaviour
         Debug.Log("OnAuthenticateClick chamado");
         LoadingSpinnerComponent.Instance.ShowSpinner();
 
-        if (passwordInput == null)
-        {
-            Debug.LogError("passwordInput é null!");
-            LoadingSpinnerComponent.Instance.HideSpinner();
-            return;
-        }
-
-        if (string.IsNullOrEmpty(passwordInput.text))
+        if (passwordInput == null || string.IsNullOrEmpty(passwordInput.text))
         {
             if (errorText != null)
             {
@@ -214,7 +188,6 @@ public class ReAuthenticationUI : MonoBehaviour
             if (errorText != null) errorText.text = "Senha incorreta. Por favor, tente novamente.";
             if (authenticateButton != null) authenticateButton.interactable = true;
             if (authenticateButtonText != null) authenticateButtonText.text = "Confirmar";
-
             LoadingSpinnerComponent.Instance.HideSpinner();
         }
     }
@@ -223,15 +196,15 @@ public class ReAuthenticationUI : MonoBehaviour
     {
         Debug.Log("OnCancelClick chamado");
         HideReAuthPanel();
-
-        // Restaurar estado original
+        LoadingSpinnerComponent.Instance.HideSpinner(); 
+        
         GameObject deleteAccountDarkOverlay = GameObject.Find("DeleteAccountDarkOverlay");
         if (deleteAccountDarkOverlay != null)
         {
             Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
             if (overlayCanvas != null)
             {
-                overlayCanvas.sortingOrder = 109; // Restaurar para o valor original
+                overlayCanvas.sortingOrder = 109; 
             }
         }
     }

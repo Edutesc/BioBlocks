@@ -455,6 +455,8 @@ public class ProfileManager : MonoBehaviour
                 deleteAccountButton.interactable = true;
                 deleteAccountButtonText.text = "Novamente";
             }
+
+            LoadingSpinnerComponent.Instance.HideSpinner();
         }
     }
 
