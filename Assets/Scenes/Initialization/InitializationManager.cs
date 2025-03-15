@@ -9,25 +9,53 @@ using System;
 public class InitializationManager : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private GameObject loadingPanel;
     [SerializeField] private GameObject retryPanel;
     [SerializeField] private TMP_Text statusText;
     [SerializeField] private Image progressBar;
-    [SerializeField] private Image loadingSpinner;
     [SerializeField] private TMP_Text errorText;
-    [SerializeField] private Button retryButton;
 
     [Header("Configuration")]
     [SerializeField] private float minimumLoadingTime = 2.0f;
-    [SerializeField] private float spinnerRotationSpeed = 100f;
+
+    [Header("Global Loading Spinner")]
+    [SerializeField] private GameObject globalSpinnerPrefab;
+
+    private LoadingSpinnerComponent globalSpinner;
 
     private void Awake()
     {
-        // Garante que o BioBlocksSettings seja inicializado primeiro
         BioBlocksSettings.Instance.IsDebugMode();
 #if DEBUG
         Debug.Log($"Bioblocks initialized in {BioBlocksSettings.ENVIRONMENT} mode");
 #endif
+
+        InitializeGlobalSpinner();
+    }
+
+    private void InitializeGlobalSpinner()
+    {
+        if (globalSpinnerPrefab != null)
+        {
+            GameObject spinnerObject = Instantiate(globalSpinnerPrefab);
+            spinnerObject.name = "GlobalLoadingSpinner";
+            DontDestroyOnLoad(spinnerObject);
+
+            globalSpinner = spinnerObject.GetComponent<LoadingSpinnerComponent>();
+
+            if (globalSpinner == null)
+            {
+                globalSpinner = spinnerObject.AddComponent<LoadingSpinnerComponent>();
+            }
+
+            Debug.Log("Global spinner initialized from prefab");
+        }
+        else
+        {
+            globalSpinner = LoadingSpinnerComponent.Instance;
+            Debug.Log("Global spinner initialized via singleton Instance");
+        }
+
+        globalSpinner.ShowSpinner();
     }
 
     private void Start()
@@ -38,16 +66,8 @@ public class InitializationManager : MonoBehaviour
 
     private void SetupUI()
     {
-        loadingPanel.SetActive(true);
         retryPanel.SetActive(false);
         progressBar.fillAmount = 0f;
-
-        retryButton.onClick.AddListener(() =>
-        {
-            retryPanel.SetActive(false);
-            loadingPanel.SetActive(true);
-            StartInitialization();
-        });
     }
 
     private async void StartInitialization()
@@ -61,17 +81,14 @@ public class InitializationManager : MonoBehaviour
 
         try
         {
-            // Inicializar Firebase e seus repositories
             UpdateStatus("Inicializando Firebase...");
             await InitializeFirebaseServices();
             UpdateProgress(0.3f);
 
-            // Verificar autenticação
             UpdateStatus("Verificando autenticação...");
             bool isAuthenticated = await CheckAuthentication();
             UpdateProgress(0.5f);
 
-            // Carregar dados do usuário se autenticado
             bool userDataLoaded = false;
             if (isAuthenticated)
             {
@@ -81,14 +98,12 @@ public class InitializationManager : MonoBehaviour
 
                 if (userDataLoaded)
                 {
-                    // Inicializar estatísticas dos bancos de dados
                     UpdateStatus("Carregando bancos de questões...");
                     await DatabaseStatisticsManager.Instance.Initialize();
                     UpdateProgress(0.9f);
                 }
             }
 
-            // Garantir tempo mínimo de loading
             float elapsed = Time.time - startTime;
             if (elapsed < minimumLoadingTime)
             {
@@ -97,10 +112,12 @@ public class InitializationManager : MonoBehaviour
 
             if (isAuthenticated && userDataLoaded)
             {
+                globalSpinner.ShowSpinnerUntilSceneLoaded("PathwayScene");
                 SceneManager.LoadScene("PathwayScene");
             }
             else
             {
+                globalSpinner.ShowSpinnerUntilSceneLoaded("LoginView");
                 SceneManager.LoadScene("LoginView");
             }
         }
@@ -111,28 +128,25 @@ public class InitializationManager : MonoBehaviour
 #else
             Debug.LogError("An initialization error occurred.");
 #endif
+            globalSpinner.HideSpinner();
             ShowError("Falha na inicialização. Por favor, verifique sua conexão e tente novamente.");
         }
     }
 
     private async Task InitializeFirebaseServices()
     {
-        // Verificar dependências do Firebase
         var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
         if (dependencyStatus != DependencyStatus.Available)
         {
             throw new System.Exception($"Could not resolve all Firebase dependencies: {dependencyStatus}");
         }
 
-        // Inicializar Authentication
         await AuthenticationRepository.Instance.InitializeAsync();
         Debug.Log("Firebase Authentication initialized successfully");
 
-        // Inicializar Firestore
         FirestoreRepository.Instance.Initialize();
         Debug.Log("Firestore initialized successfully");
 
-        // Inicializar Storage
         StorageRepository.Instance.Initialize();
         Debug.Log("Storage initialized successfully");
     }
@@ -189,14 +203,6 @@ public class InitializationManager : MonoBehaviour
         return false;
     }
 
-    private void Update()
-    {
-        if (loadingSpinner != null && loadingPanel.activeSelf)
-        {
-            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
-        }
-    }
-
     private void UpdateStatus(string message)
     {
         if (statusText != null)
@@ -217,7 +223,6 @@ public class InitializationManager : MonoBehaviour
 
     private void ShowError(string message)
     {
-        loadingPanel.SetActive(false);
         retryPanel.SetActive(true);
         errorText.text = message;
     }

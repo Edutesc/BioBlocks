@@ -390,9 +390,6 @@ public class ProfileManager : MonoBehaviour
                 if (deleteAccountButtonText != null) deleteAccountButtonText.text = "Até a próxima!";
                 deleteAccountPanel.HidePanel();
 
-                if (deleteAccountButtonText != null) deleteAccountButtonText.text = "Até a próxima!";
-                deleteAccountPanel.HidePanel();
-
                 // Desativar overlays
                 if (deleteAccountDarkOverlay != null)
                 {
@@ -406,7 +403,7 @@ public class ProfileManager : MonoBehaviour
                 }
 
                 ReenableSceneInteractions();
-
+                LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("LoginView");
                 Navigate("LoginView");
             }
             catch (ReauthenticationRequiredException)

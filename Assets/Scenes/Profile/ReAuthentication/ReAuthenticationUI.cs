@@ -168,18 +168,17 @@ public class ReAuthenticationUI : MonoBehaviour
             reAuthCanvasGroup.interactable = false;
             reAuthCanvasGroup.blocksRaycasts = false;
         }
-
-        logoLoading.SetActive(false);
     }
 
     public async void OnAuthenticateClick()
     {
-        logoLoading.SetActive(true);
         Debug.Log("OnAuthenticateClick chamado");
+        LoadingSpinnerComponent.Instance.ShowSpinner();
 
         if (passwordInput == null)
         {
             Debug.LogError("passwordInput é null!");
+            LoadingSpinnerComponent.Instance.HideSpinner();
             return;
         }
 
@@ -189,6 +188,7 @@ public class ReAuthenticationUI : MonoBehaviour
             {
                 errorText.text = "Por favor, insira sua senha";
             }
+            LoadingSpinnerComponent.Instance.HideSpinner();
             return;
         }
 
@@ -201,12 +201,12 @@ public class ReAuthenticationUI : MonoBehaviour
             await AuthenticationRepository.Instance.ReauthenticateUser(emailInput.text, passwordInput.text);
             Debug.Log("Reautenticação bem-sucedida");
 
+            HideReAuthPanel();
+
             if (onReauthenticationSuccess != null)
             {
                 onReauthenticationSuccess.Invoke();
             }
-
-            HideReAuthPanel();
         }
         catch (System.Exception ex)
         {
@@ -214,6 +214,8 @@ public class ReAuthenticationUI : MonoBehaviour
             if (errorText != null) errorText.text = "Senha incorreta. Por favor, tente novamente.";
             if (authenticateButton != null) authenticateButton.interactable = true;
             if (authenticateButtonText != null) authenticateButtonText.text = "Confirmar";
+
+            LoadingSpinnerComponent.Instance.HideSpinner();
         }
     }
 
