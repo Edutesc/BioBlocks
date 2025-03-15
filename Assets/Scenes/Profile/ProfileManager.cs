@@ -420,14 +420,24 @@ public class ProfileManager : MonoBehaviour
                 }
 
                 deleteAccountPanel.HidePanel();
-
-                if (deleteAccountDarkOverlay != null)
+                if (reAuthUI != null)
                 {
-                    Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
-                    if (overlayCanvas != null)
+                    Canvas reAuthCanvas = reAuthUI.GetComponent<Canvas>();
+                    if (reAuthCanvas == null)
                     {
-                        overlayCanvas.sortingOrder = 150;
+                        reAuthCanvas = reAuthUI.gameObject.AddComponent<Canvas>();
                     }
+
+                    reAuthCanvas.overrideSorting = true;
+                    reAuthCanvas.sortingOrder = 200;
+
+                    GraphicRaycaster raycaster = reAuthUI.GetComponent<GraphicRaycaster>();
+                    if (raycaster == null)
+                    {
+                        reAuthUI.gameObject.AddComponent<GraphicRaycaster>();
+                    }
+
+                    Debug.Log($"ReAuthUI Canvas configurado com sortingOrder {reAuthCanvas.sortingOrder}");
                 }
 
                 Debug.Log($"Mostrando painel de reautenticação para email: {currentUserData.Email}");
@@ -438,6 +448,7 @@ public class ProfileManager : MonoBehaviour
                 });
                 return;
             }
+
         }
         catch (Exception ex)
         {
