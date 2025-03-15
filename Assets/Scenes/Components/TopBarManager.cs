@@ -115,32 +115,14 @@ public class TopBarManager : MonoBehaviour
             engineButton.button.onClick.AddListener(() =>
             {
                 if (debugLogs) Debug.Log($"Botão {engineButton.buttonName} clicado");
+
+                // Usar o sistema de registro para ativar o HalfView da cena atual
                 if (currentScene == "ProfileScene")
                 {
-                    ActivateHalfViewMenu();
+                    HalfViewRegistry.ShowHalfViewForCurrentScene();
                 }
             });
         }
-    }
-
-    private void ActivateHalfViewMenu()
-    {
-        if (halfViewMenu == null)
-        {
-            // Try to find it regardless of active state
-            halfViewMenu = FindFirstObjectByType<HalfViewMenu>(FindObjectsInactive.Include);
-
-            if (halfViewMenu == null)
-            {
-                Debug.LogWarning("HalfViewMenu não encontrado na cena ProfileScene!");
-                return;
-            }
-        }
-
-        halfViewMenu.gameObject.SetActive(true);
-        halfViewMenu.ShowMenu();
-
-        if (debugLogs) Debug.Log("HalfViewMenu ativado pela TopBar");
     }
 
     private void Start()

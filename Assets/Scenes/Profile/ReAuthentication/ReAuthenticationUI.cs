@@ -95,17 +95,25 @@ public class ReAuthenticationUI : MonoBehaviour
         Debug.Log($"ShowReAuthPanel chamado para email: {userEmail}");
         onReauthenticationSuccess = onSuccess;
 
-        // Verificar e configurar o Canvas novamente quando o painel é mostrado
-        Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null)
+        // Garantir que o Canvas está configurado corretamente
+        Canvas reAuthCanvas = GetComponent<Canvas>();
+        if (reAuthCanvas != null)
         {
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 1000; // Garantir que esteja no topo
-            Debug.Log($"Canvas sortingOrder definido para {canvas.sortingOrder}");
+            // Certificar-se que o Canvas tem sortingOrder alto para aparecer acima de qualquer overlay
+            reAuthCanvas.overrideSorting = true;
+            if (reAuthCanvas.sortingOrder < 200)
+            {
+                reAuthCanvas.sortingOrder = 200;
+            }
+            Debug.Log($"ReAuthUI usando Canvas com sortingOrder {reAuthCanvas.sortingOrder}");
         }
-        else
+
+        // Se há um CanvasGroup, configure-o para ser interativo e visível
+        if (reAuthCanvasGroup != null)
         {
-            Debug.LogWarning("Canvas não encontrado ao mostrar ReAuthPanel!");
+            reAuthCanvasGroup.alpha = 1;
+            reAuthCanvasGroup.interactable = true;
+            reAuthCanvasGroup.blocksRaycasts = true;
         }
 
         // Configurar UI
@@ -131,22 +139,15 @@ public class ReAuthenticationUI : MonoBehaviour
             authenticateButtonText.text = "Confirmar";
         }
 
-        // Mostrar painel
-        reAuthCanvasGroup.alpha = 1;
-        reAuthCanvasGroup.interactable = true;
-        reAuthCanvasGroup.blocksRaycasts = true;
-
         // Verificar se os botões estão interativos
         if (authenticateButton != null)
         {
             authenticateButton.interactable = true;
-            Debug.Log("Botão authenticate definido como interativo");
         }
 
         if (cancelButton != null)
         {
             cancelButton.interactable = true;
-            Debug.Log("Botão cancel definido como interativo");
         }
 
         // Focar no campo de senha

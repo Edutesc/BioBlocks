@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -45,7 +46,34 @@ public class ProfileManager : MonoBehaviour
             deleteAccountDarkOverlay.SetActive(false);
         }
 
+        // Configurar o HalfView para esta cena
+        HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(SceneManager.GetActiveScene().name);
+        if (halfView != null)
+        {
+            halfView.Configure(
+            "Opções da Conta",
+            "Escolha uma das opções abaixo:",
+            "Sair da Conta",
+            () => LogoutButton(),
+            "Deletar Conta",
+            () =>
+            {
+                // Esconder a HalfView primeiro
+                halfView.HideMenu();
+
+                // Pequeno delay para garantir que a HalfView está escondida antes de mostrar o painel de deleção
+                StartCoroutine(DelayedStartDeleteAccount());
+            }
+            );
+        }
+
         InitializeAccountManager();
+    }
+
+    private IEnumerator DelayedStartDeleteAccount()
+    {
+        yield return new WaitForSeconds(0.1f);
+        StartDeleteAccount();
     }
 
     private void InitializeAccountManager()
@@ -209,15 +237,43 @@ public class ProfileManager : MonoBehaviour
             Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
             if (overlayCanvas != null)
             {
+                overlayCanvas.overrideSorting = true;
                 overlayCanvas.sortingOrder = 109;
+                Debug.Log($"Configurado sortingOrder do overlay para {overlayCanvas.sortingOrder}");
+            }
+            else
+            {
+                overlayCanvas = deleteAccountDarkOverlay.AddComponent<Canvas>();
+                overlayCanvas.overrideSorting = true;
+                overlayCanvas.sortingOrder = 109;
+                deleteAccountDarkOverlay.AddComponent<GraphicRaycaster>();
+                Debug.Log("Canvas adicionado ao DeleteAccountDarkOverlay");
+            }
+
+            Image overlayImage = deleteAccountDarkOverlay.GetComponent<Image>();
+            if (overlayImage != null)
+            {
+                Color color = overlayImage.color;
+                color.a = overlayAlpha;
+                overlayImage.color = color;
             }
         }
+        else
+        {
+            Debug.LogError("DeleteAccountDarkOverlay é null!");
+        }
 
+        // Esconder os detalhes do usuário
         userDataTable.alpha = 0;
         userDataTable.interactable = false;
         userDataTable.blocksRaycasts = false;
 
+        // Esconder qualquer HalfViewComponent ativo
+        HalfViewRegistry.HideHalfViewForCurrentScene();
+
+        // Mostrar o painel de confirmação
         deleteAccountPanel.ShowPanel();
+        Debug.Log("DeleteAccountPanel exibido com sucesso");
     }
 
     public void CancelDeleteAccount()
@@ -364,14 +420,24 @@ public class ProfileManager : MonoBehaviour
                 }
 
                 deleteAccountPanel.HidePanel();
-
-                if (deleteAccountDarkOverlay != null)
+                if (reAuthUI != null)
                 {
-                    Canvas overlayCanvas = deleteAccountDarkOverlay.GetComponent<Canvas>();
-                    if (overlayCanvas != null)
+                    Canvas reAuthCanvas = reAuthUI.GetComponent<Canvas>();
+                    if (reAuthCanvas == null)
                     {
-                        overlayCanvas.sortingOrder = 150;
+                        reAuthCanvas = reAuthUI.gameObject.AddComponent<Canvas>();
                     }
+
+                    reAuthCanvas.overrideSorting = true;
+                    reAuthCanvas.sortingOrder = 200;
+
+                    GraphicRaycaster raycaster = reAuthUI.GetComponent<GraphicRaycaster>();
+                    if (raycaster == null)
+                    {
+                        reAuthUI.gameObject.AddComponent<GraphicRaycaster>();
+                    }
+
+                    Debug.Log($"ReAuthUI Canvas configurado com sortingOrder {reAuthCanvas.sortingOrder}");
                 }
 
                 Debug.Log($"Mostrando painel de reautenticação para email: {currentUserData.Email}");
@@ -382,6 +448,7 @@ public class ProfileManager : MonoBehaviour
                 });
                 return;
             }
+
         }
         catch (Exception ex)
         {
