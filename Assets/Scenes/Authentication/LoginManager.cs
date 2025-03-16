@@ -19,6 +19,7 @@ public class LoginManager : MonoBehaviour
     private Dictionary<string, LoginAttempt> loginAttempts = new Dictionary<string, LoginAttempt>();
     private const int MAX_ATTEMPTS = 5;
     private const int LOCKOUT_MINUTES = 15;
+    private bool isProcessing = false;
 
     private void Start()
     {
@@ -30,6 +31,11 @@ public class LoginManager : MonoBehaviour
 
     public async void HandleLogin()
     {
+        if (isProcessing)
+        {
+            return;
+        }
+
         if (string.IsNullOrEmpty(emailInput.text) || string.IsNullOrEmpty(passwordInput.text))
         {
             feedbackManager.ShowFeedback("Email e senha são obrigatórios.", true);
@@ -43,6 +49,8 @@ public class LoginManager : MonoBehaviour
             return;
         }
 
+        isProcessing = true;
+        SetButtonsInteractable(false);
         feedbackManager.ShowFeedback("", false);
         LoadingSpinnerComponent.Instance.ShowSpinner();
 
@@ -80,13 +88,27 @@ public class LoginManager : MonoBehaviour
             feedbackManager.ShowFeedback($"{GetFirebaseAuthErrorMessage(e)}", true);
             Debug.LogError($"{e.ErrorCode}, Message: {e.Message}");
             LoadingSpinnerComponent.Instance.HideSpinner();
+            SetButtonsInteractable(true);
+            isProcessing = false;
         }
         catch (Exception e)
         {
             feedbackManager.ShowFeedback($"{e.Message}", true);
             Debug.LogError($"{e.Message}");
             LoadingSpinnerComponent.Instance.HideSpinner();
+            SetButtonsInteractable(true);
+            isProcessing = false;
         }
+    }
+
+    private void SetButtonsInteractable(bool interactable)
+    {
+        loginButton.interactable = interactable;
+        registerButton.interactable = interactable;
+
+        // Opcional: desabilitar também os campos de entrada
+        emailInput.interactable = interactable;
+        passwordInput.interactable = interactable;
     }
 
     private string GetFirebaseAuthErrorMessage(FirebaseException e)

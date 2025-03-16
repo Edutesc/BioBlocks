@@ -15,9 +15,11 @@ public class RegisterManager : MonoBehaviour
     [SerializeField] private TMP_InputField emailInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button registerButton;
+    [SerializeField] private Button backButton;
     [SerializeField] private FeedbackManager feedbackManager;
 
     private FirebaseFirestore db;
+    private bool isProcessing = false;
 
     private void Start()
     {
@@ -30,6 +32,13 @@ public class RegisterManager : MonoBehaviour
 
     public async void HandleRegistration()
     {
+        if (isProcessing)
+        {
+            return;
+        }
+
+        isProcessing = true;
+        SetAllButtonsInteractable(false);
         LoadingSpinnerComponent.Instance.ShowSpinner();
 
         try
@@ -53,6 +62,8 @@ public class RegisterManager : MonoBehaviour
             }
 
             await AuthenticationRepository.Instance.RegisterUserAsync(nameInput.text, nickNameInput.text, emailInput.text, passwordInput.text);
+            
+            // Usa o spinner global até que a próxima cena seja carregada
             LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("PathwayScene");
             SceneManager.LoadScene("PathwayScene");
         }
@@ -62,6 +73,8 @@ public class RegisterManager : MonoBehaviour
             feedbackManager.ShowFeedback(errorMessage, true);
             Debug.LogError($"{errorMessage}");
             LoadingSpinnerComponent.Instance.HideSpinner();
+            SetAllButtonsInteractable(true);
+            isProcessing = false;
         }
         catch (Exception e)
         {
@@ -69,7 +82,29 @@ public class RegisterManager : MonoBehaviour
             feedbackManager.ShowFeedback(errorMessage, true);
             Debug.LogError(errorMessage);
             LoadingSpinnerComponent.Instance.HideSpinner();
+            SetAllButtonsInteractable(true);
+            isProcessing = false;
         }
+    }
+
+    private void SetAllButtonsInteractable(bool interactable)
+    {
+        registerButton.interactable = interactable;
+        if (backButton != null)
+        {
+            backButton.interactable = interactable;
+        }
+
+        Button[] allButtons = FindObjectsOfType<Button>();
+        foreach (Button button in allButtons)
+        {
+            button.interactable = interactable;
+        }
+        
+        nameInput.interactable = interactable;
+        nickNameInput.interactable = interactable;
+        emailInput.interactable = interactable;
+        passwordInput.interactable = interactable;
     }
 
     private void ValidateNickname(string value)
@@ -124,6 +159,13 @@ public class RegisterManager : MonoBehaviour
 
     public void SceneLoader()
     {
+          if (isProcessing)
+        {
+            return;
+        }
+        
+        isProcessing = true;
+        SetAllButtonsInteractable(false);
         LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("LoginView");
         SceneManager.LoadScene("LoginView");
     }
