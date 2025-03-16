@@ -15,18 +15,12 @@ public class RegisterManager : MonoBehaviour
     [SerializeField] private TMP_InputField emailInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button registerButton;
-    [SerializeField] private GameObject logoLoading;
     [SerializeField] private FeedbackManager feedbackManager;
-
-    [Header("Loading Spinner Configuration")]
-    [SerializeField] private float spinnerRotationSpeed = 100f;    
-    [SerializeField] private Image loadingSpinner;
 
     private FirebaseFirestore db;
 
     private void Start()
     {
-        logoLoading.SetActive(false);
         db = FirebaseFirestore.DefaultInstance;
         nickNameInput.contentType = TMP_InputField.ContentType.Standard;
         nickNameInput.characterLimit = 15;
@@ -34,18 +28,9 @@ public class RegisterManager : MonoBehaviour
         registerButton.onClick.AddListener(HandleRegistration);
     }
 
-        private void Update()
-    {
-        // Rotacionar o spinner
-        if (loadingSpinner != null && logoLoading.activeSelf)
-        {
-            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
-        }
-    }
-
     public async void HandleRegistration()
     {
-        logoLoading.SetActive(true);
+        LoadingSpinnerComponent.Instance.ShowSpinner();
 
         try
         {
@@ -68,6 +53,7 @@ public class RegisterManager : MonoBehaviour
             }
 
             await AuthenticationRepository.Instance.RegisterUserAsync(nameInput.text, nickNameInput.text, emailInput.text, passwordInput.text);
+            LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("PathwayScene");
             SceneManager.LoadScene("PathwayScene");
         }
         catch (FirebaseException e)
@@ -75,16 +61,14 @@ public class RegisterManager : MonoBehaviour
             string errorMessage = GetFirebaseAuthErrorMessage(e);
             feedbackManager.ShowFeedback(errorMessage, true);
             Debug.LogError($"{errorMessage}");
+            LoadingSpinnerComponent.Instance.HideSpinner();
         }
         catch (Exception e)
         {
             string errorMessage = $"{e.Message}";
             feedbackManager.ShowFeedback(errorMessage, true);
             Debug.LogError(errorMessage);
-        }
-        finally
-        {
-            logoLoading.SetActive(false);
+            LoadingSpinnerComponent.Instance.HideSpinner();
         }
     }
 
@@ -140,6 +124,7 @@ public class RegisterManager : MonoBehaviour
 
     public void SceneLoader()
     {
+        LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("LoginView");
         SceneManager.LoadScene("LoginView");
     }
 

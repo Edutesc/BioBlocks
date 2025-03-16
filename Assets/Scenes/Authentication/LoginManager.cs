@@ -13,12 +13,7 @@ public class LoginManager : MonoBehaviour
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button registerButton;
-    [SerializeField] private GameObject logoLoading;
     [SerializeField] private FeedbackManager feedbackManager;
-
-    [Header("Loading Spinner Configuration")]
-    [SerializeField] private float spinnerRotationSpeed = 100f;
-    [SerializeField] private Image loadingSpinner;
 
     private FirebaseAuth auth;
     private Dictionary<string, LoginAttempt> loginAttempts = new Dictionary<string, LoginAttempt>();
@@ -28,19 +23,9 @@ public class LoginManager : MonoBehaviour
     private void Start()
     {
         auth = FirebaseAuth.DefaultInstance;
-        logoLoading.SetActive(false);
         loginButton.onClick.AddListener(HandleLogin);
         registerButton.onClick.AddListener(HandleRegisterNavigation);
         InvokeRepeating(nameof(CleanupOldAttempts), 0f, 86400f);
-    }
-
-    private void Update()
-    {
-        // Rotacionar o spinner
-        if (loadingSpinner != null && logoLoading.activeSelf)
-        {
-            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
-        }
     }
 
     public async void HandleLogin()
@@ -59,7 +44,7 @@ public class LoginManager : MonoBehaviour
         }
 
         feedbackManager.ShowFeedback("", false);
-        logoLoading.SetActive(true);
+        LoadingSpinnerComponent.Instance.ShowSpinner();
 
         try
         {
@@ -81,10 +66,8 @@ public class LoginManager : MonoBehaviour
             }
 
             UserDataStore.CurrentUserData = userData;
-
-            // Forçar atualização dos dados de questões respondidas
             await AnsweredQuestionsManager.Instance.ForceUpdate();
-
+            LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("PathwayScene");
             SceneManager.LoadScene("PathwayScene");
         }
         catch (FirebaseException e)
@@ -94,18 +77,15 @@ public class LoginManager : MonoBehaviour
                 loginAttempts[email] = new LoginAttempt();
             }
             loginAttempts[email].IncrementAttempt();
-
             feedbackManager.ShowFeedback($"{GetFirebaseAuthErrorMessage(e)}", true);
             Debug.LogError($"{e.ErrorCode}, Message: {e.Message}");
+            LoadingSpinnerComponent.Instance.HideSpinner();
         }
         catch (Exception e)
         {
             feedbackManager.ShowFeedback($"{e.Message}", true);
             Debug.LogError($"{e.Message}");
-        }
-        finally
-        {
-            logoLoading.SetActive(false);
+            LoadingSpinnerComponent.Instance.HideSpinner();
         }
     }
 
@@ -133,6 +113,7 @@ public class LoginManager : MonoBehaviour
 
     public void HandleRegisterNavigation()
     {
+        LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("RegisterView");
         SceneManager.LoadScene("RegisterView");
     }
 
