@@ -15,18 +15,14 @@ public class RegisterManager : MonoBehaviour
     [SerializeField] private TMP_InputField emailInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button registerButton;
-    [SerializeField] private GameObject logoLoading;
+    [SerializeField] private Button backButton;
     [SerializeField] private FeedbackManager feedbackManager;
 
-    [Header("Loading Spinner Configuration")]
-    [SerializeField] private float spinnerRotationSpeed = 100f;    
-    [SerializeField] private Image loadingSpinner;
-
     private FirebaseFirestore db;
+    private bool isProcessing = false;
 
     private void Start()
     {
-        logoLoading.SetActive(false);
         db = FirebaseFirestore.DefaultInstance;
         nickNameInput.contentType = TMP_InputField.ContentType.Standard;
         nickNameInput.characterLimit = 15;
@@ -34,18 +30,16 @@ public class RegisterManager : MonoBehaviour
         registerButton.onClick.AddListener(HandleRegistration);
     }
 
-        private void Update()
-    {
-        // Rotacionar o spinner
-        if (loadingSpinner != null && logoLoading.activeSelf)
-        {
-            loadingSpinner.transform.Rotate(0f, 0f, -spinnerRotationSpeed * Time.deltaTime);
-        }
-    }
-
     public async void HandleRegistration()
     {
-        logoLoading.SetActive(true);
+        if (isProcessing)
+        {
+            return;
+        }
+
+        isProcessing = true;
+        SetAllButtonsInteractable(false);
+        LoadingSpinnerComponent.Instance.ShowSpinner();
 
         try
         {
@@ -68,6 +62,9 @@ public class RegisterManager : MonoBehaviour
             }
 
             await AuthenticationRepository.Instance.RegisterUserAsync(nameInput.text, nickNameInput.text, emailInput.text, passwordInput.text);
+            
+            // Usa o spinner global até que a próxima cena seja carregada
+            LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("PathwayScene");
             SceneManager.LoadScene("PathwayScene");
         }
         catch (FirebaseException e)
@@ -75,17 +72,39 @@ public class RegisterManager : MonoBehaviour
             string errorMessage = GetFirebaseAuthErrorMessage(e);
             feedbackManager.ShowFeedback(errorMessage, true);
             Debug.LogError($"{errorMessage}");
+            LoadingSpinnerComponent.Instance.HideSpinner();
+            SetAllButtonsInteractable(true);
+            isProcessing = false;
         }
         catch (Exception e)
         {
             string errorMessage = $"{e.Message}";
             feedbackManager.ShowFeedback(errorMessage, true);
             Debug.LogError(errorMessage);
+            LoadingSpinnerComponent.Instance.HideSpinner();
+            SetAllButtonsInteractable(true);
+            isProcessing = false;
         }
-        finally
+    }
+
+    private void SetAllButtonsInteractable(bool interactable)
+    {
+        registerButton.interactable = interactable;
+        if (backButton != null)
         {
-            logoLoading.SetActive(false);
+            backButton.interactable = interactable;
         }
+
+        Button[] allButtons = FindObjectsOfType<Button>();
+        foreach (Button button in allButtons)
+        {
+            button.interactable = interactable;
+        }
+        
+        nameInput.interactable = interactable;
+        nickNameInput.interactable = interactable;
+        emailInput.interactable = interactable;
+        passwordInput.interactable = interactable;
     }
 
     private void ValidateNickname(string value)
@@ -140,6 +159,14 @@ public class RegisterManager : MonoBehaviour
 
     public void SceneLoader()
     {
+          if (isProcessing)
+        {
+            return;
+        }
+        
+        isProcessing = true;
+        SetAllButtonsInteractable(false);
+        LoadingSpinnerComponent.Instance.ShowSpinnerUntilSceneLoaded("LoginView");
         SceneManager.LoadScene("LoginView");
     }
 

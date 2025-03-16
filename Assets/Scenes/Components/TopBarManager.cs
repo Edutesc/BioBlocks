@@ -33,7 +33,7 @@ public class TopBarManager : MonoBehaviour
 
     private List<TopButton> allButtons = new List<TopButton>();
     private static TopBarManager _instance;
-    private HalfViewMenu halfViewMenu;
+    private HalfViewComponent halfViewComponent;
 
     public static TopBarManager Instance
     {
@@ -211,7 +211,7 @@ public class TopBarManager : MonoBehaviour
 
         if (sceneName != "ProfileScene")
         {
-            halfViewMenu = null;
+            halfViewComponent = null;
         }
         else
         {
@@ -223,9 +223,9 @@ public class TopBarManager : MonoBehaviour
     {
         yield return null;
 
-        halfViewMenu = FindFirstObjectByType<HalfViewMenu>(FindObjectsInactive.Include);
+        halfViewComponent = FindFirstObjectByType<HalfViewComponent>(FindObjectsInactive.Include);
 
-        if (halfViewMenu != null)
+        if (halfViewComponent != null)
         {
             if (debugLogs) Debug.Log("HalfViewMenu encontrado na ProfileScene");
         }
