@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      deleteAccountBackground_800x600_0: 3483809388792764079
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

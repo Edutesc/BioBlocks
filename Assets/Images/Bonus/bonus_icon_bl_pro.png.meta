@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c6885bd6ac21a45c0bf6c7fffed4acba
+guid: 9745187c604904e449905f2c56006523
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8661821036351024413
-    second: TEC_spinnerImage_300x300_0
+      213: -3854218263373938081
+    second: bonus_icon_bl_pro_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TEC_spinnerImage_300x300_0
+      name: bonus_icon_bl_pro_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 300
-        height: 300
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d1d65bb1758f43870800000000000000
-      internalID: 8661821036351024413
+      spriteID: f5206c4f8e0138ac0800000000000000
+      internalID: -3854218263373938081
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      TEC_spinnerImage_300x300_0: 8661821036351024413
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
