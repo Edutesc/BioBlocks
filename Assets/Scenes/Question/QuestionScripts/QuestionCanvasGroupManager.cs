@@ -14,6 +14,9 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     [Header("Feedback UI")]
     [SerializeField] private CanvasGroup questionsCompletedFeedback;
     [SerializeField] private Image feedbackPanel;
+    
+    [Header("Bonus UI")]
+    [SerializeField] private CanvasGroup bonusFeedbackCanvasGroup;
 
     [Header("Other UI")]
     [SerializeField] private CanvasGroup loadingCanvasGroup;
@@ -47,6 +50,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
             Debug.LogError("QuestionTextContainer não está atribuído");
         if (questionImageContainer == null)
             Debug.LogError("QuestionImageContainer não está atribuído");
+        // O bonusFeedbackCanvasGroup é opcional, então não verificamos aqui
     }
 
     public void ShowLoading()
@@ -91,7 +95,6 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         }
     }
 
-
     private void LogCanvasGroupStates()
     {
         Debug.Log($"Estado dos CanvasGroups:");
@@ -100,6 +103,10 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         Debug.Log($"AnswerTextCanvasGroup: {(answerTextCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
         Debug.Log($"AnswerImageCanvasGroup: {(answerImageCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
         Debug.Log($"BottomBar: {(bottomBar?.alpha > 0 ? "Visível" : "Invisível")}");
+        if (bonusFeedbackCanvasGroup != null)
+        {
+            Debug.Log($"BonusFeedbackCanvasGroup: {(bonusFeedbackCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
+        }
     }
 
     public void ShowAnswerFeedback(bool isCorrect, Color correctColor, Color incorrectColor)
@@ -134,7 +141,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
 
         foreach (var canvasGroup in GetAllCanvasGroups())
         {
-            if (canvasGroup != null && canvasGroup != questionsCompletedFeedback)
+            if (canvasGroup != null && canvasGroup != questionsCompletedFeedback && canvasGroup != bonusFeedbackCanvasGroup)
             {
                 SetCanvasGroupState(canvasGroup, false);
                 Debug.Log($"Desativado canvas group: {canvasGroup.gameObject.name}");
@@ -174,6 +181,25 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         }
     }
 
+    // Novo método para mostrar o feedback de bônus
+    public void ShowBonusFeedback(bool show)
+    {
+        if (bonusFeedbackCanvasGroup != null)
+        {
+            // Não usamos SetCanvasGroupState porque queremos tratamento especial
+            bonusFeedbackCanvasGroup.gameObject.SetActive(show);
+            bonusFeedbackCanvasGroup.alpha = show ? 1f : 0f;
+            bonusFeedbackCanvasGroup.interactable = show;
+            bonusFeedbackCanvasGroup.blocksRaycasts = show;
+            
+            Debug.Log($"BonusFeedback definido como: {(show ? "visível" : "invisível")}");
+        }
+        else
+        {
+            Debug.LogWarning("bonusFeedbackCanvasGroup não está atribuído! Não é possível mostrar o feedback de bônus.");
+        }
+    }
+
     public void DisableAnswers()
     {
         SetCanvasGroupInteractable(answerTextCanvasGroup, false);
@@ -186,7 +212,19 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         {
             if (canvasGroup != null)
             {
-                SetCanvasGroupState(canvasGroup, false);
+                // Não inicializar o bonusFeedbackCanvasGroup aqui
+                if (canvasGroup != bonusFeedbackCanvasGroup)
+                {
+                    SetCanvasGroupState(canvasGroup, false);
+                }
+                else
+                {
+                    // Apenas garanta que o bonusFeedbackCanvasGroup esteja desativado no início
+                    canvasGroup.gameObject.SetActive(false);
+                    canvasGroup.alpha = 0f;
+                    canvasGroup.interactable = false;
+                    canvasGroup.blocksRaycasts = false;
+                }
             }
         }
     }
@@ -206,7 +244,6 @@ public class QuestionCanvasGroupManager : MonoBehaviour
                   $"Interactable: {canvasGroup.interactable}");
     }
 
-
     private void SetCanvasGroupInteractable(CanvasGroup canvasGroup, bool interactable)
     {
         if (canvasGroup == null) return;
@@ -225,7 +262,8 @@ public class QuestionCanvasGroupManager : MonoBehaviour
             questionsCompletedFeedback,
             bottomBar,
             questionTextContainer,
-            questionImageContainer
+            questionImageContainer,
+            bonusFeedbackCanvasGroup  // Adicionado o canvas group do bônus
         };
     }
 
@@ -237,7 +275,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     public CanvasGroup BottomBar => bottomBar;
     public CanvasGroup QuestionTextContainer => questionTextContainer;
     public CanvasGroup QuestionImageContainer => questionImageContainer;
-
+    public CanvasGroup BonusFeedbackCanvasGroup => bonusFeedbackCanvasGroup;
 
     public bool AreAllCanvasGroupsAssigned()
     {
@@ -267,7 +305,8 @@ public class QuestionCanvasGroupManager : MonoBehaviour
             allAssigned = false;
         }
 
+        // Não verificamos o bonusFeedbackCanvasGroup aqui porque é opcional
+
         return allAssigned;
     }
-
 }

@@ -10,6 +10,9 @@ public class BottomUIManager : MonoBehaviour
     [SerializeField] private GameObject timePanel;
     [SerializeField] private TextMeshProUGUI timerText;
 
+    public event UnityAction OnExitButtonClicked;
+    public event UnityAction OnNextButtonClicked;
+
     public TextMeshProUGUI TimerText => timerText;
 
     private void Start()
@@ -39,9 +42,15 @@ public class BottomUIManager : MonoBehaviour
     {
         exitButton.onClick.RemoveAllListeners();
         nextQuestionButton.onClick.RemoveAllListeners();
+        exitButton.onClick.AddListener(() => {
+            OnExitButtonClicked?.Invoke();
+            exitAction?.Invoke();
+        });
         
-        exitButton.onClick.AddListener(exitAction);
-        nextQuestionButton.onClick.AddListener(nextAction);
+        nextQuestionButton.onClick.AddListener(() => {
+            OnNextButtonClicked?.Invoke();
+            nextAction?.Invoke();
+        });
     }
 
     public void EnableNavigationButtons()

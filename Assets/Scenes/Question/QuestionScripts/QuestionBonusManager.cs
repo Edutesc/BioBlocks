@@ -18,6 +18,8 @@ public class QuestionBonusManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private QuestionScoreManager scoreManager;
     [SerializeField] private QuestionAnswerManager answerManager;
+    [SerializeField] private QuestionCanvasGroupManager canvasGroupManager;
+    [SerializeField] private BottomUIManager bottomUIManager;
 
     private int consecutiveCorrectAnswers = 0;
     private bool isBonusActive = false;
@@ -48,6 +50,18 @@ public class QuestionBonusManager : MonoBehaviour
         {
             answerManager.OnAnswerSelected += CheckAnswer;
         }
+        
+        // Registrar para eventos de clique nos botões da BottomBar
+        if (bottomUIManager != null)
+        {
+            bottomUIManager.OnExitButtonClicked += HideBonusFeedback;
+            bottomUIManager.OnNextButtonClicked += HideBonusFeedback;
+            Debug.Log("QuestionBonusManager: Registrado para eventos dos botões da BottomBar");
+        }
+        else
+        {
+            Debug.LogWarning("QuestionBonusManager: BottomUIManager não encontrado. O feedback de bônus não será escondido ao navegar.");
+        }
 
         // Registrar para eventos de feedback de resposta e temporizador
         QuestionManager questionManager = FindObjectOfType<QuestionManager>();
@@ -65,8 +79,8 @@ public class QuestionBonusManager : MonoBehaviour
             questionBonusUIFeedback = FindFirstObjectByType<QuestionBonusUIFeedback>();
             if (questionBonusUIFeedback == null)
             {
-                Debug.LogError("QuestionBonusManager: BonusUIFeedback não encontrado. Por favor, adicione-o à cena.");
-                Debug.LogWarning("QuestionBonusManager: Você pode criar um GameObject com o script BonusUIFeedback.");
+                Debug.LogError("QuestionBonusManager: QuestionBonusUIFeedback não encontrado. Por favor, adicione-o à cena.");
+                Debug.LogWarning("QuestionBonusManager: Você pode criar um GameObject com o script QuestionBonusUIFeedback.");
                 return false;
             }
         }
@@ -112,6 +126,36 @@ public class QuestionBonusManager : MonoBehaviour
                 Debug.LogError("QuestionBonusManager: QuestionAnswerManager não encontrado.");
                 return false;
             }
+        }
+        
+        // Verificar o Canvas Group Manager
+        if (canvasGroupManager == null)
+        {
+            canvasGroupManager = FindFirstObjectByType<QuestionCanvasGroupManager>();
+            if (canvasGroupManager == null)
+            {
+                Debug.LogWarning("QuestionBonusManager: QuestionCanvasGroupManager não encontrado. Feedback de bônus pode não ser exibido corretamente.");
+                // Não retornamos false aqui porque isso é apenas um aviso
+            }
+        }
+        
+        // Verificar o BottomUIManager
+        if (bottomUIManager == null)
+        {
+            bottomUIManager = FindFirstObjectByType<BottomUIManager>();
+            if (bottomUIManager == null)
+            {
+                Debug.LogWarning("QuestionBonusManager: BottomUIManager não encontrado. O feedback de bônus não será escondido automaticamente ao navegar.");
+                // Não retornamos false aqui porque isso é apenas um aviso
+            }
+        }
+        
+        // Certificar-se de que o GameObject do QuestionBonusUIFeedback tenha um CanvasGroup
+        CanvasGroup feedbackCanvasGroup = questionBonusUIFeedback.GetComponent<CanvasGroup>();
+        if (feedbackCanvasGroup == null)
+        {
+            Debug.LogWarning("QuestionBonusUIFeedback não tem um componente CanvasGroup. Adicionando automaticamente.");
+            feedbackCanvasGroup = questionBonusUIFeedback.gameObject.AddComponent<CanvasGroup>();
         }
 
         return true;
@@ -184,15 +228,31 @@ public class QuestionBonusManager : MonoBehaviour
         isBonusActive = true;
         currentBonusTime = bonusDuration;
 
-        // Mostrar feedback e timer
-        if (questionBonusUIFeedback != null)
+        // Mostrar feedback usando o CanvasGroupManager
+        if (canvasGroupManager != null)
         {
-            Debug.Log("Chamando ShowBonusActivatedFeedback()");
-            questionBonusUIFeedback.ShowBonusActivatedFeedback();
+            Debug.Log("Exibindo feedback de bônus através do CanvasGroupManager");
+            canvasGroupManager.ShowBonusFeedback(true);
+            
+            // Ainda chamamos o método do feedback se ele existir
+            if (questionBonusUIFeedback != null)
+            {
+                questionBonusUIFeedback.ShowBonusActivatedFeedback();
+            }
         }
         else
         {
-            Debug.LogError("bonusUIFeedback é null no momento de ativar!");
+            // Fallback para o método direto se não tiver o CanvasGroupManager
+            Debug.Log("Exibindo feedback de bônus diretamente (sem CanvasGroupManager)");
+            if (questionBonusUIFeedback != null)
+            {
+                questionBonusUIFeedback.gameObject.SetActive(true);
+                questionBonusUIFeedback.ShowBonusActivatedFeedback();
+            }
+            else
+            {
+                Debug.LogError("questionBonusUIFeedback é null no momento de ativar!");
+            }
         }
 
         // Ativar o timer
@@ -219,6 +279,12 @@ public class QuestionBonusManager : MonoBehaviour
     {
         isBonusActive = false;
 
+        // Esconder o feedback usando o CanvasGroupManager
+        if (canvasGroupManager != null)
+        {
+            canvasGroupManager.ShowBonusFeedback(false);
+        }
+        
         // Esconder o timer
         if (bonusTimerContainer != null)
         {
@@ -251,7 +317,7 @@ public class QuestionBonusManager : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(currentBonusTime / 60);
         int seconds = Mathf.FloorToInt(currentBonusTime % 60);
-        bonusCorrectAnswerTimer.text = $"Bônus ativo: {minutes:00}:{seconds:00}";
+        bonusCorrectAnswerTimer.text = $"Bônus de 5 respostas corretas ativo: {minutes:00}:{seconds:00}";
     }
 
     // Método público para verificar se o bônus está ativo
@@ -276,6 +342,27 @@ public class QuestionBonusManager : MonoBehaviour
         return baseScore;
     }
 
+    // Método para esconder o feedback do bônus (chamado pelos botões da BottomBar)
+    private void HideBonusFeedback()
+    {
+        Debug.Log("QuestionBonusManager: Botão da BottomBar clicado, escondendo feedback de bônus");
+        
+        // Esconder o feedback usando o CanvasGroupManager (se estiver visível)
+        if (questionBonusUIFeedback != null && questionBonusUIFeedback.IsVisible())
+        {
+            if (canvasGroupManager != null)
+            {
+                canvasGroupManager.ShowBonusFeedback(false);
+            }
+            else
+            {
+                questionBonusUIFeedback.ForceVisibility(false);
+            }
+            
+            Debug.Log("QuestionBonusManager: Feedback de bônus escondido após clique em botão");
+        }
+    }
+    
     private void OnDestroy()
     {
         // Cancelar o timer se estiver rodando
@@ -284,10 +371,16 @@ public class QuestionBonusManager : MonoBehaviour
             StopCoroutine(bonusTimerCoroutine);
         }
 
-        // Remover o listener do evento
+        // Remover os listeners dos eventos
         if (answerManager != null)
         {
             answerManager.OnAnswerSelected -= CheckAnswer;
+        }
+        
+        if (bottomUIManager != null)
+        {
+            bottomUIManager.OnExitButtonClicked -= HideBonusFeedback;
+            bottomUIManager.OnNextButtonClicked -= HideBonusFeedback;
         }
     }
 }
