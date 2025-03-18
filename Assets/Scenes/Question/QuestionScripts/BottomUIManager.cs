@@ -42,7 +42,6 @@ public class BottomUIManager : MonoBehaviour
         exitButton.onClick.RemoveAllListeners();
         nextQuestionButton.onClick.RemoveAllListeners();
         
-        // Adicionar wrapper para os eventos de clique que notificam outros componentes
         exitButton.onClick.AddListener(() => {
             OnExitButtonClicked?.Invoke();
             exitAction?.Invoke();

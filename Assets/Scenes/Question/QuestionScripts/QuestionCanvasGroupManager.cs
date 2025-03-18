@@ -16,7 +16,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     [SerializeField] private Image feedbackPanel;
     
     [Header("Bonus UI")]
-    [SerializeField] private CanvasGroup bonusFeedbackCanvasGroup;
+    [SerializeField] private CanvasGroup questionBonusUIFeedback;
 
     [Header("Other UI")]
     [SerializeField] private CanvasGroup loadingCanvasGroup;
@@ -103,9 +103,9 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         Debug.Log($"AnswerTextCanvasGroup: {(answerTextCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
         Debug.Log($"AnswerImageCanvasGroup: {(answerImageCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
         Debug.Log($"BottomBar: {(bottomBar?.alpha > 0 ? "Visível" : "Invisível")}");
-        if (bonusFeedbackCanvasGroup != null)
+        if (questionBonusUIFeedback != null)
         {
-            Debug.Log($"BonusFeedbackCanvasGroup: {(bonusFeedbackCanvasGroup?.alpha > 0 ? "Visível" : "Invisível")}");
+            Debug.Log($"BonusFeedbackCanvasGroup: {(questionBonusUIFeedback?.alpha > 0 ? "Visível" : "Invisível")}");
         }
     }
 
@@ -141,7 +141,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
 
         foreach (var canvasGroup in GetAllCanvasGroups())
         {
-            if (canvasGroup != null && canvasGroup != questionsCompletedFeedback && canvasGroup != bonusFeedbackCanvasGroup)
+            if (canvasGroup != null && canvasGroup != questionsCompletedFeedback && canvasGroup != questionBonusUIFeedback)
             {
                 SetCanvasGroupState(canvasGroup, false);
                 Debug.Log($"Desativado canvas group: {canvasGroup.gameObject.name}");
@@ -184,13 +184,13 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     // Novo método para mostrar o feedback de bônus
     public void ShowBonusFeedback(bool show)
     {
-        if (bonusFeedbackCanvasGroup != null)
+        if (questionBonusUIFeedback != null)
         {
             // Não usamos SetCanvasGroupState porque queremos tratamento especial
-            bonusFeedbackCanvasGroup.gameObject.SetActive(show);
-            bonusFeedbackCanvasGroup.alpha = show ? 1f : 0f;
-            bonusFeedbackCanvasGroup.interactable = show;
-            bonusFeedbackCanvasGroup.blocksRaycasts = show;
+            questionBonusUIFeedback.gameObject.SetActive(show);
+            questionBonusUIFeedback.alpha = show ? 1f : 0f;
+            questionBonusUIFeedback.interactable = show;
+            questionBonusUIFeedback.blocksRaycasts = show;
             
             Debug.Log($"BonusFeedback definido como: {(show ? "visível" : "invisível")}");
         }
@@ -213,7 +213,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
             if (canvasGroup != null)
             {
                 // Não inicializar o bonusFeedbackCanvasGroup aqui
-                if (canvasGroup != bonusFeedbackCanvasGroup)
+                if (canvasGroup != questionBonusUIFeedback)
                 {
                     SetCanvasGroupState(canvasGroup, false);
                 }
@@ -263,7 +263,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
             bottomBar,
             questionTextContainer,
             questionImageContainer,
-            bonusFeedbackCanvasGroup  // Adicionado o canvas group do bônus
+            questionBonusUIFeedback  // Adicionado o canvas group do bônus
         };
     }
 
@@ -275,7 +275,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     public CanvasGroup BottomBar => bottomBar;
     public CanvasGroup QuestionTextContainer => questionTextContainer;
     public CanvasGroup QuestionImageContainer => questionImageContainer;
-    public CanvasGroup BonusFeedbackCanvasGroup => bonusFeedbackCanvasGroup;
+    public CanvasGroup BonusFeedbackCanvasGroup => questionBonusUIFeedback;
 
     public bool AreAllCanvasGroupsAssigned()
     {

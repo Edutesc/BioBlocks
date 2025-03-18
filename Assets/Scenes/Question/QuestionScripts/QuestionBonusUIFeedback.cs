@@ -7,7 +7,6 @@ public class QuestionBonusUIFeedback : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI bonusMessageText;
     [SerializeField] private Image bonusPanel;
-    [SerializeField] private float displayDuration = 5f;
 
     private CanvasGroup canvasGroup;
 
@@ -20,7 +19,7 @@ public class QuestionBonusUIFeedback : MonoBehaviour
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
             Debug.Log("CanvasGroup adicionado ao QuestionBonusUIFeedback");
         }
-        
+
         // Verificar e obter referências se necessário
         if (bonusMessageText == null)
         {
@@ -30,7 +29,7 @@ public class QuestionBonusUIFeedback : MonoBehaviour
                 Debug.LogError("QuestionBonusUIFeedback: Não foi possível encontrar o TextMeshProUGUI 'FeedbackText'");
             }
         }
-        
+
         if (bonusPanel == null)
         {
             bonusPanel = GetComponent<Image>();
@@ -40,12 +39,12 @@ public class QuestionBonusUIFeedback : MonoBehaviour
             }
         }
     }
-    
+
     private void Start()
     {
         // Esconder no início
         gameObject.SetActive(false);
-        
+
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 0f;
@@ -92,17 +91,12 @@ public class QuestionBonusUIFeedback : MonoBehaviour
         {
             Debug.LogError("bonusPanel é null!");
         }
-
-        Debug.Log($"Feedback será escondido em {displayDuration} segundos");
     }
 
     private void HideFeedback()
     {
         Debug.Log("HideFeedback chamado - escondendo o feedback de bônus");
-        
-        // Não desative o gameObject, apenas torne-o invisível pelo CanvasGroup
-        // para que o QuestionCanvasGroupManager possa continuar gerenciando-o
-        
+
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 0f;
@@ -112,38 +106,38 @@ public class QuestionBonusUIFeedback : MonoBehaviour
         }
         else
         {
-            // Se não tiver CanvasGroup, desativa o GameObject
             gameObject.SetActive(false);
         }
     }
 
-    // Método público para verificar o estado de visibilidade
     public bool IsVisible()
     {
         if (canvasGroup != null)
         {
             return canvasGroup.alpha > 0f && gameObject.activeSelf;
         }
-        
+
         return gameObject.activeSelf;
     }
-    
-    // Método para forçar a visibilidade através do código
+
     public void ForceVisibility(bool visible)
     {
-        gameObject.SetActive(true);
-        
-        if (canvasGroup != null)
+        if (visible)
         {
-            canvasGroup.alpha = visible ? 1f : 0f;
-            canvasGroup.interactable = visible;
-            canvasGroup.blocksRaycasts = visible;
-            Debug.Log($"Visibilidade forçada para: {(visible ? "visível" : "invisível")}");
+            gameObject.SetActive(true);
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+                Debug.Log("Visibilidade forçada para: visível");
+            }
         }
         else
         {
-            // Se não tiver CanvasGroup, define a ativação do GameObject
-            gameObject.SetActive(visible);
+            HideFeedback();
         }
     }
+
 }
