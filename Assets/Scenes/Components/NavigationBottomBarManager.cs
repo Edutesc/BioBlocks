@@ -25,9 +25,15 @@ public class NavigationBottomBarManager : MonoBehaviour
     [Header("Configurações")]
     [SerializeField] private string currentScene = "";
     [SerializeField] private bool debugLogs = true;
-    
+
     [Header("Persistência")]
-    [SerializeField] private List<string> scenesWithoutBottomBar = new List<string>() { "LoginView", "RegisterView, QuestionScene"};
+    [SerializeField]
+    private List<string> scenesWithoutBottomBar = new List<string>()
+    {
+        "LoginView",
+        "RegisterView",
+        "QuestionScene"
+    };
 
     private List<NavButton> allButtons = new List<NavButton>();
     private static NavigationBottomBarManager _instance;
@@ -45,15 +51,15 @@ public class NavigationBottomBarManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         _instance = this;
-        
+
         // Não destruir ao carregar novas cenas
         DontDestroyOnLoad(gameObject);
-        
+
         // Inicializar a lista de botões
         InitializeButtons();
-        
+
         if (debugLogs) Debug.Log("NavigationBottomBarManager inicializado");
     }
 
@@ -61,14 +67,14 @@ public class NavigationBottomBarManager : MonoBehaviour
     {
         // Limpar a lista de botões
         allButtons.Clear();
-        
+
         // Adicionar os botões à lista
         if (homeButton.button != null) allButtons.Add(homeButton);
         if (rankingButton.button != null) allButtons.Add(rankingButton);
         if (favoritesButton.button != null) allButtons.Add(favoritesButton);
         if (medalsButton.button != null) allButtons.Add(medalsButton);
         if (profileButton.button != null) allButtons.Add(profileButton);
-        
+
         SetupButtonListeners();
     }
 
@@ -81,11 +87,11 @@ public class NavigationBottomBarManager : MonoBehaviour
                 buttonInfo.button.onClick.RemoveAllListeners();
                 string targetButtonName = buttonInfo.buttonName;
                 string targetSceneName = buttonInfo.targetScene;
-                
-                buttonInfo.button.onClick.AddListener(() => 
+
+                buttonInfo.button.onClick.AddListener(() =>
                 {
                     if (debugLogs) Debug.Log($"Botão {targetButtonName} clicado, navegando para {targetSceneName}");
-                    
+
                     if (NavigationManager.Instance != null)
                     {
                         NavigationManager.Instance.NavigateTo(targetSceneName);
@@ -104,7 +110,7 @@ public class NavigationBottomBarManager : MonoBehaviour
         if (NavigationManager.Instance != null)
         {
             NavigationManager.Instance.OnSceneChanged += OnSceneChanged;
-            
+
             if (debugLogs) Debug.Log("Registrado com o NavigationManager");
         }
         else
@@ -121,7 +127,7 @@ public class NavigationBottomBarManager : MonoBehaviour
         UpdateButtonDisplay(currentScene);
         AdjustVisibilityForCurrentScene();
     }
-    
+
     private void OnDestroy()
     {
         if (NavigationManager.Instance != null)
@@ -134,11 +140,11 @@ public class NavigationBottomBarManager : MonoBehaviour
             _instance = null;
         }
     }
-    
+
     private void OnSceneChanged(string sceneName)
     {
         if (debugLogs) Debug.Log($"BottomBarManager: Cena mudou para {sceneName}");
-        
+
         currentScene = sceneName;
         UpdateButtonDisplay(currentScene);
         AdjustVisibilityForCurrentScene();
@@ -146,9 +152,62 @@ public class NavigationBottomBarManager : MonoBehaviour
 
     private void AdjustVisibilityForCurrentScene()
     {
+
         bool shouldShowBottomBar = !scenesWithoutBottomBar.Contains(currentScene);
-        gameObject.SetActive(shouldShowBottomBar);
-        
+        Debug.Log($"[BottomBar Debug] Cena atual: '{currentScene}'");
+        Debug.Log($"[BottomBar Debug] Cenas sem barra: {string.Join(", ", scenesWithoutBottomBar)}");
+        Debug.Log($"[BottomBar Debug] A cena atual está na lista? {scenesWithoutBottomBar.Contains(currentScene)}");
+        Debug.Log($"[BottomBar Debug] shouldShowBottomBar = {shouldShowBottomBar}");
+
+        if (!shouldShowBottomBar)
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+
+            gameObject.SetActive(false);
+            Canvas canvas = GetComponent<Canvas>();
+
+            if (canvas != null)
+            {
+                canvas.enabled = false;
+            }
+
+            CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 0;
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = false;
+            }
+
+            Debug.Log($"[BottomBar Debug] Forçando desativação da BottomBar na cena {currentScene}");
+        }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+
+            gameObject.SetActive(true);
+            Canvas canvas = GetComponent<Canvas>();
+            
+            if (canvas != null)
+            {
+                canvas.enabled = true;
+            }
+
+            CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+            }
+        }
+
         if (debugLogs) Debug.Log($"BottomBar visibilidade na cena {currentScene}: {shouldShowBottomBar}");
     }
 
@@ -163,7 +222,7 @@ public class NavigationBottomBarManager : MonoBehaviour
                 bool isActiveButton = (button.targetScene == sceneName);
                 button.normalIcon.gameObject.SetActive(!isActiveButton);
                 button.filledIcon.gameObject.SetActive(isActiveButton);
-                
+
                 if (debugLogs && isActiveButton)
                 {
                     Debug.Log($"Ativado botão: {button.buttonName} para cena {sceneName}");
