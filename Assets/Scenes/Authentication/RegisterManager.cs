@@ -95,7 +95,7 @@ public class RegisterManager : MonoBehaviour
             backButton.interactable = interactable;
         }
 
-        Button[] allButtons = FindObjectsOfType<Button>();
+        Button[] allButtons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (Button button in allButtons)
         {
             button.interactable = interactable;

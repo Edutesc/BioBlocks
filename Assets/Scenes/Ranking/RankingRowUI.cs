@@ -24,7 +24,6 @@ public class RankingRowUI : MonoBehaviour
 
     private RectTransform rectTransform;
     private bool isExtraRow = false;
-    private bool isWeekRankingMode = false; // Flag para controlar o modo de exibição
 
     private void Awake()
     {

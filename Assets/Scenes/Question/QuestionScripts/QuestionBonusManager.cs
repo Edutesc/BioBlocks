@@ -64,7 +64,7 @@ public class QuestionBonusManager : MonoBehaviour
         }
 
         // Registrar para eventos de feedback de resposta e temporizador
-        QuestionManager questionManager = FindObjectOfType<QuestionManager>();
+        QuestionManager questionManager = FindFirstObjectByType<QuestionManager>();
         if (questionManager != null)
         {
             Debug.Log("QuestionBonusManager inicializado e conectado ao QuestionManager");

@@ -82,7 +82,6 @@ public class HalfViewComponent : MonoBehaviour
         SetupOverlay();
         CollectInteractableElements();
 
-        // Inicialmente escondido, mas o GameObject fica ativo
         if (darkOverlay != null)
         {
             darkOverlay.SetActive(false);
@@ -93,7 +92,6 @@ public class HalfViewComponent : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Cancela o registro ao destruir o componente
         string sceneName = SceneManager.GetActiveScene().name;
         HalfViewRegistry.UnregisterHalfView(sceneName);
     }
@@ -122,7 +120,7 @@ public class HalfViewComponent : MonoBehaviour
 
     private void FindBottomBar()
     {
-        Canvas[] allCanvases = FindObjectsOfType<Canvas>(true);
+        Canvas[] allCanvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (Canvas canvas in allCanvases)
         {
             if (canvas.gameObject.name.ToLower().Contains("bottom") ||
@@ -156,7 +154,6 @@ public class HalfViewComponent : MonoBehaviour
             primaryButton.onClick.AddListener(() =>
             {
                 OnPrimaryButtonClicked?.Invoke();
-                // Por padrão, fechamos o menu após o clique
                 HideMenu();
             });
             primaryButton.interactable = true;
@@ -256,7 +253,7 @@ public class HalfViewComponent : MonoBehaviour
         interactableElements.Clear();
         originalInteractableStates.Clear();
 
-        Selectable[] selectables = FindObjectsOfType<Selectable>(true);
+        Selectable[] selectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (Selectable selectable in selectables)
         {
             if (!IsPartOfHalfView(selectable.gameObject))
@@ -362,7 +359,6 @@ public class HalfViewComponent : MonoBehaviour
 
     private bool ShouldKeepInteractable(GameObject obj)
     {
-        // Pode ser estendido para manter certos elementos interativos
         return false;
     }
 
@@ -436,9 +432,6 @@ public class HalfViewComponent : MonoBehaviour
 
     #region Configuração da HalfView
 
-    /// <summary>
-    /// Configura o botão que ativará a HalfView.
-    /// </summary>
     public void SetTriggerButton(Button button)
     {
         if (triggerButton != null)
@@ -455,9 +448,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Configura o título da HalfView.
-    /// </summary>
     public void SetTitle(string title)
     {
         if (titleText != null)
@@ -466,9 +456,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Configura a mensagem da HalfView.
-    /// </summary>
     public void SetMessage(string message)
     {
         if (messageText != null)
@@ -477,9 +464,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Configura o botão primário da HalfView.
-    /// </summary>
     public void SetPrimaryButton(string text, Action onClickAction, bool hideAfterClick = true)
     {
         if (primaryButton != null && primaryButtonText != null)
@@ -498,9 +482,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Configura o botão secundário da HalfView.
-    /// </summary>
     public void SetSecondaryButton(string text, Action onClickAction, bool hideAfterClick = true)
     {
         if (secondaryButton != null && secondaryButtonText != null)
@@ -519,9 +500,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Esconde o botão primário.
-    /// </summary>
     public void HidePrimaryButton()
     {
         if (primaryButton != null)
@@ -530,9 +508,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Esconde o botão secundário.
-    /// </summary>
     public void HideSecondaryButton()
     {
         if (secondaryButton != null)
@@ -541,9 +516,6 @@ public class HalfViewComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Configura a HalfView completa de uma vez.
-    /// </summary>
     public void Configure(string title, string message,
                          string primaryButtonText, Action primaryAction,
                          string secondaryButtonText = null, Action secondaryAction = null)
