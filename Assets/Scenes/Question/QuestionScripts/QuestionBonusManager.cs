@@ -13,7 +13,7 @@ public class QuestionBonusManager : MonoBehaviour
     [Header("Bonus Configuration")]
     [SerializeField] private int consecutiveCorrectAnswersNeeded = 5;
     [SerializeField] private float bonusDuration = 600f; // 10 minutes in seconds
-    [SerializeField] private int bonusScoreMultiplier = 2; // Double the normal score
+    [SerializeField] private int bonusScoreMultiplier = 3; // Double the normal score
 
     [Header("References")]
     [SerializeField] private QuestionScoreManager scoreManager;
