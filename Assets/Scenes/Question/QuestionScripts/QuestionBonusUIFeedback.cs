@@ -58,10 +58,8 @@ public class QuestionBonusUIFeedback : MonoBehaviour
     {
         Debug.Log("ShowBonusActivatedFeedback iniciado");
 
-        // Garantir que o objeto esteja ativo
         gameObject.SetActive(true);
-        
-        // Garantir que o CanvasGroup esteja visível
+
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 1f;
@@ -95,9 +93,6 @@ public class QuestionBonusUIFeedback : MonoBehaviour
             Debug.LogError("bonusPanel é null!");
         }
 
-        // Usar um Invoke para esconder o feedback após um tempo
-        CancelInvoke("HideFeedback"); // Cancela qualquer Invoke pendente
-        Invoke("HideFeedback", displayDuration);
         Debug.Log($"Feedback será escondido em {displayDuration} segundos");
     }
 
