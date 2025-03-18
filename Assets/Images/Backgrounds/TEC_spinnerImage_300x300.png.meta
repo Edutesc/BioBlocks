@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TEC_spinnerImage_300x300_0: 8661821036351024413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

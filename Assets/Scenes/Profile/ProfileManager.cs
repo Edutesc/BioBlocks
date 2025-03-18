@@ -305,7 +305,8 @@ public class ProfileManager : MonoBehaviour
 
     private void ReenableSceneInteractions()
     {
-        Selectable[] selectables = FindObjectsOfType<Selectable>(true);
+        Selectable[] selectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID);
+
         foreach (Selectable selectable in selectables)
         {
             if (!ShouldStayDisabled(selectable.gameObject))

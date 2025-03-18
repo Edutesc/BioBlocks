@@ -3,10 +3,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Gerencia a NavigationBottomBar, controlando os ícones e interagindo com o NavigationManager.
-/// Também mantem a persistência da BottomBar entre cenas.
-/// </summary>
 public class NavigationBottomBarManager : MonoBehaviour
 {
     [System.Serializable]
@@ -31,7 +27,7 @@ public class NavigationBottomBarManager : MonoBehaviour
     [SerializeField] private bool debugLogs = true;
     
     [Header("Persistência")]
-    [SerializeField] private List<string> scenesWithoutBottomBar = new List<string>() { "Login", "Splash" };
+    [SerializeField] private List<string> scenesWithoutBottomBar = new List<string>() { "LoginView", "RegisterView, QuestionScene"};
 
     private List<NavButton> allButtons = new List<NavButton>();
     private static NavigationBottomBarManager _instance;
@@ -73,24 +69,19 @@ public class NavigationBottomBarManager : MonoBehaviour
         if (medalsButton.button != null) allButtons.Add(medalsButton);
         if (profileButton.button != null) allButtons.Add(profileButton);
         
-        // Configurar os listeners dos botões
         SetupButtonListeners();
     }
 
     private void SetupButtonListeners()
     {
-        // Remover os listeners existentes e adicionar novos
         foreach (var buttonInfo in allButtons)
         {
             if (buttonInfo.button != null)
             {
                 buttonInfo.button.onClick.RemoveAllListeners();
-                
-                // Capturar o buttonName em uma variável local para o closure
                 string targetButtonName = buttonInfo.buttonName;
                 string targetSceneName = buttonInfo.targetScene;
                 
-                // Adicionar o listener que usa o NavigationManager para navegar
                 buttonInfo.button.onClick.AddListener(() => 
                 {
                     if (debugLogs) Debug.Log($"Botão {targetButtonName} clicado, navegando para {targetSceneName}");
@@ -110,7 +101,6 @@ public class NavigationBottomBarManager : MonoBehaviour
 
     private void Start()
     {
-        // Obter referência ao NavigationManager e registrar para eventos
         if (NavigationManager.Instance != null)
         {
             NavigationManager.Instance.OnSceneChanged += OnSceneChanged;
@@ -122,70 +112,46 @@ public class NavigationBottomBarManager : MonoBehaviour
             Debug.LogWarning("NavigationManager não encontrado! A BottomBar pode não funcionar corretamente.");
         }
 
-        // Determinar a cena atual com base na cena carregada atual
         string activeScene = SceneManager.GetActiveScene().name;
         if (!string.IsNullOrEmpty(activeScene))
         {
             currentScene = activeScene;
         }
 
-        // Atualizar a exibição inicial dos botões
         UpdateButtonDisplay(currentScene);
-        
-        // Verificar se esta cena deve mostrar a BottomBar
         AdjustVisibilityForCurrentScene();
     }
     
     private void OnDestroy()
     {
-        // Desregistrar do evento de mudança de cena
         if (NavigationManager.Instance != null)
         {
             NavigationManager.Instance.OnSceneChanged -= OnSceneChanged;
         }
 
-        // Limpar singleton
         if (_instance == this)
         {
             _instance = null;
         }
     }
     
-    /// <summary>
-    /// Callback para quando a cena muda
-    /// </summary>
     private void OnSceneChanged(string sceneName)
     {
         if (debugLogs) Debug.Log($"BottomBarManager: Cena mudou para {sceneName}");
         
-        // Atualizar a cena atual
         currentScene = sceneName;
-        
-        // Atualizar os ícones da bottombar
         UpdateButtonDisplay(currentScene);
-        
-        // Ajustar visibilidade da BottomBar para a cena atual
         AdjustVisibilityForCurrentScene();
     }
-    
-    /// <summary>
-    /// Ajusta a visibilidade da BottomBar com base na cena atual
-    /// </summary>
+
     private void AdjustVisibilityForCurrentScene()
     {
-        // Verificar se a cena atual está na lista de cenas sem BottomBar
         bool shouldShowBottomBar = !scenesWithoutBottomBar.Contains(currentScene);
-        
-        // Mostrar ou ocultar a BottomBar
         gameObject.SetActive(shouldShowBottomBar);
         
         if (debugLogs) Debug.Log($"BottomBar visibilidade na cena {currentScene}: {shouldShowBottomBar}");
     }
 
-    /// <summary>
-    /// Atualiza a exibição dos botões com base na cena atual.
-    /// </summary>
-    /// <param name="sceneName">Nome da cena atual</param>
     public void UpdateButtonDisplay(string sceneName)
     {
         if (debugLogs) Debug.Log($"Atualizando BottomBar para cena: {sceneName}");
@@ -194,10 +160,7 @@ public class NavigationBottomBarManager : MonoBehaviour
         {
             if (button != null && button.normalIcon != null && button.filledIcon != null)
             {
-                // Um botão está ativo se a cena atual corresponder à sua cena alvo
                 bool isActiveButton = (button.targetScene == sceneName);
-                
-                // Mostrar apenas o ícone apropriado
                 button.normalIcon.gameObject.SetActive(!isActiveButton);
                 button.filledIcon.gameObject.SetActive(isActiveButton);
                 
@@ -209,9 +172,6 @@ public class NavigationBottomBarManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Adicionar uma cena à lista de cenas que não devem mostrar a BottomBar
-    /// </summary>
     public void AddSceneWithoutBottomBar(string sceneName)
     {
         if (!scenesWithoutBottomBar.Contains(sceneName))
@@ -219,10 +179,7 @@ public class NavigationBottomBarManager : MonoBehaviour
             scenesWithoutBottomBar.Add(sceneName);
         }
     }
-    
-    /// <summary>
-    /// Remover uma cena da lista de cenas que não devem mostrar a BottomBar
-    /// </summary>
+
     public void RemoveSceneWithoutBottomBar(string sceneName)
     {
         if (scenesWithoutBottomBar.Contains(sceneName))
