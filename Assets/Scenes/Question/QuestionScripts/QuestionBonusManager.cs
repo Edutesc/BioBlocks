@@ -1,6 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 using QuestionSystem;
 
 public class QuestionBonusManager : MonoBehaviour
@@ -13,7 +16,7 @@ public class QuestionBonusManager : MonoBehaviour
     [Header("Bonus Configuration")]
     [SerializeField] private int consecutiveCorrectAnswersNeeded = 5;
     [SerializeField] private float bonusDuration = 600f; // 10 minutes in seconds
-    [SerializeField] private int bonusScoreMultiplier = 3; // Double the normal score
+    [SerializeField] private int bonusScoreMultiplier = 2; // Double the normal score
 
     [Header("References")]
     [SerializeField] private QuestionScoreManager scoreManager;
@@ -25,6 +28,7 @@ public class QuestionBonusManager : MonoBehaviour
     private bool isBonusActive = false;
     private float currentBonusTime = 0f;
     private Coroutine bonusTimerCoroutine = null;
+    private BonusFirestore bonusFirestore;
 
     private void Start()
     {
@@ -33,6 +37,8 @@ public class QuestionBonusManager : MonoBehaviour
             Debug.LogError("QuestionBonusManager: Falha na validação dos componentes necessários.");
             return;
         }
+
+        bonusFirestore = new BonusFirestore();
 
         if (bonusTimerContainer != null)
         {
@@ -47,7 +53,7 @@ public class QuestionBonusManager : MonoBehaviour
         {
             answerManager.OnAnswerSelected += CheckAnswer;
         }
-        
+
         if (bottomUIManager != null)
         {
             bottomUIManager.OnExitButtonClicked += HideBonusFeedback;
@@ -118,7 +124,7 @@ public class QuestionBonusManager : MonoBehaviour
                 return false;
             }
         }
-        
+
         if (canvasGroupManager == null)
         {
             canvasGroupManager = FindFirstObjectByType<QuestionCanvasGroupManager>();
@@ -127,7 +133,7 @@ public class QuestionBonusManager : MonoBehaviour
                 Debug.LogWarning("QuestionBonusManager: QuestionCanvasGroupManager não encontrado. Feedback de bônus pode não ser exibido corretamente.");
             }
         }
-        
+
         if (bottomUIManager == null)
         {
             bottomUIManager = FindFirstObjectByType<BottomUIManager>();
@@ -136,7 +142,7 @@ public class QuestionBonusManager : MonoBehaviour
                 Debug.LogWarning("QuestionBonusManager: BottomUIManager não encontrado. O feedback de bônus não será escondido automaticamente ao navegar.");
             }
         }
-        
+
         CanvasGroup feedbackCanvasGroup = questionBonusUIFeedback.GetComponent<CanvasGroup>();
         if (feedbackCanvasGroup == null)
         {
@@ -147,7 +153,7 @@ public class QuestionBonusManager : MonoBehaviour
         return true;
     }
 
-    private void CheckAnswer(int selectedAnswerIndex)
+    private async void CheckAnswer(int selectedAnswerIndex)
     {
         QuestionManager questionManager = FindFirstObjectByType<QuestionManager>();
         if (questionManager == null)
@@ -194,6 +200,8 @@ public class QuestionBonusManager : MonoBehaviour
             if (consecutiveCorrectAnswers >= consecutiveCorrectAnswersNeeded && !isBonusActive)
             {
                 ActivateBonus();
+                await UpdateBonusInFirestore();
+
             }
         }
         else
@@ -201,6 +209,19 @@ public class QuestionBonusManager : MonoBehaviour
             consecutiveCorrectAnswers = 0;
             Debug.Log("QuestionBonusManager: Resposta incorreta. Contador de respostas consecutivas reiniciado.");
         }
+    }
+
+    private async Task UpdateBonusInFirestore()
+    {
+        // Verifica se o usuário está logado
+        if (UserDataStore.CurrentUserData == null || string.IsNullOrEmpty(UserDataStore.CurrentUserData.UserId))
+        {
+            Debug.LogWarning("QuestionBonusManager: Não foi possível atualizar o bônus, usuário não está logado.");
+            return;
+        }
+
+        string userId = UserDataStore.CurrentUserData.UserId;
+        await bonusFirestore.IncrementCorrectAnswerBonus(userId);
     }
 
     private void ActivateBonus()
@@ -212,7 +233,7 @@ public class QuestionBonusManager : MonoBehaviour
         {
             Debug.Log("Exibindo feedback de bônus através do CanvasGroupManager");
             canvasGroupManager.ShowBonusFeedback(true);
-            
+
             if (questionBonusUIFeedback != null)
             {
                 questionBonusUIFeedback.ShowBonusActivatedFeedback();
@@ -313,7 +334,7 @@ public class QuestionBonusManager : MonoBehaviour
     private void HideBonusFeedback()
     {
         Debug.Log("QuestionBonusManager: Botão da BottomBar clicado, escondendo feedback de bônus");
-        
+
         if (questionBonusUIFeedback != null && questionBonusUIFeedback.IsVisible())
         {
             if (canvasGroupManager != null)
@@ -324,11 +345,11 @@ public class QuestionBonusManager : MonoBehaviour
             {
                 questionBonusUIFeedback.ForceVisibility(false);
             }
-            
+
             Debug.Log("QuestionBonusManager: Feedback de bônus escondido após clique em botão");
         }
     }
-    
+
     private void OnDestroy()
     {
         if (bonusTimerCoroutine != null)
@@ -340,11 +361,25 @@ public class QuestionBonusManager : MonoBehaviour
         {
             answerManager.OnAnswerSelected -= CheckAnswer;
         }
-        
+
         if (bottomUIManager != null)
         {
             bottomUIManager.OnExitButtonClicked -= HideBonusFeedback;
             bottomUIManager.OnNextButtonClicked -= HideBonusFeedback;
         }
     }
+
+    public async Task<bool> CheckIfUserHasActiveBonus(string bonusType)
+    {
+        if (UserDataStore.CurrentUserData == null || string.IsNullOrEmpty(UserDataStore.CurrentUserData.UserId))
+        {
+            return false;
+        }
+
+        List<BonusType> userBonuses = await bonusFirestore.GetUserBonuses(UserDataStore.CurrentUserData.UserId);
+        BonusType targetBonus = userBonuses.FirstOrDefault(b => b.BonusName == bonusType);
+
+        return targetBonus != null && targetBonus.IsBonusActive;
+    }
+
 }
