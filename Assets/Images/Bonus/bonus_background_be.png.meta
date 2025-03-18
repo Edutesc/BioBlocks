@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bonus_background_be_0: -6976946149551857579
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

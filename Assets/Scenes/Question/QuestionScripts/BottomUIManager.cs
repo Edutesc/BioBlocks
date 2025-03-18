@@ -12,7 +12,6 @@ public class BottomUIManager : MonoBehaviour
 
     public event UnityAction OnExitButtonClicked;
     public event UnityAction OnNextButtonClicked;
-
     public TextMeshProUGUI TimerText => timerText;
 
     private void Start()
@@ -42,6 +41,7 @@ public class BottomUIManager : MonoBehaviour
     {
         exitButton.onClick.RemoveAllListeners();
         nextQuestionButton.onClick.RemoveAllListeners();
+
         exitButton.onClick.AddListener(() => {
             OnExitButtonClicked?.Invoke();
             exitAction?.Invoke();
