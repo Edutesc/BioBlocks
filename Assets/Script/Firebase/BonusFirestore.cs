@@ -1,9 +1,9 @@
-using UnityEngine;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Firebase.Firestore;
+using UnityEngine;
 
 public class BonusFirestore
 {
@@ -19,7 +19,7 @@ public class BonusFirestore
         db = FirebaseFirestore.DefaultInstance;
     }
 
-    public async Task IncrementCorrectAnswerBonus(string userId)
+    public async Task IncrementCorrectAnswerBonus(string userId, float bonusDuration = 600f)
     {
         if (string.IsNullOrEmpty(userId))
         {
@@ -36,7 +36,6 @@ public class BonusFirestore
 
             if (snapshot.Exists)
             {
-                // Documento já existe, precisamos atualizar
                 Dictionary<string, object> data = snapshot.ToDictionary();
 
                 if (data.ContainsKey("BonusList"))
@@ -53,45 +52,51 @@ public class BonusFirestore
                                 BonusType bonus = new BonusType(
                                     bonusDict.ContainsKey("BonusName") ? bonusDict["BonusName"].ToString() : "",
                                     bonusDict.ContainsKey("BonusCount") ? Convert.ToInt32(bonusDict["BonusCount"]) : 0,
-                                    bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false
+                                    bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false,
+                                    bonusDict.ContainsKey("ExpirationTimestamp") ? Convert.ToInt64(bonusDict["ExpirationTimestamp"]) : 0,
+                                    bonusDict.ContainsKey("IsPersistent") ? Convert.ToBoolean(bonusDict["IsPersistent"]) : false
                                 );
+                                
+                                if (bonus.IsBonusActive && bonus.IsExpired())
+                                {
+                                    bonus.IsBonusActive = false;
+                                    bonus.ExpirationTimestamp = 0;
+                                    Debug.Log($"BonusFirestore: Bônus {bonus.BonusName} expirado para o usuário {userId}");
+                                }
+                                
                                 bonusList.Add(bonus);
                             }
                         }
                     }
                 }
 
-                // Verifica se já existe um bônus do tipo correctAnswerBonus
                 BonusType correctAnswerBonus = bonusList.FirstOrDefault(b => b.BonusName == CORRECT_ANSWER_BONUS);
 
                 if (correctAnswerBonus != null)
                 {
-                    // Atualiza o bônus existente
                     if (!correctAnswerBonus.IsBonusActive)
                     {
                         correctAnswerBonus.BonusCount++;
 
-                        // Verifica se atingiu o limite para ativação
                         if (correctAnswerBonus.BonusCount >= BONUS_ACTIVATION_THRESHOLD)
                         {
                             correctAnswerBonus.IsBonusActive = true;
-                            Debug.Log($"BonusFirestore: Bônus {CORRECT_ANSWER_BONUS} ativado para o usuário {userId}");
+                            correctAnswerBonus.IsPersistent = true;
+                            correctAnswerBonus.SetExpirationFromDuration(bonusDuration);
+                            Debug.Log($"BonusFirestore: Bônus {CORRECT_ANSWER_BONUS} ativado para o usuário {userId} até {DateTimeOffset.FromUnixTimeSeconds(correctAnswerBonus.ExpirationTimestamp).LocalDateTime}");
                         }
                     }
                 }
                 else
                 {
-                    // Cria um novo bônus
-                    bonusList.Add(new BonusType(CORRECT_ANSWER_BONUS, 1, false));
+                    bonusList.Add(new BonusType(CORRECT_ANSWER_BONUS, 1, false, 0, false));
                 }
             }
             else
             {
-                // Documento não existe, vamos criar com o primeiro bônus
-                bonusList.Add(new BonusType(CORRECT_ANSWER_BONUS, 1, false));
+                bonusList.Add(new BonusType(CORRECT_ANSWER_BONUS, 1, false, 0, false));
             }
 
-            // Salva as alterações no Firestore
             await SaveBonusList(userId, bonusList);
 
             Debug.Log($"BonusFirestore: Bônus {CORRECT_ANSWER_BONUS} incrementado para o usuário {userId}");
@@ -99,6 +104,102 @@ public class BonusFirestore
         catch (Exception e)
         {
             Debug.LogError($"BonusFirestore: Erro ao incrementar bônus: {e.Message}");
+        }
+    }
+    
+    public async Task UpdateBonus(string userId, BonusType bonus)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogError("BonusFirestore: UserId é nulo ou vazio");
+            return;
+        }
+
+        try
+        {
+            List<BonusType> bonusList = await GetUserBonuses(userId);
+            BonusType existingBonus = bonusList.FirstOrDefault(b => b.BonusName == bonus.BonusName);
+            if (existingBonus != null)
+            {
+                // Atualiza o bônus existente
+                existingBonus.IsBonusActive = bonus.IsBonusActive;
+                existingBonus.BonusCount = bonus.BonusCount;
+                existingBonus.ExpirationTimestamp = bonus.ExpirationTimestamp;
+                existingBonus.IsPersistent = bonus.IsPersistent;
+            }
+            else
+            {
+                bonusList.Add(bonus);
+            }
+            
+            await SaveBonusList(userId, bonusList);
+            Debug.Log($"BonusFirestore: Bônus {bonus.BonusName} atualizado para o usuário {userId}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusFirestore: Erro ao atualizar bônus: {e.Message}");
+        }
+    }
+    
+    public async Task ActivatePersistentBonus(string userId, string bonusName, float durationInSeconds)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogError("BonusFirestore: UserId é nulo ou vazio");
+            return;
+        }
+
+        try
+        {
+            List<BonusType> bonusList = await GetUserBonuses(userId);
+            BonusType existingBonus = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
+            if (existingBonus != null)
+            {
+                // Atualiza o bônus existente
+                existingBonus.IsBonusActive = true;
+                existingBonus.IsPersistent = true;
+                existingBonus.SetExpirationFromDuration(durationInSeconds);
+            }
+            else
+            {
+                BonusType newBonus = new BonusType(bonusName, BONUS_ACTIVATION_THRESHOLD, true, 0, true);
+                newBonus.SetExpirationFromDuration(durationInSeconds);
+                bonusList.Add(newBonus);
+            }
+            
+            await SaveBonusList(userId, bonusList);
+            Debug.Log($"BonusFirestore: Bônus persistente {bonusName} ativado para o usuário {userId} por {durationInSeconds} segundos");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusFirestore: Erro ao ativar bônus persistente: {e.Message}");
+        }
+    }
+
+    public async Task DeactivateBonus(string userId, string bonusName)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogError("BonusFirestore: UserId é nulo ou vazio");
+            return;
+        }
+
+        try
+        {
+            List<BonusType> bonusList = await GetUserBonuses(userId);
+            BonusType existingBonus = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
+            if (existingBonus != null)
+            {
+                existingBonus.IsBonusActive = false;
+                existingBonus.ExpirationTimestamp = 0;
+            }
+            
+            await SaveBonusList(userId, bonusList);
+            Debug.Log($"BonusFirestore: Bônus {bonusName} desativado para o usuário {userId}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusFirestore: Erro ao desativar bônus: {e.Message}");
         }
     }
 
@@ -155,12 +256,34 @@ public class BonusFirestore
                                 BonusType bonus = new BonusType(
                                     bonusDict.ContainsKey("BonusName") ? bonusDict["BonusName"].ToString() : "",
                                     bonusDict.ContainsKey("BonusCount") ? Convert.ToInt32(bonusDict["BonusCount"]) : 0,
-                                    bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false
+                                    bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false,
+                                    bonusDict.ContainsKey("ExpirationTimestamp") ? Convert.ToInt64(bonusDict["ExpirationTimestamp"]) : 0,
+                                    bonusDict.ContainsKey("IsPersistent") ? Convert.ToBoolean(bonusDict["IsPersistent"]) : false
                                 );
+                                
+                                // Verificar se o bônus está ativo mas expirou
+                                if (bonus.IsBonusActive && bonus.IsExpired())
+                                {
+                                    bonus.IsBonusActive = false;
+                                    // Atualizaremos o estado no Firestore após retornar a lista
+                                }
+                                
                                 bonusList.Add(bonus);
                             }
                         }
                     }
+                }
+                
+                List<BonusType> expiredBonuses = bonusList.Where(b => b.IsBonusActive && b.IsExpired()).ToList();
+                if (expiredBonuses.Any())
+                {
+                    foreach (var expiredBonus in expiredBonuses)
+                    {
+                        expiredBonus.IsBonusActive = false;
+                        Debug.Log($"BonusFirestore: Bônus {expiredBonus.BonusName} expirado para o usuário {userId}");
+                    }
+                    
+                    await SaveBonusList(userId, bonusList);
                 }
             }
 
@@ -206,8 +329,17 @@ public class BonusFirestore
                                     BonusType bonus = new BonusType(
                                         bonusDict.ContainsKey("BonusName") ? bonusDict["BonusName"].ToString() : "",
                                         bonusDict.ContainsKey("BonusCount") ? Convert.ToInt32(bonusDict["BonusCount"]) : 0,
-                                        bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false
+                                        bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false,
+                                        bonusDict.ContainsKey("ExpirationTimestamp") ? Convert.ToInt64(bonusDict["ExpirationTimestamp"]) : 0,
+                                        bonusDict.ContainsKey("IsPersistent") ? Convert.ToBoolean(bonusDict["IsPersistent"]) : false
                                     );
+                                    
+                                    // Verificar se o bônus expirou
+                                    if (bonus.IsBonusActive && bonus.IsExpired())
+                                    {
+                                        bonus.IsBonusActive = false;
+                                    }
+                                    
                                     bonusList.Add(bonus);
                                 }
                             }

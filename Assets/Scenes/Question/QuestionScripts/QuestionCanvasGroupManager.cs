@@ -14,7 +14,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
     [Header("Feedback UI")]
     [SerializeField] private CanvasGroup questionsCompletedFeedback;
     [SerializeField] private Image feedbackPanel;
-    
+
     [Header("Bonus UI")]
     [SerializeField] private CanvasGroup questionBonusUIFeedback;
 
@@ -191,7 +191,7 @@ public class QuestionCanvasGroupManager : MonoBehaviour
             questionBonusUIFeedback.alpha = show ? 1f : 0f;
             questionBonusUIFeedback.interactable = show;
             questionBonusUIFeedback.blocksRaycasts = show;
-            
+
             Debug.Log($"BonusFeedback definido como: {(show ? "visível" : "invisível")}");
         }
         else
@@ -206,20 +206,23 @@ public class QuestionCanvasGroupManager : MonoBehaviour
         SetCanvasGroupInteractable(answerImageCanvasGroup, false);
     }
 
+
     private void InitializeCanvasGroups()
     {
+        TopBarManager topBar = FindFirstObjectByType<TopBarManager>();
+        GameObject topBarObj = topBar?.gameObject;
+
         foreach (var canvasGroup in GetAllCanvasGroups())
         {
             if (canvasGroup != null)
             {
-                // Não inicializar o bonusFeedbackCanvasGroup aqui
-                if (canvasGroup != questionBonusUIFeedback)
+                if (canvasGroup != questionBonusUIFeedback &&
+                    (topBarObj == null || !IsChildOrSelf(canvasGroup.gameObject, topBarObj)))
                 {
                     SetCanvasGroupState(canvasGroup, false);
                 }
-                else
+                else if (canvasGroup == questionBonusUIFeedback)
                 {
-                    // Apenas garanta que o bonusFeedbackCanvasGroup esteja desativado no início
                     canvasGroup.gameObject.SetActive(false);
                     canvasGroup.alpha = 0f;
                     canvasGroup.interactable = false;
@@ -227,6 +230,33 @@ public class QuestionCanvasGroupManager : MonoBehaviour
                 }
             }
         }
+
+        if (topBar != null)
+        {
+            Debug.Log("QuestionCanvasGroupManager: Verificando visibilidade da TopBar após inicialização");
+            if (!topBarObj.activeInHierarchy)
+            {
+                topBarObj.SetActive(true);
+                Debug.Log("QuestionCanvasGroupManager: TopBar reativada");
+            }
+        }
+    }
+
+    private bool IsChildOrSelf(GameObject child, GameObject parent)
+    {
+        if (child == parent)
+            return true;
+
+        Transform childTransform = child.transform;
+        while (childTransform.parent != null)
+        {
+            if (childTransform.parent.gameObject == parent)
+                return true;
+
+            childTransform = childTransform.parent;
+        }
+
+        return false;
     }
 
     private void SetCanvasGroupState(CanvasGroup canvasGroup, bool active)

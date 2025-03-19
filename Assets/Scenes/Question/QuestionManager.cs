@@ -38,6 +38,7 @@ public class QuestionManager : MonoBehaviour
 
     private async void InitializeAndStartSession()
     {
+        EnsureTopBarVisibility();
         await InitializeSession();
 
         if (currentSession != null)
@@ -45,6 +46,8 @@ public class QuestionManager : MonoBehaviour
             SetupEventHandlers();
             StartQuestion();
         }
+
+        EnsureTopBarVisibility();
     }
 
     private bool ValidateManagers()
@@ -472,4 +475,35 @@ public class QuestionManager : MonoBehaviour
         ColorUtility.TryParseHtmlString(hex, out color);
         return color;
     }
+
+    private void EnsureTopBarVisibility()
+    {
+        TopBarManager topBar = FindFirstObjectByType<TopBarManager>();
+
+        if (topBar != null)
+        {
+            Debug.Log("QuestionManager: Encontrou TopBarManager, garantindo visibilidade");
+            topBar.gameObject.SetActive(true);
+            Canvas canvas = topBar.GetComponent<Canvas>();
+            if (canvas != null)
+            {
+                canvas.enabled = true;
+                Debug.Log("QuestionManager: Canvas da TopBar ativado");
+            }
+
+            CanvasGroup canvasGroup = topBar.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+                Debug.Log("QuestionManager: CanvasGroup da TopBar ativado");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("QuestionManager: TopBarManager não encontrado!");
+        }
+    }
+
 }
