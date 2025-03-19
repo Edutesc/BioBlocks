@@ -8,7 +8,7 @@ public class BonusUIElements
     public string bonusFirestoreName;
     public TextMeshProUGUI bonusCountText;
     public TextMeshProUGUI isBonusActiveText;
-    public Button bonusButton;  // Alterado de Image para Button
+    public Button bonusButton;
     public GameObject bonusContainer;
     
     // Cores personalizadas (opcionais)

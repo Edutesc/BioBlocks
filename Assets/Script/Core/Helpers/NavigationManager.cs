@@ -93,6 +93,14 @@ public class NavigationManager : MonoBehaviour
 
         // Notificar sobre a mudança de cena
         OnSceneChanged?.Invoke(scene.name);
+
+        // Agendar verificação de persistência de UI após o carregamento
+        // Apenas se já passou pelo menos 0.5s desde a última navegação
+        // para evitar múltiplas verificações em sucessão rápida
+        if (Time.time - lastSceneLoadTime > 0.5f)
+        {
+            Invoke(nameof(EnsureUIConsistency), 0.2f);
+        }
     }
 
     public void NavigateTo(string sceneName, Dictionary<string, object> sceneData = null)
