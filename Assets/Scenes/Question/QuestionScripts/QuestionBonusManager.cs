@@ -22,7 +22,7 @@ public class QuestionBonusManager : MonoBehaviour
     [SerializeField] private QuestionScoreManager scoreManager;
     [SerializeField] private QuestionAnswerManager answerManager;
     [SerializeField] private QuestionCanvasGroupManager canvasGroupManager;
-    [SerializeField] private BottomUIManager bottomUIManager;
+    [SerializeField] private QuestionBottomUIManager bottomUIManager;
 
     private int consecutiveCorrectAnswers = 0;
     private bool isBonusActive = false;
@@ -199,7 +199,7 @@ public class QuestionBonusManager : MonoBehaviour
 
         if (bottomUIManager == null)
         {
-            bottomUIManager = FindFirstObjectByType<BottomUIManager>();
+            bottomUIManager = FindFirstObjectByType<QuestionBottomUIManager>();
             if (bottomUIManager == null)
             {
                 Debug.LogWarning("QuestionBonusManager: BottomUIManager não encontrado. O feedback de bônus não será escondido automaticamente ao navegar.");

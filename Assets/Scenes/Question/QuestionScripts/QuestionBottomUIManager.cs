@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-public class BottomUIManager : MonoBehaviour
+public class QuestionBottomUIManager : MonoBehaviour
 {
     [SerializeField] private Button exitButton;
     [SerializeField] private Button nextQuestionButton;

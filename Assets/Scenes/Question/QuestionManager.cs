@@ -10,7 +10,7 @@ using System.Linq;
 public class QuestionManager : MonoBehaviour
 {
     [Header("UI Managers")]
-    [SerializeField] private BottomUIManager bottomBarManager;
+    [SerializeField] private QuestionBottomUIManager questionBottomBarManager;
     [SerializeField] private QuestionUIManager questionUIManager;
     [SerializeField] private QuestionCanvasGroupManager questionCanvasGroupManager;
     [SerializeField] private FeedbackUIElements feedbackElements;
@@ -52,7 +52,7 @@ public class QuestionManager : MonoBehaviour
 
     private bool ValidateManagers()
     {
-        return bottomBarManager != null &&
+        return questionBottomBarManager != null &&
                questionUIManager != null &&
                questionCanvasGroupManager != null &&
                timerManager != null &&
@@ -190,7 +190,7 @@ public class QuestionManager : MonoBehaviour
                 await scoreManager.UpdateScore(-2, false, currentQuestion);
             }
 
-            bottomBarManager.EnableNavigationButtons();
+            questionBottomBarManager.EnableNavigationButtons();
             SetupNavigationButtons();
         }
         catch (Exception e)
@@ -209,7 +209,7 @@ public class QuestionManager : MonoBehaviour
             Debug.Log("Feedback de conclusão ativado com mensagem: " + message);
 
             // Desabilitar a navegação para próxima questão, apenas permitir voltar ao menu
-            bottomBarManager.SetupNavigationButtons(
+            questionBottomBarManager.SetupNavigationButtons(
                 () =>
                 {
                     NavigationManager.Instance.NavigateTo("PathwayScene");
@@ -331,13 +331,13 @@ public class QuestionManager : MonoBehaviour
         answerManager.DisableAllButtons();
         ShowAnswerFeedback("Tempo Esgotado!\n-1 ponto", false);
         await scoreManager.UpdateScore(-1, false, currentSession.GetCurrentQuestion());
-        bottomBarManager.EnableNavigationButtons();
+        questionBottomBarManager.EnableNavigationButtons();
         SetupNavigationButtons();
     }
 
     private void SetupNavigationButtons()
     {
-        bottomBarManager.SetupNavigationButtons(
+        questionBottomBarManager.SetupNavigationButtons(
             () =>
             {
                 HideAnswerFeedback();
@@ -363,7 +363,7 @@ public class QuestionManager : MonoBehaviour
 
     private async Task HandleNextQuestion()
     {
-        bottomBarManager.DisableNavigationButtons();
+        questionBottomBarManager.DisableNavigationButtons();
 
         // Verificar se estamos na última questão e todas foram respondidas
         if (currentSession.IsLastQuestion())
