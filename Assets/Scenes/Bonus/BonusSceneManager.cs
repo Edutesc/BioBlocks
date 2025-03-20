@@ -47,7 +47,6 @@ public class BonusSceneManager : MonoBehaviour
     [SerializeField] private float inactiveAlpha = 0.6f;
     [SerializeField] private bool useGrayscaleWhenInactive = false;
 
-    // Novo gerenciador de bônus especiais
     private SpecialBonusManager specialBonusManager;
     private string userId;
     private bool isInitialized = false;
@@ -66,7 +65,6 @@ public class BonusSceneManager : MonoBehaviour
     {
         bonusUIMappings = new List<BonusUIElements>
         {
-            // Bônus Especial (que se ativa quando o usuário ganha 5 correctAnswerBonus)
             new BonusUIElements
             {
                 bonusFirestoreName = "specialBonus",
@@ -75,8 +73,6 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBE,
                 bonusContainer = bonusButtonBE?.gameObject
             },
-            
-            // Os outros bônus continuam normais
             new BonusUIElements
             {
                 bonusFirestoreName = "listCompletionBonus",
@@ -94,8 +90,6 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBI,
                 bonusContainer = bonusButtonBI?.gameObject
             },
-            
-            // Bônus Pro
             new BonusUIElements
             {
                 bonusFirestoreName = "correctAnswerBonusPro",
@@ -104,7 +98,6 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBEPro,
                 bonusContainer = bonusButtonBEPro?.gameObject
             },
-            
             new BonusUIElements
             {
                 bonusFirestoreName = "listCompletionBonusPro",
@@ -113,7 +106,6 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBLPro,
                 bonusContainer = bonusButtonBLPro?.gameObject
             },
-            
             new BonusUIElements
             {
                 bonusFirestoreName = "persistenceBonusPro",
@@ -155,12 +147,7 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            // Obter bônus do novo sistema
             List<BonusType> userBonuses = await specialBonusManager.GetUserBonuses(userId);
-            
-            Debug.Log($"BonusSceneManager: {userBonuses.Count} bônus encontrados para o usuário {userId}");
-            
-            // Atualizar UI
             UpdateBonusUI(userBonuses);
         }
         catch (Exception e)
@@ -183,8 +170,6 @@ public class BonusSceneManager : MonoBehaviour
             {
                 count = matchingBonus.BonusCount;
                 isActive = matchingBonus.IsBonusActive;
-
-                Debug.Log($"BonusSceneManager: Atualizando UI para {matchingBonus.BonusName} - Count={count}, IsActive={isActive}");
 
                 if (bonusUIMapping.bonusCountText != null)
                 {
@@ -284,8 +269,6 @@ public class BonusSceneManager : MonoBehaviour
 
     public async void UseBonusAction(string bonusType)
     {
-        Debug.Log($"Bônus ativado: {bonusType}");
-
         switch (bonusType)
         {
             case "specialBonus":
@@ -314,8 +297,6 @@ public class BonusSceneManager : MonoBehaviour
 
     private async Task ActivateSpecialBonus()
     {
-        Debug.Log("Ativando Bônus Especial: XP triplicado por 15 min");
-        
         if (string.IsNullOrEmpty(userId))
         {
             Debug.LogWarning("BonusSceneManager: UserId não definido");
@@ -324,13 +305,8 @@ public class BonusSceneManager : MonoBehaviour
         
         try
         {
-            // Ativar o bônus especial (900 segundos = 15 minutos)
             await specialBonusManager.ActivateBonus(userId, "specialBonus", 900f);
-            
-            // Atualizar a UI
             await FetchBonuses();
-            
-            Debug.Log("BonusSceneManager: Bônus especial ativado com sucesso");
         }
         catch (Exception e)
         {
@@ -340,8 +316,6 @@ public class BonusSceneManager : MonoBehaviour
 
     private async Task ActivateListCompletionBonus()
     {
-        Debug.Log("Ativando Bônus das Listas: XP dobrado por 5 min");
-        
         if (string.IsNullOrEmpty(userId))
         {
             Debug.LogWarning("BonusSceneManager: UserId não definido");
@@ -350,13 +324,8 @@ public class BonusSceneManager : MonoBehaviour
         
         try
         {
-            // Ativar o bônus das listas (300 segundos = 5 minutos)
             await specialBonusManager.ActivateBonus(userId, "listCompletionBonus", 300f);
-            
-            // Atualizar a UI
             await FetchBonuses();
-            
-            Debug.Log("BonusSceneManager: Bônus das listas ativado com sucesso");
         }
         catch (Exception e)
         {
@@ -366,8 +335,6 @@ public class BonusSceneManager : MonoBehaviour
 
     private async Task ActivatePersistenceBonus()
     {
-        Debug.Log("Ativando Bônus Incansável: XP dobrado por 15 min");
-        
         if (string.IsNullOrEmpty(userId))
         {
             Debug.LogWarning("BonusSceneManager: UserId não definido");
@@ -376,13 +343,8 @@ public class BonusSceneManager : MonoBehaviour
         
         try
         {
-            // Ativar o bônus incansável (900 segundos = 15 minutos)
             await specialBonusManager.ActivateBonus(userId, "persistenceBonus", 900f);
-            
-            // Atualizar a UI
             await FetchBonuses();
-            
-            Debug.Log("BonusSceneManager: Bônus incansável ativado com sucesso");
         }
         catch (Exception e)
         {
@@ -392,8 +354,6 @@ public class BonusSceneManager : MonoBehaviour
 
     private async Task ActivateCorrectAnswerBonusPro()
     {
-        Debug.Log("Ativando Bônus Especial Pro: XP triplicado por 20 min");
-        
         if (string.IsNullOrEmpty(userId))
         {
             Debug.LogWarning("BonusSceneManager: UserId não definido");
@@ -402,13 +362,8 @@ public class BonusSceneManager : MonoBehaviour
         
         try
         {
-            // Ativar o bônus especial pro (1200 segundos = 20 minutos)
             await specialBonusManager.ActivateBonus(userId, "correctAnswerBonusPro", 1200f);
-            
-            // Atualizar a UI
             await FetchBonuses();
-            
-            Debug.Log("BonusSceneManager: Bônus especial pro ativado com sucesso");
         }
         catch (Exception e)
         {
@@ -437,16 +392,13 @@ public class BonusSceneManager : MonoBehaviour
     {
         while (true)
         {
-            // Esperar um intervalo antes de verificar atualizações
             yield return new WaitForSeconds(30f);
-            
-            // Verificar se o usuário ainda está na cena
+
             if (!isInitialized || string.IsNullOrEmpty(userId))
             {
                 yield break;
             }
             
-            // Atualizar os bônus
             _ = FetchBonuses();
         }
     }
@@ -461,7 +413,6 @@ public class BonusSceneManager : MonoBehaviour
 
     private void StopListeningForBonusUpdates()
     {
-        // Cancelar escuta de mudanças em tempo real
         StopAllCoroutines();
         
         // Se estiver usando listener do Firestore:

@@ -17,7 +17,6 @@ public class SpecialBonusManager
         db = FirebaseFirestore.DefaultInstance;
     }
     
-    // Método para incrementar o contador de um bônus
     public async Task IncrementBonusCounter(string userId, string bonusName)
     {
         if (string.IsNullOrEmpty(userId))
@@ -28,35 +27,25 @@ public class SpecialBonusManager
         
         try
         {
-            // Obter lista atual de bônus
             List<BonusType> bonusList = await GetUserBonuses(userId);
-            
-            // Procurar o bônus específico
             BonusType targetBonus = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
             
             if (targetBonus != null)
             {
-                // Incrementar contador
                 targetBonus.BonusCount++;
-                
-                // Verificar se atingiu o limite para ativação
+
                 if (targetBonus.BonusCount >= BONUS_ACTIVATION_THRESHOLD)
                 {
                     targetBonus.IsBonusActive = true;
-                    Debug.Log($"SpecialBonusManager: Bônus {bonusName} ativado para o usuário {userId} após atingir {BONUS_ACTIVATION_THRESHOLD} conquistas");
                 }
             }
             else
             {
-                // Criar novo bônus com contador 1
                 targetBonus = new BonusType(bonusName, 1, false, 0, false);
                 bonusList.Add(targetBonus);
             }
             
-            // Salvar alterações
             await SaveBonusList(userId, bonusList);
-            
-            Debug.Log($"SpecialBonusManager: Contador do bônus {bonusName} incrementado para {targetBonus.BonusCount}");
         }
         catch (Exception e)
         {
@@ -64,7 +53,6 @@ public class SpecialBonusManager
         }
     }
     
-    // Método para ativar um bônus (quando o usuário decide usá-lo)
     public async Task ActivateBonus(string userId, string bonusName, float durationInSeconds)
     {
         if (string.IsNullOrEmpty(userId))
@@ -75,18 +63,12 @@ public class SpecialBonusManager
         
         try
         {
-            // Obter lista atual de bônus
             List<BonusType> bonusList = await GetUserBonuses(userId);
-            
-            // Procurar o bônus específico
             BonusType targetBonus = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
             
             if (targetBonus != null && targetBonus.IsBonusActive)
             {
-                // Desativar o direito ao bônus
                 targetBonus.IsBonusActive = false;
-                
-                // Criar um bônus ativo temporário
                 string activeBonusName = $"active_{bonusName}";
                 BonusType activeBonus = bonusList.FirstOrDefault(b => b.BonusName == activeBonusName);
                 
@@ -101,13 +83,8 @@ public class SpecialBonusManager
                     activeBonus.IsPersistent = true;
                 }
                 
-                // Configurar duração
                 activeBonus.SetExpirationFromDuration(durationInSeconds);
-                
-                // Salvar alterações
                 await SaveBonusList(userId, bonusList);
-                
-                Debug.Log($"SpecialBonusManager: Bônus {bonusName} ativado por {durationInSeconds} segundos");
             }
             else
             {
@@ -120,7 +97,6 @@ public class SpecialBonusManager
         }
     }
     
-    // Método para obter a lista de bônus do usuário
     public async Task<List<BonusType>> GetUserBonuses(string userId)
     {
         if (string.IsNullOrEmpty(userId))
@@ -159,7 +135,6 @@ public class SpecialBonusManager
                                     bonusDict.ContainsKey("IsPersistent") ? Convert.ToBoolean(bonusDict["IsPersistent"]) : false
                                 );
                                 
-                                // Verificar se o bônus expirou
                                 if (bonus.IsBonusActive && bonus.IsExpired())
                                 {
                                     bonus.IsBonusActive = false;
@@ -170,15 +145,13 @@ public class SpecialBonusManager
                         }
                     }
                 }
-                
-                // Verificar e atualizar bônus expirados
+
                 List<BonusType> expiredBonuses = bonusList.Where(b => b.IsBonusActive && b.IsExpired()).ToList();
                 if (expiredBonuses.Any())
                 {
                     foreach (var expiredBonus in expiredBonuses)
                     {
                         expiredBonus.IsBonusActive = false;
-                        Debug.Log($"SpecialBonusManager: Bônus {expiredBonus.BonusName} expirado");
                     }
                     
                     await SaveBonusList(userId, bonusList);
@@ -194,7 +167,6 @@ public class SpecialBonusManager
         }
     }
     
-    // Método para salvar a lista de bônus
     public async Task SaveBonusList(string userId, List<BonusType> bonusList)
     {
         if (string.IsNullOrEmpty(userId))
@@ -206,7 +178,6 @@ public class SpecialBonusManager
         try
         {
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
-            
             Dictionary<string, object> data = new Dictionary<string, object>
             {
                 { "BonusList", bonusList.Select(b => b.ToDictionary()).ToList() },
@@ -214,8 +185,6 @@ public class SpecialBonusManager
             };
             
             await docRef.SetAsync(data);
-            
-            Debug.Log($"SpecialBonusManager: Lista de bônus salva para o usuário {userId}");
         }
         catch (Exception e)
         {

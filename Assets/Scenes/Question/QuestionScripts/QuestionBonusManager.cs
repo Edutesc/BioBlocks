@@ -8,6 +8,12 @@ using QuestionSystem;
 
 public class QuestionBonusManager : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private QuestionScoreManager scoreManager;
+    [SerializeField] private QuestionAnswerManager answerManager;
+    [SerializeField] private QuestionCanvasGroupManager canvasGroupManager;
+    [SerializeField] private QuestionBottomUIManager questionBottomUIManager;
+
     [Header("UI Components")]
     [SerializeField] private QuestionBonusUIFeedback questionBonusUIFeedback;
     [SerializeField] private TextMeshProUGUI bonusCorrectAnswerTimer;
@@ -17,19 +23,10 @@ public class QuestionBonusManager : MonoBehaviour
     [SerializeField] private int consecutiveCorrectAnswersNeeded = 5;
     [SerializeField] private float bonusDuration = 600f; // 10 minutos em segundos
     [SerializeField] private int bonusScoreMultiplier = 2; // Dobra a pontuação normal
-
-    [Header("References")]
-    [SerializeField] private QuestionScoreManager scoreManager;
-    [SerializeField] private QuestionAnswerManager answerManager;
-    [SerializeField] private QuestionCanvasGroupManager canvasGroupManager;
-    [SerializeField] private QuestionBottomUIManager bottomUIManager;
-
     private int consecutiveCorrectAnswers = 0;
     private bool isBonusActive = false;
     private float currentBonusTime = 0f;
     private Coroutine bonusTimerCoroutine = null;
-    
-    // Novo gerenciador do bônus de respostas corretas
     private CorrectAnswerBonusManager correctAnswerBonusManager;
 
     private void Start()
@@ -40,7 +37,6 @@ public class QuestionBonusManager : MonoBehaviour
             return;
         }
 
-        // Inicializar o novo gerenciador
         correctAnswerBonusManager = new CorrectAnswerBonusManager();
 
         if (bonusTimerContainer != null)
@@ -57,11 +53,10 @@ public class QuestionBonusManager : MonoBehaviour
             answerManager.OnAnswerSelected += CheckAnswer;
         }
 
-        if (bottomUIManager != null)
+        if (questionBottomUIManager != null)
         {
-            bottomUIManager.OnExitButtonClicked += HideBonusFeedback;
-            bottomUIManager.OnNextButtonClicked += HideBonusFeedback;
-            Debug.Log("QuestionBonusManager: Registrado para eventos dos botões da BottomBar");
+            questionBottomUIManager.OnExitButtonClicked += HideBonusFeedback;
+            questionBottomUIManager.OnNextButtonClicked += HideBonusFeedback;
         }
         else
         {
@@ -69,31 +64,26 @@ public class QuestionBonusManager : MonoBehaviour
         }
 
         QuestionManager questionManager = FindFirstObjectByType<QuestionManager>();
-        if (questionManager != null)
+        if (questionManager == null)
         {
-            Debug.Log("QuestionBonusManager inicializado e conectado ao QuestionManager");
+            Debug.LogWarning("QuestionManager não encontrado");
         }
         
-        // Verificar se existe bônus ativo persistente
         StartCoroutine(CheckForActiveBonusCoroutine());
     }
     
-    // Corrotina para verificar se existe um bônus ativo
     private IEnumerator CheckForActiveBonusCoroutine()
     {
         if (UserDataStore.CurrentUserData == null || string.IsNullOrEmpty(UserDataStore.CurrentUserData.UserId))
         {
-            Debug.Log("QuestionBonusManager: Usuário não está logado, não é possível verificar bônus.");
             yield break;
         }
 
         string userId = UserDataStore.CurrentUserData.UserId;
-        
-        // Verificar se o bônus está ativo
         var isActiveTask = correctAnswerBonusManager.IsCorrectAnswerBonusActive(userId);
         yield return new WaitUntil(() => isActiveTask.IsCompleted);
-        
         bool isActive = false;
+
         try
         {
             isActive = isActiveTask.Result;
@@ -105,10 +95,7 @@ public class QuestionBonusManager : MonoBehaviour
         }
         
         if (isActive)
-        {
-            Debug.Log("QuestionBonusManager: Bônus ativo encontrado, obtendo tempo restante");
-            
-            // Obter tempo restante
+        { 
             var remainingTimeTask = correctAnswerBonusManager.GetRemainingTime(userId);
             yield return new WaitUntil(() => remainingTimeTask.IsCompleted);
             
@@ -125,13 +112,8 @@ public class QuestionBonusManager : MonoBehaviour
             
             if (remainingTime > 0)
             {
-                // Ativar o bônus com o tempo restante
                 ActivateBonusWithRemainingTime(remainingTime);
             }
-        }
-        else
-        {
-            Debug.Log("QuestionBonusManager: Nenhum bônus ativo encontrado.");
         }
     }
 
@@ -197,10 +179,10 @@ public class QuestionBonusManager : MonoBehaviour
             }
         }
 
-        if (bottomUIManager == null)
+        if (questionBottomUIManager == null)
         {
-            bottomUIManager = FindFirstObjectByType<QuestionBottomUIManager>();
-            if (bottomUIManager == null)
+            questionBottomUIManager = FindFirstObjectByType<QuestionBottomUIManager>();
+            if (questionBottomUIManager == null)
             {
                 Debug.LogWarning("QuestionBonusManager: BottomUIManager não encontrado. O feedback de bônus não será escondido automaticamente ao navegar.");
             }
@@ -258,7 +240,6 @@ public class QuestionBonusManager : MonoBehaviour
         if (isCorrect)
         {
             consecutiveCorrectAnswers++;
-            Debug.Log($"QuestionBonusManager: Resposta correta! Contador: {consecutiveCorrectAnswers}/{consecutiveCorrectAnswersNeeded}");
 
             if (consecutiveCorrectAnswers >= consecutiveCorrectAnswersNeeded && !isBonusActive)
             {
@@ -268,7 +249,6 @@ public class QuestionBonusManager : MonoBehaviour
         else
         {
             consecutiveCorrectAnswers = 0;
-            Debug.Log("QuestionBonusManager: Resposta incorreta. Contador de respostas consecutivas reiniciado.");
         }
     }
 
@@ -288,14 +268,12 @@ public class QuestionBonusManager : MonoBehaviour
             bonusCorrectAnswerTimer.gameObject.SetActive(true);
         }
         
-        // Inicia a contagem regressiva
         if (bonusTimerCoroutine != null)
         {
             StopCoroutine(bonusTimerCoroutine);
         }
         bonusTimerCoroutine = StartCoroutine(BonusTimerCoroutine());
         
-        // Atualiza o display imediatamente
         UpdateTimerDisplay();
     }
 
@@ -311,16 +289,12 @@ public class QuestionBonusManager : MonoBehaviour
         
         try
         {
-            // Ativar o bônus no novo sistema
             await correctAnswerBonusManager.ActivateCorrectAnswerBonus(userId, bonusDuration);
-            
-            // Configurar UI e estado local
             isBonusActive = true;
             currentBonusTime = bonusDuration;
 
             if (canvasGroupManager != null)
             {
-                Debug.Log("Exibindo feedback de bônus através do CanvasGroupManager");
                 canvasGroupManager.ShowBonusFeedback(true);
 
                 if (questionBonusUIFeedback != null)
@@ -330,7 +304,6 @@ public class QuestionBonusManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Exibindo feedback de bônus diretamente (sem CanvasGroupManager)");
                 if (questionBonusUIFeedback != null)
                 {
                     questionBonusUIFeedback.gameObject.SetActive(true);
@@ -356,8 +329,6 @@ public class QuestionBonusManager : MonoBehaviour
                 StopCoroutine(bonusTimerCoroutine);
             }
             bonusTimerCoroutine = StartCoroutine(BonusTimerCoroutine());
-
-            Debug.Log("QuestionBonusManager: Bônus de XP dobrado ativado por 10 minutos!");
         }
         catch (Exception e)
         {
@@ -377,10 +348,7 @@ public class QuestionBonusManager : MonoBehaviour
         
         try
         {
-            // Desativar o bônus no novo sistema
             await correctAnswerBonusManager.DeactivateCorrectAnswerBonus(userId);
-            
-            // Atualizar UI e estado local
             isBonusActive = false;
 
             if (canvasGroupManager != null)
@@ -396,8 +364,6 @@ public class QuestionBonusManager : MonoBehaviour
             {
                 bonusCorrectAnswerTimer.gameObject.SetActive(false);
             }
-
-            Debug.Log("QuestionBonusManager: Bônus de XP dobrado desativado.");
         }
         catch (Exception e)
         {
@@ -415,8 +381,7 @@ public class QuestionBonusManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
             currentBonusTime -= 1f;
-            
-            // Atualizar o timestamp de expiração periodicamente
+        
             if (lastUpdateTime - currentBonusTime >= 30f || currentBonusTime <= 10f)
             {
                 lastUpdateTime = currentBonusTime;
@@ -438,10 +403,7 @@ public class QuestionBonusManager : MonoBehaviour
         
         try
         {
-            // Atualizar o timestamp de expiração no novo sistema
             await correctAnswerBonusManager.UpdateExpirationTimestamp(userId, currentBonusTime);
-            
-            Debug.Log($"QuestionBonusManager: Timestamp de expiração atualizado. Tempo restante: {currentBonusTime}s");
         }
         catch (Exception e)
         {
@@ -477,8 +439,6 @@ public class QuestionBonusManager : MonoBehaviour
 
     private void HideBonusFeedback()
     {
-        Debug.Log("QuestionBonusManager: Botão da BottomBar clicado, escondendo feedback de bônus");
-
         if (questionBonusUIFeedback != null && questionBonusUIFeedback.IsVisible())
         {
             if (canvasGroupManager != null)
@@ -489,8 +449,6 @@ public class QuestionBonusManager : MonoBehaviour
             {
                 questionBonusUIFeedback.ForceVisibility(false);
             }
-
-            Debug.Log("QuestionBonusManager: Feedback de bônus escondido após clique em botão");
         }
     }
 
@@ -506,13 +464,12 @@ public class QuestionBonusManager : MonoBehaviour
             answerManager.OnAnswerSelected -= CheckAnswer;
         }
 
-        if (bottomUIManager != null)
+        if (questionBottomUIManager != null)
         {
-            bottomUIManager.OnExitButtonClicked -= HideBonusFeedback;
-            bottomUIManager.OnNextButtonClicked -= HideBonusFeedback;
+            questionBottomUIManager.OnExitButtonClicked -= HideBonusFeedback;
+            questionBottomUIManager.OnNextButtonClicked -= HideBonusFeedback;
         }
         
-        // Salvar estado do bônus ao sair da cena
         SaveBonusStateOnExitNonBlocking();
     }
     
@@ -527,10 +484,7 @@ public class QuestionBonusManager : MonoBehaviour
         
         try
         {
-            // Salvar o estado atual do bônus no novo sistema
             _ = correctAnswerBonusManager.UpdateExpirationTimestamp(userId, currentBonusTime);
-            
-            Debug.Log($"QuestionBonusManager: Estado do bônus salvo ao sair. Tempo restante: {currentBonusTime} segundos.");
         }
         catch (Exception e)
         {
@@ -551,12 +505,10 @@ public class QuestionBonusManager : MonoBehaviour
         {
             if (bonusType == "correctAnswerBonus")
             {
-                // Verificar se o bônus de respostas corretas está ativo
                 return await correctAnswerBonusManager.IsCorrectAnswerBonusActive(userId);
             }
             else
             {
-                // Para outros tipos de bônus, verificar no SpecialBonusManager
                 SpecialBonusManager specialBonusManager = new SpecialBonusManager();
                 List<BonusType> bonuses = await specialBonusManager.GetUserBonuses(userId);
                 BonusType targetBonus = bonuses.Find(b => b.BonusName == bonusType);
