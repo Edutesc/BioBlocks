@@ -36,9 +36,9 @@ public class InitializationManager : MonoBehaviour
     {
         if (globalSpinnerPrefab != null)
         {
-            GameObject spinnerObject = Instantiate(globalSpinnerPrefab);
+            GameObject spinnerObject = Instantiate(globalSpinnerPrefab, Vector3.zero, Quaternion.identity);
+            spinnerObject.transform.SetParent(null); // Garante que seja objeto raiz
             spinnerObject.name = "GlobalLoadingSpinner";
-            DontDestroyOnLoad(spinnerObject);
 
             globalSpinner = spinnerObject.GetComponent<LoadingSpinnerComponent>();
 
@@ -47,12 +47,11 @@ public class InitializationManager : MonoBehaviour
                 globalSpinner = spinnerObject.AddComponent<LoadingSpinnerComponent>();
             }
 
-            Debug.Log("Global spinner initialized from prefab");
+            DontDestroyOnLoad(spinnerObject);
         }
         else
         {
             globalSpinner = LoadingSpinnerComponent.Instance;
-            Debug.Log("Global spinner initialized via singleton Instance");
         }
 
         globalSpinner.ShowSpinner();
@@ -142,13 +141,8 @@ public class InitializationManager : MonoBehaviour
         }
 
         await AuthenticationRepository.Instance.InitializeAsync();
-        Debug.Log("Firebase Authentication initialized successfully");
-
         FirestoreRepository.Instance.Initialize();
-        Debug.Log("Firestore initialized successfully");
-
         StorageRepository.Instance.Initialize();
-        Debug.Log("Storage initialized successfully");
     }
 
     private async Task<bool> LoadUserData()
@@ -158,21 +152,18 @@ public class InitializationManager : MonoBehaviour
             var user = AuthenticationRepository.Instance.Auth.CurrentUser;
             if (user != null)
             {
-                Debug.Log($"Attempting to load data for user: {user.UserId}");
                 var userData = await FirestoreRepository.Instance.GetUserData(user.UserId);
                 if (userData == null)
                 {
-                    Debug.Log("User authenticated, but no data found. Redirecting to Login.");
                     return false;
                 }
                 else
                 {
                     UserDataStore.CurrentUserData = userData;
-                    Debug.Log($"User data loaded: Name: {userData.NickName}, Id: {userData.UserId}, WeekScore: {userData.WeekScore}");
                     return true;
                 }
             }
-            Debug.Log("No user signed in, cannot load user data");
+
             return false;
         }
         catch (System.Exception e)
@@ -190,7 +181,6 @@ public class InitializationManager : MonoBehaviour
             try
             {
                 await user.ReloadAsync();
-                Debug.Log($"User authenticated successfully. UserId: {user.UserId}");
                 return true;
             }
             catch (Exception e)
@@ -199,7 +189,7 @@ public class InitializationManager : MonoBehaviour
                 return false;
             }
         }
-        Debug.Log("No user currently signed in");
+
         return false;
     }
 
@@ -216,8 +206,6 @@ public class InitializationManager : MonoBehaviour
         if (progressBar != null)
         {
             progressBar.fillAmount = progress;
-            Debug.Log($"progressBar was here: {progressBar}");
-            Debug.Log($"progressBar.fillAmount was here: {progressBar.fillAmount}");
         }
     }
 

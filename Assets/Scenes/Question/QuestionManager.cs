@@ -10,7 +10,7 @@ using System.Linq;
 public class QuestionManager : MonoBehaviour
 {
     [Header("UI Managers")]
-    [SerializeField] private BottomUIManager bottomBarManager;
+    [SerializeField] private QuestionBottomUIManager questionBottomBarManager;
     [SerializeField] private QuestionUIManager questionUIManager;
     [SerializeField] private QuestionCanvasGroupManager questionCanvasGroupManager;
     [SerializeField] private FeedbackUIElements feedbackElements;
@@ -38,6 +38,7 @@ public class QuestionManager : MonoBehaviour
 
     private async void InitializeAndStartSession()
     {
+        EnsureTopBarVisibility();
         await InitializeSession();
 
         if (currentSession != null)
@@ -45,11 +46,13 @@ public class QuestionManager : MonoBehaviour
             SetupEventHandlers();
             StartQuestion();
         }
+
+        EnsureTopBarVisibility();
     }
 
     private bool ValidateManagers()
     {
-        return bottomBarManager != null &&
+        return questionBottomBarManager != null &&
                questionUIManager != null &&
                questionCanvasGroupManager != null &&
                timerManager != null &&
@@ -187,7 +190,7 @@ public class QuestionManager : MonoBehaviour
                 await scoreManager.UpdateScore(-2, false, currentQuestion);
             }
 
-            bottomBarManager.EnableNavigationButtons();
+            questionBottomBarManager.EnableNavigationButtons();
             SetupNavigationButtons();
         }
         catch (Exception e)
@@ -206,7 +209,7 @@ public class QuestionManager : MonoBehaviour
             Debug.Log("Feedback de conclusão ativado com mensagem: " + message);
 
             // Desabilitar a navegação para próxima questão, apenas permitir voltar ao menu
-            bottomBarManager.SetupNavigationButtons(
+            questionBottomBarManager.SetupNavigationButtons(
                 () =>
                 {
                     NavigationManager.Instance.NavigateTo("PathwayScene");
@@ -328,13 +331,13 @@ public class QuestionManager : MonoBehaviour
         answerManager.DisableAllButtons();
         ShowAnswerFeedback("Tempo Esgotado!\n-1 ponto", false);
         await scoreManager.UpdateScore(-1, false, currentSession.GetCurrentQuestion());
-        bottomBarManager.EnableNavigationButtons();
+        questionBottomBarManager.EnableNavigationButtons();
         SetupNavigationButtons();
     }
 
     private void SetupNavigationButtons()
     {
-        bottomBarManager.SetupNavigationButtons(
+        questionBottomBarManager.SetupNavigationButtons(
             () =>
             {
                 HideAnswerFeedback();
@@ -360,7 +363,7 @@ public class QuestionManager : MonoBehaviour
 
     private async Task HandleNextQuestion()
     {
-        bottomBarManager.DisableNavigationButtons();
+        questionBottomBarManager.DisableNavigationButtons();
 
         // Verificar se estamos na última questão e todas foram respondidas
         if (currentSession.IsLastQuestion())
@@ -472,4 +475,35 @@ public class QuestionManager : MonoBehaviour
         ColorUtility.TryParseHtmlString(hex, out color);
         return color;
     }
+
+    private void EnsureTopBarVisibility()
+    {
+        TopBarManager topBar = FindFirstObjectByType<TopBarManager>();
+
+        if (topBar != null)
+        {
+            Debug.Log("QuestionManager: Encontrou TopBarManager, garantindo visibilidade");
+            topBar.gameObject.SetActive(true);
+            Canvas canvas = topBar.GetComponent<Canvas>();
+            if (canvas != null)
+            {
+                canvas.enabled = true;
+                Debug.Log("QuestionManager: Canvas da TopBar ativado");
+            }
+
+            CanvasGroup canvasGroup = topBar.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+                Debug.Log("QuestionManager: CanvasGroup da TopBar ativado");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("QuestionManager: TopBarManager não encontrado!");
+        }
+    }
+
 }

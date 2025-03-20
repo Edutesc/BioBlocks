@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,19 +27,18 @@ public class TopBarManager : MonoBehaviour
     [Header("Configurações")]
     [SerializeField] private string currentScene = "";
     [SerializeField] private bool debugLogs = true;
-    [SerializeField] private Color inactiveButtonColor = new Color(1, 1, 1, 0);
 
     [Header("Persistência")]
     [SerializeField] private List<string> scenesWithoutTopBar = new List<string>() { "Login", "Splash" };
 
+    private Dictionary<string, TopButton> buttonsByName = new Dictionary<string, TopButton>();
     private List<TopButton> allButtons = new List<TopButton>();
     private static TopBarManager _instance;
     private HalfViewComponent halfViewComponent;
+    private bool isSceneBeingLoaded = false;
+    private float lastVerificationTime = 0f;
 
-    public static TopBarManager Instance
-    {
-        get { return _instance; }
-    }
+    public static TopBarManager Instance => _instance;
 
     public string Title
     {
@@ -64,34 +64,164 @@ public class TopBarManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         InitializeButtons();
 
+        // Registrar para eventos de mudança de cena
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         if (debugLogs) Debug.Log("TopBarManager inicializado");
+    }
+
+    private void Start()
+    {
+        RegisterWithNavigationManager();
+        
+        // Configurar para a cena atual
+        string activeScene = SceneManager.GetActiveScene().name;
+        if (!string.IsNullOrEmpty(activeScene))
+        {
+            currentScene = activeScene;
+        }
+
+        // Atualizar estado para a cena inicial
+        UpdateTopBarState(currentScene);
+
+        // Registrar para mudanças de dados do usuário
+        UserDataStore.OnUserDataChanged += OnUserDataChanged;
+        UpdateFromCurrentUserData();
+    }
+
+    private void RegisterWithNavigationManager()
+    {
+        if (NavigationManager.Instance != null)
+        {
+            NavigationManager.Instance.OnSceneChanged += OnSceneChanged;
+            NavigationManager.Instance.OnNavigationComplete += OnNavigationComplete;
+            if (debugLogs) Debug.Log("TopBarManager: Registrado com o NavigationManager");
+        }
+        else
+        {
+            Debug.LogWarning("TopBarManager: NavigationManager não encontrado! Usando apenas eventos SceneManager.");
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (debugLogs) Debug.Log($"TopBarManager: Cena carregada diretamente: {scene.name}");
+        
+        isSceneBeingLoaded = true;
+        currentScene = scene.name;
+        
+        // Usar Invoke para garantir que seja processado após inicialização da cena
+        Invoke(nameof(HandleSceneLoadComplete), 0.1f);
+    }
+
+    private void HandleSceneLoadComplete()
+    {
+        UpdateTopBarState(currentScene);
+        isSceneBeingLoaded = false;
+
+        if (debugLogs) Debug.Log($"TopBarManager: Configuração completa para cena {currentScene}, visibilidade: {gameObject.activeSelf}");
+    }
+
+    private void OnSceneChanged(string sceneName)
+    {
+        // Ignorar se ainda estamos carregando uma cena
+        if (isSceneBeingLoaded)
+        {
+            if (debugLogs) Debug.Log("TopBarManager: Ignorando notificação durante carregamento de cena");
+            return;
+        }
+
+        if (debugLogs) Debug.Log($"TopBarManager: Notificação de mudança para cena {sceneName}");
+        currentScene = sceneName;
+        
+        // Aplicar tratamento especial para QuestionScene
+        if (sceneName == "QuestionScene")
+        {
+            Debug.Log("TopBarManager: Detectada QuestionScene, aplicando tratamento especial");
+            EnsureTopBarVisibilityInScene(sceneName);
+        }
+        else
+        {
+            UpdateTopBarState(sceneName);
+        }
+
+        // Gerenciar componente HalfView
+        HandleHalfViewComponent(sceneName);
+    }
+
+    private void OnNavigationComplete(string sceneName)
+    {
+        // Limitar frequência de verificações
+        if (Time.time - lastVerificationTime < 0.5f) return;
+        lastVerificationTime = Time.time;
+
+        if (debugLogs) Debug.Log($"TopBarManager: OnNavigationComplete para cena {sceneName}");
+        
+        // Verificação final após navegação completa
+        UpdateTopBarState(sceneName);
+    }
+
+    private void HandleHalfViewComponent(string sceneName)
+    {
+        if (sceneName != "ProfileScene")
+        {
+            halfViewComponent = null;
+        }
+        else if (halfViewComponent == null)
+        {
+            StartCoroutine(FindHalfViewMenuAfterDelay());
+        }
+    }
+
+    private IEnumerator FindHalfViewMenuAfterDelay()
+    {
+        yield return null;
+
+        halfViewComponent = FindFirstObjectByType<HalfViewComponent>(FindObjectsInactive.Include);
+
+        if (halfViewComponent != null)
+        {
+            if (debugLogs) Debug.Log("HalfViewMenu encontrado na ProfileScene");
+        }
+        else
+        {
+            Debug.LogWarning("HalfViewMenu não encontrado na ProfileScene!");
+        }
     }
 
     private void InitializeButtons()
     {
+        // Limpar as coleções
         allButtons.Clear();
+        buttonsByName.Clear();
 
-        if (hubButton.button != null)
-        {
-            if (hubButton.buttonImage == null)
-                hubButton.buttonImage = hubButton.button.GetComponent<Image>();
+        // Inicializar botão Hub
+        InitializeButton(hubButton);
+        
+        // Inicializar botão Engine
+        InitializeButton(engineButton);
 
-            allButtons.Add(hubButton);
-        }
-
-        if (engineButton.button != null)
-        {
-            if (engineButton.buttonImage == null)
-                engineButton.buttonImage = engineButton.button.GetComponent<Image>();
-
-            allButtons.Add(engineButton);
-        }
-
+        // Configurar os eventos de clique
         SetupButtonListeners();
+    }
+
+    private void InitializeButton(TopButton button)
+    {
+        if (button.button != null)
+        {
+            // Encontrar a imagem do botão se não estiver definida
+            if (button.buttonImage == null)
+                button.buttonImage = button.button.GetComponent<Image>();
+
+            // Adicionar à lista e dicionário para acesso rápido
+            allButtons.Add(button);
+            buttonsByName[button.buttonName] = button;
+        }
     }
 
     private void SetupButtonListeners()
     {
+        // Configurar o botão Hub
         if (hubButton.button != null)
         {
             hubButton.button.onClick.RemoveAllListeners();
@@ -109,6 +239,7 @@ public class TopBarManager : MonoBehaviour
             });
         }
 
+        // Configurar o botão Engine
         if (engineButton.button != null)
         {
             engineButton.button.onClick.RemoveAllListeners();
@@ -125,43 +256,37 @@ public class TopBarManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (NavigationManager.Instance != null)
-        {
-            NavigationManager.Instance.OnSceneChanged += OnSceneChanged;
-
-            if (debugLogs) Debug.Log("Registrado com o NavigationManager");
-        }
-        else
-        {
-            Debug.LogWarning("NavigationManager não encontrado! A TopBar pode não funcionar corretamente.");
-        }
-
-        string activeScene = SceneManager.GetActiveScene().name;
-        if (!string.IsNullOrEmpty(activeScene))
-        {
-            currentScene = activeScene;
-        }
-
-        UpdateButtonVisibility(currentScene);
-        AdjustVisibilityForCurrentScene();
-        UserDataStore.OnUserDataChanged += OnUserDataChanged;
-        UpdateFromCurrentUserData();
-    }
-
     private void OnDestroy()
     {
+        // Remover todos os listeners
         if (NavigationManager.Instance != null)
         {
             NavigationManager.Instance.OnSceneChanged -= OnSceneChanged;
+            NavigationManager.Instance.OnNavigationComplete -= OnNavigationComplete;
         }
 
+        SceneManager.sceneLoaded -= OnSceneLoaded;
         UserDataStore.OnUserDataChanged -= OnUserDataChanged;
 
         if (_instance == this)
         {
             _instance = null;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (NavigationManager.Instance != null)
+        {
+            NavigationManager.Instance.OnNavigationComplete += OnNavigationComplete;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (NavigationManager.Instance != null)
+        {
+            NavigationManager.Instance.OnNavigationComplete -= OnNavigationComplete;
         }
     }
 
@@ -202,50 +327,28 @@ public class TopBarManager : MonoBehaviour
         }
     }
 
-    private void OnSceneChanged(string sceneName)
+    // Método centralizado para atualizar o estado completo da TopBar
+    private void UpdateTopBarState(string sceneName)
     {
-        if (debugLogs) Debug.Log($"TopBarManager: Cena mudou para {sceneName}");
+        // Atualizar o nome da cena atual
         currentScene = sceneName;
-        UpdateButtonVisibility(currentScene);
-        AdjustVisibilityForCurrentScene();
-
-        if (sceneName != "ProfileScene")
-        {
-            halfViewComponent = null;
-        }
-        else
-        {
-            StartCoroutine(FindHalfViewMenuAfterDelay());
-        }
+        
+        // Atualizar visibilidade dos botões
+        UpdateButtonVisibility(sceneName);
+        
+        // Ajustar visibilidade geral da TopBar
+        UpdateTopBarVisibility();
+        
+        // Verificar e corrigir quaisquer problemas
+        EnsureTopBarIntegrity();
+        
+        if (debugLogs) Debug.Log($"TopBarManager: Estado atualizado para cena {sceneName}");
     }
 
-    private System.Collections.IEnumerator FindHalfViewMenuAfterDelay()
+    // Método para atualizar a visibilidade dos botões
+    private void UpdateButtonVisibility(string sceneName)
     {
-        yield return null;
-
-        halfViewComponent = FindFirstObjectByType<HalfViewComponent>(FindObjectsInactive.Include);
-
-        if (halfViewComponent != null)
-        {
-            if (debugLogs) Debug.Log("HalfViewMenu encontrado na ProfileScene");
-        }
-        else
-        {
-            Debug.LogWarning("HalfViewMenu não encontrado na ProfileScene!");
-        }
-    }
-
-    private void AdjustVisibilityForCurrentScene()
-    {
-        bool shouldShowTopBar = !scenesWithoutTopBar.Contains(currentScene);
-        gameObject.SetActive(shouldShowTopBar);
-
-        if (debugLogs) Debug.Log($"TopBar visibilidade na cena {currentScene}: {shouldShowTopBar}");
-    }
-
-    public void UpdateButtonVisibility(string sceneName)
-    {
-        if (debugLogs) Debug.Log($"Atualizando TopBar para cena: {sceneName}");
+        if (debugLogs) Debug.Log($"Atualizando visibilidade dos botões para cena: {sceneName}");
 
         foreach (var button in allButtons)
         {
@@ -256,6 +359,7 @@ public class TopBarManager : MonoBehaviour
                 // Tornar botão interativo apenas quando visível
                 button.button.interactable = isActive;
 
+                // Atualizar a transparência da imagem
                 Color buttonColor = button.buttonImage.color;
                 button.buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, isActive ? 1 : 0);
 
@@ -267,108 +371,225 @@ public class TopBarManager : MonoBehaviour
         }
     }
 
-    public void SetTopBarTexts(string title, string subtitle = "")
+    // Método para atualizar a visibilidade geral da TopBar
+    private void UpdateTopBarVisibility()
     {
-        if (weekScore != null)
+        bool shouldShowTopBar = !scenesWithoutTopBar.Contains(currentScene);
+
+        if (debugLogs)
         {
-            weekScore.text = title;
+            Debug.Log($"TopBarManager: Ajustando visibilidade para cena {currentScene}");
+            Debug.Log($"TopBarManager: Deve mostrar TopBar = {shouldShowTopBar}");
+            Debug.Log($"TopBarManager: Estado atual = {gameObject.activeSelf}");
         }
 
-        if (nickname != null)
+        // Aplicar visibilidade apenas se for necessário mudar
+        if (shouldShowTopBar != gameObject.activeSelf)
         {
-            nickname.text = subtitle;
+            gameObject.SetActive(shouldShowTopBar);
+            if (debugLogs) Debug.Log($"TopBarManager: Visibilidade ajustada para {shouldShowTopBar}");
         }
+    }
+
+    // Método para garantir que todos os componentes estejam funcionando corretamente
+    private void EnsureTopBarIntegrity()
+    {
+        // Verificar apenas se a TopBar deve estar visível
+        if (!gameObject.activeSelf) return;
+        
+        // Verificar Canvas
+        Canvas canvas = GetComponent<Canvas>();
+        if (canvas != null && !canvas.enabled)
+        {
+            canvas.enabled = true;
+            if (debugLogs) Debug.Log("TopBarManager: Corrigido Canvas desativado");
+        }
+
+        // Verificar CanvasGroup
+        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            bool needsFix = false;
+
+            if (canvasGroup.alpha < 1f)
+            {
+                canvasGroup.alpha = 1f;
+                needsFix = true;
+            }
+
+            if (!canvasGroup.interactable)
+            {
+                canvasGroup.interactable = true;
+                needsFix = true;
+            }
+
+            if (!canvasGroup.blocksRaycasts)
+            {
+                canvasGroup.blocksRaycasts = true;
+                needsFix = true;
+            }
+
+            if (needsFix && debugLogs)
+                Debug.Log("TopBarManager: Corrigidas propriedades do CanvasGroup");
+        }
+
+        // Verificar filhos
+        foreach (Transform child in transform)
+        {
+            if (!child.gameObject.activeSelf)
+            {
+                child.gameObject.SetActive(true);
+                if (debugLogs) Debug.Log($"TopBarManager: Ativado filho {child.name} que estava inativo");
+            }
+        }
+    }
+
+    // Métodos públicos para manipulação externa
+
+    // Método para forçar a visibilidade da TopBar em uma cena específica
+    public void EnsureTopBarVisibilityInScene(string sceneName)
+    {
+        Debug.Log($"TopBarManager: Forçando visibilidade na cena {sceneName}");
+
+        // Remover da lista de exclusão se presente
+        if (scenesWithoutTopBar.Contains(sceneName))
+        {
+            scenesWithoutTopBar.Remove(sceneName);
+            Debug.Log($"TopBarManager: '{sceneName}' removida da lista de cenas sem TopBar");
+        }
+
+        // Se esta for a cena atual, atualizar imediatamente
+        if (currentScene == sceneName)
+        {
+            gameObject.SetActive(true);
+            EnsureTopBarIntegrity();
+            UpdateButtonVisibility(currentScene);
+            
+            Debug.Log($"TopBarManager: Visibilidade forçada com sucesso na cena {sceneName}");
+        }
+    }
+
+    // Método para forçar atualização do estado da TopBar
+    public void ForceRefreshState()
+    {
+        if (debugLogs) Debug.Log("TopBarManager: Forçando atualização do estado");
+
+        string activeScene = SceneManager.GetActiveScene().name;
+        UpdateTopBarState(activeScene);
+        
+        if (debugLogs) Debug.Log($"TopBarManager: Atualização forçada concluída. Visibilidade: {gameObject.activeSelf}");
+    }
+
+    // Método para definir textos da TopBar
+    public void SetTopBarTexts(string title, string subtitle = "")
+    {
+        Title = title;
+        Subtitle = subtitle;
 
         if (debugLogs) Debug.Log($"TopBar textos definidos manualmente: Score = {title}, Nickname = {subtitle}");
     }
 
-    public void AddSceneToButtonVisibility(string buttonName, string sceneName)
+    // Métodos para gerenciar visibilidade dos botões em diferentes cenas
+    public void ManageButtonSceneVisibility(string buttonName, string sceneName, bool addVisibility)
     {
-        TopButton targetButton = null;
-        if (hubButton.buttonName == buttonName)
+        // Tentar obter o botão pelo nome
+        if (!buttonsByName.TryGetValue(buttonName, out TopButton targetButton))
         {
-            targetButton = hubButton;
-        }
-        else if (engineButton.buttonName == buttonName)
-        {
-            targetButton = engineButton;
+            Debug.LogError($"Botão com nome '{buttonName}' não encontrado!");
+            Debug.Log($"Botões disponíveis: {string.Join(", ", buttonsByName.Keys)}");
+            return;
         }
 
-        if (targetButton != null)
+        bool listChanged = false;
+
+        if (addVisibility)
         {
+            // Adicionar cena se não existir
             if (!targetButton.visibleInScenes.Contains(sceneName))
             {
                 targetButton.visibleInScenes.Add(sceneName);
-
-                if (currentScene == sceneName)
-                {
-                    UpdateButtonVisibility(currentScene);
-                }
+                listChanged = true;
             }
         }
         else
         {
-            Debug.LogError($"Botão com nome '{buttonName}' não encontrado!");
-            Debug.Log($"Botões disponíveis: hubButton='{hubButton.buttonName}', engineButton='{engineButton.buttonName}'");
-        }
-    }
-
-    public void RemoveSceneFromButtonVisibility(string buttonName, string sceneName)
-    {
-        TopButton targetButton = null;
-        if (hubButton.buttonName == buttonName)
-        {
-            targetButton = hubButton;
-        }
-
-        else if (engineButton.buttonName == buttonName)
-        {
-            targetButton = engineButton;
-        }
-
-        if (targetButton != null)
-        {
+            // Remover cena se existir
             if (targetButton.visibleInScenes.Contains(sceneName))
             {
                 targetButton.visibleInScenes.Remove(sceneName);
-
-                if (currentScene == sceneName)
-                {
-                    UpdateButtonVisibility(currentScene);
-                }
+                listChanged = true;
             }
         }
-        else
+
+        // Atualizar a visibilidade se a cena atual for afetada
+        if (listChanged && currentScene == sceneName)
         {
-            Debug.LogError($"Botão com nome '{buttonName}' não encontrado!");
+            UpdateButtonVisibility(currentScene);
         }
     }
 
+    // Método para adicionar cena à visibilidade de um botão
+    public void AddSceneToButtonVisibility(string buttonName, string sceneName)
+    {
+        ManageButtonSceneVisibility(buttonName, sceneName, true);
+    }
+
+    // Método para remover cena da visibilidade de um botão
+    public void RemoveSceneFromButtonVisibility(string buttonName, string sceneName)
+    {
+        ManageButtonSceneVisibility(buttonName, sceneName, false);
+    }
+
+    // Método para adicionar cena à lista daquelas sem TopBar
     public void AddSceneWithoutTopBar(string sceneName)
     {
         if (!scenesWithoutTopBar.Contains(sceneName))
         {
             scenesWithoutTopBar.Add(sceneName);
+            
+            // Se for a cena atual, atualizar visibilidade
+            if (currentScene == sceneName)
+            {
+                UpdateTopBarVisibility();
+            }
         }
     }
 
+    // Método para remover cena da lista daquelas sem TopBar
     public void RemoveSceneWithoutTopBar(string sceneName)
     {
         if (scenesWithoutTopBar.Contains(sceneName))
         {
             scenesWithoutTopBar.Remove(sceneName);
+            
+            // Se for a cena atual, atualizar visibilidade
+            if (currentScene == sceneName)
+            {
+                UpdateTopBarVisibility();
+            }
         }
     }
 
+    // Método para depuração e diagnóstico
     public void DebugListButtons()
     {
-        Debug.Log("=== TopBarManager - Lista de Botões ===");
+        Debug.Log("=== TopBarManager - Estado Atual ===");
+        Debug.Log($"Cena atual: {currentScene}");
+        Debug.Log($"Visibilidade atual: {gameObject.activeSelf}");
+        Debug.Log($"Cenas sem TopBar: {string.Join(", ", scenesWithoutTopBar)}");
 
-        Debug.Log($"hubButton: {hubButton.buttonName}");
-        Debug.Log($"Cenas visíveis para hubButton: {string.Join(", ", hubButton.visibleInScenes)}");
+        Canvas canvas = GetComponent<Canvas>();
+        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
 
-        Debug.Log($"engineButton: {engineButton.buttonName}");
-        Debug.Log($"Cenas visíveis para engineButton: {string.Join(", ", engineButton.visibleInScenes)}");
+        Debug.Log($"Canvas habilitado: {(canvas != null ? canvas.enabled : false)}");
+        Debug.Log($"CanvasGroup alpha: {(canvasGroup != null ? canvasGroup.alpha : 0)}");
+        Debug.Log($"CanvasGroup interactable: {(canvasGroup != null ? canvasGroup.interactable : false)}");
+
+        foreach (var button in allButtons)
+        {
+            Debug.Log($"Botão: {button.buttonName}");
+            Debug.Log($"Cenas visíveis: {string.Join(", ", button.visibleInScenes)}");
+        }
 
         Debug.Log("=====================================");
     }

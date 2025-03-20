@@ -47,7 +47,7 @@ public class LoadingSpinnerComponent : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+
         Initialize();
     }
 
@@ -55,11 +55,8 @@ public class LoadingSpinnerComponent : MonoBehaviour
     {
         if (spinnerContainer != null && spinnerBackground != null && spinnerBorder != null)
         {
-            Debug.Log("LoadingSpinnerComponent: Using existing UI components");
             return;
         }
-
-        Debug.Log("LoadingSpinnerComponent: Creating UI components programmatically");
 
         Canvas canvas = GetComponent<Canvas>();
         if (canvas == null)
@@ -188,8 +185,6 @@ public class LoadingSpinnerComponent : MonoBehaviour
         waitForSceneLoad = true;
         sceneToWaitFor = sceneName;
         ShowSpinner();
-
-        Debug.Log($"Spinner will be visible until scene '{sceneName}' is loaded");
     }
 
     public void ShowSpinner()
@@ -197,7 +192,6 @@ public class LoadingSpinnerComponent : MonoBehaviour
         if (spinnerContainer != null)
         {
             spinnerContainer.SetActive(true);
-            Debug.Log("Global spinner shown");
         }
     }
 
@@ -208,7 +202,6 @@ public class LoadingSpinnerComponent : MonoBehaviour
             spinnerContainer.SetActive(false);
             waitForSceneLoad = false;
             sceneToWaitFor = string.Empty;
-            Debug.Log("Global spinner hidden");
         }
     }
 }

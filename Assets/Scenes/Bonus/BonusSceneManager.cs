@@ -1,9 +1,10 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 using System.Linq;
 using Unity.VisualScripting;
 
@@ -46,13 +47,13 @@ public class BonusSceneManager : MonoBehaviour
     [SerializeField] private float inactiveAlpha = 0.6f;
     [SerializeField] private bool useGrayscaleWhenInactive = false;
 
-    private BonusFirestore bonusFirestore;
+    private SpecialBonusManager specialBonusManager;
     private string userId;
     private bool isInitialized = false;
 
     private void Awake()
     {
-        bonusFirestore = new BonusFirestore();
+        specialBonusManager = new SpecialBonusManager();
 
         if (bonusUIMappings.Count == 0)
         {
@@ -66,7 +67,7 @@ public class BonusSceneManager : MonoBehaviour
         {
             new BonusUIElements
             {
-                bonusFirestoreName = "correctAnswerBonus",
+                bonusFirestoreName = "specialBonus",
                 bonusCountText = bonusCountBE,
                 isBonusActiveText = isBonusActiveBE,
                 bonusButton = bonusButtonBE,
@@ -80,6 +81,7 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBL,
                 bonusContainer = bonusButtonBL?.gameObject
             },
+            
             new BonusUIElements
             {
                 bonusFirestoreName = "persistenceBonus",
@@ -88,8 +90,6 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBI,
                 bonusContainer = bonusButtonBI?.gameObject
             },
-            
-            // Bônus Pro
             new BonusUIElements
             {
                 bonusFirestoreName = "correctAnswerBonusPro",
@@ -147,7 +147,7 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            List<BonusType> userBonuses = await bonusFirestore.GetUserBonuses(userId);
+            List<BonusType> userBonuses = await specialBonusManager.GetUserBonuses(userId);
             UpdateBonusUI(userBonuses);
         }
         catch (Exception e)
@@ -269,12 +269,10 @@ public class BonusSceneManager : MonoBehaviour
 
     public async void UseBonusAction(string bonusType)
     {
-        Debug.Log($"Bônus ativado: {bonusType}");
-
         switch (bonusType)
         {
-            case "correctAnswerBonus":
-                await ActivateCorrectAnswerBonus();
+            case "specialBonus":
+                await ActivateSpecialBonus();
                 break;
 
             case "listCompletionBonus":
@@ -297,37 +295,112 @@ public class BonusSceneManager : MonoBehaviour
         await FetchBonuses();
     }
 
-    private async Task ActivateCorrectAnswerBonus()
+    private async Task ActivateSpecialBonus()
     {
-        Debug.Log("Ativando Bônus Especial: XP dobrado por 10 min");
-        await Task.Delay(100);
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogWarning("BonusSceneManager: UserId não definido");
+            return;
+        }
+        
+        try
+        {
+            await specialBonusManager.ActivateBonus(userId, "specialBonus", 900f);
+            await FetchBonuses();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus especial: {e.Message}");
+        }
     }
 
     private async Task ActivateListCompletionBonus()
     {
-        Debug.Log("Ativando Bônus das Listas: XP dobrado por 5 min");
-        await Task.Delay(100);
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogWarning("BonusSceneManager: UserId não definido");
+            return;
+        }
+        
+        try
+        {
+            await specialBonusManager.ActivateBonus(userId, "listCompletionBonus", 300f);
+            await FetchBonuses();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus das listas: {e.Message}");
+        }
     }
 
     private async Task ActivatePersistenceBonus()
     {
-        Debug.Log("Ativando Bônus Incansável: XP dobrado por 15 min");
-        await Task.Delay(100);
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogWarning("BonusSceneManager: UserId não definido");
+            return;
+        }
+        
+        try
+        {
+            await specialBonusManager.ActivateBonus(userId, "persistenceBonus", 900f);
+            await FetchBonuses();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus incansável: {e.Message}");
+        }
     }
 
     private async Task ActivateCorrectAnswerBonusPro()
     {
-        Debug.Log("Ativando Bônus Especial Pro: XP triplicado por 20 min");
-        await Task.Delay(100);
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogWarning("BonusSceneManager: UserId não definido");
+            return;
+        }
+        
+        try
+        {
+            await specialBonusManager.ActivateBonus(userId, "correctAnswerBonusPro", 1200f);
+            await FetchBonuses();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus especial pro: {e.Message}");
+        }
     }
 
     private void StartListeningForBonusUpdates()
     {
-        bonusFirestore.ListenForBonusUpdates(userId, updatedBonuses =>
+        // Implementar escuta de atualizações em tempo real do Firestore
+        // Isto pode ser implementado de várias maneiras:
+        
+        // 1. Usando o listener padrão do Firestore:
+        // DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("UserBonus").Document(userId);
+        // listenerRegistration = docRef.Listen(snapshot => {
+        //     if (snapshot.Exists) {
+        //         UpdateBonusesFromSnapshot(snapshot);
+        //     }
+        // });
+        
+        // 2. Ou usando um método de polling:
+        StartCoroutine(BonusUpdatePollingCoroutine());
+    }
+    
+    private IEnumerator BonusUpdatePollingCoroutine()
+    {
+        while (true)
         {
-            UpdateBonusUI(updatedBonuses);
-        });
+            yield return new WaitForSeconds(30f);
 
+            if (!isInitialized || string.IsNullOrEmpty(userId))
+            {
+                yield break;
+            }
+            
+            _ = FetchBonuses();
+        }
     }
 
     private void OnDisable()
@@ -340,8 +413,11 @@ public class BonusSceneManager : MonoBehaviour
 
     private void StopListeningForBonusUpdates()
     {
-        // Cancelar escuta de mudanças em tempo real
-        // Exemplo: bonusFirestore.StopListeningForBonusUpdates();
+        StopAllCoroutines();
+        
+        // Se estiver usando listener do Firestore:
+        // listenerRegistration?.Stop();
+        // listenerRegistration = null;
     }
 
     public async void RefreshBonusUI()
