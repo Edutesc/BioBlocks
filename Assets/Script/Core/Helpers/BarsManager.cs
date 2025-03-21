@@ -83,7 +83,7 @@ public abstract class BarsManager : MonoBehaviour
 
         currentScene = sceneName;
         bool shouldShowBar = !scenesWithoutBar.Contains(sceneName);
-        gameObject.SetActive(shouldShowBar);
+        SetBarVisibility(shouldShowBar);
 
         if (debugLogs)
             Debug.Log($"{BarName}: Visibilidade definida para {shouldShowBar} na cena {sceneName}");
@@ -123,7 +123,7 @@ public abstract class BarsManager : MonoBehaviour
             Debug.Log($"{BarName}: Cenas sem barra: {string.Join(", ", scenesWithoutBar)}");
         }
 
-        gameObject.SetActive(shouldShowBar);
+        SetBarVisibility(shouldShowBar);
 
         if (shouldShowBar)
         {
@@ -249,13 +249,12 @@ public abstract class BarsManager : MonoBehaviour
         if (debugLogs) Debug.Log($"{BarName}: Verificação de visibilidade forçada para cena {currentScene}");
     }
 
-
     public virtual void ForceRefreshState()
     {
         string activeScene = SceneManager.GetActiveScene().name;
         currentScene = activeScene;
         bool shouldShowBar = !scenesWithoutBar.Contains(currentScene);
-        gameObject.SetActive(shouldShowBar);
+        SetBarVisibility(shouldShowBar);
 
         if (shouldShowBar)
         {
@@ -267,6 +266,15 @@ public abstract class BarsManager : MonoBehaviour
 
             UpdateCanvasElements(true);
             UpdateButtonVisibility(currentScene);
+        }
+    }
+
+    protected virtual void SetBarVisibility(bool visible)
+    {
+        if (gameObject.activeSelf != visible)
+        {
+            gameObject.SetActive(visible);
+            if (debugLogs) Debug.Log($"{BarName}: Visibilidade alterada para {visible}");
         }
     }
 }

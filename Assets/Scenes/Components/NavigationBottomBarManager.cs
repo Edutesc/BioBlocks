@@ -191,7 +191,7 @@ public class NavigationBottomBarManager : BarsManager
     {
         string sceneName = scene.name;
         bool shouldShow = !scenesWithoutBar.Contains(sceneName);
-        gameObject.SetActive(shouldShow);
+        SetBarVisibility(shouldShow);
 
         if (shouldShow && gameObject.activeSelf)
         {
@@ -206,14 +206,4 @@ public class NavigationBottomBarManager : BarsManager
         base.OnCleanup();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
-    private void SetBarVisibility(bool visible)
-    {
-        if (gameObject.activeSelf != visible)
-        {
-            gameObject.SetActive(visible);
-            if (debugLogs) Debug.Log($"{BarName}: Visibilidade alterada para {visible}");
-        }
-    }
-
 }
