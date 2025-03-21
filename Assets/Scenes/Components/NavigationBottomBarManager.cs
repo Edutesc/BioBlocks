@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
-public class NavigationBottomBarManager : MonoBehaviour
+public class NavigationBottomBarManager : BarsManager
 {
     [System.Serializable]
     public class NavButton
@@ -22,30 +22,28 @@ public class NavigationBottomBarManager : MonoBehaviour
     [SerializeField] private NavButton medalsButton;
     [SerializeField] private NavButton profileButton;
 
-    [Header("Configurações")]
-    [SerializeField] private string currentScene = "";
-    [SerializeField] private bool debugLogs = true;
-
     [Header("Persistência")]
     [SerializeField]
     private List<string> scenesWithoutBottomBar = new List<string>()
     {
         "LoginView",
         "RegisterView",
-        "QuestionScene"
+        "QuestionScene",
+        "ResetDatabaseView"
     };
 
     private List<NavButton> allButtons = new List<NavButton>();
     private static NavigationBottomBarManager _instance;
+    protected override string BarName => "PersistentBottomBar";
+    protected override string BarChildName => "BottomBar";
 
     public static NavigationBottomBarManager Instance
     {
         get { return _instance; }
     }
 
-    private void Awake()
+    protected override void ConfigureSingleton()
     {
-        // Configurar singleton
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -53,22 +51,23 @@ public class NavigationBottomBarManager : MonoBehaviour
         }
 
         _instance = this;
+    }
 
-        // Não destruir ao carregar novas cenas
-        DontDestroyOnLoad(gameObject);
+    protected override void OnAwake()
+    {
+        base.scenesWithoutBar.Clear();
+        foreach (var scene in scenesWithoutBottomBar)
+        {
+            base.scenesWithoutBar.Add(scene);
+        }
 
-        // Inicializar a lista de botões
+        SceneManager.sceneLoaded += OnSceneLoaded;
         InitializeButtons();
-
-        if (debugLogs) Debug.Log("NavigationBottomBarManager inicializado");
     }
 
     private void InitializeButtons()
     {
-        // Limpar a lista de botões
         allButtons.Clear();
-
-        // Adicionar os botões à lista
         if (homeButton.button != null) allButtons.Add(homeButton);
         if (rankingButton.button != null) allButtons.Add(rankingButton);
         if (favoritesButton.button != null) allButtons.Add(favoritesButton);
@@ -105,125 +104,58 @@ public class NavigationBottomBarManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected override void AdjustVisibilityForCurrentScene()
     {
-        if (NavigationManager.Instance != null)
-        {
-            NavigationManager.Instance.OnSceneChanged += OnSceneChanged;
+        bool shouldShowBar = !scenesWithoutBar.Contains(currentScene);
 
-            if (debugLogs) Debug.Log("Registrado com o NavigationManager");
+        if (debugLogs)
+        {
+            Debug.Log($"[BottomBar Debug] Cena atual: '{currentScene}'");
+            Debug.Log($"[BottomBar Debug] Cenas sem barra: {string.Join(", ", scenesWithoutBar)}");
+            Debug.Log($"[BottomBar Debug] A cena atual está na lista? {scenesWithoutBar.Contains(currentScene)}");
+            Debug.Log($"[BottomBar Debug] shouldShowBar = {shouldShowBar}");
+        }
+
+        Transform barChild = transform.Find(BarChildName);
+
+        if (!shouldShowBar)
+        {
+            if (barChild != null)
+            {
+                barChild.gameObject.SetActive(false);
+                if (debugLogs) Debug.Log($"[BottomBar Debug] Desativando {BarChildName} na cena {currentScene}");
+            }
+            else
+            {
+                Debug.LogWarning($"[BottomBar Debug] Filho '{BarChildName}' não encontrado!");
+            }
+
+            UpdateCanvasElements(false);
+
+            if (debugLogs) Debug.Log($"[BottomBar Debug] Forçando desativação da BottomBar na cena {currentScene}");
         }
         else
         {
-            Debug.LogWarning("NavigationManager não encontrado! A BottomBar pode não funcionar corretamente.");
+            if (barChild != null)
+            {
+                barChild.gameObject.SetActive(true);
+                if (debugLogs) Debug.Log($"[BottomBar Debug] Ativando {BarChildName} na cena {currentScene}");
+            }
+            else
+            {
+                Debug.LogWarning($"[BottomBar Debug] Filho '{BarChildName}' não encontrado!");
+            }
+
+            UpdateCanvasElements(true);
         }
 
-        string activeScene = SceneManager.GetActiveScene().name;
-        if (!string.IsNullOrEmpty(activeScene))
-        {
-            currentScene = activeScene;
-        }
-
-        UpdateButtonDisplay(currentScene);
-        AdjustVisibilityForCurrentScene();
+        if (debugLogs) Debug.Log($"BottomBar visibilidade na cena {currentScene}: {shouldShowBar}");
     }
 
-    private void OnDestroy()
+    protected override void UpdateButtonVisibility(string sceneName)
     {
-        if (NavigationManager.Instance != null)
-        {
-            NavigationManager.Instance.OnSceneChanged -= OnSceneChanged;
-        }
-
-        if (_instance == this)
-        {
-            _instance = null;
-        }
+        UpdateButtonDisplay(sceneName);
     }
-
-    private void OnSceneChanged(string sceneName)
-    {
-        if (debugLogs) Debug.Log($"BottomBarManager: Cena mudou para {sceneName}");
-
-        currentScene = sceneName;
-        UpdateButtonDisplay(currentScene);
-        AdjustVisibilityForCurrentScene();
-    }
-
-    private void AdjustVisibilityForCurrentScene()
-{
-    bool shouldShowBottomBar = !scenesWithoutBottomBar.Contains(currentScene);
-    Debug.Log($"[BottomBar Debug] Cena atual: '{currentScene}'");
-    Debug.Log($"[BottomBar Debug] Cenas sem barra: {string.Join(", ", scenesWithoutBottomBar)}");
-    Debug.Log($"[BottomBar Debug] A cena atual está na lista? {scenesWithoutBottomBar.Contains(currentScene)}");
-    Debug.Log($"[BottomBar Debug] shouldShowBottomBar = {shouldShowBottomBar}");
-
-    // Com a nova hierarquia, assumimos que o NavigationBottomBarManager
-    // está anexado ao objeto PersistentBottomBar
-
-    if (!shouldShowBottomBar)
-    {
-        // Primeiro, pegamos o filho 'BottomBar' e o desativamos
-        Transform bottomBar = transform.Find("BottomBar");
-        if (bottomBar != null)
-        {
-            bottomBar.gameObject.SetActive(false);
-            Debug.Log($"[BottomBar Debug] Desativando BottomBar na cena {currentScene}");
-        }
-        else
-        {
-            Debug.LogWarning("[BottomBar Debug] Filho 'BottomBar' não encontrado!");
-        }
-
-        // Desativamos também o Canvas e CanvasGroup do PersistentBottomBar
-        Canvas canvas = GetComponent<Canvas>();
-        if (canvas != null)
-        {
-            canvas.enabled = false;
-        }
-
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
-        {
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
-        }
-
-        Debug.Log($"[BottomBar Debug] Forçando desativação da BottomBar na cena {currentScene}");
-    }
-    else
-    {
-        // Primeiro, pegamos o filho 'BottomBar' e o ativamos
-        Transform bottomBar = transform.Find("BottomBar");
-        if (bottomBar != null)
-        {
-            bottomBar.gameObject.SetActive(true);
-            Debug.Log($"[BottomBar Debug] Ativando BottomBar na cena {currentScene}");
-        }
-        else
-        {
-            Debug.LogWarning("[BottomBar Debug] Filho 'BottomBar' não encontrado!");
-        }
-
-        // Ativamos também o Canvas e CanvasGroup do PersistentBottomBar
-        Canvas canvas = GetComponent<Canvas>();
-        if (canvas != null)
-        {
-            canvas.enabled = true;
-        }
-
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
-        {
-            canvasGroup.alpha = 1;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
-        }
-    }
-
-    if (debugLogs) Debug.Log($"BottomBar visibilidade na cena {currentScene}: {shouldShowBottomBar}");
-}
 
     public void UpdateButtonDisplay(string sceneName)
     {
@@ -247,40 +179,41 @@ public class NavigationBottomBarManager : MonoBehaviour
 
     public void AddSceneWithoutBottomBar(string sceneName)
     {
-        if (!scenesWithoutBottomBar.Contains(sceneName))
-        {
-            scenesWithoutBottomBar.Add(sceneName);
-        }
+        AddSceneWithoutBar(sceneName);
     }
 
     public void RemoveSceneWithoutBottomBar(string sceneName)
     {
-        if (scenesWithoutBottomBar.Contains(sceneName))
+        RemoveSceneWithoutBar(sceneName);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        string sceneName = scene.name;
+        bool shouldShow = !scenesWithoutBar.Contains(sceneName);
+        gameObject.SetActive(shouldShow);
+
+        if (shouldShow && gameObject.activeSelf)
         {
-            scenesWithoutBottomBar.Remove(sceneName);
+            UpdateButtonDisplay(sceneName);
         }
+
+        Debug.Log($"{BarName}: Visibilidade após carregamento de cena: {gameObject.activeSelf}");
     }
 
-    private void OnEnable()
+    protected override void OnCleanup()
     {
-        // Atualiza a cena atual
-        currentScene = SceneManager.GetActiveScene().name;
-
-        // Força a verificação de visibilidade
-        AdjustVisibilityForCurrentScene();
-
-        if (debugLogs) Debug.Log($"BottomBar OnEnable: verificando visibilidade para cena {currentScene}");
+        base.OnCleanup();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void ForceVisibilityCheck()
+    private void SetBarVisibility(bool visible)
     {
-        // Atualiza a cena atual
-        currentScene = SceneManager.GetActiveScene().name;
-
-        // Força a verificação de visibilidade
-        AdjustVisibilityForCurrentScene();
-
-        if (debugLogs) Debug.Log($"BottomBar verificação de visibilidade forçada para cena {currentScene}");
+        if (gameObject.activeSelf != visible)
+        {
+            gameObject.SetActive(visible);
+            if (debugLogs) Debug.Log($"{BarName}: Visibilidade alterada para {visible}");
+        }
     }
 
 }
