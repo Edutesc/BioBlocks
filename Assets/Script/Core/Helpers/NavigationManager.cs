@@ -138,7 +138,7 @@ public class NavigationManager : MonoBehaviour
             OnSceneChanged?.Invoke(sceneName);
 
             // Agendar verificação de persistência de UI após o carregamento
-            Invoke(nameof(EnsureUIConsistency), 0.2f);
+           // Invoke(nameof(EnsureUIConsistency), 0.2f);
         }
         catch (Exception e)
         {

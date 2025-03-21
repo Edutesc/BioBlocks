@@ -27,6 +27,15 @@ public class QuestionManager : MonoBehaviour
 
     private void Start()
     {
+
+        NavigationBottomBarManager bottomBar = FindFirstObjectByType<NavigationBottomBarManager>();
+        if (bottomBar != null)
+        {
+            Debug.Log("vamos forçar desabilitar");
+            bottomBar.ForceVisibilityCheck();
+            Debug.Log("forçou desabilitar");
+        }
+
         if (!ValidateManagers())
         {
             Debug.LogError("Falha na validação dos managers necessários.");

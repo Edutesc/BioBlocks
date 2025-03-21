@@ -373,76 +373,93 @@ public class TopBarManager : MonoBehaviour
 
     // Método para atualizar a visibilidade geral da TopBar
     private void UpdateTopBarVisibility()
+{
+    bool shouldShowTopBar = !scenesWithoutTopBar.Contains(currentScene);
+
+    if (debugLogs)
     {
-        bool shouldShowTopBar = !scenesWithoutTopBar.Contains(currentScene);
-
-        if (debugLogs)
-        {
-            Debug.Log($"TopBarManager: Ajustando visibilidade para cena {currentScene}");
-            Debug.Log($"TopBarManager: Deve mostrar TopBar = {shouldShowTopBar}");
-            Debug.Log($"TopBarManager: Estado atual = {gameObject.activeSelf}");
-        }
-
-        // Aplicar visibilidade apenas se for necessário mudar
-        if (shouldShowTopBar != gameObject.activeSelf)
-        {
-            gameObject.SetActive(shouldShowTopBar);
-            if (debugLogs) Debug.Log($"TopBarManager: Visibilidade ajustada para {shouldShowTopBar}");
-        }
+        Debug.Log($"TopBarManager: Ajustando visibilidade para cena {currentScene}");
+        Debug.Log($"TopBarManager: Deve mostrar TopBar = {shouldShowTopBar}");
+        Debug.Log($"TopBarManager: Estado atual = {gameObject.activeSelf}");
     }
+
+    // Pegar referência ao filho TopBar
+    Transform topBarChild = transform.Find("TopBar");
+    
+    // Aplicar visibilidade ao GameObject do TopBarManager (PersistentTopBar)
+    gameObject.SetActive(shouldShowTopBar);
+    
+    // Se tiver um filho específico chamado TopBar, garantir que ele também está visível
+    if (topBarChild != null && shouldShowTopBar)
+    {
+        topBarChild.gameObject.SetActive(true);
+        if (debugLogs) Debug.Log($"TopBarManager: Visibilidade do filho TopBar ajustada para {shouldShowTopBar}");
+    }
+    
+    if (debugLogs) Debug.Log($"TopBarManager: Visibilidade ajustada para {shouldShowTopBar}");
+}
+
 
     // Método para garantir que todos os componentes estejam funcionando corretamente
     private void EnsureTopBarIntegrity()
+{
+    // Verificar apenas se a TopBar deve estar visível
+    if (!gameObject.activeSelf) return;
+    
+    // Verificar Canvas
+    Canvas canvas = GetComponent<Canvas>();
+    if (canvas != null && !canvas.enabled)
     {
-        // Verificar apenas se a TopBar deve estar visível
-        if (!gameObject.activeSelf) return;
-        
-        // Verificar Canvas
-        Canvas canvas = GetComponent<Canvas>();
-        if (canvas != null && !canvas.enabled)
+        canvas.enabled = true;
+        if (debugLogs) Debug.Log("TopBarManager: Corrigido Canvas desativado");
+    }
+
+    // Verificar CanvasGroup
+    CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+    if (canvasGroup != null)
+    {
+        bool needsFix = false;
+
+        if (canvasGroup.alpha < 1f)
         {
-            canvas.enabled = true;
-            if (debugLogs) Debug.Log("TopBarManager: Corrigido Canvas desativado");
+            canvasGroup.alpha = 1f;
+            needsFix = true;
         }
 
-        // Verificar CanvasGroup
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
+        if (!canvasGroup.interactable)
         {
-            bool needsFix = false;
-
-            if (canvasGroup.alpha < 1f)
-            {
-                canvasGroup.alpha = 1f;
-                needsFix = true;
-            }
-
-            if (!canvasGroup.interactable)
-            {
-                canvasGroup.interactable = true;
-                needsFix = true;
-            }
-
-            if (!canvasGroup.blocksRaycasts)
-            {
-                canvasGroup.blocksRaycasts = true;
-                needsFix = true;
-            }
-
-            if (needsFix && debugLogs)
-                Debug.Log("TopBarManager: Corrigidas propriedades do CanvasGroup");
+            canvasGroup.interactable = true;
+            needsFix = true;
         }
 
-        // Verificar filhos
-        foreach (Transform child in transform)
+        if (!canvasGroup.blocksRaycasts)
         {
-            if (!child.gameObject.activeSelf)
-            {
-                child.gameObject.SetActive(true);
-                if (debugLogs) Debug.Log($"TopBarManager: Ativado filho {child.name} que estava inativo");
-            }
+            canvasGroup.blocksRaycasts = true;
+            needsFix = true;
+        }
+
+        if (needsFix && debugLogs)
+            Debug.Log("TopBarManager: Corrigidas propriedades do CanvasGroup");
+    }
+
+    // Verificar o filho específico TopBar
+    Transform topBarChild = transform.Find("TopBar");
+    if (topBarChild != null && !topBarChild.gameObject.activeSelf)
+    {
+        topBarChild.gameObject.SetActive(true);
+        if (debugLogs) Debug.Log("TopBarManager: Ativado filho TopBar que estava inativo");
+    }
+
+    // Verificar outros filhos (pode ser removido se não for mais necessário)
+    foreach (Transform child in transform)
+    {
+        if (!child.gameObject.activeSelf)
+        {
+            child.gameObject.SetActive(true);
+            if (debugLogs) Debug.Log($"TopBarManager: Ativado filho {child.name} que estava inativo");
         }
     }
+}
 
     // Métodos públicos para manipulação externa
 
