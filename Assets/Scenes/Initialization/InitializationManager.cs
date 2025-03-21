@@ -37,7 +37,7 @@ public class InitializationManager : MonoBehaviour
         if (globalSpinnerPrefab != null)
         {
             GameObject spinnerObject = Instantiate(globalSpinnerPrefab, Vector3.zero, Quaternion.identity);
-            spinnerObject.transform.SetParent(null); // Garante que seja objeto raiz
+            spinnerObject.transform.SetParent(null);
             spinnerObject.name = "GlobalLoadingSpinner";
 
             globalSpinner = spinnerObject.GetComponent<LoadingSpinnerComponent>();
