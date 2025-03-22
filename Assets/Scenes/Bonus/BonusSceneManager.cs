@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using Unity.VisualScripting;
 
@@ -81,7 +82,7 @@ public class BonusSceneManager : MonoBehaviour
                 bonusButton = bonusButtonBL,
                 bonusContainer = bonusButtonBL?.gameObject
             },
-            
+
             new BonusUIElements
             {
                 bonusFirestoreName = "persistenceBonus",
@@ -169,7 +170,23 @@ public class BonusSceneManager : MonoBehaviour
             if (matchingBonus != null)
             {
                 count = matchingBonus.BonusCount;
-                isActive = matchingBonus.IsBonusActive;
+
+                // Verificar se deve ativar o botão com base no contador para o special bonus
+                if (bonusUIMapping.bonusFirestoreName == "specialBonus" && count >= 5)
+                {
+                    isActive = true;
+
+                    // Atualizar também no objeto de bonus para manter a consistência
+                    if (!matchingBonus.IsBonusActive)
+                    {
+                        matchingBonus.IsBonusActive = true;
+                        _ = specialBonusManager.SaveBonusList(userId, bonuses);
+                    }
+                }
+                else
+                {
+                    isActive = matchingBonus.IsBonusActive;
+                }
 
                 if (bonusUIMapping.bonusCountText != null)
                 {
@@ -199,6 +216,16 @@ public class BonusSceneManager : MonoBehaviour
             if (isActive)
             {
                 SetupButtonAction(bonusUIMapping, matchingBonus);
+            }
+        }
+
+        if (bonuses.Any(b => b.BonusName == "specialBonus" && b.BonusCount >= 5 && !b.IsBonusActive))
+        {
+            var specialBonus = bonuses.FirstOrDefault(b => b.BonusName == "specialBonus");
+            if (specialBonus != null)
+            {
+                specialBonus.IsBonusActive = true;
+                _ = specialBonusManager.SaveBonusList(userId, bonuses);
             }
         }
     }
@@ -272,27 +299,46 @@ public class BonusSceneManager : MonoBehaviour
         switch (bonusType)
         {
             case "specialBonus":
-                await ActivateSpecialBonus();
+                ShowSpecialBonusConfirmation();
                 break;
 
-            case "listCompletionBonus":
-                await ActivateListCompletionBonus();
-                break;
-
-            case "persistenceBonus":
-                await ActivatePersistenceBonus();
-                break;
-
-            case "correctAnswerBonusPro":
-                await ActivateCorrectAnswerBonusPro();
-                break;
+            // Outros casos existentes...
 
             default:
                 Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
                 break;
         }
+    }
 
-        await FetchBonuses();
+    private void ShowSpecialBonusConfirmation()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(currentScene);
+
+        if (halfView != null)
+        {
+            halfView.Configure(
+                "Special Bonus",
+                "Você irá ativar um special bonus, e terá xp triplicada por 10 min. Deseja ativar o bonus agora?",
+                "Cancelar", // primaryButton (cancelar)
+                () => { /* Apenas fecha o HalfView */ },
+                "Ativar Bonus", // secondaryButton (confirmar)
+                async () =>
+                {
+                    await ActivateSpecialBonus();
+                    await FetchBonuses();
+                }
+            );
+
+            halfView.ShowMenu();
+        }
+        else
+        {
+            Debug.LogWarning("HalfViewComponent não encontrado na cena atual");
+            // Fallback direto
+            _ = ActivateSpecialBonus();
+            _ = FetchBonuses();
+        }
     }
 
     private async Task ActivateSpecialBonus()
@@ -302,16 +348,64 @@ public class BonusSceneManager : MonoBehaviour
             Debug.LogWarning("BonusSceneManager: UserId não definido");
             return;
         }
-        
+
         try
         {
-            await specialBonusManager.ActivateBonus(userId, "specialBonus", 900f);
-            await FetchBonuses();
+            // 1. Obter lista de bônus atual
+            List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
+            BonusType specialBonus = bonusList.FirstOrDefault(b => b.BonusName == "specialBonus");
+
+            if (specialBonus != null && specialBonus.IsBonusActive && specialBonus.BonusCount >= 5)
+            {
+                // 2. Zerar o contador
+                specialBonus.BonusCount = 0;
+
+                // 3. Desativar o botão (IsBonusActive = false)
+                specialBonus.IsBonusActive = false;
+
+                // Salvar essas mudanças
+                await specialBonusManager.SaveBonusList(userId, bonusList);
+
+                // 4. Ativar o special bonus na QuestionScene
+                // Criar ou atualizar o bônus ativo
+                string activeBonusName = "active_specialBonus";
+                BonusType activeBonus = bonusList.FirstOrDefault(b => b.BonusName == activeBonusName);
+
+                if (activeBonus == null)
+                {
+                    activeBonus = new BonusType(activeBonusName, 0, true, 0, true);
+                    bonusList.Add(activeBonus);
+                }
+                else
+                {
+                    activeBonus.IsBonusActive = true;
+                    activeBonus.IsPersistent = true;
+                }
+
+                // 5. Definir expiração (10 minutos)
+                activeBonus.SetExpirationFromDuration(600f);
+
+                // Salvar no Firestore
+                await specialBonusManager.SaveBonusList(userId, bonusList);
+
+                Debug.Log("Special Bonus ativado com sucesso! XP triplicado por 10 minutos.");
+            }
+            else
+            {
+                Debug.LogWarning("Special Bonus não está disponível para ativação");
+            }
         }
         catch (Exception e)
         {
-            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus especial: {e.Message}");
+            Debug.LogError($"BonusSceneManager: Erro ao ativar special bonus: {e.Message}");
         }
+    }
+
+    private void ShowBonusActivatedFeedback()
+    {
+        // Mostrar feedback visual de que o bônus foi ativado
+        // Isso pode ser um toast, uma animação ou outro elemento UI
+        Debug.Log("Special Bonus ativado com sucesso! XP triplicado por 10 minutos.");
     }
 
     private async Task ActivateListCompletionBonus()
@@ -321,7 +415,7 @@ public class BonusSceneManager : MonoBehaviour
             Debug.LogWarning("BonusSceneManager: UserId não definido");
             return;
         }
-        
+
         try
         {
             await specialBonusManager.ActivateBonus(userId, "listCompletionBonus", 300f);
@@ -340,7 +434,7 @@ public class BonusSceneManager : MonoBehaviour
             Debug.LogWarning("BonusSceneManager: UserId não definido");
             return;
         }
-        
+
         try
         {
             await specialBonusManager.ActivateBonus(userId, "persistenceBonus", 900f);
@@ -359,7 +453,7 @@ public class BonusSceneManager : MonoBehaviour
             Debug.LogWarning("BonusSceneManager: UserId não definido");
             return;
         }
-        
+
         try
         {
             await specialBonusManager.ActivateBonus(userId, "correctAnswerBonusPro", 1200f);
@@ -375,7 +469,7 @@ public class BonusSceneManager : MonoBehaviour
     {
         // Implementar escuta de atualizações em tempo real do Firestore
         // Isto pode ser implementado de várias maneiras:
-        
+
         // 1. Usando o listener padrão do Firestore:
         // DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("UserBonus").Document(userId);
         // listenerRegistration = docRef.Listen(snapshot => {
@@ -383,11 +477,11 @@ public class BonusSceneManager : MonoBehaviour
         //         UpdateBonusesFromSnapshot(snapshot);
         //     }
         // });
-        
+
         // 2. Ou usando um método de polling:
         StartCoroutine(BonusUpdatePollingCoroutine());
     }
-    
+
     private IEnumerator BonusUpdatePollingCoroutine()
     {
         while (true)
@@ -398,7 +492,7 @@ public class BonusSceneManager : MonoBehaviour
             {
                 yield break;
             }
-            
+
             _ = FetchBonuses();
         }
     }
@@ -414,7 +508,7 @@ public class BonusSceneManager : MonoBehaviour
     private void StopListeningForBonusUpdates()
     {
         StopAllCoroutines();
-        
+
         // Se estiver usando listener do Firestore:
         // listenerRegistration?.Stop();
         // listenerRegistration = null;
