@@ -63,18 +63,14 @@ public class QuestionScoreManager : MonoBehaviour
 
             // Aplicar bônus se necessário
             int actualScoreChange = scoreChange;
+
+            // Se for uma resposta correta e houver um bônus ativo, aplicar o multiplicador
             if (isCorrect && questionBonusManager != null && questionBonusManager.IsBonusActive())
             {
-                // Se for uma resposta correta e o bônus estiver ativo, dobrar a pontuação
+                int multiplier = questionBonusManager.GetCurrentScoreMultiplier();
                 actualScoreChange = questionBonusManager.ApplyBonusToScore(scoreChange);
-                Debug.Log($"Bônus aplicado! Pontuação original: {scoreChange}, Pontuação com bônus: {actualScoreChange}");
-            }
 
-            if (isCorrect && specialBonusHandler != null && specialBonusHandler.IsSpecialBonusActive())
-            {
-                int beforeSpecialBonus = actualScoreChange;
-                actualScoreChange = specialBonusHandler.ApplyBonusToScore(actualScoreChange);
-                Debug.Log($"Special Bonus aplicado! Pontuação antes: {beforeSpecialBonus}, Pontuação com special bonus: {actualScoreChange}");
+                Debug.Log($"Bônus aplicado! Multiplicador: x{multiplier}, Pontuação original: {scoreChange}, Pontuação com bônus: {actualScoreChange}");
             }
 
             // Se a resposta estiver correta, atualizar o score E marcar a questão
@@ -85,7 +81,7 @@ public class QuestionScoreManager : MonoBehaviour
 
                 Debug.Log($"Atualizando score em {actualScoreChange} pontos e marcando questão {questionNumber} no banco {databankName}");
 
-                // Usar o novo método UpdateUserScores que atualiza tanto o Score quanto o WeekScore
+                // Usar o método UpdateUserScores que atualiza tanto o Score quanto o WeekScore
                 try
                 {
                     await FirestoreRepository.Instance.UpdateUserScores(

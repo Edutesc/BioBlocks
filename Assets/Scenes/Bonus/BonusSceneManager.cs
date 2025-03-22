@@ -294,7 +294,7 @@ public class BonusSceneManager : MonoBehaviour
         }
     }
 
-    public async void UseBonusAction(string bonusType)
+    public void UseBonusAction(string bonusType)
     {
         switch (bonusType)
         {
@@ -320,9 +320,9 @@ public class BonusSceneManager : MonoBehaviour
             halfView.Configure(
                 "Special Bonus",
                 "Você irá ativar um special bonus, e terá xp triplicada por 10 min. Deseja ativar o bonus agora?",
-                "Cancelar", // primaryButton (cancelar)
-                () => { /* Apenas fecha o HalfView */ },
-                "Ativar Bonus", // secondaryButton (confirmar)
+                "Cancelar", // primaryButton para cancelar
+                () => { /* Não faz nada, apenas fecha o menu */ },
+                "Ativar Bonus", // secondaryButton para ativar
                 async () =>
                 {
                     await ActivateSpecialBonus();
@@ -335,9 +335,8 @@ public class BonusSceneManager : MonoBehaviour
         else
         {
             Debug.LogWarning("HalfViewComponent não encontrado na cena atual");
-            // Fallback direto
+            // Fallback: ativar diretamente se o HalfView não estiver disponível
             _ = ActivateSpecialBonus();
-            _ = FetchBonuses();
         }
     }
 
@@ -351,11 +350,11 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            // 1. Obter lista de bônus atual
+            // 1. Obter a lista de bônus atual
             List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
             BonusType specialBonus = bonusList.FirstOrDefault(b => b.BonusName == "specialBonus");
 
-            if (specialBonus != null && specialBonus.IsBonusActive && specialBonus.BonusCount >= 5)
+            if (specialBonus != null && specialBonus.BonusCount >= 5)
             {
                 // 2. Zerar o contador
                 specialBonus.BonusCount = 0;
@@ -366,29 +365,14 @@ public class BonusSceneManager : MonoBehaviour
                 // Salvar essas mudanças
                 await specialBonusManager.SaveBonusList(userId, bonusList);
 
-                // 4. Ativar o special bonus na QuestionScene
-                // Criar ou atualizar o bônus ativo
-                string activeBonusName = "active_specialBonus";
-                BonusType activeBonus = bonusList.FirstOrDefault(b => b.BonusName == activeBonusName);
-
-                if (activeBonus == null)
-                {
-                    activeBonus = new BonusType(activeBonusName, 0, true, 0, true);
-                    bonusList.Add(activeBonus);
-                }
-                else
-                {
-                    activeBonus.IsBonusActive = true;
-                    activeBonus.IsPersistent = true;
-                }
-
-                // 5. Definir expiração (10 minutos)
-                activeBonus.SetExpirationFromDuration(600f);
-
-                // Salvar no Firestore
-                await specialBonusManager.SaveBonusList(userId, bonusList);
+                // 4 e 5. Ativar o bônus especial na QuestionScene com multiplicador 3
+                QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
+                await questionSceneBonusManager.ActivateBonus(userId, "specialBonus", 600f, 3);
 
                 Debug.Log("Special Bonus ativado com sucesso! XP triplicado por 10 minutos.");
+
+                // Atualizar a UI para refletir as mudanças
+                await FetchBonuses();
             }
             else
             {
