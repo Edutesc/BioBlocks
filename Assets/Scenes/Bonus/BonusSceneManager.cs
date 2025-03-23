@@ -294,7 +294,7 @@ public class BonusSceneManager : MonoBehaviour
         }
     }
 
-    public void UseBonusAction(string bonusType)
+    public async void UseBonusAction(string bonusType)
     {
         switch (bonusType)
         {
@@ -302,7 +302,17 @@ public class BonusSceneManager : MonoBehaviour
                 ShowSpecialBonusConfirmation();
                 break;
 
-            // Outros casos existentes...
+            case "listCompletionBonus":
+                await ActivateListCompletionBonus();
+                break;
+
+            case "persistenceBonus":
+                await ActivatePersistenceBonus();
+                break;
+
+            case "correctAnswerBonusPro":
+                await ActivateCorrectAnswerBonusPro();
+                break;
 
             default:
                 Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
@@ -312,21 +322,30 @@ public class BonusSceneManager : MonoBehaviour
 
     private void ShowSpecialBonusConfirmation()
     {
-        string currentScene = SceneManager.GetActiveScene().name;
-        HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(currentScene);
+        // Usar o método que garante que haja um HalfView na cena
+        HalfViewComponent halfView = HalfViewRegistry.EnsureHalfViewInCurrentScene();
 
         if (halfView != null)
         {
+            // Quebrar o texto em linhas para melhor legibilidade
+            string mensagem = "Você terá xp triplicada por 10 min.\n" +
+                             "Poderá ser cumulativo se já existir um bonus em uso. \n"+ 
+                             "Deseja ativar o bonus agora?";
+
             halfView.Configure(
-                "Special Bonus",
-                "Você irá ativar um special bonus, e terá xp triplicada por 10 min. Deseja ativar o bonus agora?",
-                "Cancelar", // primaryButton para cancelar
-                () => { /* Não faz nada, apenas fecha o menu */ },
-                "Ativar Bonus", // secondaryButton para ativar
+                "Ativar Special Bonus",
+                mensagem,
+                "Cancelar",
+                () =>
+                {
+                    Debug.Log("Ativação do Special Bonus cancelada pelo usuário");
+                },
+                "Ativar Bonus",
                 async () =>
                 {
                     await ActivateSpecialBonus();
                     await FetchBonuses();
+                    Debug.Log("Special Bonus ativado pelo usuário");
                 }
             );
 
@@ -334,8 +353,7 @@ public class BonusSceneManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("HalfViewComponent não encontrado na cena atual");
-            // Fallback: ativar diretamente se o HalfView não estiver disponível
+            Debug.LogError("Não foi possível criar o HalfViewComponent. Ativando Special Bonus diretamente.");
             _ = ActivateSpecialBonus();
         }
     }

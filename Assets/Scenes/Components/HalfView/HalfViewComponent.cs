@@ -379,7 +379,7 @@ public class HalfViewComponent : MonoBehaviour
         {
             if (show)
             {
-                menuCanvas.sortingOrder = 100;
+                menuCanvas.sortingOrder = 1000;
 
                 if (bottomBarCanvas != null)
                 {
@@ -391,7 +391,7 @@ public class HalfViewComponent : MonoBehaviour
                     Canvas overlayCanvas = darkOverlay.GetComponent<Canvas>();
                     if (overlayCanvas != null)
                     {
-                        overlayCanvas.sortingOrder = 90;
+                        overlayCanvas.sortingOrder = 140;
                     }
                 }
             }
