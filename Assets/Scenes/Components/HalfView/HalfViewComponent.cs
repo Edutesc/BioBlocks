@@ -38,6 +38,7 @@ public class HalfViewComponent : MonoBehaviour
     public event Action OnCloseButtonClicked;
     public event Action OnHalfViewShown;
     public event Action OnHalfViewHidden;
+    public event Action OnCancelled;
 
     // Variáveis privadas
     private Vector2 hiddenPosition;
@@ -57,8 +58,6 @@ public class HalfViewComponent : MonoBehaviour
     private void Awake()
     {
         EnsureCanvasSetup();
-
-        // Registra este componente para a cena atual
         string sceneName = SceneManager.GetActiveScene().name;
         HalfViewRegistry.RegisterHalfView(sceneName, this);
     }
@@ -86,8 +85,6 @@ public class HalfViewComponent : MonoBehaviour
         {
             darkOverlay.SetActive(false);
         }
-
-        Debug.Log("[HalfViewComponent] Iniciado com sucesso");
     }
 
     private void OnDestroy()
@@ -171,7 +168,6 @@ public class HalfViewComponent : MonoBehaviour
             secondaryButton.onClick.AddListener(() =>
             {
                 OnSecondaryButtonClicked?.Invoke();
-                // Por padrão, fechamos o menu após o clique
                 HideMenu();
             });
             secondaryButton.interactable = true;
@@ -243,8 +239,6 @@ public class HalfViewComponent : MonoBehaviour
         }
         overlayButton.onClick.RemoveAllListeners();
         overlayButton.onClick.AddListener(HideMenu);
-
-        // CRÍTICO: Garante que o overlay esteja ATRÁS da half view na hierarquia
         darkOverlay.transform.SetSiblingIndex(0);
     }
 
@@ -289,6 +283,24 @@ public class HalfViewComponent : MonoBehaviour
     public void ShowMenu()
     {
         if (isVisible) return;
+        gameObject.SetActive(true);
+
+        if (darkOverlay != null)
+        {
+            darkOverlay.SetActive(true);
+            Image overlayImage = darkOverlay.GetComponent<Image>();
+            if (overlayImage != null)
+            {
+                overlayImage.raycastTarget = true;
+                Color color = overlayImage.color;
+                color.a = overlayAlpha;
+                overlayImage.color = color;
+            }
+        }
+        else
+        {
+            Debug.LogError("DarkOverlay não está configurado no HalfView!");
+        }
 
         CollectInteractableElements();
         DisableSceneInteraction();
@@ -326,11 +338,12 @@ public class HalfViewComponent : MonoBehaviour
         if (!isVisible) return;
 
         EnableSceneInteraction();
+        OnCancelled?.Invoke();
 
         if (animationCoroutine != null)
             StopCoroutine(animationCoroutine);
 
-        animationCoroutine = StartCoroutine(AnimateMenu(visiblePosition, hiddenPosition, true));
+        animationCoroutine = StartCoroutine(AnimateMenuAndDeactivate(visiblePosition, hiddenPosition));
         isVisible = false;
 
         if (darkOverlay != null)
@@ -338,8 +351,30 @@ public class HalfViewComponent : MonoBehaviour
             darkOverlay.SetActive(false);
         }
 
-        AdjustSortingOrderForVisibility(false);
         OnHalfViewHidden?.Invoke();
+    }
+
+    private IEnumerator AnimateMenuAndDeactivate(Vector2 startPos, Vector2 endPos)
+    {
+        if (menuPanel == null) yield break;
+
+        float elapsedTime = 0;
+        menuPanel.anchoredPosition = startPos;
+
+        while (elapsedTime < animationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / animationDuration);
+            float curveValue = animationCurve.Evaluate(normalizedTime);
+
+            menuPanel.anchoredPosition = Vector2.Lerp(startPos, endPos, curveValue);
+
+            yield return null;
+        }
+
+        menuPanel.anchoredPosition = endPos;
+        gameObject.SetActive(false);
+        animationCoroutine = null;
     }
 
     private void DisableSceneInteraction()
@@ -364,12 +399,46 @@ public class HalfViewComponent : MonoBehaviour
 
     private void EnableSceneInteraction()
     {
-        for (int i = 0; i < interactableElements.Count; i++)
+        try
         {
-            if (interactableElements[i] != null)
+            for (int i = 0; i < interactableElements.Count; i++)
             {
-                interactableElements[i].interactable = originalInteractableStates[i];
+                if (interactableElements[i] != null)
+                {
+                    interactableElements[i].interactable = originalInteractableStates[i];
+                }
             }
+
+            GameObject persistentBottomBar = GameObject.Find("PersistentBottomBar");
+            if (persistentBottomBar != null)
+            {
+                Button[] navButtons = persistentBottomBar.GetComponentsInChildren<Button>(true);
+                foreach (Button button in navButtons)
+                {
+                    button.interactable = true;
+                }
+
+
+                persistentBottomBar.SetActive(true);
+                Canvas navCanvas = persistentBottomBar.GetComponentInParent<Canvas>();
+
+                if (navCanvas != null)
+                {
+                    navCanvas.enabled = true;
+                }
+
+                CanvasGroup canvasGroup = persistentBottomBar.GetComponent<CanvasGroup>();
+                if (canvasGroup != null)
+                {
+                    canvasGroup.alpha = 1f;
+                    canvasGroup.blocksRaycasts = true;
+                    canvasGroup.interactable = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao reativar interações: {e.Message}");
         }
     }
 

@@ -121,6 +121,23 @@ public class BonusSceneManager : MonoBehaviour
     private void OnEnable()
     {
         InitializeAndFetchBonus();
+        HalfViewRegistry.OnAnyHalfViewHidden += OnAnyHalfViewHidden;
+    }
+
+    private void OnDisable()
+    {
+        if (isInitialized)
+        {
+            StopListeningForBonusUpdates();
+        }
+
+        HalfViewRegistry.OnAnyHalfViewHidden -= OnAnyHalfViewHidden;
+    }
+
+    private void OnAnyHalfViewHidden()
+    {
+        Debug.Log("HalfView escondido, forçando atualização da UI");
+        ForceUpdateUIAndReactivateButton();
     }
 
     private async void InitializeAndFetchBonus()
@@ -171,16 +188,15 @@ public class BonusSceneManager : MonoBehaviour
             {
                 count = matchingBonus.BonusCount;
 
-                // Verificar se deve ativar o botão com base no contador para o special bonus
                 if (bonusUIMapping.bonusFirestoreName == "specialBonus" && count >= 5)
                 {
                     isActive = true;
 
-                    // Atualizar também no objeto de bonus para manter a consistência
+                    // Forçar a atualização do objeto BonusType
                     if (!matchingBonus.IsBonusActive)
                     {
                         matchingBonus.IsBonusActive = true;
-                        _ = specialBonusManager.SaveBonusList(userId, bonuses);
+                        Debug.Log("Forçando ativação do status do botão Special Bonus");
                     }
                 }
                 else
@@ -213,6 +229,12 @@ public class BonusSceneManager : MonoBehaviour
 
             UpdateButtonState(bonusUIMapping, isActive);
 
+            if (bonusUIMapping.bonusFirestoreName == "specialBonus")
+            {
+                Debug.Log($"Special Bonus - Count: {count}, IsActive: {isActive}, Botão interagível: {bonusUIMapping.bonusButton?.interactable}");
+            }
+
+
             if (isActive)
             {
                 SetupButtonAction(bonusUIMapping, matchingBonus);
@@ -235,8 +257,8 @@ public class BonusSceneManager : MonoBehaviour
         if (bonusUI.bonusButton != null)
         {
             bonusUI.bonusButton.interactable = isActive;
-
             Image buttonImage = bonusUI.bonusButton.GetComponent<Image>();
+
             if (buttonImage != null)
             {
                 if (isActive)
@@ -279,6 +301,11 @@ public class BonusSceneManager : MonoBehaviour
             {
                 bonusUI.isBonusActiveText.color = bonusUI.isBonusActiveText.color.WithAlpha(isActive ? 1f : 0.8f);
             }
+
+            if (isActive && bonusUI.bonusFirestoreName == "specialBonus")
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(bonusUI.bonusButton.GetComponent<RectTransform>());
+            }
         }
     }
 
@@ -294,67 +321,210 @@ public class BonusSceneManager : MonoBehaviour
         }
     }
 
-    public async void UseBonusAction(string bonusType)
+    public void UseBonusAction(string bonusType)
     {
-        switch (bonusType)
+        BonusUIElements bonusUI = bonusUIMappings.FirstOrDefault(b => b.bonusFirestoreName == bonusType);
+        if (bonusUI != null && bonusUI.bonusButton != null)
         {
-            case "specialBonus":
-                ShowSpecialBonusConfirmation();
-                break;
+            bonusUI.bonusButton.interactable = false;
+        }
 
-            case "listCompletionBonus":
-                await ActivateListCompletionBonus();
-                break;
+        try
+        {
+            switch (bonusType)
+            {
+                case "specialBonus":
+                    ShowSpecialBonusConfirmation();
+                    break;
 
-            case "persistenceBonus":
-                await ActivatePersistenceBonus();
-                break;
+                // ... outros casos ...
 
-            case "correctAnswerBonusPro":
-                await ActivateCorrectAnswerBonusPro();
-                break;
+                default:
+                    Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao usar bônus: {e.Message}");
 
-            default:
-                Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
-                break;
+            if (bonusUI != null && bonusUI.bonusButton != null)
+            {
+                bonusUI.bonusButton.interactable = true;
+            }
         }
     }
 
     private void ShowSpecialBonusConfirmation()
     {
-        // Usar o método que garante que haja um HalfView na cena
-        HalfViewComponent halfView = HalfViewRegistry.EnsureHalfViewInCurrentScene();
+        string currentScene = SceneManager.GetActiveScene().name;
+        HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(currentScene);
+
+        if (halfView == null)
+        {
+            halfView = HalfViewRegistry.EnsureHalfViewInCurrentScene();
+        }
 
         if (halfView != null)
         {
-            // Quebrar o texto em linhas para melhor legibilidade
-            string mensagem = "Você terá xp triplicada por 10 min.\n" +
-                             "Poderá ser cumulativo se já existir um bonus em uso. \n"+ 
-                             "Deseja ativar o bonus agora?";
-
-            halfView.Configure(
-                "Ativar Special Bonus",
-                mensagem,
-                "Cancelar",
-                () =>
-                {
-                    Debug.Log("Ativação do Special Bonus cancelada pelo usuário");
-                },
-                "Ativar Bonus",
-                async () =>
-                {
-                    await ActivateSpecialBonus();
-                    await FetchBonuses();
-                    Debug.Log("Special Bonus ativado pelo usuário");
-                }
-            );
-
-            halfView.ShowMenu();
+            halfView.HideMenu();
+            StartCoroutine(ConfigureHalfViewAfterFrame(halfView));
         }
         else
         {
             Debug.LogError("Não foi possível criar o HalfViewComponent. Ativando Special Bonus diretamente.");
             _ = ActivateSpecialBonus();
+        }
+    }
+
+    private IEnumerator ConfigureHalfViewAfterFrame(HalfViewComponent halfView)
+    {
+        yield return null;
+        halfView.OnCancelled -= OnHalfViewCancelled;
+        halfView.OnCancelled += OnHalfViewCancelled;
+
+        halfView.Configure(
+            "Ativar Special Bonus",
+            "Você terá xp triplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?",
+            "Cancelar",
+            () =>
+            {
+                Debug.Log("Ativação do Special Bonus cancelada");
+            },
+            "Ativar Bonus",
+            async () =>
+            {
+                try
+                {
+                    await ActivateSpecialBonus();
+                    await FetchBonuses();
+                    Debug.Log("Special Bonus ativado com sucesso");
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Erro ao ativar Special Bonus: {e.Message}");
+                    ForceUpdateUIAndReactivateButton();
+                }
+            }
+        );
+
+        halfView.ShowMenu();
+    }
+
+    private void OnHalfViewCancelled()
+    {
+        Debug.Log("HalfView cancelada, atualizando UI e reativando botão");
+        ForceUpdateUIAndReactivateButton();
+    }
+
+    private void ForceUpdateUIAndReactivateButton()
+    {
+        StartCoroutine(FetchAndUpdateUI());
+    }
+
+    private IEnumerator FetchAndUpdateUI()
+    {
+        var fetchTask = specialBonusManager.GetUserBonuses(userId);
+        while (!fetchTask.IsCompleted)
+        {
+            yield return null;
+        }
+
+        if (fetchTask.IsFaulted || fetchTask.IsCanceled)
+        {
+            Debug.LogError($"Erro ao buscar dados do usuário: {fetchTask.Exception?.Message}");
+            FallbackReactivateButton();
+        }
+        else
+        {
+            try
+            {
+                List<BonusType> bonuses = fetchTask.Result;
+                UpdateBonusUI(bonuses);
+                ReactivateButtonIfNeeded(bonuses);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Erro ao processar resultados: {e.Message}");
+                FallbackReactivateButton();
+            }
+        }
+    }
+
+    private void FallbackReactivateButton()
+    {
+        BonusUIElements specialBonusUI = bonusUIMappings.FirstOrDefault(b => b.bonusFirestoreName == "specialBonus");
+        if (specialBonusUI != null && specialBonusUI.bonusButton != null)
+        {
+            specialBonusUI.bonusButton.interactable = true;
+            Debug.Log("Botão Special Bonus reativado por fallback");
+        }
+    }
+
+    private void ReactivateButtonIfNeeded(List<BonusType> bonuses)
+    {
+        BonusType specialBonus = bonuses.FirstOrDefault(b => b.BonusName == "specialBonus");
+        if (specialBonus != null && specialBonus.BonusCount >= 5)
+        {
+            BonusUIElements specialBonusUI = bonusUIMappings.FirstOrDefault(b => b.bonusFirestoreName == "specialBonus");
+            if (specialBonusUI != null && specialBonusUI.bonusButton != null)
+            {
+                specialBonusUI.bonusButton.interactable = true;
+                Debug.Log("Botão Special Bonus reativado após atualização de UI");
+            }
+        }
+    }
+
+    private void ReactivateSpecialBonusButton()
+    {
+        StartCoroutine(FetchAndReactivateButton());
+    }
+
+    private IEnumerator FetchAndReactivateButton()
+    {
+        var fetchTask = FetchBonuses();
+
+        while (!fetchTask.IsCompleted)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        var userBonusesTask = specialBonusManager.GetUserBonuses(userId);
+
+        while (!userBonusesTask.IsCompleted)
+        {
+            yield return null;
+        }
+
+        if (userBonusesTask.IsFaulted || userBonusesTask.IsCanceled)
+        {
+            Debug.LogError($"Erro ao buscar bônus do usuário: {userBonusesTask.Exception?.Message}");
+            FallbackReactivateButton();
+        }
+        else
+        {
+            try
+            {
+                List<BonusType> bonuses = userBonusesTask.Result;
+                ReactivateButtonIfNeeded(bonuses);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Erro ao processar bônus: {e.Message}");
+                FallbackReactivateButton();
+            }
+        }
+    }
+
+    private IEnumerator ReactivateSpecialBonusButtonDelayed()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        BonusUIElements specialBonusUI = bonusUIMappings.FirstOrDefault(b => b.bonusFirestoreName == "specialBonus");
+        if (specialBonusUI != null && specialBonusUI.bonusButton != null)
+        {
+            specialBonusUI.bonusButton.interactable = true;
         }
     }
 
@@ -368,28 +538,16 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            // 1. Obter a lista de bônus atual
             List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
             BonusType specialBonus = bonusList.FirstOrDefault(b => b.BonusName == "specialBonus");
 
             if (specialBonus != null && specialBonus.BonusCount >= 5)
             {
-                // 2. Zerar o contador
                 specialBonus.BonusCount = 0;
-
-                // 3. Desativar o botão (IsBonusActive = false)
                 specialBonus.IsBonusActive = false;
-
-                // Salvar essas mudanças
                 await specialBonusManager.SaveBonusList(userId, bonusList);
-
-                // 4 e 5. Ativar o bônus especial na QuestionScene com multiplicador 3
                 QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
                 await questionSceneBonusManager.ActivateBonus(userId, "specialBonus", 600f, 3);
-
-                Debug.Log("Special Bonus ativado com sucesso! XP triplicado por 10 minutos.");
-
-                // Atualizar a UI para refletir as mudanças
                 await FetchBonuses();
             }
             else
@@ -403,76 +561,8 @@ public class BonusSceneManager : MonoBehaviour
         }
     }
 
-    private void ShowBonusActivatedFeedback()
-    {
-        // Mostrar feedback visual de que o bônus foi ativado
-        // Isso pode ser um toast, uma animação ou outro elemento UI
-        Debug.Log("Special Bonus ativado com sucesso! XP triplicado por 10 minutos.");
-    }
-
-    private async Task ActivateListCompletionBonus()
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogWarning("BonusSceneManager: UserId não definido");
-            return;
-        }
-
-        try
-        {
-            await specialBonusManager.ActivateBonus(userId, "listCompletionBonus", 300f);
-            await FetchBonuses();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus das listas: {e.Message}");
-        }
-    }
-
-    private async Task ActivatePersistenceBonus()
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogWarning("BonusSceneManager: UserId não definido");
-            return;
-        }
-
-        try
-        {
-            await specialBonusManager.ActivateBonus(userId, "persistenceBonus", 900f);
-            await FetchBonuses();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus incansável: {e.Message}");
-        }
-    }
-
-    private async Task ActivateCorrectAnswerBonusPro()
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogWarning("BonusSceneManager: UserId não definido");
-            return;
-        }
-
-        try
-        {
-            await specialBonusManager.ActivateBonus(userId, "correctAnswerBonusPro", 1200f);
-            await FetchBonuses();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"BonusSceneManager: Erro ao ativar bônus especial pro: {e.Message}");
-        }
-    }
-
     private void StartListeningForBonusUpdates()
     {
-        // Implementar escuta de atualizações em tempo real do Firestore
-        // Isto pode ser implementado de várias maneiras:
-
-        // 1. Usando o listener padrão do Firestore:
         // DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("UserBonus").Document(userId);
         // listenerRegistration = docRef.Listen(snapshot => {
         //     if (snapshot.Exists) {
@@ -496,14 +586,6 @@ public class BonusSceneManager : MonoBehaviour
             }
 
             _ = FetchBonuses();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (isInitialized)
-        {
-            StopListeningForBonusUpdates();
         }
     }
 

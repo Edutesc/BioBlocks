@@ -13,7 +13,7 @@ public class SpecialBonusHandler : MonoBehaviour
     
     [Header("Special Bonus Configuration")]
     [SerializeField] private int specialBonusMultiplier = 3;
-    [SerializeField] private float bonusDuration = 600f; // 10 minutos em segundos
+    [SerializeField] private float bonusDuration = 600f;
     
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI specialBonusTimerText;
@@ -41,14 +41,11 @@ public class SpecialBonusHandler : MonoBehaviour
             specialBonusTimerContainer.SetActive(false);
         }
         
-        // Inicia a verificação do bonus ativo
         StartCoroutine(InitCheckForActiveBonus());
     }
     
-    // Coroutine inicial que chama o método assíncrono
     private IEnumerator InitCheckForActiveBonus()
     {
-        // Aguardar um curto período para garantir que outros sistemas foram inicializados
         yield return new WaitForSeconds(0.5f);
         
         if (UserDataStore.CurrentUserData == null || string.IsNullOrEmpty(UserDataStore.CurrentUserData.UserId))
@@ -58,12 +55,9 @@ public class SpecialBonusHandler : MonoBehaviour
         }
         
         string userId = UserDataStore.CurrentUserData.UserId;
-        
-        // Iniciar a verificação assíncrona
         CheckForActiveSpecialBonus(userId);
     }
     
-    // Método assíncrono separado para evitar usar await dentro da coroutine
     private async void CheckForActiveSpecialBonus(string userId)
     {
         try
@@ -120,7 +114,6 @@ public class SpecialBonusHandler : MonoBehaviour
             yield return new WaitForSeconds(1f);
             specialBonusTimeRemaining -= 1f;
             
-            // Atualizar no Firestore periodicamente
             if (lastUpdateTime - specialBonusTimeRemaining >= 30f || specialBonusTimeRemaining <= 10f)
             {
                 lastUpdateTime = specialBonusTimeRemaining;
@@ -239,12 +232,10 @@ public class SpecialBonusHandler : MonoBehaviour
         
         if (isSpecialBonusActive && UserDataStore.CurrentUserData != null && !string.IsNullOrEmpty(UserDataStore.CurrentUserData.UserId))
         {
-            // Chamar método não bloqueante
             SaveBonusStateOnExit(UserDataStore.CurrentUserData.UserId);
         }
     }
     
-    // Mudado para método assíncrono normal ao invés de tentar usar Task não-await
     private async void SaveBonusStateOnExit(string userId)
     {
         try
