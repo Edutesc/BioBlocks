@@ -109,7 +109,6 @@ public class SpecialBonusManager
         {
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-            
             List<BonusType> bonusList = new List<BonusType>();
             
             if (snapshot.Exists)
