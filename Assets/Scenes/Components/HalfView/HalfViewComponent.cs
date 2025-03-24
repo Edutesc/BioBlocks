@@ -15,11 +15,17 @@ public class HalfViewComponent : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI messageText;
-    [SerializeField] private Button primaryButton;
-    [SerializeField] private TextMeshProUGUI primaryButtonText;
-    [SerializeField] private Button secondaryButton;
-    [SerializeField] private TextMeshProUGUI secondaryButtonText;
-    [SerializeField] private Button closeButton;
+    [SerializeField] private Button _primaryButton;
+    [SerializeField] private TextMeshProUGUI _primaryButtonText;
+    [SerializeField] private Button _secondaryButton;
+    [SerializeField] private TextMeshProUGUI _secondaryButtonText;
+    [SerializeField] private Button _closeButton;
+
+    public Button PrimaryButton => _primaryButton;
+    public TextMeshProUGUI PrimaryButtonText => _primaryButtonText;
+    public Button SecondaryButton => _secondaryButton;
+    public TextMeshProUGUI SecondaryButtonText => _secondaryButtonText;
+    public Button CloseButton => _closeButton;
 
     [Header("Botão de Ativação")]
     [SerializeField] private Button triggerButton;
@@ -145,53 +151,53 @@ public class HalfViewComponent : MonoBehaviour
 
     private void SetupButtonListeners()
     {
-        if (primaryButton != null)
+        if (_primaryButton != null)
         {
-            primaryButton.onClick.RemoveAllListeners();
-            primaryButton.onClick.AddListener(() =>
+            _primaryButton.onClick.RemoveAllListeners();
+            _primaryButton.onClick.AddListener(() =>
             {
                 OnPrimaryButtonClicked?.Invoke();
                 HideMenu();
             });
-            primaryButton.interactable = true;
+            _primaryButton.interactable = true;
 
-            if (primaryButton.targetGraphic != null)
+            if (_primaryButton.targetGraphic != null)
             {
-                primaryButton.targetGraphic.raycastTarget = true;
+                _primaryButton.targetGraphic.raycastTarget = true;
             }
             Debug.Log("[HalfViewComponent] Primary button configurado");
         }
 
-        if (secondaryButton != null)
+        if (_secondaryButton != null)
         {
-            secondaryButton.onClick.RemoveAllListeners();
-            secondaryButton.onClick.AddListener(() =>
+            _secondaryButton.onClick.RemoveAllListeners();
+            _secondaryButton.onClick.AddListener(() =>
             {
                 OnSecondaryButtonClicked?.Invoke();
                 HideMenu();
             });
-            secondaryButton.interactable = true;
+            _secondaryButton.interactable = true;
 
-            if (secondaryButton.targetGraphic != null)
+            if (_secondaryButton.targetGraphic != null)
             {
-                secondaryButton.targetGraphic.raycastTarget = true;
+                _secondaryButton.targetGraphic.raycastTarget = true;
             }
             Debug.Log("[HalfViewComponent] Secondary button configurado");
         }
 
-        if (closeButton != null)
+        if (_closeButton != null)
         {
-            closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(() =>
+            _closeButton.onClick.RemoveAllListeners();
+            _closeButton.onClick.AddListener(() =>
             {
                 OnCloseButtonClicked?.Invoke();
                 HideMenu();
             });
-            closeButton.interactable = true;
+            _closeButton.interactable = true;
 
-            if (closeButton.targetGraphic != null)
+            if (_closeButton.targetGraphic != null)
             {
-                closeButton.targetGraphic.raycastTarget = true;
+                _closeButton.targetGraphic.raycastTarget = true;
             }
             Debug.Log("[HalfViewComponent] Close button configurado");
         }
@@ -535,11 +541,11 @@ public class HalfViewComponent : MonoBehaviour
 
     public void SetPrimaryButton(string text, Action onClickAction, bool hideAfterClick = true)
     {
-        if (primaryButton != null && primaryButtonText != null)
+        if (_primaryButton != null && _primaryButtonText != null)
         {
-            primaryButtonText.text = text;
-            primaryButton.onClick.RemoveAllListeners();
-            primaryButton.onClick.AddListener(() =>
+            _primaryButtonText.text = text;
+            _primaryButton.onClick.RemoveAllListeners();
+            _primaryButton.onClick.AddListener(() =>
             {
                 onClickAction?.Invoke();
                 if (hideAfterClick)
@@ -547,17 +553,17 @@ public class HalfViewComponent : MonoBehaviour
                     HideMenu();
                 }
             });
-            primaryButton.gameObject.SetActive(true);
+            _primaryButton.gameObject.SetActive(true);
         }
     }
 
     public void SetSecondaryButton(string text, Action onClickAction, bool hideAfterClick = true)
     {
-        if (secondaryButton != null && secondaryButtonText != null)
+        if (_secondaryButton != null && _secondaryButtonText != null)
         {
-            secondaryButtonText.text = text;
-            secondaryButton.onClick.RemoveAllListeners();
-            secondaryButton.onClick.AddListener(() =>
+            _secondaryButtonText.text = text;
+            _secondaryButton.onClick.RemoveAllListeners();
+            _secondaryButton.onClick.AddListener(() =>
             {
                 onClickAction?.Invoke();
                 if (hideAfterClick)
@@ -565,23 +571,23 @@ public class HalfViewComponent : MonoBehaviour
                     HideMenu();
                 }
             });
-            secondaryButton.gameObject.SetActive(true);
+            _secondaryButton.gameObject.SetActive(true);
         }
     }
 
     public void HidePrimaryButton()
     {
-        if (primaryButton != null)
+        if (_primaryButton != null)
         {
-            primaryButton.gameObject.SetActive(false);
+            _primaryButton.gameObject.SetActive(false);
         }
     }
 
     public void HideSecondaryButton()
     {
-        if (secondaryButton != null)
+        if (_secondaryButton != null)
         {
-            secondaryButton.gameObject.SetActive(false);
+            _secondaryButton.gameObject.SetActive(false);
         }
     }
 

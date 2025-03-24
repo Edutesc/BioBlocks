@@ -9,13 +9,11 @@ public static class HalfViewRegistry
 {
     private const string HALF_VIEW_PREFAB_PATH = "Prefabs/HalfViewComponent";
     public static event Action OnAnyHalfViewHidden;
-
     private static Dictionary<string, HalfViewComponent> sceneHalfViews = new Dictionary<string, HalfViewComponent>();
 
     public static void RegisterHalfView(string sceneName, HalfViewComponent component)
     {
         sceneHalfViews[sceneName] = component;
-        Debug.Log($"[HalfViewRegistry] Componente registrado para cena '{sceneName}'");
     }
 
     public static void UnregisterHalfView(string sceneName)
@@ -23,7 +21,6 @@ public static class HalfViewRegistry
         if (sceneHalfViews.ContainsKey(sceneName))
         {
             sceneHalfViews.Remove(sceneName);
-            Debug.Log($"[HalfViewRegistry] Componente removido para cena '{sceneName}'");
         }
     }
 
@@ -48,7 +45,6 @@ public static class HalfViewRegistry
         if (halfView != null)
         {
             halfView.ShowMenu();
-            Debug.Log($"[HalfViewRegistry] HalfView mostrado para cena '{sceneName}'");
         }
         else
         {
@@ -68,9 +64,6 @@ public static class HalfViewRegistry
         if (halfView != null)
         {
             halfView.HideMenu();
-            Debug.Log($"[HalfViewRegistry] HalfView escondido para cena '{sceneName}'");
-
-            // Disparar o evento
             OnAnyHalfViewHidden?.Invoke();
         }
     }
@@ -78,7 +71,6 @@ public static class HalfViewRegistry
     public static void ClearRegistry()
     {
         sceneHalfViews.Clear();
-        Debug.Log("[HalfViewRegistry] Registro limpo");
     }
 
     public static HalfViewComponent EnsureHalfViewInCurrentScene()

@@ -74,7 +74,6 @@ public class SpecialBonusHandler : MonoBehaviour
                 if (remainingTime > 0)
                 {
                     ActivateSpecialBonusWithRemainingTime(remainingTime);
-                    Debug.Log($"SpecialBonusHandler: Special Bonus ativo restaurado com {remainingTime} segundos restantes");
                 }
             }
         }
