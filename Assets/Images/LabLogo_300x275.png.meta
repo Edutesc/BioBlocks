@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: ec353dbeadaff4a9ea10adf22804af6f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3868636394051092087
+    second: LabLogo_300x275_0
+  - first:
+      213: -3216234034358240243
+    second: LabLogo_300x275_1
+  - first:
+      213: 8002480469068501279
+    second: LabLogo_300x275_2
+  - first:
+      213: 7679478301906536532
+    second: LabLogo_300x275_3
+  - first:
+      213: 4050669476467968734
+    second: LabLogo_300x275_4
+  - first:
+      213: 3539943708279474178
+    second: LabLogo_300x275_5
+  - first:
+      213: -6007581492115716443
+    second: LabLogo_300x275_6
+  - first:
+      213: -7074419340326972848
+    second: LabLogo_300x275_7
+  - first:
+      213: -5788589125522304290
+    second: LabLogo_300x275_8
+  - first:
+      213: 2686084485655304420
+    second: LabLogo_300x275_9
+  - first:
+      213: -200687801959769128
+    second: LabLogo_300x275_10
+  - first:
+      213: -3029106816986625136
+    second: LabLogo_300x275_11
+  - first:
+      213: 6763680791914378887
+    second: LabLogo_300x275_12
+  - first:
+      213: -705137246035675111
+    second: LabLogo_300x275_13
+  - first:
+      213: 341335853723745095
+    second: LabLogo_300x275_14
+  - first:
+      213: -5982203676597662003
+    second: LabLogo_300x275_15
+  - first:
+      213: -7443650020532960746
+    second: LabLogo_300x275_16
+  - first:
+      213: 9067397054590780667
+    second: LabLogo_300x275_17
+  - first:
+      213: -454276244394235780
+    second: LabLogo_300x275_18
+  - first:
+      213: 925126717582817906
+    second: LabLogo_300x275_19
+  - first:
+      213: -5167365037512617562
+    second: LabLogo_300x275_20
+  - first:
+      213: 8070788514653873100
+    second: LabLogo_300x275_21
+  - first:
+      213: -7119315678008020295
+    second: LabLogo_300x275_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LabLogo_300x275_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 300
+        height: 243
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 981cf6f42b7df4ac0800000000000000
+      internalID: -3868636394051092087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 8
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0c3e83af24ad53d0800000000000000
+      internalID: -3216234034358240243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 7
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1154d076958e0f60800000000000000
+      internalID: 8002480469068501279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_3
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 7
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4588575f3dcf29a60800000000000000
+      internalID: 7679478301906536532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_4
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 7
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eda046f6d6ed63830800000000000000
+      internalID: 4050669476467968734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_5
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 7
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20880e81c08602130800000000000000
+      internalID: 3539943708279474178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_6
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 3
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a64b336678c0aca0800000000000000
+      internalID: -6007581492115716443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_7
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 7
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05258a3871d92dd90800000000000000
+      internalID: -7074419340326972848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_8
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 22
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed2dd8e0cdccaafa0800000000000000
+      internalID: -5788589125522304290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_9
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e81c24bb93e64520800000000000000
+      internalID: 2686084485655304420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_10
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 8
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8db1f65e183073df0800000000000000
+      internalID: -200687801959769128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_11
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 8
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b4cca166376f5d0800000000000000
+      internalID: -3029106816986625136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_12
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 7
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 786703048db6ddd50800000000000000
+      internalID: 6763680791914378887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_13
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 22
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91875242969d636f0800000000000000
+      internalID: -705137246035675111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_14
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 8
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74bfe46862bacb400800000000000000
+      internalID: 341335853723745095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_15
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 7
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dce4c528371fafca0800000000000000
+      internalID: -5982203676597662003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_16
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 22
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 612cdc59eb7d2b890800000000000000
+      internalID: -7443650020532960746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_17
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 8
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf48e4c749dd5dd70800000000000000
+      internalID: 9067397054590780667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_18
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 7
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c78abfe992612b9f0800000000000000
+      internalID: -454276244394235780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_19
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 22
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27a3fbd19d5b6dc00800000000000000
+      internalID: 925126717582817906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_20
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 8
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1994250e4d948b0800000000000000
+      internalID: -5167365037512617562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_21
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 7
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc32f39a463310070800000000000000
+      internalID: 8070788514653873100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabLogo_300x275_22
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 7
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b276705c1c133d90800000000000000
+      internalID: -7119315678008020295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LabLogo_300x275_0: -3868636394051092087
+      LabLogo_300x275_1: -3216234034358240243
+      LabLogo_300x275_10: -200687801959769128
+      LabLogo_300x275_11: -3029106816986625136
+      LabLogo_300x275_12: 6763680791914378887
+      LabLogo_300x275_13: -705137246035675111
+      LabLogo_300x275_14: 341335853723745095
+      LabLogo_300x275_15: -5982203676597662003
+      LabLogo_300x275_16: -7443650020532960746
+      LabLogo_300x275_17: 9067397054590780667
+      LabLogo_300x275_18: -454276244394235780
+      LabLogo_300x275_19: 925126717582817906
+      LabLogo_300x275_2: 8002480469068501279
+      LabLogo_300x275_20: -5167365037512617562
+      LabLogo_300x275_21: 8070788514653873100
+      LabLogo_300x275_22: -7119315678008020295
+      LabLogo_300x275_3: 7679478301906536532
+      LabLogo_300x275_4: 4050669476467968734
+      LabLogo_300x275_5: 3539943708279474178
+      LabLogo_300x275_6: -6007581492115716443
+      LabLogo_300x275_7: -7074419340326972848
+      LabLogo_300x275_8: -5788589125522304290
+      LabLogo_300x275_9: 2686084485655304420
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
