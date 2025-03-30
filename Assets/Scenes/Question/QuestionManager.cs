@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 using QuestionSystem;
-using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class QuestionManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("QuestionManager: Start iniciado");
+        
         if (!ValidateManagers())
         {
             Debug.LogError("Falha na validação dos managers necessários.");
@@ -37,32 +40,74 @@ public class QuestionManager : MonoBehaviour
 
     private async void InitializeAndStartSession()
     {
+        Debug.Log("QuestionManager: InitializeAndStartSession iniciado");
         await InitializeSession();
 
         if (currentSession != null)
         {
+            Debug.Log("QuestionManager: Session inicializada com sucesso");
             SetupEventHandlers();
             StartQuestion();
+        }
+        else
+        {
+            Debug.LogError("QuestionManager: currentSession é null após InitializeSession");
         }
     }
 
     private bool ValidateManagers()
     {
-        return questionBottomBarManager != null &&
+        Debug.Log("QuestionManager: Iniciando validação dos managers");
+        
+        if (questionBottomBarManager == null)
+            Debug.LogError("QuestionManager: questionBottomBarManager é null");
+            
+        if (questionUIManager == null)
+            Debug.LogError("QuestionManager: questionUIManager é null");
+            
+        if (questionCanvasGroupManager == null)
+            Debug.LogError("QuestionManager: questionCanvasGroupManager é null");
+            
+        if (timerManager == null)
+            Debug.LogError("QuestionManager: timerManager é null");
+            
+        if (loadManager == null)
+            Debug.LogError("QuestionManager: loadManager é null");
+            
+        if (answerManager == null)
+            Debug.LogError("QuestionManager: answerManager é null");
+            
+        if (scoreManager == null)
+            Debug.LogError("QuestionManager: scoreManager é null");
+            
+        if (feedbackElements == null)
+            Debug.LogError("QuestionManager: feedbackElements é null");
+            
+        if (transitionManager == null)
+            Debug.LogError("QuestionManager: transitionManager é null");
+        
+        bool isValid = questionBottomBarManager != null &&
                questionUIManager != null &&
                questionCanvasGroupManager != null &&
                timerManager != null &&
                loadManager != null &&
                answerManager != null &&
                scoreManager != null &&
-               feedbackElements != null;
+               feedbackElements != null &&
+               transitionManager != null;
+               
+        Debug.Log($"QuestionManager: Validação dos managers: {isValid}");
+        return isValid;
     }
 
     private async Task InitializeSession()
     {
+        Debug.Log("QuestionManager: Iniciando InitializeSession");
         try
         {
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
+            Debug.Log($"QuestionManager: QuestionSet atual: {currentSet}");
+            
             IQuestionDatabase database = FindQuestionDatabase(currentSet);
             if (database == null)
             {
@@ -71,38 +116,58 @@ public class QuestionManager : MonoBehaviour
             }
 
             string currentDatabaseName = database.GetDatabankName();
+            Debug.Log($"QuestionManager: Database name: {currentDatabaseName}");
+            
             loadManager.databankName = currentDatabaseName;
             List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             int answeredCount = answeredQuestions.Count;
             int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
+            
+            Debug.Log($"QuestionManager: Total de questões respondidas: {answeredCount}/{totalQuestions}");
+            
             if (totalQuestions <= 0)
             {
                 List<Question> allQuestions = database.GetQuestions();
                 totalQuestions = allQuestions.Count;
                 QuestionBankStatistics.SetTotalQuestions(currentDatabaseName, totalQuestions);
+                Debug.Log($"QuestionManager: Atualizando total de questões para: {totalQuestions}");
             }
 
             bool allQuestionsAnswered = QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount);
+            Debug.Log($"QuestionManager: Todas as questões foram respondidas? {allQuestionsAnswered}");
 
             if (allQuestionsAnswered)
             {
+                Debug.Log("QuestionManager: Carregando cena ResetDatabaseView");
                 SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
                 SceneManager.LoadScene("ResetDatabaseView");
                 return;
             }
 
+            Debug.Log("QuestionManager: Carregando questões para o set atual");
             var questions = await loadManager.LoadQuestionsForSet(currentSet);
-            if (questions == null || questions.Count == 0)
+            if (questions == null)
             {
+                Debug.LogError("QuestionManager: questions retornou null do LoadQuestionsForSet");
+                SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
+                SceneManager.LoadScene("ResetDatabaseView");
+                return;
+            }
+            
+            if (questions.Count == 0)
+            {
+                Debug.LogError("QuestionManager: questions retornou lista vazia");
                 SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
                 SceneManager.LoadScene("ResetDatabaseView");
                 return;
             }
 
+            Debug.Log($"QuestionManager: {questions.Count} questões carregadas com sucesso");
             currentSession = new QuestionSession(questions);
         }
         catch (Exception e)
         {
+            Debug.LogError($"QuestionManager: Erro em InitializeSession: {e.Message}\n{e.StackTrace}");
             string currentDatabaseName = loadManager.DatabankName;
             SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
             SceneManager.LoadScene("ResetDatabaseView");
@@ -111,32 +176,38 @@ public class QuestionManager : MonoBehaviour
 
     private IQuestionDatabase FindQuestionDatabase(QuestionSet targetSet)
     {
+        Debug.Log($"QuestionManager: Procurando database para o set: {targetSet}");
         try
         {
             MonoBehaviour[] allBehaviours = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
+            Debug.Log($"QuestionManager: Encontrados {allBehaviours.Length} MonoBehaviours na cena");
 
             foreach (MonoBehaviour behaviour in allBehaviours)
             {
                 if (behaviour is IQuestionDatabase database)
                 {
+                    Debug.Log($"QuestionManager: Encontrado potencial database: {behaviour.GetType().Name}");
                     if (database.GetQuestionSetType() == targetSet)
                     {
+                        Debug.Log($"QuestionManager: Database correspondente encontrado: {behaviour.GetType().Name}");
                         return database;
                     }
                 }
             }
 
+            Debug.LogError($"QuestionManager: Nenhum database encontrado para o set: {targetSet}");
             return null;
         }
         catch (Exception e)
         {
-            Debug.LogError($"Erro ao procurar database: {e.Message}");
+            Debug.LogError($"Erro ao procurar database: {e.Message}\n{e.StackTrace}");
             return null;
         }
     }
 
     private void SetupEventHandlers()
     {
+        Debug.Log("QuestionManager: Configurando event handlers");
         timerManager.OnTimerComplete += HandleTimeUp;
         answerManager.OnAnswerSelected += CheckAnswer;
         transitionManager.OnBeforeTransitionStart += PrepareNextQuestion;
@@ -186,6 +257,28 @@ public class QuestionManager : MonoBehaviour
         {
             Debug.LogError($"Erro ao processar resposta: {e.Message}");
         }
+    }
+
+    private void ShowAnswerFeedback(string message, bool isCorrect, bool isCompleted = false)
+    {
+        if (isCompleted)
+        {
+            feedbackElements.QuestionsCompletedFeedbackText.text = message;
+            questionCanvasGroupManager.ShowCompletionFeedback();
+            questionBottomBarManager.SetupNavigationButtons(
+                () =>
+                {
+                    NavigationManager.Instance.NavigateTo("PathwayScene");
+                },
+                null
+            );
+
+            return;
+        }
+
+        feedbackElements.FeedbackText.text = message;
+        Color backgroundColor = isCorrect ? HexToColor("#D4EDDA") : HexToColor("#F8D7DA");
+        questionCanvasGroupManager.ShowAnswerFeedback(isCorrect, HexToColor("#D4EDDA"), HexToColor("#F8D7DA"));
     }
 
     private async void PrepareNextQuestion()
@@ -258,9 +351,12 @@ public class QuestionManager : MonoBehaviour
 
     private void StartQuestion()
     {
+        Debug.Log("QuestionManager: Iniciando questão");
         try
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
+            Debug.Log($"QuestionManager: Questão atual ID: {currentQuestion.questionNumber}");
+            
             answerManager.SetupAnswerButtons(currentQuestion);
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
@@ -271,7 +367,7 @@ public class QuestionManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Erro ao iniciar questão: {e.Message}");
+            Debug.LogError($"Erro ao iniciar questão: {e.Message}\n{e.StackTrace}");
         }
     }
 
@@ -334,6 +430,7 @@ public class QuestionManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("QuestionManager: OnDestroy chamado");
         if (timerManager != null)
             timerManager.OnTimerComplete -= HandleTimeUp;
 
@@ -398,5 +495,4 @@ public class QuestionManager : MonoBehaviour
         ColorUtility.TryParseHtmlString(hex, out color);
         return color;
     }
-
 }
