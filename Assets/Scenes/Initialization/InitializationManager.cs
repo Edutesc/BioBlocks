@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
-using Firebase;
 using System;
+using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
+using Firebase;
 
 public class InitializationManager : MonoBehaviour
 {
@@ -33,48 +33,36 @@ public class InitializationManager : MonoBehaviour
     }
 
     private void InitializeGlobalSpinner()
-{
-    if (globalSpinnerPrefab != null)
     {
-        // Instanciar o spinner como filho do Canvas principal para garantir a renderização correta
-        Canvas mainCanvas = FindObjectOfType<Canvas>();
-        
-        GameObject spinnerObject;
-        if (mainCanvas != null)
+        try
         {
-            spinnerObject = Instantiate(globalSpinnerPrefab, mainCanvas.transform);
+            globalSpinner = LoadingSpinnerComponent.Instance;
+
+            if (globalSpinner == null && globalSpinnerPrefab != null)
+            {
+                Canvas mainCanvas = FindFirstObjectByType<Canvas>();
+                GameObject spinnerObject;
+                
+                if (mainCanvas != null)
+                {
+                    spinnerObject = Instantiate(globalSpinnerPrefab, mainCanvas.transform);
+                }
+                else
+                {
+                    spinnerObject = Instantiate(globalSpinnerPrefab);
+                }
+                
+                spinnerObject.name = "GlobalLoadingSpinner";
+                DontDestroyOnLoad(spinnerObject);
+                
+                globalSpinner = spinnerObject.GetComponent<LoadingSpinnerComponent>();
+            }
         }
-        else
+        catch (Exception e)
         {
-            spinnerObject = Instantiate(globalSpinnerPrefab);
-        }
-        
-        spinnerObject.name = "GlobalLoadingSpinner";
-        DontDestroyOnLoad(spinnerObject);
-        
-        globalSpinner = spinnerObject.GetComponent<LoadingSpinnerComponent>();
-        
-        // Verificar se o spinner tem um Canvas
-        Canvas spinnerCanvas = spinnerObject.GetComponent<Canvas>();
-        if (spinnerCanvas != null)
-        {
-            // Garantir que está no modo ScreenSpaceOverlay
-            spinnerCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            // Garantir que está em uma ordem de sorting alta
-            spinnerCanvas.sortingOrder = 32767; // Valor máximo
+            Debug.LogError($"Error initializing spinner: {e.Message}");
         }
     }
-    else
-    {
-        globalSpinner = LoadingSpinnerComponent.Instance;
-    }
-    
-    if (globalSpinner != null)
-    {
-        // Chamar o método de verificação e correção
-        globalSpinner.VerifyAndFixSpinnerVisibility();
-    }
-}
 
     private void Start()
     {
@@ -84,8 +72,11 @@ public class InitializationManager : MonoBehaviour
 
     private void SetupUI()
     {
-        retryPanel.SetActive(false);
-        progressBar.fillAmount = 0f;
+        if (retryPanel != null)
+            retryPanel.SetActive(false);
+            
+        if (progressBar != null)
+            progressBar.fillAmount = 0f;
     }
 
     private async void StartInitialization()
@@ -99,6 +90,18 @@ public class InitializationManager : MonoBehaviour
 
         try
         {
+            try
+            {
+                if (globalSpinner != null)
+                {
+                    globalSpinner.ShowSpinner();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Error showing spinner: {e.Message}");
+            }
+
             UpdateStatus("Inicializando Firebase...");
             await InitializeFirebaseServices();
             UpdateProgress(0.3f);
@@ -128,15 +131,37 @@ public class InitializationManager : MonoBehaviour
                 await Task.Delay(Mathf.RoundToInt((minimumLoadingTime - elapsed) * 1000));
             }
 
-            if (isAuthenticated && userDataLoaded)
+            try
             {
-                globalSpinner.ShowSpinnerUntilSceneLoaded("PathwayScene");
-                SceneManager.LoadScene("PathwayScene");
+                if (isAuthenticated && userDataLoaded)
+                {
+                    if (globalSpinner != null)
+                    {
+                        globalSpinner.ShowSpinnerUntilSceneLoaded("PathwayScene");
+                    }
+                    SceneManager.LoadScene("PathwayScene");
+                }
+                else
+                {
+                    if (globalSpinner != null)
+                    {
+                        globalSpinner.ShowSpinnerUntilSceneLoaded("LoginView");
+                    }
+                    SceneManager.LoadScene("LoginView");
+                }
             }
-            else
+            catch (Exception e)
             {
-                globalSpinner.ShowSpinnerUntilSceneLoaded("LoginView");
-                SceneManager.LoadScene("LoginView");
+                Debug.LogError($"Error with spinner during scene transition: {e.Message}");
+
+                if (isAuthenticated && userDataLoaded)
+                {
+                    SceneManager.LoadScene("PathwayScene");
+                }
+                else
+                {
+                    SceneManager.LoadScene("LoginView");
+                }
             }
         }
         catch (Exception e)
@@ -146,7 +171,15 @@ public class InitializationManager : MonoBehaviour
 #else
             Debug.LogError("An initialization error occurred.");
 #endif
-            globalSpinner.HideSpinner();
+            try
+            {
+                if (globalSpinner != null)
+                {
+                    globalSpinner.HideSpinner();
+                }
+            }
+            catch { }
+            
             ShowError("Falha na inicialização. Por favor, verifique sua conexão e tente novamente.");
         }
     }
@@ -230,7 +263,14 @@ public class InitializationManager : MonoBehaviour
 
     private void ShowError(string message)
     {
-        retryPanel.SetActive(true);
-        errorText.text = message;
+        if (retryPanel != null)
+        {
+            retryPanel.SetActive(true);
+            
+            if (errorText != null)
+            {
+                errorText.text = message;
+            }
+        }
     }
 }

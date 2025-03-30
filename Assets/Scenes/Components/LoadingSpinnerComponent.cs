@@ -17,6 +17,7 @@ public class LoadingSpinnerComponent : MonoBehaviour
     private static LoadingSpinnerComponent _instance;
     private bool waitForSceneLoad = false;
     private string sceneToWaitFor = string.Empty;
+    private bool isInitialized = false;
 
     public static LoadingSpinnerComponent Instance
     {
@@ -47,17 +48,33 @@ public class LoadingSpinnerComponent : MonoBehaviour
         }
 
         _instance = this;
+        DontDestroyOnLoad(gameObject);
 
-        Initialize();
+        if (!isInitialized)
+        {
+            SafeInitialize();
+        }
     }
 
-    private void Initialize()
+    private void SafeInitialize()
     {
-        if (spinnerContainer != null && spinnerBackground != null && spinnerBorder != null)
+        try
         {
-            return;
+            if (spinnerContainer == null || spinnerBackground == null || spinnerBorder == null)
+            {
+                CreateSpinnerUI();
+            }
+            
+            isInitialized = true;
         }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error initializing LoadingSpinnerComponent: {e.Message}");
+        }
+    }
 
+    private void CreateSpinnerUI()
+    {
         Canvas canvas = GetComponent<Canvas>();
         if (canvas == null)
         {
@@ -93,6 +110,7 @@ public class LoadingSpinnerComponent : MonoBehaviour
         Image bgImage = background.AddComponent<Image>();
         bgImage.color = new Color(0, 0, 0, 0.5f);
         bgImage.raycastTarget = true;
+        
         CanvasGroup canvasGroup = background.AddComponent<CanvasGroup>();
         canvasGroup.blocksRaycasts = true;
         canvasGroup.interactable = true;
@@ -106,8 +124,8 @@ public class LoadingSpinnerComponent : MonoBehaviour
         GameObject centerObj = new GameObject("SpinnerBackground");
         centerObj.transform.SetParent(spinnerContainer.transform, false);
         spinnerBackground = centerObj.AddComponent<Image>();
-
         Sprite backgroundSprite = Resources.Load<Sprite>("UI/TEC_spinnerImage_300x300");
+
         if (backgroundSprite != null)
         {
             spinnerBackground.sprite = backgroundSprite;
@@ -121,25 +139,24 @@ public class LoadingSpinnerComponent : MonoBehaviour
         centerRect.anchorMin = new Vector2(0.5f, 0.5f);
         centerRect.anchorMax = new Vector2(0.5f, 0.5f);
         centerRect.sizeDelta = new Vector2(150, 150);
-
         GameObject borderObj = new GameObject("SpinnerBorder");
         borderObj.transform.SetParent(spinnerContainer.transform, false);
         spinnerBorder = borderObj.AddComponent<Image>();
-
         Sprite borderSprite = Resources.Load<Sprite>("UI/miniLogo_bioBlocks_border");
+
         if (borderSprite != null)
         {
             spinnerBorder.sprite = borderSprite;
         }
         else
         {
-            spinnerBorder.color = new Color(0.8f, 0.2f, 0.2f); // Vermelho
+            spinnerBorder.color = new Color(0.8f, 0.2f, 0.2f);
         }
 
         RectTransform borderRect = borderObj.GetComponent<RectTransform>();
         borderRect.anchorMin = new Vector2(0.5f, 0.5f);
         borderRect.anchorMax = new Vector2(0.5f, 0.5f);
-        borderRect.sizeDelta = new Vector2(200, 200); // Ligeiramente maior que o background
+        borderRect.sizeDelta = new Vector2(200, 200);
         spinnerContainer.SetActive(false);
     }
 
@@ -154,50 +171,47 @@ public class LoadingSpinnerComponent : MonoBehaviour
     }
 
     private void Update()
-{
-    if (spinnerBorder != null && spinnerContainer != null && spinnerContainer.activeSelf)
     {
-        // Debug para verificar se este código está sendo executado
-        Debug.Log("Spinner ativo: rotacionando borda");
-        spinnerBorder.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
-    }
-
-    if (rotateBackground && spinnerBackground != null && spinnerContainer != null && spinnerContainer.activeSelf)
-    {
-        spinnerBackground.transform.Rotate(0, 0, rotationSpeed * 0.2f * Time.deltaTime);
-    }
-}
-
-// Adicione métodos para verificar e corrigir a visualização do spinner
-public void VerifyAndFixSpinnerVisibility()
-{
-    if (spinnerContainer == null || spinnerBackground == null || spinnerBorder == null)
-    {
-        Debug.LogWarning("Componentes do spinner são nulos - reinicializando");
-        Initialize();
-    }
-    
-    // Forçar a visibilidade dos elementos
-    if (spinnerContainer != null)
-    {
-        spinnerContainer.SetActive(true);
-        
-        // Garantir que os componentes de imagem estejam ativos
-        if (spinnerBackground != null)
+        if (spinnerContainer != null && spinnerContainer.activeSelf)
         {
-            spinnerBackground.gameObject.SetActive(true);
-            // Forçar a cor para garantir visibilidade
-            spinnerBackground.color = Color.white;
-        }
-        
-        if (spinnerBorder != null)
-        {
-            spinnerBorder.gameObject.SetActive(true);
-            // Forçar a cor para garantir visibilidade
-            spinnerBorder.color = Color.white;
+            if (spinnerBorder != null)
+            {
+                spinnerBorder.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
+            }
+
+            if (rotateBackground && spinnerBackground != null)
+            {
+                spinnerBackground.transform.Rotate(0, 0, rotationSpeed * 0.2f * Time.deltaTime);
+            }
         }
     }
-}
+
+    public void VerifyAndFixSpinnerVisibility()
+    {
+        if (!isInitialized || spinnerContainer == null || spinnerBackground == null || spinnerBorder == null)
+        {
+            SafeInitialize();
+        }
+
+        if (spinnerContainer != null)
+        {
+            spinnerContainer.SetActive(true);
+
+            if (spinnerBackground != null)
+            {
+                spinnerBackground.gameObject.SetActive(true);
+            }
+
+            if (spinnerBorder != null)
+            {
+                spinnerBorder.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Unable to show spinner - container is null after initialization");
+        }
+    }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -234,13 +248,13 @@ public void VerifyAndFixSpinnerVisibility()
             sceneToWaitFor = string.Empty;
         }
     }
-private void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
-    if (spinnerContainer != null && spinnerContainer.activeSelf)
-    {
-        // Desenhar um gizmo quando o spinner estiver ativo
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, 1f);
+        if (spinnerContainer != null && spinnerContainer.activeSelf)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, 1f);
+        }
     }
-}
 }

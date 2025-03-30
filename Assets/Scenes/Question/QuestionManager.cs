@@ -155,8 +155,22 @@ public class QuestionManager : MonoBehaviour
         {
             if (isCorrect)
             {
-                ShowAnswerFeedback("Resposta correta!\n+5 pontos", true);
-                await scoreManager.UpdateScore(5, true, currentQuestion);
+                int baseScore = 5;
+                int actualScore = baseScore;
+                bool bonusActive = false;
+
+                if (scoreManager.HasBonusActive())
+                {
+                    bonusActive = true;
+                    actualScore = scoreManager.CalculateBonusScore(baseScore);
+                }
+
+                string feedbackMessage = bonusActive
+                    ? $"Resposta correta!\n+{actualScore} pontos (bônus ativo!)"
+                    : "Resposta correta!\n+5 pontos";
+
+                ShowAnswerFeedback(feedbackMessage, true);
+                await scoreManager.UpdateScore(baseScore, true, currentQuestion);
             }
             else
             {
@@ -172,7 +186,7 @@ public class QuestionManager : MonoBehaviour
             Debug.LogError($"Erro ao processar resposta: {e.Message}");
         }
     }
-
+    
     private void ShowAnswerFeedback(string message, bool isCorrect, bool isCompleted = false)
     {
         if (isCompleted)
