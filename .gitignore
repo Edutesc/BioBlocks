@@ -48,6 +48,10 @@ Desktop.ini
 **/Assets/Plugins/iOS/**/*.a
 **/Assets/Plugins/tvOS/**/*.a
 
+# Build folders
+/iOS/
+/android/
+
 # Unity
 [Ll]ibrary/
 [Tt]emp/
