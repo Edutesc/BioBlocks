@@ -51,8 +51,6 @@ public class QuestionScoreManager : MonoBehaviour
             }
 
             string userId = AuthenticationRepository.Instance.Auth.CurrentUser.UserId;
-
-            // Obter os dados mais recentes do usuário
             UserData userData = await FirestoreRepository.Instance.GetUserData(userId);
 
             if (userData == null)
@@ -61,40 +59,28 @@ public class QuestionScoreManager : MonoBehaviour
                 return;
             }
 
-            // Aplicar bônus se necessário
             int actualScoreChange = scoreChange;
-
-            // Se for uma resposta correta e houver um bônus ativo, aplicar o multiplicador
             if (isCorrect && questionBonusManager != null && questionBonusManager.IsBonusActive())
             {
                 int multiplier = questionBonusManager.GetCurrentScoreMultiplier();
                 actualScoreChange = questionBonusManager.ApplyBonusToScore(scoreChange);
-
-                Debug.Log($"Bônus aplicado! Multiplicador: x{multiplier}, Pontuação original: {scoreChange}, Pontuação com bônus: {actualScoreChange}");
             }
 
-            // Se a resposta estiver correta, atualizar o score E marcar a questão
             if (isCorrect)
             {
                 string databankName = answeredQuestion.questionDatabankName;
                 int questionNumber = answeredQuestion.questionNumber;
 
-                Debug.Log($"Atualizando score em {actualScoreChange} pontos e marcando questão {questionNumber} no banco {databankName}");
-
-                // Usar o método UpdateUserScores que atualiza tanto o Score quanto o WeekScore
                 try
                 {
                     await FirestoreRepository.Instance.UpdateUserScores(
                         userId,
-                        actualScoreChange,   // Passamos o incremento, não o novo valor total
+                        actualScoreChange,
                         questionNumber,
                         databankName,
                         true
                     );
 
-                    Debug.Log($"Score e WeekScore incrementados em {actualScoreChange} e questão {questionNumber} marcada como respondida");
-
-                    // Forçar atualização dos dados de questões respondidas na UI
                     if (answeredQuestionsManager != null && answeredQuestionsManager.IsManagerInitialized)
                     {
                         await answeredQuestionsManager.ForceUpdate();
@@ -107,16 +93,14 @@ public class QuestionScoreManager : MonoBehaviour
             }
             else
             {
-                // Se a resposta estiver errada, apenas atualizar o score
-                Debug.Log($"Resposta incorreta. Atualizando o score em {actualScoreChange} pontos");
                 try
                 {
                     await FirestoreRepository.Instance.UpdateUserScores(
                         userId,
-                        actualScoreChange, // Incremento no score, não o novo valor total
-                        0,                // Não marca nenhuma questão como respondida
-                        "",               // Nenhum banco de dados
-                        false             // Não é para marcar questão
+                        actualScoreChange,
+                        0,
+                        "",
+                        false
                     );
                 }
                 catch (Exception ex)
@@ -125,13 +109,10 @@ public class QuestionScoreManager : MonoBehaviour
                 }
             }
 
-            // Após a atualização no Firestore, buscar os dados atualizados
-            // para garantir que temos o estado mais recente
             UserData updatedUserData = await FirestoreRepository.Instance.GetUserData(userId);
 
             if (updatedUserData != null)
             {
-                // Atualizar o UserDataStore local com os dados completos e atualizados
                 UserDataStore.CurrentUserData = updatedUserData;
                 Debug.Log($"UserData atualizado com sucesso. Novo score: {updatedUserData.Score}, WeekScore: {updatedUserData.WeekScore}");
             }
@@ -140,8 +121,6 @@ public class QuestionScoreManager : MonoBehaviour
         {
             Debug.LogError($"Erro ao atualizar score: {ex.Message}\n{ex.StackTrace}");
 
-            // Mesmo em caso de erro, tentar atualizar o UserDataStore local
-            // para manter uma experiência mais consistente para o usuário
             if (currentUserData != null && scoreChange != 0)
             {
                 int clientSideScore = currentUserData.Score + scoreChange;
@@ -154,6 +133,20 @@ public class QuestionScoreManager : MonoBehaviour
                 Debug.Log($"Atualização local dos scores após erro - Score: {clientSideScore}, WeekScore: {clientSideWeekScore}");
             }
         }
+    }
+
+    public bool HasBonusActive()
+    {
+        return questionBonusManager != null && questionBonusManager.IsBonusActive();
+    }
+
+    public int CalculateBonusScore(int baseScore)
+    {
+        if (questionBonusManager != null && questionBonusManager.IsBonusActive())
+        {
+            return questionBonusManager.ApplyBonusToScore(baseScore);
+        }
+        return baseScore;
     }
 
     private void OnEnable()
