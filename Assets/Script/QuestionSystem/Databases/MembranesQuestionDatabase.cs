@@ -139,15 +139,16 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o papel dos esfingolipídeos nas membranas celulares?",
-            answers = new string[] { 
-                "Armazenamento de energia", 
-                "Sinalização e reconhecimento celular", 
-                "Suporte estrutural", 
-                "Catálise" },
+            questionText = "Qual destas substâncias não está presente em membranas celulares?",
+            answers = new string[] {
+                "AnswerImages/LipidDB/glicolipideo",
+                "AnswerImages/LipidDB/porfirina",
+                "AnswerImages/LipidDB/fosfatidilcolina",
+                "AnswerImages/LipidDB/colesterol"
+            },
             correctIndex = 1,
             questionNumber = 11,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
@@ -175,16 +176,17 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionNumber = 13,
             isImageAnswer = false
         },
-        new Question
+       new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual a principal diferença entre cerebrosídeos e globosídeos?",
-            answers = new string[] { 
-                "Número de ácidos graxos", 
-                "Presença de fosfato", 
-                "Número de moléculas de açúcar", 
-                "Tipo de esfingosina" },
-            correctIndex = 2,
+            questionText = "O que diz o modelo do mozaico fluido da formação de membranas celulares?",
+            answers = new string[] {
+                "Membranas apresentam-se como um grande mozaico de lipídeos.",
+                "A estrutura de uma membrana celular não é estática, e os lipídeos podem movimentar-se através dela.",
+                "O colesterol move-se livremente na membrana.",
+                "Membranas são basicamente lipídeos, sem nenhum outro tipo de molécula em sua composição"
+            },
+            correctIndex = 1,
             questionNumber = 14,
             isImageAnswer = false
         },
@@ -308,15 +310,17 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "O que é a temperatura de transição?",
-            answers = new string[] { 
-                "A temperatura na qual uma bicamada lipídica passa de um estado gel para um estado líquido-cristalino", 
-                "O ponto de fusão da água", 
-                "O ponto de ebulição da água", 
-                "A temperatura na qual as proteínas desnaturam" },
+            answers = new string[] {
+                "Utilizados na determinação do tipo sanguíneo",
+                "Utilizados como biomedicamentos para várias doenças",
+                "São marcadores tumorais",
+                "Agem como hormônios no sistema nervoso central"
+            },
             correctIndex = 0,
             questionNumber = 24,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/LipidDB/lipids_question_40"
         },
         new Question
         {
@@ -347,13 +351,14 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Como o colesterol afeta a fluidez da membrana?",
-            answers = new string[] { 
-                "Aumenta a fluidez em baixas temperaturas e diminui em altas temperaturas", 
-                "Diminui a fluidez em todas as temperaturas", 
-                "Aumenta a fluidez em todas as temperaturas", 
-                "Não tem efeito na fluidez" },
-            correctIndex = 0,
+            questionText = "A bainha de mielina é composta principalmente por:",
+            answers = new string[] {
+                "Proteínas",
+                "Glicerofosfolipídeos",
+                "Esfingolipídeos",
+                "Ácidos nucléicos"
+            },
+            correctIndex = 2,
             questionNumber = 27,
             isImageAnswer = false
         },
@@ -451,32 +456,6 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual a diferença entre um cerebrosídeo e um gangliosídeo?",
-            answers = new string[] { 
-                "Os cerebrosídeos têm um açúcar, os gangliosídeos têm múltiplos açúcares", 
-                "Os cerebrosídeos são esfingolipídeos, os gangliosídeos são glicerofosfolipídeos", 
-                "Os cerebrosídeos são encontrados em plantas, os gangliosídeos são encontrados em animais", 
-                "Os cerebrosídeos são polares, os gangliosídeos são apolares" },
-            correctIndex = 0,
-            questionNumber = 35,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o papel do ácido siálico nos gangliosídeos?",
-            answers = new string[] { 
-                "Confere carga negativa", 
-                "Fornece suporte estrutural", 
-                "Atua como receptor", 
-                "Armazena energia" },
-            correctIndex = 0,
-            questionNumber = 36,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
             questionText = "Qual a função do movimento flip-flop dos fosfolipídeos?",
             answers = new string[] { 
                 "Manter a assimetria da membrana", 
@@ -484,7 +463,7 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Regular a fluidez da membrana", 
                 "Armazenar energia" },
             correctIndex = 0,
-            questionNumber = 37,
+            questionNumber = 35,
             isImageAnswer = false
         },
         new Question
@@ -497,21 +476,52 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Identificou as proteínas da membrana", 
                 "Mediu a espessura da membrana" },
             correctIndex = 0,
-            questionNumber = 38,
+            questionNumber = 36,
             isImageAnswer = false
         },
         new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o papel dos marcadores fluorescentes no experimento de Frye e Edidin?",
-            answers = new string[] { 
-                "Monitorar o movimento das proteínas", 
-                "Medir a espessura da membrana", 
-                "Visualizar a composição lipídica", 
-                "Identificar lipídeos específicos" },
+            answers = new string[] {
+                "Formam micelas perfeitas em solução aquosa.",
+                "São importantes para a formação de membranas de camada simples",
+                "Fazem parte da composição de muitas membranas biológicas",
+                "Ao reagirem com bases formam ótimos biocombustíveis"
+            },
+            correctIndex = 2,
+            questionNumber = 37,
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/LipidDB/lipids_question_37"
+        },
+        new Question
+        {
+            questionDatabankName = "MembranesQuestionDatabase",
+            answers = new string[] {
+                "Glicerofosfoliplideos",
+                "Esfingolipídeos",
+                "Esteróis",
+                "Ceramidas"
+            },
             correctIndex = 0,
+            questionNumber = 38,
+            isImageQuestion = true,
+            isImageAnswer = false,
+            questionImagePath =  "AnswerImages/LipidDB/lipids_question_38"
+        },
+        new Question
+        {
+            questionDatabankName = "MembranesQuestionDatabase",
+            questionText = "Indique abaixo o lipídeo pertencente a família dos esfingolipídeos",
+            answers = new string[] {
+                "AnswerImages/LipidDB/acido_graxo_saturado",
+                "AnswerImages/LipidDB/glicolipideo",
+                "AnswerImages/LipidDB/fosfatidilcolina",
+                "AnswerImages/LipidDB/colesterol"
+            },
+            correctIndex = 1,
             questionNumber = 39,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question
         {
@@ -529,45 +539,6 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o efeito da temperatura na fluidez da membrana?",
-            answers = new string[] { 
-                "Temperaturas mais altas aumentam a fluidez, temperaturas mais baixas diminuem a fluidez", 
-                "Temperaturas mais altas diminuem a fluidez, temperaturas mais baixas aumentam a fluidez", 
-                "A temperatura não tem efeito na fluidez", 
-                "A fluidez é afetada apenas pela composição lipídica" },
-            correctIndex = 0,
-            questionNumber = 41,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o papel do grupo hidroxila no colesterol?",
-            answers = new string[] { 
-                "Forma o grupo de cabeça polar", 
-                "Forma parte do núcleo esteroide rígido", 
-                "Interage com os ácidos graxos", 
-                "Todas as alternativas acima" },
-            correctIndex = 0,
-            questionNumber = 42,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Como o colesterol afeta a permeabilidade da membrana?",
-            answers = new string[] { 
-                "Aumenta a permeabilidade", 
-                "Diminui a permeabilidade", 
-                "Não tem efeito", 
-                "O efeito depende da temperatura" },
-            correctIndex = 1,
-            questionNumber = 43,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
             questionText = "Qual o significado do modelo do mosaico fluido da membrana?",
             answers = new string[] { 
                 "Explica a fluidez da membrana e a mobilidade das proteínas", 
@@ -575,7 +546,7 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Fornece uma estrutura para entender a função da membrana", 
                 "Todas as alternativas acima" },
             correctIndex = 3,
-            questionNumber = 44,
+            questionNumber = 41,
             isImageAnswer = false
         },
         new Question
@@ -588,7 +559,7 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Respostas imunológicas", 
                 "Todas as alternativas acima" },
             correctIndex = 3,
-            questionNumber = 45,
+            questionNumber = 42,
             isImageAnswer = false
         },
         new Question
@@ -601,61 +572,9 @@ public class MembranesQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "As proteínas integrais são encontradas no citoplasma, as proteínas periféricas são encontradas na superfície", 
                 "As proteínas integrais são enzimas, as proteínas periféricas são estruturais" },
             correctIndex = 0,
-            questionNumber = 46,
+            questionNumber = 43,
             isImageAnswer = false
         },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o papel do citoesqueleto na manutenção da estrutura da membrana?",
-            answers = new string[] { 
-                "Fornece suporte estrutural", 
-                "Regula a fluidez da membrana", 
-                "Influencia a localização das proteínas", 
-                "Todas as alternativas acima" },
-            correctIndex = 3,
-            questionNumber = 47,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual a importância da assimetria da membrana?",
-            answers = new string[] { 
-                "Funções diferentes em cada lado da membrana", 
-                "Compartimentalização dos processos celulares", 
-                "Regulação da sinalização celular", 
-                "Todas as alternativas acima" },
-            correctIndex = 3,
-            questionNumber = 48,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Qual o papel das proteínas de transporte na membrana?",
-            answers = new string[] { 
-                "Facilitam o movimento de moléculas através da membrana", 
-                "Regulam a concentração de íons", 
-                "Mantêm a homeostase celular", 
-                "Todas as alternativas acima" },
-            correctIndex = 3,
-            questionNumber = 49,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "MembranesQuestionDatabase",
-            questionText = "Quais algumas doenças associadas a defeitos no metabolismo lipídico?",
-            answers = new string[] { 
-                "Doença de Tay-Sachs, doença de Niemann-Pick", 
-                "Doença de Alzheimer, doença de Parkinson", 
-                "Fibrose cística, doença de Huntington", 
-                "Todas as alternativas acima" },
-            correctIndex = 0,
-            questionNumber = 50,
-            isImageAnswer = false
-        }
     };
 
     public List<Question> GetQuestions()

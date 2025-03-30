@@ -171,4 +171,18 @@ public class QuestionScoreManager : MonoBehaviour
         currentUserData = userData;
         Debug.Log($"ScoreManager: UserData atualizado - UserId: {userData.UserId}, Score: {userData.Score}");
     }
+
+    public bool HasBonusActive()
+    {
+        return questionBonusManager != null && questionBonusManager.IsBonusActive();
+    }
+
+    public int CalculateBonusScore(int baseScore)
+    {
+        if (questionBonusManager != null && questionBonusManager.IsBonusActive())
+        {
+            return questionBonusManager.ApplyBonusToScore(baseScore);
+        }
+        return baseScore;
+    }
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 08f2fb4c7cfce47cfa35b0d811fb3542
+guid: 1a557d653d66745af86c8d4ce164f565
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1402108355294523659
-    second: acido_graxo_saturado_0
+      213: -650615447039268008
+    second: acido_graxo_saturado 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: acido_graxo_saturado_0
+      name: acido_graxo_saturado 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5fe001a21e5ba8ce0800000000000000
-      internalID: -1402108355294523659
+      spriteID: 85ba7d1b2bc88f6f0800000000000000
+      internalID: -650615447039268008
       vertices: []
       indices: 
       edges: []
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      acido_graxo_saturado 1_0: -650615447039268008
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -111,7 +111,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "AnswerImages/LipidDB/acido_graxo_saturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado"
             },
             correctIndex = 1,
@@ -139,7 +139,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "AnswerImages/LipidDB/acido_graxo_saturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado"
             },
             correctIndex = 3,
@@ -151,9 +151,9 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "LipidsQuestionDatabase",
             questionText = "Quais os dois fatores que afetam diretamente o ponto de fusão de lipídeos?",
             answers = new string[] {
-                "densidade /tensão superficial",
+                "densidade / tensão superficial",
                 "grau de instaturação / polaridade",
-                "tamanho da cadeia carbônica / grau de insatura",
+                "tamanho da cadeia carbônica / grau de insaturação",
                 "viscosidade / tamanho da cadeia carbônica."
             },
             correctIndex = 2,
@@ -195,7 +195,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "AnswerImages/LipidDB/acido_graxo_saturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado"
             },
             correctIndex = 0,
@@ -209,7 +209,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "AnswerImages/LipidDB/acido_graxo_saturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado"
             },
             correctIndex = 3,
@@ -223,7 +223,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "AnswerImages/LipidDB/acido_graxo_saturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado"
             },
             correctIndex = 2,
@@ -236,7 +236,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Há um sistema de classificação que identifica os lipídeos através de sua extremidade ômega. Sendo assim, indique abaixo o lípideo que pertence a família ômega-3",
             answers = new string[] {
                 "AnswerImages/LipidDB/colesterol",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado"
             },
@@ -402,10 +402,10 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "LipidsQuestionDatabase",
-            questionText = "Identifique abaixo o ácido graxo na conformação trans/",
+            questionText = "Identifique abaixo o ácido graxo na conformação trans.",
             answers = new string[] {
                 "AnswerImages/LipidDB/colesterol",
-                "AnswerImages/LipidDBacido_graxo_di_insaturado",
+                "AnswerImages/LipidDB/acido_graxo_di_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_mono_insaturado",
                 "AnswerImages/LipidDB/acido_graxo_trans"
             },
@@ -518,65 +518,6 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question
         {
             questionDatabankName = "LipidsQuestionDatabase",
-            answers = new string[] {
-                "Formam micelas perfeitas em solução aquosa.",
-                "São importantes para a formação de membranas de camada simples",
-                "Fazem parte da composição de muitas membranas biológicas",
-                "Ao reagirem com bases formam ótimos biocombustíveis"
-            },
-            correctIndex = 2,
-            questionNumber = 37,
-            isImageQuestion = true,
-            isImageAnswer = false,
-            questionImagePath =  "AnswerImages/LipidDB/lipids_question_37"
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
-            answers = new string[] {
-                "Glicerofosfoliplideos",
-                "Esfingolipídeos",
-                "Esteróis",
-                "Ceramidas"
-            },
-            correctIndex = 0,
-            questionNumber = 38,
-            isImageQuestion = true,
-            isImageAnswer = false,
-            questionImagePath =  "AnswerImages/LipidDB/lipids_question_38"
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
-            questionText = "Indique abaixo o lipídeo pertencente a família dos esfingolipídeos",
-            answers = new string[] {
-                "AnswerImages/LipidDB/acido_graxo_saturado",
-                "AnswerImages/LipidDB/glicolipideo",
-                "AnswerImages/LipidDB/fosfatidilcolina",
-                "AnswerImages/LipidDB/colesterol"
-            },
-            correctIndex = 1,
-            questionNumber = 39,
-            isImageAnswer = true
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
-            answers = new string[] {
-                "Utilizados na determinação do tipo sanguíneo",
-                "Utilizados como biomedicamentos para várias doenças",
-                "São marcadores tumorais",
-                "Agem como hormônios no sistema nervoso central"
-            },
-            correctIndex = 0,
-            questionNumber = 40,
-            isImageQuestion = true,
-            isImageAnswer = false,
-            questionImagePath =  "AnswerImages/LipidDB/lipids_question_40"
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
             questionText = "Os esteróis são a terceira maior classe de lipídeos encontrados em membranas celulares. O principal deles é o colesterol. Qual é a estrutura do colesterol?",
             answers = new string[] {
                 "AnswerImages/LipidDB/acido_graxo_tri_insaturado",
@@ -585,7 +526,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "AnswerImages/LipidDB/colesterol"
             },
             correctIndex = 3,
-            questionNumber = 41,
+            questionNumber = 37,
             isImageAnswer = true
         },
         new Question
@@ -599,35 +540,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Todas as alternativas anteriores."
             },
             correctIndex = 3,
-            questionNumber = 42,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
-            questionText = "A bainha de mielina é composta principalmente por:",
-            answers = new string[] {
-                "Proteínas",
-                "Glicerofosfolipídeos",
-                "Esfingolipídeos",
-                "Ácidos nucléicos"
-            },
-            correctIndex = 2,
-            questionNumber = 43,
-            isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
-            questionText = "O que diz o modelo do mozaico fluido da formação de membranas celulares?",
-            answers = new string[] {
-                "Membranas apresentam-se como um grande mozaico de lipídeos.",
-                "A estrutura de uma membrana celular não é estática, e os lipídeos podem movimentar-se através dela.",
-                "O colesterol move-se livremente na membrana.",
-                "Membranas são basicamente lipídeos, sem nenhum outro tipo de molécula em sua composição"
-            },
-            correctIndex = 1,
-            questionNumber = 44,
+            questionNumber = 38,
             isImageAnswer = false
         },
         new Question
@@ -641,7 +554,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Introduz insaturações do tipo trans na membrana celular."
             },
             correctIndex = 0,
-            questionNumber = 45,
+            questionNumber = 39,
             isImageAnswer = false
         },
         new Question
@@ -655,7 +568,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Leguminosas."
             },
             correctIndex = 1,
-            questionNumber = 46,
+            questionNumber = 40,
             isImageAnswer = false
         },
         new Question
@@ -669,7 +582,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Um ácido graxo com um grupo amino."
             },
             correctIndex = 0,
-            questionNumber = 47,
+            questionNumber = 41,
             isImageAnswer = false
         },
         new Question
@@ -683,22 +596,8 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Um ácido graxo com um grupo fosfato."
             },
             correctIndex = 2,
-            questionNumber = 48,
+            questionNumber = 42,
             isImageAnswer = false
-        },
-        new Question
-        {
-            questionDatabankName = "LipidsQuestionDatabase",
-            questionText = "Qual destas substâncias não está presente em membranas celulares?",
-            answers = new string[] {
-                "AnswerImages/LipidDB/glicolipideo",
-                "AnswerImages/2-butanona",
-                "AnswerImages/LipidDB/fosfatidilcolina",
-                "AnswerImages/LipidDB/colesterol"
-            },
-            correctIndex = 1,
-            questionNumber = 49,
-            isImageAnswer = true
         },
         new Question
         {
@@ -711,7 +610,7 @@ public class LipidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "A orientação dos grupamentos ao redor de uma ligação dupla."
             },
             correctIndex = 3,
-            questionNumber = 50,
+            questionNumber = 43,
             isImageAnswer = false
         }
     };

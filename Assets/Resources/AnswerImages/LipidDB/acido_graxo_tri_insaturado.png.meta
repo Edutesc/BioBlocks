@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      acido_graxo_tri_insaturado_0: -4319732506937660551
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

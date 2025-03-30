@@ -155,8 +155,24 @@ public class QuestionManager : MonoBehaviour
         {
             if (isCorrect)
             {
-                ShowAnswerFeedback("Resposta correta!\n+5 pontos", true);
-                await scoreManager.UpdateScore(5, true, currentQuestion);
+                int baseScore = 5;
+                int actualScore = baseScore;
+
+                // Verificar se há bônus ativo
+                bool bonusActive = false;
+                if (scoreManager.HasBonusActive())
+                {
+                    bonusActive = true;
+                    actualScore = scoreManager.CalculateBonusScore(baseScore);
+                }
+
+                // Mensagem de feedback dinâmica baseada no bônus
+                string feedbackMessage = bonusActive
+                    ? $"Resposta correta!\n+{actualScore} pontos (bônus ativo!)"
+                    : "Resposta correta!\n+5 pontos";
+
+                ShowAnswerFeedback(feedbackMessage, true);
+                await scoreManager.UpdateScore(baseScore, true, currentQuestion);
             }
             else
             {

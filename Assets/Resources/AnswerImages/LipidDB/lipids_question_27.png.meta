@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lipids_question_27_0: -3175970500333457605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

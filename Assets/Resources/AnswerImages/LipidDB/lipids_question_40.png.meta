@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 70f27e21218ef432ea056a6b78bba37e
+guid: b29c49ba3a7644b49bcdd88d6be1eb4f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2070803390784435890
-    second: colesterol_0
+      213: 6016803384195137968
+    second: lipids_question_40_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: colesterol_0
+      name: lipids_question_40_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 480
-        height: 473
+        x: 2
+        y: 5
+        width: 945
+        height: 295
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b6716b56b8fcbc10800000000000000
-      internalID: 2070803390784435890
+      spriteID: 0b1c15eaccaff7350800000000000000
+      internalID: 6016803384195137968
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      colesterol_0: 2070803390784435890
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

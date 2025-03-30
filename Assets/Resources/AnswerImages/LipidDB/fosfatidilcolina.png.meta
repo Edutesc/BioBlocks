@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 70f27e21218ef432ea056a6b78bba37e
+guid: 22bd2450d86d240bbae60343b30ec40a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2070803390784435890
-    second: colesterol_0
+      213: 8478183662889931957
+    second: fosfatidilcolina_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: colesterol_0
+      name: fosfatidilcolina_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b6716b56b8fcbc10800000000000000
-      internalID: 2070803390784435890
+      spriteID: 5b4131f3f1f88a570800000000000000
+      internalID: 8478183662889931957
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      colesterol_0: 2070803390784435890
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
