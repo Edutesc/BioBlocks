@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      porfirina_0: 3359748284724636534
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
