@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 
-
 public class SpecialBonusHandler : MonoBehaviour
 {
     [Header("References")]

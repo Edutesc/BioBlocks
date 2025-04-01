@@ -347,6 +347,10 @@ public class BonusSceneManager : MonoBehaviour
                     ShowSpecialBonusConfirmation();
                     break;
 
+                case "listCompletionBonus":
+                    ShowListCompletionBonusConfirmation();
+                    break;
+
                 // ... outros casos ...
 
                 default:
@@ -387,6 +391,63 @@ public class BonusSceneManager : MonoBehaviour
         }
     }
 
+    private void ShowListCompletionBonusConfirmation()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(currentScene);
+
+        if (halfView == null)
+        {
+            halfView = HalfViewRegistry.EnsureHalfViewInCurrentScene();
+        }
+
+        if (halfView != null)
+        {
+            halfView.HideMenu();
+            StartCoroutine(ConfigureListBonusHalfViewAfterFrame(halfView));
+        }
+        else
+        {
+            Debug.LogError("Não foi possível criar o HalfViewComponent. Ativando List Completion Bonus diretamente.");
+            _ = ActivateListCompletionBonus();
+        }
+    }
+
+    private IEnumerator ConfigureListBonusHalfViewAfterFrame(HalfViewComponent halfView)
+    {
+        yield return null;
+        halfView.OnCancelled -= OnHalfViewCancelled;
+        halfView.OnCancelled += OnHalfViewCancelled;
+        halfView.SetTitle("Ativar Bonus das Listas");
+        halfView.SetMessage("Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?");
+
+        if (halfView.PrimaryButton != null && halfView.PrimaryButtonText != null)
+        {
+            halfView.PrimaryButton.gameObject.SetActive(true);
+            halfView.PrimaryButtonText.text = "Cancelar";
+        }
+
+        if (halfView.SecondaryButton != null && halfView.SecondaryButtonText != null)
+        {
+            halfView.SecondaryButton.gameObject.SetActive(true);
+            halfView.SecondaryButtonText.text = "Ativar Bonus";
+        }
+
+        HalfViewButtonsHelper buttonsHelper = halfView.GetComponent<HalfViewButtonsHelper>();
+
+        if (buttonsHelper != null)
+        {
+            buttonsHelper.Initialize(this, "listCompletionBonus");
+        }
+        else
+        {
+            buttonsHelper = halfView.gameObject.AddComponent<HalfViewButtonsHelper>();
+            buttonsHelper.Initialize(this, "listCompletionBonus");
+        }
+
+        halfView.ShowMenu();
+    }
+
     public async void ActivateSpecialBonusFromButton()
     {
         Debug.Log("Iniciando ativação do Special Bonus via Helper");
@@ -406,6 +467,62 @@ public class BonusSceneManager : MonoBehaviour
     public void CancelSpecialBonusFromButton()
     {
         Debug.Log("Cancelando ativação do Special Bonus via Helper");
+        ForceUpdateUIAndReactivateButton();
+    }
+
+    private async Task ActivateListCompletionBonus()
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogWarning("BonusSceneManager: UserId não definido");
+            return;
+        }
+
+        try
+        {
+            List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
+            BonusType listBonus = bonusList.FirstOrDefault(b => b.BonusName == "listCompletionBonus");
+
+            if (listBonus != null && listBonus.BonusCount >= 1)
+            {
+                listBonus.BonusCount = 0;
+                listBonus.IsBonusActive = false;
+                await specialBonusManager.SaveBonusList(userId, bonusList);
+                QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
+                // Bonus das Listas: dura 10 minutos e dá 2x de multiplicador
+                await questionSceneBonusManager.ActivateBonus(userId, "listCompletionBonus", 600f, 2);
+                await FetchBonuses();
+            }
+            else
+            {
+                Debug.LogWarning("List Completion Bonus não está disponível para ativação");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"BonusSceneManager: Erro ao ativar list completion bonus: {e.Message}");
+        }
+    }
+
+    public async void ActivateListCompletionBonusFromButton()
+    {
+        Debug.Log("Iniciando ativação do List Completion Bonus via Helper");
+        try
+        {
+            await ActivateListCompletionBonus();
+            await FetchBonuses();
+            Debug.Log("List Completion Bonus ativado com sucesso");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao ativar List Completion Bonus: {e.Message}");
+            ForceUpdateUIAndReactivateButton();
+        }
+    }
+
+    public void CancelListCompletionBonusFromButton()
+    {
+        Debug.Log("Cancelando ativação do List Completion Bonus via Helper");
         ForceUpdateUIAndReactivateButton();
     }
 
@@ -433,12 +550,12 @@ public class BonusSceneManager : MonoBehaviour
 
         if (buttonsHelper != null)
         {
-            buttonsHelper.Initialize(this);
+            buttonsHelper.Initialize(this, "specialBonus");
         }
         else
         {
             buttonsHelper = halfView.gameObject.AddComponent<HalfViewButtonsHelper>();
-            buttonsHelper.Initialize(this);
+            buttonsHelper.Initialize(this, "specialBonus");
         }
 
         halfView.ShowMenu();

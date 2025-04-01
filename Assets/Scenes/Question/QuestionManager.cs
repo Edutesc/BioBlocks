@@ -28,7 +28,7 @@ public class QuestionManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("QuestionManager: Start iniciado");
-        
+
         if (!ValidateManagers())
         {
             Debug.LogError("Falha na validação dos managers necessários.");
@@ -58,34 +58,34 @@ public class QuestionManager : MonoBehaviour
     private bool ValidateManagers()
     {
         Debug.Log("QuestionManager: Iniciando validação dos managers");
-        
+
         if (questionBottomBarManager == null)
             Debug.LogError("QuestionManager: questionBottomBarManager é null");
-            
+
         if (questionUIManager == null)
             Debug.LogError("QuestionManager: questionUIManager é null");
-            
+
         if (questionCanvasGroupManager == null)
             Debug.LogError("QuestionManager: questionCanvasGroupManager é null");
-            
+
         if (timerManager == null)
             Debug.LogError("QuestionManager: timerManager é null");
-            
+
         if (loadManager == null)
             Debug.LogError("QuestionManager: loadManager é null");
-            
+
         if (answerManager == null)
             Debug.LogError("QuestionManager: answerManager é null");
-            
+
         if (scoreManager == null)
             Debug.LogError("QuestionManager: scoreManager é null");
-            
+
         if (feedbackElements == null)
             Debug.LogError("QuestionManager: feedbackElements é null");
-            
+
         if (transitionManager == null)
             Debug.LogError("QuestionManager: transitionManager é null");
-        
+
         bool isValid = questionBottomBarManager != null &&
                questionUIManager != null &&
                questionCanvasGroupManager != null &&
@@ -95,7 +95,7 @@ public class QuestionManager : MonoBehaviour
                scoreManager != null &&
                feedbackElements != null &&
                transitionManager != null;
-               
+
         Debug.Log($"QuestionManager: Validação dos managers: {isValid}");
         return isValid;
     }
@@ -107,7 +107,7 @@ public class QuestionManager : MonoBehaviour
         {
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
             Debug.Log($"QuestionManager: QuestionSet atual: {currentSet}");
-            
+
             IQuestionDatabase database = FindQuestionDatabase(currentSet);
             if (database == null)
             {
@@ -117,14 +117,14 @@ public class QuestionManager : MonoBehaviour
 
             string currentDatabaseName = database.GetDatabankName();
             Debug.Log($"QuestionManager: Database name: {currentDatabaseName}");
-            
+
             loadManager.databankName = currentDatabaseName;
             List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             int answeredCount = answeredQuestions.Count;
             int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-            
+
             Debug.Log($"QuestionManager: Total de questões respondidas: {answeredCount}/{totalQuestions}");
-            
+
             if (totalQuestions <= 0)
             {
                 List<Question> allQuestions = database.GetQuestions();
@@ -153,7 +153,7 @@ public class QuestionManager : MonoBehaviour
                 SceneManager.LoadScene("ResetDatabaseView");
                 return;
             }
-            
+
             if (questions.Count == 0)
             {
                 Debug.LogError("QuestionManager: questions retornou lista vazia");
@@ -356,7 +356,7 @@ public class QuestionManager : MonoBehaviour
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
             Debug.Log($"QuestionManager: Questão atual ID: {currentQuestion.questionNumber}");
-            
+
             answerManager.SetupAnswerButtons(currentQuestion);
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
@@ -456,6 +456,9 @@ public class QuestionManager : MonoBehaviour
 
             if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
             {
+                // Ativar o bônus das listas quando todas as questões forem respondidas
+                await HandleDatabaseCompletion(currentDatabaseName);
+
                 ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
                 return;
             }
@@ -474,6 +477,9 @@ public class QuestionManager : MonoBehaviour
 
             if (unansweredQuestions.Count == 0)
             {
+                // Também ativar o bônus aqui, para o caso deste caminho de código ser atingido
+                await HandleDatabaseCompletion(currentDatabaseName);
+
                 ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
             }
             else
@@ -486,6 +492,38 @@ public class QuestionManager : MonoBehaviour
         {
             Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}\n{ex.StackTrace}");
             ShowAnswerFeedback("Ocorreu um erro ao verificar questões. Volte ao menu principal.", false, true);
+        }
+    }
+
+    private async Task HandleDatabaseCompletion(string databankName)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(databankName) || string.IsNullOrEmpty(UserDataStore.CurrentUserData?.UserId))
+            {
+                return;
+            }
+
+            string userId = UserDataStore.CurrentUserData.UserId;
+            ListCompletionBonusManager listBonusManager = new ListCompletionBonusManager();
+
+            // Verificar se este databank já foi marcado como completo
+            bool isEligible = await listBonusManager.CheckIfDatabankEligibleForBonus(userId, databankName);
+
+            if (isEligible)
+            {
+                // Marcar o databank como completo
+                await listBonusManager.MarkDatabankAsCompleted(userId, databankName);
+
+                // Ativar o bônus das listas
+                await listBonusManager.ActivateListCompletionBonus(userId, databankName);
+
+                Debug.Log($"Database {databankName} completado! Bônus das Listas ativado.");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao processar conclusão do database: {e.Message}");
         }
     }
 
