@@ -418,8 +418,35 @@ public class QuestionManager : MonoBehaviour
 
             if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
             {
+                Debug.Log($"BONUS FLOW: Todas as questões do database {currentDatabaseName} foram respondidas!");
                 int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+
+                try
+                {
+                    // Primeiro, processa o bônus
+                    Debug.Log("BONUS FLOW: Chamando HandleDatabaseCompletion...");
+                    await HandleDatabaseCompletion(currentDatabaseName);
+                    Debug.Log("BONUS FLOW: HandleDatabaseCompletion concluído");
+
+                    // Depois, mostra o feedback com a mensagem de bônus
+                    string completionMessage = $"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.";
+                    ShowAnswerFeedback(completionMessage, true, true);
+
+                    // Garantir que o texto esteja visível
+                    if (feedbackElements != null && feedbackElements.QuestionsCompletedFeedbackText != null)
+                    {
+                        feedbackElements.QuestionsCompletedFeedbackText.text = completionMessage;
+                        Debug.Log("BONUS FLOW: Texto de conclusão atualizado com mensagem sobre bônus");
+                    }
+                }
+                catch (Exception bonusEx)
+                {
+                    Debug.LogError($"BONUS FLOW: ERRO ao processar bônus: {bonusEx.Message}\n{bonusEx.StackTrace}");
+
+                    // Se houve erro ao processar o bônus, ainda mostra a mensagem de conclusão, mas sem menção ao bônus
+                    ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+                }
+
                 return;
             }
         }
@@ -427,7 +454,6 @@ public class QuestionManager : MonoBehaviour
         await transitionManager.TransitionToNextQuestion();
         timerManager.StartTimer();
     }
-
     private void OnDestroy()
     {
         Debug.Log("QuestionManager: OnDestroy chamado");
