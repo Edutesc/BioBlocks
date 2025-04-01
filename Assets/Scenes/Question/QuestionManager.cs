@@ -28,7 +28,7 @@ public class QuestionManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("QuestionManager: Start iniciado");
-        
+
         if (!ValidateManagers())
         {
             Debug.LogError("Falha na validação dos managers necessários.");
@@ -58,34 +58,34 @@ public class QuestionManager : MonoBehaviour
     private bool ValidateManagers()
     {
         Debug.Log("QuestionManager: Iniciando validação dos managers");
-        
+
         if (questionBottomBarManager == null)
             Debug.LogError("QuestionManager: questionBottomBarManager é null");
-            
+
         if (questionUIManager == null)
             Debug.LogError("QuestionManager: questionUIManager é null");
-            
+
         if (questionCanvasGroupManager == null)
             Debug.LogError("QuestionManager: questionCanvasGroupManager é null");
-            
+
         if (timerManager == null)
             Debug.LogError("QuestionManager: timerManager é null");
-            
+
         if (loadManager == null)
             Debug.LogError("QuestionManager: loadManager é null");
-            
+
         if (answerManager == null)
             Debug.LogError("QuestionManager: answerManager é null");
-            
+
         if (scoreManager == null)
             Debug.LogError("QuestionManager: scoreManager é null");
-            
+
         if (feedbackElements == null)
             Debug.LogError("QuestionManager: feedbackElements é null");
-            
+
         if (transitionManager == null)
             Debug.LogError("QuestionManager: transitionManager é null");
-        
+
         bool isValid = questionBottomBarManager != null &&
                questionUIManager != null &&
                questionCanvasGroupManager != null &&
@@ -95,7 +95,7 @@ public class QuestionManager : MonoBehaviour
                scoreManager != null &&
                feedbackElements != null &&
                transitionManager != null;
-               
+
         Debug.Log($"QuestionManager: Validação dos managers: {isValid}");
         return isValid;
     }
@@ -107,7 +107,7 @@ public class QuestionManager : MonoBehaviour
         {
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
             Debug.Log($"QuestionManager: QuestionSet atual: {currentSet}");
-            
+
             IQuestionDatabase database = FindQuestionDatabase(currentSet);
             if (database == null)
             {
@@ -117,14 +117,14 @@ public class QuestionManager : MonoBehaviour
 
             string currentDatabaseName = database.GetDatabankName();
             Debug.Log($"QuestionManager: Database name: {currentDatabaseName}");
-            
+
             loadManager.databankName = currentDatabaseName;
             List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             int answeredCount = answeredQuestions.Count;
             int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-            
+
             Debug.Log($"QuestionManager: Total de questões respondidas: {answeredCount}/{totalQuestions}");
-            
+
             if (totalQuestions <= 0)
             {
                 List<Question> allQuestions = database.GetQuestions();
@@ -153,7 +153,7 @@ public class QuestionManager : MonoBehaviour
                 SceneManager.LoadScene("ResetDatabaseView");
                 return;
             }
-            
+
             if (questions.Count == 0)
             {
                 Debug.LogError("QuestionManager: questions retornou lista vazia");
@@ -356,7 +356,7 @@ public class QuestionManager : MonoBehaviour
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
             Debug.Log($"QuestionManager: Questão atual ID: {currentQuestion.questionNumber}");
-            
+
             answerManager.SetupAnswerButtons(currentQuestion);
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
@@ -418,8 +418,24 @@ public class QuestionManager : MonoBehaviour
 
             if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
             {
+                Debug.Log($"BONUS FLOW: Todas as questões do database {currentDatabaseName} foram respondidas!");
                 int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+
+                try
+                {
+                    Debug.Log("BONUS FLOW: Chamando HandleDatabaseCompletion...");
+                    await HandleDatabaseCompletion(currentDatabaseName);
+                    Debug.Log("BONUS FLOW: HandleDatabaseCompletion concluído");
+
+                    string completionMessage = $"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.";
+                    ShowAnswerFeedback(completionMessage, true, true);
+                }
+                catch (Exception bonusEx)
+                {
+                    Debug.LogError($"BONUS FLOW: ERRO ao processar bônus: {bonusEx.Message}\n{bonusEx.StackTrace}");
+                    ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+                }
+
                 return;
             }
         }
@@ -448,47 +464,80 @@ public class QuestionManager : MonoBehaviour
     {
         try
         {
+            Debug.Log("CheckAndLoadMoreQuestions: Carregando mais questões não respondidas");
+
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
             string currentDatabaseName = loadManager.DatabankName;
-            List<string> answeredQuestionsIds = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
-            int answeredCount = answeredQuestionsIds.Count;
-            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-
-            if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
-            {
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
-                return;
-            }
-
             var newQuestions = await loadManager.LoadQuestionsForSet(currentSet);
 
             if (newQuestions == null || newQuestions.Count == 0)
             {
-                ShowAnswerFeedback("Não foi possível carregar mais questões. Volte ao menu principal.", false, true);
+                Debug.Log("CheckAndLoadMoreQuestions: Não há mais questões disponíveis");
+                ShowAnswerFeedback("Não há mais questões disponíveis. Volte ao menu principal.", false, true);
                 return;
             }
 
+            List<string> answeredQuestionsIds = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             var unansweredQuestions = newQuestions
                 .Where(q => !answeredQuestionsIds.Contains(q.questionNumber.ToString()))
                 .ToList();
 
-            if (unansweredQuestions.Count == 0)
+            if (unansweredQuestions.Count > 0)
             {
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+                // Encontradas questões não respondidas - continuamos normalmente
+                Debug.Log($"CheckAndLoadMoreQuestions: Encontradas {unansweredQuestions.Count} questões não respondidas para continuar");
+                currentSession = new QuestionSession(unansweredQuestions);
+                StartQuestion();
             }
             else
             {
-                currentSession = new QuestionSession(newQuestions);
-                StartQuestion();
+                // Este é um caso excepcional: carregamos questões, mas todas já foram respondidas
+                // Isso pode acontecer se outro dispositivo respondeu às questões enquanto o usuário estava jogando
+                Debug.Log("CheckAndLoadMoreQuestions: Todas as questões carregadas já foram respondidas");
+                ShowAnswerFeedback("Não há mais questões não respondidas disponíveis. Volte ao menu principal.", false, true);
             }
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}\n{ex.StackTrace}");
-            ShowAnswerFeedback("Ocorreu um erro ao verificar questões. Volte ao menu principal.", false, true);
+            Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}");
+            ShowAnswerFeedback("Ocorreu um erro ao buscar mais questões. Volte ao menu principal.", false, true);
         }
     }
 
+    private async Task HandleDatabaseCompletion(string databankName)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(databankName) || string.IsNullOrEmpty(UserDataStore.CurrentUserData?.UserId))
+            {
+                return;
+            }
+
+            string userId = UserDataStore.CurrentUserData.UserId;
+            ListCompletionBonusManager listBonusManager = new ListCompletionBonusManager();
+
+            // Verificar se este databank já foi marcado como completo
+            bool isEligible = await listBonusManager.CheckIfDatabankEligibleForBonus(userId, databankName);
+
+            if (isEligible)
+            {
+                // Marcar o databank como completo
+                await listBonusManager.MarkDatabankAsCompleted(userId, databankName);
+
+                // Incrementar o contador de bônus das listas
+                await listBonusManager.IncrementListCompletionBonus(userId, databankName);
+
+                Debug.Log($"Database {databankName} completado! Bônus das Listas incrementado.");
+
+                // Mostrar uma mensagem informando que o usuário ganhou um bônus
+                // Isso pode ser implementado através de um sistema de notificação ou UI específica
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao processar conclusão do database: {e.Message}");
+        }
+    }
     private Color HexToColor(string hex)
     {
         Color color = new Color();

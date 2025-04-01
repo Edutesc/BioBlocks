@@ -4,10 +4,17 @@ public class HalfViewButtonsHelper : MonoBehaviour
 {
     private BonusSceneManager bonusManager;
     private HalfViewComponent halfView;
+    private string bonusType = "specialBonus"; // Valor padrão para manter compatibilidade
     
     public void Initialize(BonusSceneManager manager)
     {
+        Initialize(manager, "specialBonus");
+    }
+    
+    public void Initialize(BonusSceneManager manager, string type)
+    {
         bonusManager = manager;
+        bonusType = type;
         halfView = GetComponent<HalfViewComponent>();
         
         if (halfView != null)
@@ -38,10 +45,21 @@ public class HalfViewButtonsHelper : MonoBehaviour
     
     public void OnPrimaryButtonClick()
     {
-        Debug.Log("Botão primário clicado via Helper");
+        Debug.Log($"Botão primário clicado via Helper para o tipo: {bonusType}");
         if (bonusManager != null)
         {
-            bonusManager.CancelSpecialBonusFromButton();
+            switch (bonusType)
+            {
+                case "specialBonus":
+                    bonusManager.CancelSpecialBonusFromButton();
+                    break;
+                case "listCompletionBonus":
+                    bonusManager.CancelListCompletionBonusFromButton();
+                    break;
+                default:
+                    Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
+                    break;
+            }
         }
         else
         {
@@ -51,10 +69,21 @@ public class HalfViewButtonsHelper : MonoBehaviour
 
     public void OnSecondaryButtonClick()
     {
-        Debug.Log("Botão secundário clicado via Helper");
+        Debug.Log($"Botão secundário clicado via Helper para o tipo: {bonusType}");
         if (bonusManager != null)
         {
-            bonusManager.ActivateSpecialBonusFromButton();
+            switch (bonusType)
+            {
+                case "specialBonus":
+                    bonusManager.ActivateSpecialBonusFromButton();
+                    break;
+                case "listCompletionBonus":
+                    bonusManager.ActivateListCompletionBonusFromButton();
+                    break;
+                default:
+                    Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
+                    break;
+            }
         }
         else
         {
@@ -64,10 +93,21 @@ public class HalfViewButtonsHelper : MonoBehaviour
     
     public void OnCloseButtonClick()
     {
-        Debug.Log("Botão de fechar clicado via Helper");
+        Debug.Log($"Botão de fechar clicado via Helper para o tipo: {bonusType}");
         if (bonusManager != null)
         {
-            bonusManager.CancelSpecialBonusFromButton();
+            switch (bonusType)
+            {
+                case "specialBonus":
+                    bonusManager.CancelSpecialBonusFromButton();
+                    break;
+                case "listCompletionBonus":
+                    bonusManager.CancelListCompletionBonusFromButton();
+                    break;
+                default:
+                    Debug.LogWarning($"Tipo de bônus não implementado: {bonusType}");
+                    break;
+            }
         }
         else
         {
