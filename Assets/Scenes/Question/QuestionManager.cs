@@ -514,30 +514,16 @@ public class QuestionManager : MonoBehaviour
             }
 
             string userId = UserDataStore.CurrentUserData.UserId;
-            ListCompletionBonusManager listBonusManager = new ListCompletionBonusManager();
-
-            // Verificar se este databank já foi marcado como completo
-            bool isEligible = await listBonusManager.CheckIfDatabankEligibleForBonus(userId, databankName);
-
-            if (isEligible)
-            {
-                // Marcar o databank como completo
-                await listBonusManager.MarkDatabankAsCompleted(userId, databankName);
-
-                // Incrementar o contador de bônus das listas
-                await listBonusManager.IncrementListCompletionBonus(userId, databankName);
-
-                Debug.Log($"Database {databankName} completado! Bônus das Listas incrementado.");
-
-                // Mostrar uma mensagem informando que o usuário ganhou um bônus
-                // Isso pode ser implementado através de um sistema de notificação ou UI específica
-            }
+            UserBonusManager userBonusManager = new UserBonusManager();
+            await userBonusManager.IncrementListCompletionBonus(userId, databankName);
+            Debug.Log($"Database {databankName} completado! Bônus das Listas incrementado.");
         }
         catch (Exception e)
         {
             Debug.LogError($"Erro ao processar conclusão do database: {e.Message}");
         }
     }
+
     private Color HexToColor(string hex)
     {
         Color color = new Color();

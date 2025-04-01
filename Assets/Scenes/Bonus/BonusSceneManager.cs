@@ -48,13 +48,13 @@ public class BonusSceneManager : MonoBehaviour
     [SerializeField] private float inactiveAlpha = 0.6f;
     [SerializeField] private bool useGrayscaleWhenInactive = false;
 
-    private SpecialBonusManager specialBonusManager;
+    private UserBonusManager userBonusManager;
     private string userId;
     private bool isInitialized = false;
 
     private void Awake()
     {
-        specialBonusManager = new SpecialBonusManager();
+        userBonusManager = new UserBonusManager();
 
         if (bonusUIMappings.Count == 0)
         {
@@ -165,7 +165,7 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            List<BonusType> userBonuses = await specialBonusManager.GetUserBonuses(userId);
+            List<BonusType> userBonuses = await userBonusManager.GetUserBonuses(userId);
             UpdateBonusUI(userBonuses);
         }
         catch (Exception e)
@@ -264,7 +264,7 @@ public class BonusSceneManager : MonoBehaviour
             if (specialBonus != null)
             {
                 specialBonus.IsBonusActive = true;
-                _ = specialBonusManager.SaveBonusList(userId, bonuses);
+                _ = userBonusManager.SaveBonusList(userId, bonuses);
             }
         }
 
@@ -275,7 +275,7 @@ public class BonusSceneManager : MonoBehaviour
             if (listBonus != null)
             {
                 listBonus.IsBonusActive = true;
-                _ = specialBonusManager.SaveBonusList(userId, bonuses);
+                _ = userBonusManager.SaveBonusList(userId, bonuses);
             }
         }
     }
@@ -444,6 +444,7 @@ public class BonusSceneManager : MonoBehaviour
     private IEnumerator ConfigureListBonusHalfViewAfterFrame(HalfViewComponent halfView)
     {
         yield return null;
+        Debug.Log("ConfigureListBonusHalfViewAfterFrame: Iniciando configuração");
         halfView.OnCancelled -= OnHalfViewCancelled;
         halfView.OnCancelled += OnHalfViewCancelled;
         halfView.SetTitle("Ativar Bonus das Listas");
@@ -465,14 +466,17 @@ public class BonusSceneManager : MonoBehaviour
 
         if (buttonsHelper != null)
         {
+            Debug.Log("Inicializando buttonsHelper existente com 'listCompletionBonus'");
             buttonsHelper.Initialize(this, "listCompletionBonus");
         }
         else
         {
+            Debug.Log("Criando e inicializando novo buttonsHelper com 'listCompletionBonus'");
             buttonsHelper = halfView.gameObject.AddComponent<HalfViewButtonsHelper>();
             buttonsHelper.Initialize(this, "listCompletionBonus");
         }
 
+        Debug.Log($"Após inicialização, tipo do buttonsHelper é: {buttonsHelper.GetBonusType()}");
         halfView.ShowMenu();
     }
 
@@ -500,6 +504,7 @@ public class BonusSceneManager : MonoBehaviour
 
     private async Task ActivateListCompletionBonus()
     {
+        Debug.Log("ActivateListCompletionBonus: Método iniciado");
         if (string.IsNullOrEmpty(userId))
         {
             Debug.LogWarning("BonusSceneManager: UserId não definido");
@@ -508,29 +513,49 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
+            Debug.Log("Buscando lista de bônus do usuário");
+
+            List<BonusType> bonusList = await userBonusManager.GetUserBonuses(userId);
+
+            Debug.Log($"Total de bônus disponíveis: {bonusList.Count}");
+
+            foreach (var bonus in bonusList)
+            {
+                Debug.Log($"Bônus encontrado: {bonus.BonusName}, Count: {bonus.BonusCount}, Ativo: {bonus.IsBonusActive}");
+            }
+
             BonusType listBonus = bonusList.FirstOrDefault(b => b.BonusName == "listCompletionBonus");
 
-            if (listBonus != null && listBonus.BonusCount > 0)
+            if (listBonus != null)
             {
-                // Decrementar o contador em 1, consumindo apenas um bônus por vez
-                listBonus.BonusCount--;
+                Debug.Log($"List Completion Bonus encontrado. Count: {listBonus.BonusCount}, Ativo: {listBonus.IsBonusActive}");
 
-                // Se ainda tiver bônus sobrando, mantemos como ativo
-                listBonus.IsBonusActive = listBonus.BonusCount > 0;
+                if (listBonus.BonusCount > 0)
+                {
 
-                await specialBonusManager.SaveBonusList(userId, bonusList);
+                    // Decrementar o contador em 1, consumindo apenas um bônus por vez
+                    listBonus.BonusCount--;
 
-                QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
-                // Bonus das Listas: dura 10 minutos e dá 2x de multiplicador
-                await questionSceneBonusManager.ActivateBonus(userId, "listCompletionBonus", 600f, 2);
-                await FetchBonuses();
+                    // Se ainda tiver bônus sobrando, mantemos como ativo
+                    listBonus.IsBonusActive = listBonus.BonusCount > 0;
 
-                Debug.Log($"List Completion Bonus ativado. Bônus restantes: {listBonus.BonusCount}");
+                    await userBonusManager.SaveBonusList(userId, bonusList);
+
+                    QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
+                    // Bonus das Listas: dura 10 minutos e dá 2x de multiplicador
+                    await questionSceneBonusManager.ActivateBonus(userId, "listCompletionBonus", 600f, 2);
+                    await FetchBonuses();
+
+                    Debug.Log($"List Completion Bonus ativado. Bônus restantes: {listBonus.BonusCount}");
+                }
+                else
+                {
+                    Debug.LogWarning($"List Completion Bonus tem contador zero: {listBonus.BonusCount}");
+                }
             }
             else
             {
-                Debug.LogWarning("List Completion Bonus não está disponível para ativação");
+                Debug.LogError("List Completion Bonus não encontrado na lista de bônus");
             }
         }
         catch (Exception e)
@@ -544,6 +569,7 @@ public class BonusSceneManager : MonoBehaviour
         Debug.Log("Iniciando ativação do List Completion Bonus via Helper");
         try
         {
+            Debug.Log("Chamando método ActivateListCompletionBonus");
             await ActivateListCompletionBonus();
             await FetchBonuses();
             Debug.Log("List Completion Bonus ativado com sucesso");
@@ -608,7 +634,7 @@ public class BonusSceneManager : MonoBehaviour
 
     private IEnumerator FetchAndUpdateUI()
     {
-        var fetchTask = specialBonusManager.GetUserBonuses(userId);
+        var fetchTask = userBonusManager.GetUserBonuses(userId);
         while (!fetchTask.IsCompleted)
         {
             yield return null;
@@ -669,14 +695,14 @@ public class BonusSceneManager : MonoBehaviour
 
         try
         {
-            List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
+            List<BonusType> bonusList = await userBonusManager.GetUserBonuses(userId);
             BonusType specialBonus = bonusList.FirstOrDefault(b => b.BonusName == "specialBonus");
 
             if (specialBonus != null && specialBonus.BonusCount >= 5)
             {
                 specialBonus.BonusCount = 0;
                 specialBonus.IsBonusActive = false;
-                await specialBonusManager.SaveBonusList(userId, bonusList);
+                await userBonusManager.SaveBonusList(userId, bonusList);
                 QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
                 await questionSceneBonusManager.ActivateBonus(userId, "specialBonus", 600f, 3);
                 await FetchBonuses();

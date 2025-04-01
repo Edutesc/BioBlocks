@@ -59,8 +59,8 @@ public class QuestionSceneBonusManager
             // Se for o bônus de resposta correta, incrementar o contador do bônus especial
             if (bonusType == "correctAnswerBonus")
             {
-                SpecialBonusManager specialBonusManager = new SpecialBonusManager();
-                await specialBonusManager.IncrementBonusCounter(userId, "specialBonus");
+                UserBonusManager userBonusManager = new UserBonusManager();
+                await userBonusManager.IncrementBonusCount(userId, "specialBonus");
             }
 
             Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} ativado com multiplicador {multiplier}");
