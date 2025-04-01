@@ -199,6 +199,18 @@ public class BonusSceneManager : MonoBehaviour
                         Debug.Log("Forçando ativação do status do botão Special Bonus");
                     }
                 }
+                else if (bonusUIMapping.bonusFirestoreName == "listCompletionBonus" && count > 0)
+                {
+                    // Para o Bonus das Listas, ativar se tiver pelo menos 1
+                    isActive = true;
+
+                    // Garantir que esteja marcado como ativo no objeto
+                    if (!matchingBonus.IsBonusActive)
+                    {
+                        matchingBonus.IsBonusActive = true;
+                        Debug.Log($"Forçando ativação do status do botão List Completion Bonus (Count: {count})");
+                    }
+                }
                 else
                 {
                     isActive = matchingBonus.IsBonusActive;
@@ -234,6 +246,10 @@ public class BonusSceneManager : MonoBehaviour
                 Debug.Log($"Special Bonus - Count: {count}, IsActive: {isActive}, Botão interagível: {bonusUIMapping.bonusButton?.interactable}");
             }
 
+            if (bonusUIMapping.bonusFirestoreName == "listCompletionBonus")
+            {
+                Debug.Log($"List Completion Bonus - Count: {count}, IsActive: {isActive}, Botão interagível: {bonusUIMapping.bonusButton?.interactable}");
+            }
 
             if (isActive)
             {
@@ -241,12 +257,24 @@ public class BonusSceneManager : MonoBehaviour
             }
         }
 
+        // Verificação adicional para o Special Bonus
         if (bonuses.Any(b => b.BonusName == "specialBonus" && b.BonusCount >= 5 && !b.IsBonusActive))
         {
             var specialBonus = bonuses.FirstOrDefault(b => b.BonusName == "specialBonus");
             if (specialBonus != null)
             {
                 specialBonus.IsBonusActive = true;
+                _ = specialBonusManager.SaveBonusList(userId, bonuses);
+            }
+        }
+
+        // Verificação adicional para o List Completion Bonus
+        if (bonuses.Any(b => b.BonusName == "listCompletionBonus" && b.BonusCount > 0 && !b.IsBonusActive))
+        {
+            var listBonus = bonuses.FirstOrDefault(b => b.BonusName == "listCompletionBonus");
+            if (listBonus != null)
+            {
+                listBonus.IsBonusActive = true;
                 _ = specialBonusManager.SaveBonusList(userId, bonuses);
             }
         }
@@ -483,15 +511,22 @@ public class BonusSceneManager : MonoBehaviour
             List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
             BonusType listBonus = bonusList.FirstOrDefault(b => b.BonusName == "listCompletionBonus");
 
-            if (listBonus != null && listBonus.BonusCount >= 1)
+            if (listBonus != null && listBonus.BonusCount > 0)
             {
-                listBonus.BonusCount = 0;
-                listBonus.IsBonusActive = false;
+                // Decrementar o contador em 1, consumindo apenas um bônus por vez
+                listBonus.BonusCount--;
+
+                // Se ainda tiver bônus sobrando, mantemos como ativo
+                listBonus.IsBonusActive = listBonus.BonusCount > 0;
+
                 await specialBonusManager.SaveBonusList(userId, bonusList);
+
                 QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
                 // Bonus das Listas: dura 10 minutos e dá 2x de multiplicador
                 await questionSceneBonusManager.ActivateBonus(userId, "listCompletionBonus", 600f, 2);
                 await FetchBonuses();
+
+                Debug.Log($"List Completion Bonus ativado. Bônus restantes: {listBonus.BonusCount}");
             }
             else
             {

@@ -459,7 +459,7 @@ public class QuestionManager : MonoBehaviour
                 // Ativar o bônus das listas quando todas as questões forem respondidas
                 await HandleDatabaseCompletion(currentDatabaseName);
 
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.", true, true);
                 return;
             }
 
@@ -480,7 +480,7 @@ public class QuestionManager : MonoBehaviour
                 // Também ativar o bônus aqui, para o caso deste caminho de código ser atingido
                 await HandleDatabaseCompletion(currentDatabaseName);
 
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
+                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.", true, true);
             }
             else
             {
@@ -515,10 +515,13 @@ public class QuestionManager : MonoBehaviour
                 // Marcar o databank como completo
                 await listBonusManager.MarkDatabankAsCompleted(userId, databankName);
 
-                // Ativar o bônus das listas
-                await listBonusManager.ActivateListCompletionBonus(userId, databankName);
+                // Incrementar o contador de bônus das listas
+                await listBonusManager.IncrementListCompletionBonus(userId, databankName);
 
-                Debug.Log($"Database {databankName} completado! Bônus das Listas ativado.");
+                Debug.Log($"Database {databankName} completado! Bônus das Listas incrementado.");
+
+                // Mostrar uma mensagem informando que o usuário ganhou um bônus
+                // Isso pode ser implementado através de um sistema de notificação ou UI específica
             }
         }
         catch (Exception e)
@@ -526,7 +529,6 @@ public class QuestionManager : MonoBehaviour
             Debug.LogError($"Erro ao processar conclusão do database: {e.Message}");
         }
     }
-
     private Color HexToColor(string hex)
     {
         Color color = new Color();

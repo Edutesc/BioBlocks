@@ -16,7 +16,7 @@ public class ListCompletionBonusManager
         db = FirebaseFirestore.DefaultInstance;
     }
     
-    public async Task ActivateListCompletionBonus(string userId, string databankName)
+    public async Task IncrementListCompletionBonus(string userId, string databankName)
     {
         if (string.IsNullOrEmpty(userId))
         {
@@ -39,23 +39,23 @@ public class ListCompletionBonusManager
                 // Se não existir, criar um novo
                 listBonus = new BonusType(bonusName, 1, true, 0, false);
                 bonusList.Add(listBonus);
-                Debug.Log($"ListCompletionBonusManager: Criando novo bônus de lista para {databankName}");
+                Debug.Log($"ListCompletionBonusManager: Criando novo bônus de lista para {databankName}. Contador: 1");
             }
             else
             {
                 // Se já existir, incrementar o contador
                 listBonus.BonusCount++;
-                listBonus.IsBonusActive = true;
+                listBonus.IsBonusActive = true; // Ativo para poder ser clicado
                 Debug.Log($"ListCompletionBonusManager: Incrementando bônus de lista para {databankName}. Novo valor: {listBonus.BonusCount}");
             }
             
             // Salvar a lista atualizada
             await specialBonusManager.SaveBonusList(userId, bonusList);
-            Debug.Log($"ListCompletionBonusManager: Bônus de lista ativado com sucesso para {databankName}");
+            Debug.Log($"ListCompletionBonusManager: Bônus de lista incrementado com sucesso para {databankName}");
         }
         catch (Exception e)
         {
-            Debug.LogError($"ListCompletionBonusManager: Erro ao ativar bônus de lista: {e.Message}");
+            Debug.LogError($"ListCompletionBonusManager: Erro ao incrementar bônus de lista: {e.Message}");
         }
     }
     
