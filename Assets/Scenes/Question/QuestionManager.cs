@@ -423,27 +423,16 @@ public class QuestionManager : MonoBehaviour
 
                 try
                 {
-                    // Primeiro, processa o bônus
                     Debug.Log("BONUS FLOW: Chamando HandleDatabaseCompletion...");
                     await HandleDatabaseCompletion(currentDatabaseName);
                     Debug.Log("BONUS FLOW: HandleDatabaseCompletion concluído");
 
-                    // Depois, mostra o feedback com a mensagem de bônus
                     string completionMessage = $"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.";
                     ShowAnswerFeedback(completionMessage, true, true);
-
-                    // Garantir que o texto esteja visível
-                    if (feedbackElements != null && feedbackElements.QuestionsCompletedFeedbackText != null)
-                    {
-                        feedbackElements.QuestionsCompletedFeedbackText.text = completionMessage;
-                        Debug.Log("BONUS FLOW: Texto de conclusão atualizado com mensagem sobre bônus");
-                    }
                 }
                 catch (Exception bonusEx)
                 {
                     Debug.LogError($"BONUS FLOW: ERRO ao processar bônus: {bonusEx.Message}\n{bonusEx.StackTrace}");
-
-                    // Se houve erro ao processar o bônus, ainda mostra a mensagem de conclusão, mas sem menção ao bônus
                     ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!", true, true);
                 }
 
@@ -454,6 +443,7 @@ public class QuestionManager : MonoBehaviour
         await transitionManager.TransitionToNextQuestion();
         timerManager.StartTimer();
     }
+
     private void OnDestroy()
     {
         Debug.Log("QuestionManager: OnDestroy chamado");
@@ -474,50 +464,43 @@ public class QuestionManager : MonoBehaviour
     {
         try
         {
+            Debug.Log("CheckAndLoadMoreQuestions: Carregando mais questões não respondidas");
+
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
             string currentDatabaseName = loadManager.DatabankName;
-            List<string> answeredQuestionsIds = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
-            int answeredCount = answeredQuestionsIds.Count;
-            int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-
-            if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
-            {
-                // Ativar o bônus das listas quando todas as questões forem respondidas
-                await HandleDatabaseCompletion(currentDatabaseName);
-
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.", true, true);
-                return;
-            }
-
             var newQuestions = await loadManager.LoadQuestionsForSet(currentSet);
 
             if (newQuestions == null || newQuestions.Count == 0)
             {
-                ShowAnswerFeedback("Não foi possível carregar mais questões. Volte ao menu principal.", false, true);
+                Debug.Log("CheckAndLoadMoreQuestions: Não há mais questões disponíveis");
+                ShowAnswerFeedback("Não há mais questões disponíveis. Volte ao menu principal.", false, true);
                 return;
             }
 
+            List<string> answeredQuestionsIds = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             var unansweredQuestions = newQuestions
                 .Where(q => !answeredQuestionsIds.Contains(q.questionNumber.ToString()))
                 .ToList();
 
-            if (unansweredQuestions.Count == 0)
+            if (unansweredQuestions.Count > 0)
             {
-                // Também ativar o bônus aqui, para o caso deste caminho de código ser atingido
-                await HandleDatabaseCompletion(currentDatabaseName);
-
-                ShowAnswerFeedback($"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.", true, true);
+                // Encontradas questões não respondidas - continuamos normalmente
+                Debug.Log($"CheckAndLoadMoreQuestions: Encontradas {unansweredQuestions.Count} questões não respondidas para continuar");
+                currentSession = new QuestionSession(unansweredQuestions);
+                StartQuestion();
             }
             else
             {
-                currentSession = new QuestionSession(newQuestions);
-                StartQuestion();
+                // Este é um caso excepcional: carregamos questões, mas todas já foram respondidas
+                // Isso pode acontecer se outro dispositivo respondeu às questões enquanto o usuário estava jogando
+                Debug.Log("CheckAndLoadMoreQuestions: Todas as questões carregadas já foram respondidas");
+                ShowAnswerFeedback("Não há mais questões não respondidas disponíveis. Volte ao menu principal.", false, true);
             }
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}\n{ex.StackTrace}");
-            ShowAnswerFeedback("Ocorreu um erro ao verificar questões. Volte ao menu principal.", false, true);
+            Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}");
+            ShowAnswerFeedback("Ocorreu um erro ao buscar mais questões. Volte ao menu principal.", false, true);
         }
     }
 
