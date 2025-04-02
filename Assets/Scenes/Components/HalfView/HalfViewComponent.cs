@@ -61,6 +61,8 @@ public class HalfViewComponent : MonoBehaviour
     private Canvas bottomBarCanvas = null;
     private int originalBottomBarSortingOrder = 0;
 
+    private bool preventButtonReconfiguration = false;
+
     private void Awake()
     {
         EnsureCanvasSetup();
@@ -335,7 +337,11 @@ public class HalfViewComponent : MonoBehaviour
         animationCoroutine = StartCoroutine(AnimateMenu(hiddenPosition, visiblePosition));
         isVisible = true;
 
-        SetupButtonListeners();
+        if (!preventButtonReconfiguration)
+        {
+            SetupButtonListeners();
+        }
+
         OnHalfViewShown?.Invoke();
     }
 
@@ -592,9 +598,12 @@ public class HalfViewComponent : MonoBehaviour
     }
 
     public void Configure(string title, string message,
-                         string primaryButtonText, Action primaryAction,
-                         string secondaryButtonText = null, Action secondaryAction = null)
+                     string primaryButtonText, Action primaryAction,
+                     string secondaryButtonText = null, Action secondaryAction = null)
     {
+        // Marcar que os botões já foram configurados
+        preventButtonReconfiguration = true;
+
         SetTitle(title);
         SetMessage(message);
 

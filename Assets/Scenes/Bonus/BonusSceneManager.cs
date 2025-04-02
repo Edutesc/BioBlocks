@@ -257,7 +257,6 @@ public class BonusSceneManager : MonoBehaviour
             }
         }
 
-        // Verificação adicional para o Special Bonus
         if (bonuses.Any(b => b.BonusName == "specialBonus" && b.BonusCount >= 5 && !b.IsBonusActive))
         {
             var specialBonus = bonuses.FirstOrDefault(b => b.BonusName == "specialBonus");
@@ -268,7 +267,6 @@ public class BonusSceneManager : MonoBehaviour
             }
         }
 
-        // Verificação adicional para o List Completion Bonus
         if (bonuses.Any(b => b.BonusName == "listCompletionBonus" && b.BonusCount > 0 && !b.IsBonusActive))
         {
             var listBonus = bonuses.FirstOrDefault(b => b.BonusName == "listCompletionBonus");
@@ -293,14 +291,12 @@ public class BonusSceneManager : MonoBehaviour
                 {
                     if (bonusUI.useCustomColors)
                     {
-                        // Usar cor personalizada com alpha 1.0
                         Color customColor = bonusUI.customColors.normalColor;
                         customColor.a = 1.0f;
                         buttonImage.color = customColor;
                     }
                     else
                     {
-                        // Definir alpha como 1.0
                         Color color = buttonImage.color;
                         color.a = 1.0f;
                         buttonImage.color = color;
@@ -316,7 +312,6 @@ public class BonusSceneManager : MonoBehaviour
                     }
                     else
                     {
-                        // Definir alpha como inactiveAlpha
                         Color color = buttonImage.color;
                         color.a = inactiveAlpha;
                         buttonImage.color = color;
@@ -326,7 +321,6 @@ public class BonusSceneManager : MonoBehaviour
 
             if (bonusUI.bonusCountText != null)
             {
-                // Ajustar o alpha do texto de contagem
                 Color textColor = bonusUI.bonusCountText.color;
                 textColor.a = isActive ? 1f : 0.8f;
                 bonusUI.bonusCountText.color = textColor;
@@ -334,7 +328,6 @@ public class BonusSceneManager : MonoBehaviour
 
             if (bonusUI.isBonusActiveText != null)
             {
-                // Ajustar o alpha do texto de status
                 Color statusColor = bonusUI.isBonusActiveText.color;
                 statusColor.a = isActive ? 1f : 0.8f;
                 bonusUI.isBonusActiveText.color = statusColor;
@@ -372,10 +365,12 @@ public class BonusSceneManager : MonoBehaviour
             switch (bonusType)
             {
                 case "specialBonus":
+                    Debug.Log($"cliquei no bonus specialBonus {bonusType}");
                     ShowSpecialBonusConfirmation();
                     break;
 
                 case "listCompletionBonus":
+                    Debug.Log($"cliquei no bonus listCompletionBonus {bonusType}");
                     ShowListCompletionBonusConfirmation();
                     break;
 
@@ -421,8 +416,12 @@ public class BonusSceneManager : MonoBehaviour
 
     private void ShowListCompletionBonusConfirmation()
     {
+
         string currentScene = SceneManager.GetActiveScene().name;
+
+        Debug.Log($"Aqui está ativa a cena: {currentScene} ");
         HalfViewComponent halfView = HalfViewRegistry.GetHalfViewForScene(currentScene);
+        Debug.Log($"Aqui está ativa a halvView: {halfView} ");
 
         if (halfView == null)
         {
@@ -445,38 +444,44 @@ public class BonusSceneManager : MonoBehaviour
     {
         yield return null;
         Debug.Log("ConfigureListBonusHalfViewAfterFrame: Iniciando configuração");
+
+        HalfViewButtonsHelper existingHelper = halfView.gameObject.GetComponent<HalfViewButtonsHelper>();
+        if (existingHelper != null)
+        {
+            Destroy(existingHelper); // Remover completamente o componente
+            Debug.Log("HalfViewButtonsHelper existente removido");
+        }
+
+        // 2. Marque a halfView para impedir a reconfiguração automática
+        var preventReconfigField = typeof(HalfViewComponent).GetField("preventButtonReconfiguration",
+                                                                     System.Reflection.BindingFlags.NonPublic |
+                                                                     System.Reflection.BindingFlags.Instance);
+        if (preventReconfigField != null)
+        {
+            preventReconfigField.SetValue(halfView, true);
+            Debug.Log("preventButtonReconfiguration definido como true");
+        }
+
+        // 3. Configurar a UI
         halfView.OnCancelled -= OnHalfViewCancelled;
         halfView.OnCancelled += OnHalfViewCancelled;
         halfView.SetTitle("Ativar Bonus das Listas");
         halfView.SetMessage("Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?");
 
-        if (halfView.PrimaryButton != null && halfView.PrimaryButtonText != null)
+        // 4. Configurar os botões usando SetPrimaryButton e SetSecondaryButton
+        halfView.SetPrimaryButton("Cancelar", () =>
         {
-            halfView.PrimaryButton.gameObject.SetActive(true);
-            halfView.PrimaryButtonText.text = "Cancelar";
-        }
+            Debug.Log("Botão Cancelar clicado para List Completion Bonus");
+            CancelListCompletionBonusFromButton();
+        });
 
-        if (halfView.SecondaryButton != null && halfView.SecondaryButtonText != null)
+        halfView.SetSecondaryButton("Ativar Bonus", () =>
         {
-            halfView.SecondaryButton.gameObject.SetActive(true);
-            halfView.SecondaryButtonText.text = "Ativar Bonus";
-        }
+            Debug.Log("Botão Ativar clicado para List Completion Bonus");
+            ActivateListCompletionBonusFromButton();
+        });
 
-        HalfViewButtonsHelper buttonsHelper = halfView.GetComponent<HalfViewButtonsHelper>();
-
-        if (buttonsHelper != null)
-        {
-            Debug.Log("Inicializando buttonsHelper existente com 'listCompletionBonus'");
-            buttonsHelper.Initialize(this, "listCompletionBonus");
-        }
-        else
-        {
-            Debug.Log("Criando e inicializando novo buttonsHelper com 'listCompletionBonus'");
-            buttonsHelper = halfView.gameObject.AddComponent<HalfViewButtonsHelper>();
-            buttonsHelper.Initialize(this, "listCompletionBonus");
-        }
-
-        Debug.Log($"Após inicialização, tipo do buttonsHelper é: {buttonsHelper.GetBonusType()}");
+        // 5. Mostrar o menu
         halfView.ShowMenu();
     }
 
@@ -590,35 +595,46 @@ public class BonusSceneManager : MonoBehaviour
     private IEnumerator ConfigureHalfViewAfterFrame(HalfViewComponent halfView)
     {
         yield return null;
+        Debug.Log("ConfigureHalfViewAfterFrame: Iniciando configuração");
+
+        // 1. Remover o HalfViewButtonsHelper existente (se houver)
+        HalfViewButtonsHelper existingHelper = halfView.gameObject.GetComponent<HalfViewButtonsHelper>();
+        if (existingHelper != null)
+        {
+            Destroy(existingHelper); // Remover completamente o componente
+            Debug.Log("HalfViewButtonsHelper existente removido");
+        }
+
+        // 2. Marque a halfView para impedir a reconfiguração automática
+        var preventReconfigField = typeof(HalfViewComponent).GetField("preventButtonReconfiguration",
+                                                                    System.Reflection.BindingFlags.NonPublic |
+                                                                    System.Reflection.BindingFlags.Instance);
+        if (preventReconfigField != null)
+        {
+            preventReconfigField.SetValue(halfView, true);
+            Debug.Log("preventButtonReconfiguration definido como true");
+        }
+
+        // 3. Configurar a UI
         halfView.OnCancelled -= OnHalfViewCancelled;
         halfView.OnCancelled += OnHalfViewCancelled;
         halfView.SetTitle("Ativar Special Bonus");
         halfView.SetMessage("Você terá xp triplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?");
 
-        if (halfView.PrimaryButton != null && halfView.PrimaryButtonText != null)
+        // 4. Configurar os botões usando SetPrimaryButton e SetSecondaryButton
+        halfView.SetPrimaryButton("Cancelar", () =>
         {
-            halfView.PrimaryButton.gameObject.SetActive(true);
-            halfView.PrimaryButtonText.text = "Cancelar";
-        }
+            Debug.Log("Botão Cancelar clicado para Special Bonus");
+            CancelSpecialBonusFromButton();
+        });
 
-        if (halfView.SecondaryButton != null && halfView.SecondaryButtonText != null)
+        halfView.SetSecondaryButton("Ativar Bonus", () =>
         {
-            halfView.SecondaryButton.gameObject.SetActive(true);
-            halfView.SecondaryButtonText.text = "Ativar Bonus";
-        }
+            Debug.Log("Botão Ativar clicado para Special Bonus");
+            ActivateSpecialBonusFromButton();
+        });
 
-        HalfViewButtonsHelper buttonsHelper = halfView.GetComponent<HalfViewButtonsHelper>();
-
-        if (buttonsHelper != null)
-        {
-            buttonsHelper.Initialize(this, "specialBonus");
-        }
-        else
-        {
-            buttonsHelper = halfView.gameObject.AddComponent<HalfViewButtonsHelper>();
-            buttonsHelper.Initialize(this, "specialBonus");
-        }
-
+        // 5. Mostrar o menu
         halfView.ShowMenu();
     }
 

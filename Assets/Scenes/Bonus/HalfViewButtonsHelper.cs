@@ -79,9 +79,11 @@ public class HalfViewButtonsHelper : MonoBehaviour
             switch (bonusType)
             {
                 case "specialBonus":
+                 Debug.Log($"Estou no specialBonus da HalfViewButtomHelper: {bonusType}");
                     bonusManager.ActivateSpecialBonusFromButton();
                     break;
                 case "listCompletionBonus":
+                 Debug.Log($"Estou no listbonus da HalfViewButtomHelper:  {bonusType}");
                     bonusManager.ActivateListCompletionBonusFromButton();
                     break;
                 default:
