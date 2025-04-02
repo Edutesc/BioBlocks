@@ -21,11 +21,11 @@ public class SpecialBonusHandler : MonoBehaviour
     private bool isSpecialBonusActive = false;
     private float specialBonusTimeRemaining = 0f;
     private Coroutine specialBonusTimerCoroutine = null;
-    private SpecialBonusManager specialBonusManager;
+    private UserBonusManager userBonusManager;
     
     private void Awake()
     {
-        specialBonusManager = new SpecialBonusManager();
+        userBonusManager = new UserBonusManager();
     }
     
     private void Start()
@@ -61,7 +61,7 @@ public class SpecialBonusHandler : MonoBehaviour
     {
         try
         {
-            List<BonusType> bonuses = await specialBonusManager.GetUserBonuses(userId);
+            List<BonusType> bonuses = await userBonusManager.GetUserBonuses(userId);
             BonusType activeSpecialBonus = bonuses.FirstOrDefault(b => 
                 b.BonusName == "active_specialBonus" && 
                 b.IsBonusActive && 
@@ -133,13 +133,13 @@ public class SpecialBonusHandler : MonoBehaviour
         
         try
         {
-            List<BonusType> bonuses = await specialBonusManager.GetUserBonuses(userId);
+            List<BonusType> bonuses = await userBonusManager.GetUserBonuses(userId);
             BonusType activeSpecialBonus = bonuses.FirstOrDefault(b => b.BonusName == "active_specialBonus");
             
             if (activeSpecialBonus != null)
             {
                 activeSpecialBonus.SetExpirationFromDuration(specialBonusTimeRemaining);
-                await specialBonusManager.SaveBonusList(userId, bonuses);
+                await userBonusManager.SaveBonusList(userId, bonuses);
             }
         }
         catch (Exception e)
@@ -171,13 +171,13 @@ public class SpecialBonusHandler : MonoBehaviour
         
         try
         {
-            List<BonusType> bonuses = await specialBonusManager.GetUserBonuses(userId);
+            List<BonusType> bonuses = await userBonusManager.GetUserBonuses(userId);
             BonusType activeSpecialBonus = bonuses.FirstOrDefault(b => b.BonusName == "active_specialBonus");
             
             if (activeSpecialBonus != null)
             {
                 activeSpecialBonus.IsBonusActive = false;
-                await specialBonusManager.SaveBonusList(userId, bonuses);
+                await userBonusManager.SaveBonusList(userId, bonuses);
             }
         }
         catch (Exception e)
@@ -238,13 +238,13 @@ public class SpecialBonusHandler : MonoBehaviour
     {
         try
         {
-            List<BonusType> bonuses = await specialBonusManager.GetUserBonuses(userId);
+            List<BonusType> bonuses = await userBonusManager.GetUserBonuses(userId);
             BonusType activeSpecialBonus = bonuses.FirstOrDefault(b => b.BonusName == "active_specialBonus");
             
             if (activeSpecialBonus != null)
             {
                 activeSpecialBonus.SetExpirationFromDuration(specialBonusTimeRemaining);
-                await specialBonusManager.SaveBonusList(userId, bonuses);
+                await userBonusManager.SaveBonusList(userId, bonuses);
             }
         }
         catch (Exception e)

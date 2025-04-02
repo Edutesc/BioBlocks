@@ -603,9 +603,8 @@ public class QuestionBonusManager : MonoBehaviour
         {
             if (bonusType.StartsWith("active_"))
             {
-                // Verificar em UserBonus (utilizando SpecialBonusManager)
-                SpecialBonusManager specialBonusManager = new SpecialBonusManager();
-                List<BonusType> bonuses = await specialBonusManager.GetUserBonuses(userId);
+                UserBonusManager userBonusManager = new UserBonusManager();
+                List<BonusType> bonuses = await userBonusManager.GetUserBonuses(userId);
                 BonusType targetBonus = bonuses.Find(b => b.BonusName == bonusType);
 
                 return targetBonus != null && targetBonus.IsBonusActive && !targetBonus.IsExpired();
