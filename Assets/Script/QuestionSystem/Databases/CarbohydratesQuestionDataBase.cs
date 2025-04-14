@@ -110,8 +110,8 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "CarbohydratesQuestionDatabase",
             answers = new string[] {
                 "AnswerImages/SugarDB/l_glicose",
-                "AnswerImages/SugarDB/alfa_d_galactopiranose",
-                "AnswerImages/SugarDB/beta_d_galactopiranose",
+                "AnswerImages/SugarDB/alfa-d-galactopiranose",
+                "AnswerImages/SugarDB/beta-d-n-galactosamina",
                 "AnswerImages/SugarDB/alfa_d_glicopiranose"
             },
             correctIndex = 3,
@@ -279,8 +279,8 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "CarbohydratesQuestionDatabase",
             questionText = "Identifique abaixo um componente estrutural dos glicosaminoglicanos.",
             answers = new string[] {
-                "AnswerImages/SugarDB/alfa-d-glicopiranose",
-                "AnswerImages/SugarDB/beta-d-glicopiranose",
+                "AnswerImages/SugarDB/alfa_d_glicopiranose",
+                "AnswerImages/SugarDB/beta_d_glicopiranose",
                 "AnswerImages/SugarDB/beta-d-n-galactosamina",
                 "AnswerImages/SugarDB/aldopentose"
             },
@@ -311,7 +311,7 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         },
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "A heparina é um glicosaminoglicano com uma das maiores densidades de carga negativa dentre todos as biomoléculas dos organismos vivos. Indique abaixo o monômero que forma a heparina.",
+            questionText = "A heparina é um glicosaminoglicano com uma das maiores densidades de carga negativa dentre todas as biomoléculas dos organismos vivos. Indique abaixo o monômero que forma a heparina.",
             answers = new string[] {
                 "AnswerImages/SugarDB/dermatan",
                 "AnswerImages/SugarDB/condroitin",
@@ -348,7 +348,7 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionDatabankName = "CarbohydratesQuestionDatabase",
             questionText = "Qual a principal função do condroitin?",
             answers = new string[] {"Suporte estrutural em cartilagens", "hormônio", "Neurotransmissor", "Todas as alternativas acima"},
-            correctIndex = 3,
+            correctIndex = 0,
             questionNumber = 32,
             isImageAnswer = false
         },
@@ -364,56 +364,86 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionNumber = 33,
             isImageQuestion = true,
             isImageAnswer = false,
-            questionImagePath =  "AnswerImages/SugarDB/sugar_question_31"
-        },
-
-
-
-        
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Quais são os produtos da hidrólise da sacarose?",
-            answers = new string[] {"Glicose e frutose", "Glicose e galactose", "Frutose e galactose", "Glicose e glicose"},
-            correctIndex = 0,
-            questionNumber = 34,
-            isImageAnswer = false
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_33"
         },
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Quais são os produtos da hidrólise da lactose?",
-            answers = new string[] {"Glicose e frutose", "Glicose e galactose", "Frutose e galactose", "Glicose e glicose"},
+             answers = new string[] {
+                "AnswerImages/SugarDB/l_glicose",
+                "AnswerImages/SugarDB/d_frutose",
+                "AnswerImages/SugarDB/alfa-d-galactopiranose",
+                "AnswerImages/SugarDB/d_galactose"
+            },
             correctIndex = 1,
-            questionNumber = 35,
-            isImageAnswer = false
+            questionNumber = 34,
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_34"
         },
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Quais são os produtos da hidrólise da maltose?",
-            answers = new string[] {"Glicose e frutose", "Glicose e galactose", "Frutose e galactose", "Glicose e glicose"},
+             answers = new string[] {
+                "AnswerImages/SugarDB/l_glicose",
+                "AnswerImages/SugarDB/d_frutose",
+                "AnswerImages/SugarDB/d_tagatose",
+                "AnswerImages/SugarDB/d_glicose"
+            },
             correctIndex = 3,
+            questionNumber = 35,
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_35"
+        },
+        new Question {
+            questionDatabankName = "CarbohydratesQuestionDatabase",
+            answers = new string[] {
+                "AnswerImages/SugarDB/beta_d_galactopiranose",
+                "AnswerImages/SugarDB/alfa-d-galactopiranose",
+                "AnswerImages/SugarDB/beta_d_glicopiranose",
+                "AnswerImages/SugarDB/alfa_d_glicopiranose"
+            },
+            correctIndex = 2,
             questionNumber = 36,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_36"
         },
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "O que é uma mistura racêmica?",
-            answers = new string[] {"Uma mistura de isômeros D e L em quantidades iguais", "Uma mistura de isômeros D e L em quantidades diferentes", "Uma mistura de diastereoisômeros", "Uma mistura de enanciômeros"},
-            correctIndex = 0,
+            questionText = "Identifique abaixo a estrutura da glicose, que também pode ser nomeada como beta-D-glicopiranose",
+            answers = new string[] {
+                "AnswerImages/SugarDB/beta_d_galactopiranose",
+                "AnswerImages/SugarDB/alfa-d-galactopiranose",
+                "AnswerImages/SugarDB/alfa_d_glicopiranose",
+                "AnswerImages/SugarDB/beta_d_glicopiranose"
+            },
+            correctIndex = 3,
             questionNumber = 37,
-            isImageAnswer = false
+            isImageQuestion = false,
+            isImageAnswer = true,
         },
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "O que é mutarrotação?",
-            answers = new string[] {"A interconversão entre anômeros alfa e beta", "A conversão de um açúcar em outro", "A hidrólise de um dissacarídeo", "A oxidação de um açúcar"},
-            correctIndex = 0,
+            answers = new string[] {
+                "AnswerImages/SugarDB/beta_d_galactopiranose",
+                "AnswerImages/SugarDB/alfa-d-galactopiranose",
+                "AnswerImages/SugarDB/alfa_d_glicopiranose",
+                "AnswerImages/SugarDB/beta_d_glicopiranose"
+            },
+            correctIndex = 2,
             questionNumber = 38,
-            isImageAnswer = false
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_38"
         },
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
             questionText = "Qual a diferença entre um homopolissacarídeo e um heteropolissacarídeo?",
-            answers = new string[] {"Um homopolissacarídeo contém apenas um tipo de monossacarídeo, um heteropolissacarídeo contém múltiplos tipos", "Um homopolissacarídeo é linear, um heteropolissacarídeo é ramificado", "Um homopolissacarídeo é solúvel em água, um heteropolissacarídeo é insolúvel", "Um homopolissacarídeo é um polímero, um heteropolissacarídeo é um monômero"},
+            answers = new string[] {
+                "Um homopolissacarídeo contém apenas um tipo de monossacarídeo, um heteropolissacarídeo contém múltiplos tipos", 
+                "Um homopolissacarídeo é linear, um heteropolissacarídeo é ramificado", 
+                "Um homopolissacarídeo é solúvel em água, um heteropolissacarídeo é insolúvel", 
+                "Um homopolissacarídeo é um polímero, um heteropolissacarídeo é um monômero"},
             correctIndex = 0,
             questionNumber = 39,
             isImageAnswer = false
@@ -421,7 +451,11 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
             questionText = "Dê exemplos de homopolissacarídeos.",
-            answers = new string[] {"Amido, glicogênio, celulose, quitina", "Sacarose, lactose, maltose", "Glicose, frutose, galactose", "Todos os polissacarídeos são homopolissacarídeos"},
+            answers = new string[] {
+                "Amido, glicogênio, celulose", 
+                "Sacarose, lactose, maltose", 
+                "Glicose, frutose, galactose", 
+                "Todos os polissacarídeos são homopolissacarídeos"},
             correctIndex = 0,
             questionNumber = 40,
             isImageAnswer = false
@@ -429,65 +463,13 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
             questionText = "Dê exemplos de heteropolissacarídeos.",
-            answers = new string[] {"Peptídeoglicano, glicosaminoglicanos", "Amido, glicogênio, celulose", "Sacarose, lactose, maltose", "Glicose, frutose, galactose"},
-            correctIndex = 0,
+            answers = new string[] { 
+                "Amido, glicogênio, celulose", 
+                "Sacarose, lactose, maltose", 
+                "Peptídeoglicano, glicosaminoglicanos",
+                "Glicose, frutose, galactose"},
+            correctIndex = 2,
             questionNumber = 41,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Qual a função do peptídeoglicano?",
-            answers = new string[] {"Forma a parede celular das bactérias", "Reserva de energia em plantas", "Armazenamento de energia em animais", "Formação do exoesqueleto de insetos"},
-            correctIndex = 0,
-            questionNumber = 42,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Qual enzima hidrolisa o peptídeoglicano?",
-            answers = new string[] {"Lisozima", "Amilase", "Celulase", "Lactase"},
-            correctIndex = 0,
-            questionNumber = 43,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Qual a importância da lisozima?",
-            answers = new string[] {"Antibacteriana", "Anticoagulante", "Lubrificante", "Enzimática"},
-            correctIndex = 0,
-            questionNumber = 44,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Onde é encontrada a inulina?",
-            answers = new string[] {"Bulbos de plantas", "Parede celular de plantas", "Matriz extracelular", "Fígado de animais"},
-            correctIndex = 0,
-            questionNumber = 45,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Onde é encontrada a pectina?",
-            answers = new string[] {"Parede celular de plantas", "Frutas cítricas", "Matriz extracelular", "Todas as alternativas acima"},
-            correctIndex = 3,
-            questionNumber = 46,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Onde é encontrado o agar?",
-            answers = new string[] {"Algas", "Parede celular de plantas", "Matriz extracelular", "Fígado de animais"},
-            correctIndex = 0,
-            questionNumber = 47,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Qual a função da quitina?",
-            answers = new string[] {"Suporte estrutural em animais", "Reserva de energia em plantas", "Armazenamento de energia em animais", "Formação do exoesqueleto de insetos"},
-            correctIndex = 0,
-            questionNumber = 48,
             isImageAnswer = false
         },
         new Question
@@ -500,22 +482,37 @@ public class CarbohydratesQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "A amilose é um polímero de frutose, a celulose é um polímero de glicose.",
                 "A amilose é insolúvel em água, a celulose é solúvel em água."},
             correctIndex = 1,
-            questionNumber = 49,
+            questionNumber = 42,
             isImageAnswer = false
         },
-        new Question
-        {
+        new Question {
             questionDatabankName = "CarbohydratesQuestionDatabase",
-            questionText = "Qual a importância das pontes de hidrogênio na estrutura da celulose?",
             answers = new string[] {
-                "As pontes de hidrogênio não afetam a estrutura da celulose.",
-                "As pontes de hidrogênio conferem flexibilidade à celulose.",
-                "As pontes de hidrogênio conferem rigidez e força à celulose.",
-                "As pontes de hidrogênio tornam a celulose solúvel em água."},
-            correctIndex = 2,
-            questionNumber = 50,
-            isImageAnswer = false
-        }
+                "AnswerImages/AminoacidsDB/leucina",
+                "AnswerImages/AminoacidsDB/prolina",
+                "AnswerImages/AminoacidsDB/triptofano",
+                "AnswerImages/AminoacidsDB/asparagina"
+            },
+            correctIndex = 3,
+            questionNumber = 43,
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_43"
+        },
+        new Question {
+            questionDatabankName = "CarbohydratesQuestionDatabase",
+            answers = new string[] {
+                "AnswerImages/AminoacidsDB/leucina",
+                "AnswerImages/AminoacidsDB/serina",
+                "AnswerImages/AminoacidsDB/triptofano",
+                "AnswerImages/AminoacidsDB/asparagina"
+            },
+            correctIndex = 1,
+            questionNumber = 44,
+            isImageQuestion = true,
+            isImageAnswer = true,
+            questionImagePath =  "AnswerImages/SugarDB/sugar_question_44"
+        },
     };
 
     public List<Question> GetQuestions()
