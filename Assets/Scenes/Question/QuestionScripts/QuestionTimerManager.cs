@@ -6,7 +6,7 @@ public class QuestionTimerManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject timePanel; // Referência ao TimePanel
-    [SerializeField] private float initialTime = 30f;
+    [SerializeField] private float initialTime = 60f;
     private float currentTime;
     private bool isRunning;
     
@@ -35,7 +35,6 @@ public class QuestionTimerManager : MonoBehaviour
 
     public void StartTimer()
     {
-        // Ativa o painel antes de iniciar o timer
         if (timePanel != null)
         {
             timePanel.SetActive(true);
