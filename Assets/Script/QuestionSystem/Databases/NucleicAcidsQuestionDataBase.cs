@@ -18,7 +18,12 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
             questionText = "Qual a principal função do RNA na célula?",
-            answers = new string[] { "Armazenamento de informação genética", "Síntese de proteínas", "Catálise de reações", "Transporte de íons" },
+            answers = new string[] { 
+                "Armazenamento de informação genética", 
+                "Síntese de proteínas", 
+                "Catálise de reações", 
+                "Transporte de íons" 
+            },
             correctIndex = 1,
             questionNumber = 2,
             isImageAnswer = false
@@ -26,7 +31,12 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
             questionText = "Quais são os três componentes de um nucleotídeo?",
-            answers = new string[] { "Açúcar, base, fosfato", "Açúcar, base, aminoácido", "Base, aminoácido, fosfato", "Açúcar, lipídeo, base" },
+            answers = new string[] { 
+                "Açúcar, base, fosfato", 
+                "Açúcar, base, aminoácido", 
+                "Base, aminoácido, fosfato", 
+                "Açúcar, lipídeo, base" 
+            },
             correctIndex = 0,
             questionNumber = 3,
             isImageAnswer = false
@@ -49,16 +59,16 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que são nucleosídeos?",
+            questionText = "Identifique a estrutura do nucleosídeo",
             answers = new string[] {
-                "Açúcar + base",
-                "Açúcar + base + fosfato",
-                "Base + fosfato",
-                "Açúcar + aminoácido"
+                "AnswerImages/NucleicAcidDB/nucleotideo_di_fosfato",
+                "AnswerImages/NucleicAcidDB/nucleotideo_mono_fosfato",
+                "AnswerImages/NucleicAcidDB/nucleosideo",
+                "AnswerImages/NucleicAcidDB/nucleotideo_tri_fosfato"
             },
-            correctIndex = 0,
+            correctIndex = 2,
             questionNumber = 6,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
