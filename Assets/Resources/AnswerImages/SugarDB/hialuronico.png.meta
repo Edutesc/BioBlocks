@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      hialuronico_0: -2680455391768304351
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

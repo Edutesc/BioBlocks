@@ -16,7 +16,8 @@ public class QuestionSceneBonusManager
         db = FirebaseFirestore.DefaultInstance;
     }
 
-    public async Task ActivateBonus(string userId, string bonusType, float durationInSeconds, int multiplier)
+    // Ativa um bônus para o usuário
+    public async Task ActivateBonus(string userId, string bonusType, float durationInSeconds = 600f, int multiplier = 2)
     {
         if (string.IsNullOrEmpty(userId))
         {
@@ -26,98 +27,51 @@ public class QuestionSceneBonusManager
 
         try
         {
-            Debug.Log($"QuestionSceneBonusManager: Ativando bônus {bonusType} com multiplicador {multiplier} por {durationInSeconds} segundos");
+            // Verificar bônus existentes
+            List<Dictionary<string, object>> activeBonuses = await GetActiveBonuses(userId);
 
-            // Calcular timestamp de expiração
-            long expirationTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + (long)durationInSeconds;
+            // Remover qualquer bônus existente do mesmo tipo
+            activeBonuses.RemoveAll(b => b.ContainsKey("BonusType") && b["BonusType"].ToString() == bonusType);
 
-            // Preparar dados do bônus
-            Dictionary<string, object> bonusData = new Dictionary<string, object>
-        {
-            { "BonusType", bonusType },
-            { "BonusMultiplier", multiplier },
-            { "ExpirationTimestamp", expirationTimestamp },
-            { "ActivatedAt", DateTimeOffset.UtcNow.ToUnixTimeSeconds() }
-        };
-
-            // Salvar no Firestore
-            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("QuestionSceneBonus").Document(userId);
-
-            DocumentSnapshot existing = await docRef.GetSnapshotAsync();
-            if (existing.Exists)
+            // Criar novo bônus
+            long expirationTimestamp = DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds();
+            Dictionary<string, object> newBonus = new Dictionary<string, object>
             {
-                // Atualizar documento existente
-                Dictionary<string, object> data = existing.ToDictionary();
+                { "BonusType", bonusType },
+                { "BonusMultiplier", multiplier },
+                { "ExpirationTimestamp", expirationTimestamp }
+            };
 
-                if (data.ContainsKey("ActiveBonuses"))
-                {
-                    List<object> activeBonuses = data["ActiveBonuses"] as List<object>;
-                    if (activeBonuses != null)
-                    {
-                        // Verificar se já existe um bônus do mesmo tipo
-                        bool updated = false;
-                        List<Dictionary<string, object>> updatedBonuses = new List<Dictionary<string, object>>();
+            // Adicionar à lista
+            activeBonuses.Add(newBonus);
 
-                        foreach (object bonusObj in activeBonuses)
-                        {
-                            Dictionary<string, object> existingBonus = bonusObj as Dictionary<string, object>;
-                            if (existingBonus != null)
-                            {
-                                // Se encontrar um bônus do mesmo tipo, atualizá-lo
-                                if (existingBonus.ContainsKey("BonusType") && existingBonus["BonusType"].ToString() == bonusType)
-                                {
-                                    updatedBonuses.Add(bonusData);
-                                    updated = true;
-                                }
-                                else
-                                {
-                                    updatedBonuses.Add(existingBonus);
-                                }
-                            }
-                        }
-
-                        // Se não encontrou um bônus do mesmo tipo, adicionar um novo
-                        if (!updated)
-                        {
-                            updatedBonuses.Add(bonusData);
-                        }
-
-                        // Atualizar o documento
-                        await docRef.UpdateAsync(new Dictionary<string, object>
-                    {
-                        { "ActiveBonuses", updatedBonuses }
-                    });
-
-                        Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} atualizado com sucesso");
-                        return;
-                    }
-                }
-
-                // Se não havia lista de bônus ativa, criar uma nova
-                await docRef.UpdateAsync(new Dictionary<string, object>
+            // Salvar todos os bônus
+            Dictionary<string, object> data = new Dictionary<string, object>
             {
-                { "ActiveBonuses", new List<Dictionary<string, object>> { bonusData } }
-            });
-            }
-            else
+                { ACTIVE_BONUSES_FIELD, activeBonuses },
+                { "IsActive", true },
+                { "UpdatedAt", DateTimeOffset.UtcNow.ToUnixTimeSeconds() }
+            };
+
+            DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
+            await docRef.SetAsync(data, SetOptions.MergeAll);
+
+            // Se for o bônus de resposta correta, incrementar o contador do bônus especial
+            if (bonusType == "correctAnswerBonus")
             {
-                // Criar um novo documento
-                await docRef.SetAsync(new Dictionary<string, object>
-            {
-                { "ActiveBonuses", new List<Dictionary<string, object>> { bonusData } },
-                { "UserId", userId }
-            });
+                SpecialBonusManager specialBonusManager = new SpecialBonusManager();
+                await specialBonusManager.IncrementBonusCounter(userId, "specialBonus");
             }
 
-            Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} ativado com sucesso");
+            Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} ativado com multiplicador {multiplier}");
         }
         catch (Exception e)
         {
-            Debug.LogError($"QuestionSceneBonusManager: Erro ao ativar bônus: {e.Message}\n{e.StackTrace}");
-            throw;
+            Debug.LogError($"QuestionSceneBonusManager: Erro ao ativar bônus: {e.Message}");
         }
     }
 
+    // Obtém a lista de bônus ativos (não expirados)
     public async Task<List<Dictionary<string, object>>> GetActiveBonuses(string userId)
     {
         if (string.IsNullOrEmpty(userId))

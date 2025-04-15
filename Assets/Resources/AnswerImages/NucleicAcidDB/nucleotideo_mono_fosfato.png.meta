@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nucleotideo_mono_fosfato_0: 2519210915576144565
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

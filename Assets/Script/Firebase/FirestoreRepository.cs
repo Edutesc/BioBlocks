@@ -726,5 +726,3 @@ public class FirestoreRepository : MonoBehaviour
     }
 
 }
-
-
