@@ -26,30 +26,25 @@ public class ListCompletionBonusManager
         
         try
         {
-            // Obter o gerenciador de bônus especial existente
             SpecialBonusManager specialBonusManager = new SpecialBonusManager();
             List<BonusType> bonusList = await specialBonusManager.GetUserBonuses(userId);
             
-            // Encontrar o bônus das listas
             string bonusName = "listCompletionBonus";
             BonusType listBonus = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
             
             if (listBonus == null)
             {
-                // Se não existir, criar um novo
                 listBonus = new BonusType(bonusName, 1, true, 0, false);
                 bonusList.Add(listBonus);
                 Debug.Log($"ListCompletionBonusManager: Criando novo bônus de lista para {databankName}. Contador: 1");
             }
             else
             {
-                // Se já existir, incrementar o contador
                 listBonus.BonusCount++;
-                listBonus.IsBonusActive = true; // Ativo para poder ser clicado
+                listBonus.IsBonusActive = true;
                 Debug.Log($"ListCompletionBonusManager: Incrementando bônus de lista para {databankName}. Novo valor: {listBonus.BonusCount}");
             }
             
-            // Salvar a lista atualizada
             await specialBonusManager.SaveBonusList(userId, bonusList);
             Debug.Log($"ListCompletionBonusManager: Bônus de lista incrementado com sucesso para {databankName}");
         }
@@ -63,7 +58,6 @@ public class ListCompletionBonusManager
     {
         try
         {
-            // Verifica se o usuário já ganhou bônus por este databank específico
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
             
@@ -71,7 +65,6 @@ public class ListCompletionBonusManager
             {
                 Dictionary<string, object> data = snapshot.ToDictionary();
                 
-                // Verificar se já existe um registro de lista completa para este databank
                 if (data.ContainsKey("CompletedDatabanks"))
                 {
                     List<object> completedDatabanks = data["CompletedDatabanks"] as List<object>;
@@ -82,12 +75,10 @@ public class ListCompletionBonusManager
                         return false;
                     }
                 }
-                
-                // Se chegou aqui, o databank ainda não foi marcado
+
                 return true;
             }
             
-            // Se o documento não existe, ele é elegível
             return true;
         }
         catch (Exception e)
@@ -121,12 +112,9 @@ public class ListCompletionBonusManager
                 }
             }
             
-            // Adicionar o novo databank se ainda não estiver na lista
             if (!completedDatabanks.Contains(databankName))
             {
                 completedDatabanks.Add(databankName);
-                
-                // Atualizar o documento
                 Dictionary<string, object> updateData = new Dictionary<string, object>
                 {
                     { "CompletedDatabanks", completedDatabanks }
