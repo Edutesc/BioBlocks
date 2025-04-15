@@ -1,12 +1,12 @@
-# Privacy Policy
+# Privacy Policy for BioBlocks
 
 *Last updated: April 15, 2025*
 
 ## 1. Introduction  
-This application ("**App**") is a personal project designed for educational use in **Biochemistry Classes**. It is provided free of charge. By using this App, you agree to the collection and use of your information as described in this policy.  
+**BioBlocks** is a personal project designed for educational use in **Biochemistry Classes**. It is provided free of charge. By using BioBlocks, you agree to the collection and use of your information as described in this policy.  
 
 ## 2. Information Collected  
-The App collects the following **minimal data** for authentication purposes only:  
+BioBlocks collects the following **minimal data** for authentication purposes only:  
 - Email address  
 - Nickname  
 - Name  
@@ -20,13 +20,13 @@ For clarity:
 - **No sensitive data** (location, health, etc.).  
 
 ## 4. Third-Party Services  
-The App uses:  
+BioBlocks uses:  
 - **Google Play Services** (authentication/data storage).  
   - Google Privacy Policy: [https://policies.google.com/privacy](https://policies.google.com/privacy).  
 
 ## 5. Security  
 - Data is protected via **Google's security measures**.  
-- No additional personal information is stored by the App.  
+- No additional personal information is stored by BioBlocks.  
 
 ## 6. User Rights  
 You may **request deletion of your data** directly in the app:  
@@ -37,4 +37,4 @@ You may **request deletion of your data** directly in the app:
 Changes will be posted here. Continued use after updates constitutes acceptance.  
 
 ## 8. Contact  
-For questions, contact: **luciano.puzer@ufabc.edu.br**.
+For questions about this privacy policy or BioBlocks, contact: **luciano.puzer@ufabc.edu.br**.
