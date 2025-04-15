@@ -59,6 +59,19 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
+            questionText = "O que são nucleosídeos?",
+            answers = new string[] {
+                "Açúcar + base",
+                "Açúcar + base + fosfato",
+                "Base + fosfato",
+                "Açúcar + aminoácido"
+            },
+            correctIndex = 0,
+            questionNumber = 6,
+            isImageAnswer = false
+        },
+        new Question {
+            questionDatabankName = "NucleicAcidsQuestionDatabase",
             questionText = "Identifique a estrutura do nucleosídeo",
             answers = new string[] {
                 "AnswerImages/NucleicAcidDB/nucleotideo_di_fosfato",
@@ -67,16 +80,8 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "AnswerImages/NucleicAcidDB/nucleotideo_tri_fosfato"
             },
             correctIndex = 2,
-            questionNumber = 6,
-            isImageAnswer = true
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual o tipo de ligação que une a base ao açúcar em um nucleosídeo?",
-            answers = new string[] { "Ligação peptídica", "Ligação glicosídica", "Ligação éster", "Ligação fosfodiéster" },
-            correctIndex = 1,
             questionNumber = 7,
-            isImageAnswer = false
+            isImageAnswer = true
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
@@ -112,23 +117,10 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que é uma reação de condensação?",
-            answers = new string[] {
-                "Quebra de uma ligação com adição de água.",
-                "Formação de uma ligação com perda de água.",
-                "Quebra de uma ligação sem água.",
-                "Formação de uma ligação com adição de água."
-            },
-            correctIndex = 1,
-            questionNumber = 12,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
             questionText = "Qual a orientação das cadeias de DNA em uma dupla hélice?",
             answers = new string[] { "Paralela", "Antiparalela", "Perpendicular", "Aleatória" },
             correctIndex = 1,
-            questionNumber = 13,
+            questionNumber = 12,
             isImageAnswer = false
         },
         new Question {
@@ -141,7 +133,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Qualquer combinação de bases."
             },
             correctIndex = 0,
-            questionNumber = 14,
+            questionNumber = 13,
             isImageAnswer = false
         },
         new Question {
@@ -149,7 +141,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual tipo de ligação mantém os pares de bases unidos no DNA?",
             answers = new string[] { "Ligação iônica", "Ligação covalente", "Pontes de hidrogênio", "Ligação peptídica" },
             correctIndex = 2,
-            questionNumber = 15,
+            questionNumber = 14,
             isImageAnswer = false
         },
         new Question {
@@ -157,7 +149,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual a função principal do DNA?",
             answers = new string[] { "Transporte de moléculas", "Síntese de proteínas", "Armazenamento de informação genética", "Catálise de reações" },
             correctIndex = 2,
-            questionNumber = 16,
+            questionNumber = 15,
             isImageAnswer = false
         },
         new Question {
@@ -165,7 +157,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual a função principal do RNA?",
             answers = new string[] { "Transporte de moléculas", "Síntese de proteínas", "Armazenamento de informação genética", "Expressão da informação genética" },
             correctIndex = 3,
-            questionNumber = 17,
+            questionNumber = 16,
             isImageAnswer = false
         },
         new Question {
@@ -178,7 +170,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Todas as alternativas acima."
             },
             correctIndex = 2,
-            questionNumber = 18,
+            questionNumber = 17,
             isImageAnswer = false
         },
         new Question {
@@ -191,36 +183,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Transcrição do DNA."
             },
             correctIndex = 1,
-            questionNumber = 19,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual a técnica usada para determinar a estrutura do DNA?",
-            answers = new string[] { "Microscopia óptica", "Difração de raios-X", "Espectrometria de massa", "Microscopia eletrônica" },
-            correctIndex = 1,
-            questionNumber = 20,
-            isImageAnswer = false
-        },
-                new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual tipo de RNA serve como molde para a síntese de proteínas?",
-            answers = new string[] { "tRNA", "rRNA", "mRNA", "snRNA" },
-            correctIndex = 2,
-            questionNumber = 21,
-            isImageAnswer = false
-        },
-         new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que é desnaturação do DNA?",
-            answers = new string[] {
-                "Quebra das fitas de DNA.",
-                "Separação das fitas de DNA.",
-                "Mudança na conformação do DNA.",
-                "Todas as alternativas acima."
-            },
-            correctIndex = 2,
-            questionNumber = 22,
+            questionNumber = 18,
             isImageAnswer = false
         },
         new Question {
@@ -233,51 +196,12 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Todas as alternativas acima"
             },
             correctIndex = 3,
-            questionNumber = 23,
+            questionNumber = 19,
             isImageAnswer = false
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que é renaturação do DNA?",
-            answers = new string[] {
-                "Formação de novas fitas de DNA.",
-                "Reassociação das fitas de DNA.",
-                "Replicação do DNA.",
-                "Transcrição do DNA."
-            },
-            correctIndex = 1,
-            questionNumber = 24,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Quais fatores influenciam a temperatura de fusão (Tm) do DNA?",
-            answers = new string[] {
-                "Comprimento da molécula",
-                "Composiçãoo de bases",
-                "Força iônica da solução",
-                "Todas as alternativas acima"
-            },
-            correctIndex = 3,
-            questionNumber = 25,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Como a composição de bases afeta a temperatura de fusão do DNA?",
-            answers = new string[] {
-                "Maior conteúdo de G-C aumenta a Tm.",
-                "Maior conteúdo de A-T aumenta a Tm.",
-                "A composição de bases não afeta a Tm.",
-                "A composição de bases afeta a Tm de forma não previsível."
-            },
-            correctIndex = 0,
-            questionNumber = 26,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que é absorvância a 260nm?",
+            questionText = "Para que serve a medidad de absorvância a 260nm?",
             answers = new string[] {
                 "Medida da concentração de proteínas.",
                 "Medida da concentração de ácidos nucléicos.",
@@ -285,33 +209,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Medida da viscosidade de uma solução."
             },
             correctIndex = 1,
-            questionNumber = 27,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Como a absorvância a 260nm muda durante a desnaturação do DNA?",
-            answers = new string[] {
-                "Diminui.",
-                "Aumenta.",
-                "Permanece inalterada.",
-                "Varia de forma imprevisível."
-            },
-            correctIndex = 1,
-            questionNumber = 28,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que é o efeito hipercrômico?",
-            answers = new string[] {
-                "Aumento da absorvância a 260nm durante a desnaturação.",
-                "Diminuição da absorvância a 260nm durante a desnaturação.",
-                "Aumento da viscosidade durante a desnaturação.",
-                "Diminuição da viscosidade durante a desnaturação."
-            },
-            correctIndex = 0,
-            questionNumber = 29,
+            questionNumber = 20,
             isImageAnswer = false
         },
         new Question {
@@ -324,7 +222,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Não há regra de Chargaff."
             },
             correctIndex = 0,
-            questionNumber = 30,
+            questionNumber = 21,
             isImageAnswer = false
         },
         new Question {
@@ -337,7 +235,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Carboidratos"
             },
             correctIndex = 0,
-            questionNumber = 31,
+            questionNumber = 22,
             isImageAnswer = false
         },
         new Question {
@@ -350,7 +248,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "O transporte de proteínas para o exterior da célula."
             },
             correctIndex = 2,
-            questionNumber = 32,
+            questionNumber = 23,
             isImageAnswer = false
         },
 
@@ -359,7 +257,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual tipo de RNA transporta aminoácidos para os ribossomos?",
             answers = new string[] { "tRNA", "rRNA", "mRNA", "snRNA" },
             correctIndex = 0,
-            questionNumber = 33,
+            questionNumber = 24,
             isImageAnswer = false
         },
         new Question {
@@ -367,20 +265,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual tipo de RNA faz parte da estrutura dos ribossomos?",
             answers = new string[] { "tRNA", "rRNA", "mRNA", "snRNA" },
             correctIndex = 1,
-            questionNumber = 34,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que são ribozimas?",
-            answers = new string[] {
-                "Proteínas que catalisam reações.",
-                "RNAs que catalisam reações.",
-                "Enzimas que degradam RNA.",
-                "RNAs que replicam DNA."
-            },
-            correctIndex = 1,
-            questionNumber = 35,
+            questionNumber = 25,
             isImageAnswer = false
         },
         new Question {
@@ -388,7 +273,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual a principal diferença química entre DNA e RNA?",
             answers = new string[] { "Açúcar", "Bases nitrogenadas", "Grupamento fosfato", "Sequência de bases" },
             correctIndex = 0,
-            questionNumber = 36,
+            questionNumber = 26,
             isImageAnswer = false
         },
         new Question {
@@ -396,7 +281,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual a principal diferença na composição de bases entre DNA e RNA?",
             answers = new string[] { "Timina vs. Uracila", "Adenina vs. Guanina", "Citosina vs. Guanina", "Ribose vs. Desoxirribose" },
             correctIndex = 0,
-            questionNumber = 37,
+            questionNumber = 27,
             isImageAnswer = false
         },
         new Question {
@@ -409,7 +294,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Uma seqüência de três bases no DNA."
             },
             correctIndex = 1,
-            questionNumber = 38,
+            questionNumber = 28,
             isImageAnswer = false
         },
         new Question {
@@ -422,28 +307,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Ligar-se ao DNA."
             },
             correctIndex = 1,
-            questionNumber = 39,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual a estrutura secundária típica dos tRNAs?",
-            answers = new string[] { "Hélice dupla", "Folha de trevo", "Hélice simples", "Estrutura aleatória" },
-            correctIndex = 1,
-            questionNumber = 40,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que são bases modificadas em tRNAs?",
-            answers = new string[] {
-                "Bases não encontradas em outros RNAs.",
-                "Bases encontradas em outros RNAs, mas modificadas.",
-                "Bases que aumentam a estabilidade do tRNA.",
-                "Todas as alternativas acima."
-            },
-            correctIndex = 3,
-            questionNumber = 41,
+            questionNumber = 29,
             isImageAnswer = false
         },
         new Question {
@@ -456,23 +320,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Catalisam reações."
             },
             correctIndex = 2,
-            questionNumber = 42,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual o nome atual da nucleína?",
-            answers = new string[] { "Ácido nucléico", "Nucleotídeo", "Nucleosídeo", "Base nitrogenada" },
-            correctIndex = 0,
-            questionNumber = 43,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "O que são os blocos construtores dos ácidos nucléicos?",
-            answers = new string[] { "Nucleosídeos", "Nucleotídeos", "Bases nitrogenadas", "Açúcares" },
-            correctIndex = 1,
-            questionNumber = 44,
+            questionNumber = 30,
             isImageAnswer = false
         },
         new Question {
@@ -480,7 +328,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Quais são os três componentes de um nucleotídeo?",
             answers = new string[] { "Açúcar, base, fosfato", "Açúcar, base, aminoácido", "Base, aminoácido, fosfato", "Açúcar, lipídeo, base" },
             correctIndex = 0,
-            questionNumber = 45,
+            questionNumber = 31,
             isImageAnswer = false
         },
         new Question {
@@ -488,7 +336,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "O que é um nucleosídeo?",
             answers = new string[] { "Açúcar + base + fosfato", "Açúcar + base", "Base + fosfato", "Açúcar + aminoácido" },
             correctIndex = 1,
-            questionNumber = 46,
+            questionNumber = 32,
             isImageAnswer = false
         },
         new Question {
@@ -496,7 +344,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual o açúcar presente nos ribonucleotídeos?",
             answers = new string[] { "Desoxirribose", "Ribose", "Glicose", "Frutose" },
             correctIndex = 1,
-            questionNumber = 47,
+            questionNumber = 33,
             isImageAnswer = false
         },
         new Question {
@@ -504,23 +352,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             questionText = "Qual o açúcar presente nos desoxirribonucleotídeos?",
             answers = new string[] { "Desoxirribose", "Ribose", "Glicose", "Frutose" },
             correctIndex = 0,
-            questionNumber = 48,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual tipo de ligação une a base nitrogenada ao açúcar?",
-            answers = new string[] { "Ligação peptídica", "Ligação glicosídica", "Ligação éster", "Ligação fosfodiéster" },
-            correctIndex = 1,
-            questionNumber = 49,
-            isImageAnswer = false
-        },
-        new Question {
-            questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Qual o papel do grupamento fosfato em um nucleotídeo?",
-            answers = new string[] { "Dar caráter básico", "Dar caráter ácido", "Ligar à base", "Ligar ao açúcar" },
-            correctIndex = 1,
-            questionNumber = 50,
+            questionNumber = 34,
             isImageAnswer = false
         }
     };
