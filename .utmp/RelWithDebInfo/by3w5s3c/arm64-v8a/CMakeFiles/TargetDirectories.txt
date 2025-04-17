@@ -1,0 +1,8 @@
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+/Users/lucianopuzer/Documents/ufabc/Tecnologias Educacionais/LabEdu/LabEdu/.utmp/RelWithDebInfo/by3w5s3c/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
