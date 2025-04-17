@@ -104,10 +104,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Identifique a estrutura que representa um hidrocarboneto ramificado",
             answers = new string[] {
-                "AnswerImages/benzeno",
-                "AnswerImages/enol",
-                "AnswerImages/hidrocarboneto_ramificado",
-                "AnswerImages/propanal"
+                "AnswerImages/IntroductionDB/benzeno",
+                "AnswerImages/IntroductionDB/enol",
+                "AnswerImages/IntroductionDB/hidrocarboneto_ramificado",
+                "AnswerImages/IntroductionDB/propanal"
             },
             correctIndex = 2,
             questionNumber = 8,
@@ -117,10 +117,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Identifique a estrutura molecular do ácido carboxílico",
             answers = new string[] {
-                "AnswerImages/2-butanona",
-                "AnswerImages/propanoato_de_metila",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/2-butanona",
+                "AnswerImages/IntroductionDB/propanoato_de_metila",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
             },
             correctIndex = 3,
             questionNumber = 9,
@@ -130,10 +130,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Identifique a estrutura molecular da amina",
             answers = new string[] {
-                "AnswerImages/2-butamina",
-                "AnswerImages/propanoato_de_metila",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/2-butamina",
+                "AnswerImages/IntroductionDB/propanoato_de_metila",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
             },
             correctIndex = 0,
             questionNumber = 10,
@@ -182,10 +182,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Identifique a estrutura molecular que possui um carbono quiral.",
             answers = new string[] {
-                "AnswerImages/2-butamina",
-                "AnswerImages/propanoato_de_metila",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/2-butamina",
+                "AnswerImages/IntroductionDB/propanoato_de_metila",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
             },
             correctIndex = 0,
             questionNumber = 14,
@@ -196,10 +196,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Indique a estrutura molecular de um aldeído.",
             answers = new string[] {
-                "AnswerImages/propanal",
-                "AnswerImages/propanoato_de_metila",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/propanal",
+                "AnswerImages/IntroductionDB/propanoato_de_metila",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
                 },
             correctIndex = 0,
             questionNumber = 15,
@@ -210,10 +210,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Indique a estrutura molecular de um álcool.",
             answers = new string[] {
-                "AnswerImages/propanal",
-                "AnswerImages/propanol",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/propanal",
+                "AnswerImages/IntroductionDB/propanol",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
                 },
             correctIndex = 1,
             questionNumber = 16,
@@ -224,10 +224,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Indique a estrutura molecular de um amida.",
             answers = new string[] {
-                "AnswerImages/propanal",
-                "AnswerImages/propanoato_de_metila",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/propanal",
+                "AnswerImages/IntroductionDB/propanoato_de_metila",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
                 },
             correctIndex = 2,
             questionNumber = 17,
@@ -238,10 +238,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Indique a estrutura molecular de um éster.",
             answers = new string[] {
-                "AnswerImages/propanal",
-                "AnswerImages/propanoato_de_metila",
-                "AnswerImages/propamida",
-                "AnswerImages/acido_propanoico"
+                "AnswerImages/IntroductionDB/propanal",
+                "AnswerImages/IntroductionDB/propanoato_de_metila",
+                "AnswerImages/IntroductionDB/propamida",
+                "AnswerImages/IntroductionDB/acido_propanoico"
                 },
             correctIndex = 1,
             questionNumber = 18,
@@ -252,10 +252,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Indique a estrutura molecular de uma cetona.",
             answers = new string[] {
-                "AnswerImages/amida_carga_positiva",
-                "AnswerImages/propanoato",
-                "AnswerImages/propil_imino",
-                "AnswerImages/2-butanona"
+                "AnswerImages/IntroductionDB/amida_carga_positiva",
+                "AnswerImages/IntroductionDB/propanoato",
+                "AnswerImages/IntroductionDB/propil_imino",
+                "AnswerImages/IntroductionDB/2-butanona"
                 },
             correctIndex = 3,
             questionNumber = 19,
@@ -265,10 +265,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Identifique o composto que não é um isômero dos outros 3 compostos.",
             answers = new string[] {
-                "AnswerImages/ciclohexano",
-                "AnswerImages/2-3-dimetil-butano",
-                "AnswerImages/2metil-pentano",
-                "AnswerImages/3metil-pentano"
+                "AnswerImages/IntroductionDB/ciclohexano",
+                "AnswerImages/IntroductionDB/2-3-dimetil-butano",
+                "AnswerImages/IntroductionDB/2metil-pentano",
+                "AnswerImages/IntroductionDB/3metil-pentano"
             },
             correctIndex = 0,
             questionNumber = 20,
@@ -647,10 +647,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Selecione o aminoácido que não possui carbono quiral",
             answers = new string[] {
-                "AnswerImages/benzeno",
-                "AnswerImages/glicina",
-                "AnswerImages/alanina",
-                "AnswerImages/histidina"
+                "AnswerImages/AminoacidsDB/cisteina",
+                "AnswerImages/AminoacidsDB/glicina",
+                "AnswerImages/AminoacidsDB/alanina",
+                "AnswerImages/AminoacidsDB/histidina"
                 },
             correctIndex = 1,
             questionNumber = 49,
@@ -660,10 +660,10 @@ public class BiochemistryIntroductionQuestionDatabase : MonoBehaviour, IQuestion
             questionDatabankName = "BiochemistryIntroductionQuestionDatabase",
             questionText = "Identifique o isômeto cis nas estruturas abaixo",
             answers = new string[] {
-                "AnswerImages/trans-dihidroxi-eteno",
-                "AnswerImages/cis-dihidroxi-eteno",
-                "AnswerImages/dihidroxi-eteno",
-                "AnswerImages/dihidroxi-eteno2"
+                "AnswerImages/IntroductionDB/trans-dihidroxi-eteno",
+                "AnswerImages/IntroductionDB/cis-dihidroxi-eteno",
+                "AnswerImages/IntroductionDB/dihidroxi-eteno",
+                "AnswerImages/IntroductionDB/dihidroxi-eteno2"
             },
             correctIndex = 1,
             questionNumber = 50,
