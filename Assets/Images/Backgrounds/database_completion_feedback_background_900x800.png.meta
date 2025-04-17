@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      database_completion_feedback_background_900x800_0: 4655746944724371432
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
