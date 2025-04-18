@@ -169,7 +169,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
                 "Mudança na seqüência de bases.",
                 "Todas as alternativas acima."
             },
-            correctIndex = 2,
+            correctIndex = 1,
             questionNumber = 17,
             isImageAnswer = false
         },

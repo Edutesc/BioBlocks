@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      beta_d_glicopiranose_0: -5134685407364172601
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

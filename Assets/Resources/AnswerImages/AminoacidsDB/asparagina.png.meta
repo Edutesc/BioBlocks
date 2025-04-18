@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      asparagina_0: 5254203693054042026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

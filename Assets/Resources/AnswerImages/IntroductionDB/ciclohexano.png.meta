@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ciclohexano_0: 2940095660186874423
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

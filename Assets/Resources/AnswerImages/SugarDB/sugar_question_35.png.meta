@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sugar_question_35_0: -5863022778308239629
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
