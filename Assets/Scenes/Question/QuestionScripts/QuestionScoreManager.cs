@@ -8,14 +8,14 @@ public class QuestionScoreManager : MonoBehaviour
     private UserData currentUserData;
     private AnsweredQuestionsManager answeredQuestionsManager;
     private QuestionBonusManager questionBonusManager;
-    private SpecialBonusHandler specialBonusHandler;
+    private BonusApplicationManager bonusApplicationManager;
 
     private void Start()
     {
         currentUserData = UserDataStore.CurrentUserData;
         answeredQuestionsManager = AnsweredQuestionsManager.Instance;
         questionBonusManager = FindFirstObjectByType<QuestionBonusManager>();
-        specialBonusHandler = FindFirstObjectByType<SpecialBonusHandler>();
+        bonusApplicationManager = FindFirstObjectByType<BonusApplicationManager>();
 
         if (currentUserData == null)
         {
@@ -32,12 +32,10 @@ public class QuestionScoreManager : MonoBehaviour
             Debug.LogWarning("BonusManager não encontrado. O sistema de bônus não estará disponível.");
         }
 
-        if (specialBonusHandler == null)
+        if (bonusApplicationManager == null)
         {
-            GameObject handlerObj = new GameObject("SpecialBonusHandler");
-            specialBonusHandler = handlerObj.AddComponent<SpecialBonusHandler>();
+            Debug.LogWarning("BonusApplicationManager não encontrado. O sistema de bônus especiais não estará disponível.");
         }
-
     }
 
     public async Task UpdateScore(int scoreChange, bool isCorrect, Question answeredQuestion)
@@ -62,7 +60,6 @@ public class QuestionScoreManager : MonoBehaviour
             int actualScoreChange = scoreChange;
             if (isCorrect && questionBonusManager != null && questionBonusManager.IsBonusActive())
             {
-                int multiplier = questionBonusManager.GetCurrentScoreMultiplier();
                 actualScoreChange = questionBonusManager.ApplyBonusToScore(scoreChange);
             }
 
@@ -75,7 +72,7 @@ public class QuestionScoreManager : MonoBehaviour
                 {
                     await FirestoreRepository.Instance.UpdateUserScores(
                         userId,
-                        actualScoreChange, 
+                        actualScoreChange,
                         questionNumber,
                         databankName,
                         true
@@ -100,7 +97,7 @@ public class QuestionScoreManager : MonoBehaviour
                         actualScoreChange,
                         0,
                         "",
-                        false  
+                        false
                     );
                 }
                 catch (Exception ex)
@@ -114,7 +111,6 @@ public class QuestionScoreManager : MonoBehaviour
             if (updatedUserData != null)
             {
                 UserDataStore.CurrentUserData = updatedUserData;
-                Debug.Log($"UserData atualizado com sucesso. Novo score: {updatedUserData.Score}, WeekScore: {updatedUserData.WeekScore}");
             }
         }
         catch (Exception ex)
@@ -129,8 +125,6 @@ public class QuestionScoreManager : MonoBehaviour
                 currentUserData.Score = clientSideScore;
                 currentUserData.WeekScore = clientSideWeekScore;
                 UserDataStore.CurrentUserData = currentUserData;
-
-                Debug.Log($"Atualização local dos scores após erro - Score: {clientSideScore}, WeekScore: {clientSideWeekScore}");
             }
         }
     }
@@ -148,22 +142,29 @@ public class QuestionScoreManager : MonoBehaviour
     private void OnUserDataChanged(UserData userData)
     {
         currentUserData = userData;
-        Debug.Log($"ScoreManager: UserData atualizado - UserId: {userData.UserId}, Score: {userData.Score}");
     }
-
-        // Adicione esses métodos à classe QuestionScoreManager
 
     public bool HasBonusActive()
     {
-        return questionBonusManager != null && questionBonusManager.IsBonusActive();
+        bool standardBonusActive = questionBonusManager != null && questionBonusManager.IsBonusActive();
+        bool specialBonusActive = bonusApplicationManager != null && bonusApplicationManager.IsAnyBonusActive();
+        return standardBonusActive || specialBonusActive;
     }
 
     public int CalculateBonusScore(int baseScore)
     {
+        int score = baseScore;
+         
         if (questionBonusManager != null && questionBonusManager.IsBonusActive())
         {
-            return questionBonusManager.ApplyBonusToScore(baseScore);
+            score = questionBonusManager.ApplyBonusToScore(score);
         }
-        return baseScore;
+        
+        if (bonusApplicationManager != null && bonusApplicationManager.IsAnyBonusActive())
+        {
+            score = bonusApplicationManager.ApplyTotalBonus(score);
+        }
+        
+        return score;
     }
 }

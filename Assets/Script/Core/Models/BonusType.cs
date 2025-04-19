@@ -3,33 +3,44 @@ using System.Collections.Generic;
 using Firebase.Firestore;
 
 [System.Serializable]
-[FirestoreData]
 public class BonusType
 {
-    [FirestoreProperty]
     public string BonusName { get; set; }
-
-    [FirestoreProperty]
     public int BonusCount { get; set; }
-
-    [FirestoreProperty]
     public bool IsBonusActive { get; set; }
-    
-    [FirestoreProperty]
     public long ExpirationTimestamp { get; set; }
-    
-    [FirestoreProperty]
     public bool IsPersistent { get; set; }
+    public int Multiplier { get; set; } = 1;
 
-    public BonusType() { }
-
-    public BonusType(string bonusName, int bonusCount = 0, bool isBonusActive = false, long expirationTimestamp = 0, bool isPersistent = false)
+    public BonusType(string name, int count, bool isActive, long expiration, bool isPersistent, int multiplier = 1)
     {
-        BonusName = bonusName;
-        BonusCount = bonusCount;
-        IsBonusActive = isBonusActive;
-        ExpirationTimestamp = expirationTimestamp;
+        BonusName = name;
+        BonusCount = count;
+        IsBonusActive = isActive;
+        ExpirationTimestamp = expiration;
         IsPersistent = isPersistent;
+        Multiplier = multiplier;
+    }
+
+    public bool IsExpired()
+    {
+        if (ExpirationTimestamp <= 0) return false;
+        return DateTimeOffset.UtcNow.ToUnixTimeSeconds() >= ExpirationTimestamp;
+    }
+
+    public void SetExpirationFromDuration(float durationInSeconds)
+    {
+        ExpirationTimestamp = DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds();
+    }
+
+    public float GetRemainingSeconds()
+    {
+        if (ExpirationTimestamp <= 0) return 0;
+        
+        long currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        long remainingTime = ExpirationTimestamp - currentTime;
+        
+        return remainingTime > 0 ? remainingTime : 0;
     }
 
     public Dictionary<string, object> ToDictionary()
@@ -40,31 +51,9 @@ public class BonusType
             { "BonusCount", BonusCount },
             { "IsBonusActive", IsBonusActive },
             { "ExpirationTimestamp", ExpirationTimestamp },
-            { "IsPersistent", IsPersistent }
+            { "IsPersistent", IsPersistent },
+            { "Multiplier", Multiplier }
         };
-    }
-    
-    public bool IsExpired()
-    {
-        if (ExpirationTimestamp <= 0)
-            return false; 
-            
-        long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        return currentTimestamp >= ExpirationTimestamp;
-    }
-    
-    public long GetRemainingSeconds()
-    {
-        if (ExpirationTimestamp <= 0)
-            return 0;
-            
-        long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        return Math.Max(0, ExpirationTimestamp - currentTimestamp);
-    }
-    
-    public void SetExpirationFromDuration(float durationInSeconds)
-    {
-        ExpirationTimestamp = DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds();
     }
 }
 

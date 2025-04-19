@@ -8,7 +8,7 @@ using Firebase.Firestore;
 public class UserBonusManager
 {
     private const string COLLECTION_NAME = "UserBonus";
-    private const int SPECIAL_BONUS_ACTIVATION_THRESHOLD = 5;
+    private const string ACTIVE_BONUS_PREFIX = "active_";
     private FirebaseFirestore db;
 
     public UserBonusManager()
@@ -52,7 +52,8 @@ public class UserBonusManager
                                     bonusDict.ContainsKey("BonusCount") ? Convert.ToInt32(bonusDict["BonusCount"]) : 0,
                                     bonusDict.ContainsKey("IsBonusActive") ? Convert.ToBoolean(bonusDict["IsBonusActive"]) : false,
                                     bonusDict.ContainsKey("ExpirationTimestamp") ? Convert.ToInt64(bonusDict["ExpirationTimestamp"]) : 0,
-                                    bonusDict.ContainsKey("IsPersistent") ? Convert.ToBoolean(bonusDict["IsPersistent"]) : false
+                                    bonusDict.ContainsKey("IsPersistent") ? Convert.ToBoolean(bonusDict["IsPersistent"]) : false,
+                                    bonusDict.ContainsKey("Multiplier") ? Convert.ToInt32(bonusDict["Multiplier"]) : 1
                                 );
 
                                 if (bonus.IsBonusActive && bonus.IsExpired())
@@ -66,6 +67,7 @@ public class UserBonusManager
                     }
                 }
 
+                // Atualizar bônus expirados
                 List<BonusType> expiredBonuses = bonusList.Where(b => b.IsBonusActive && b.IsExpired()).ToList();
                 if (expiredBonuses.Any())
                 {
@@ -112,6 +114,22 @@ public class UserBonusManager
         }
     }
 
+    public async Task<BonusType> GetActiveBonusByName(string userId, string bonusName)
+    {
+        string activeBonusName = $"{ACTIVE_BONUS_PREFIX}{bonusName}";
+        List<BonusType> bonusList = await GetUserBonuses(userId);
+        return bonusList.FirstOrDefault(b => b.BonusName == activeBonusName && b.IsBonusActive && !b.IsExpired());
+    }
+
+    public async Task<List<BonusType>> GetAllActiveBonuses(string userId)
+    {
+        List<BonusType> bonusList = await GetUserBonuses(userId);
+        return bonusList.Where(b => 
+            b.BonusName.StartsWith(ACTIVE_BONUS_PREFIX) && 
+            b.IsBonusActive && 
+            !b.IsExpired()).ToList();
+    }
+
     public async Task<BonusType> GetBonusByName(string userId, string bonusName)
     {
         List<BonusType> bonusList = await GetUserBonuses(userId);
@@ -148,7 +166,7 @@ public class UserBonusManager
                 targetBonus.BonusCount += incrementAmount;
 
                 // Se autoActivate for verdadeiro ou se for o specialBonus com count >= threshold
-                if (autoActivate || (bonusName == "specialBonus" && targetBonus.BonusCount >= SPECIAL_BONUS_ACTIVATION_THRESHOLD))
+                if (autoActivate || (bonusName == "specialBonus" && targetBonus.BonusCount >= 5))
                 {
                     targetBonus.IsBonusActive = true;
                 }
@@ -168,7 +186,55 @@ public class UserBonusManager
         }
     }
 
-    public async Task DecrementBonusCount(string userId, string bonusName, int decrementAmount = 1)
+    public async Task ActivateBonusInGame(string userId, string bonusName, float durationInSeconds, int multiplier)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogError("UserBonusManager: UserId é nulo ou vazio");
+            return;
+        }
+
+        try
+        {
+            // Registrar o bônus ativo no Firestore
+            List<BonusType> bonusList = await GetUserBonuses(userId);
+            
+            // Verificar se já existe um bônus ativo com este nome
+            string activeBonusName = $"{ACTIVE_BONUS_PREFIX}{bonusName}";
+            BonusType existingActiveBonus = bonusList.FirstOrDefault(b => b.BonusName == activeBonusName);
+            
+            if (existingActiveBonus != null)
+            {
+                // Atualizar o bônus existente
+                existingActiveBonus.IsBonusActive = true;
+                existingActiveBonus.SetExpirationFromDuration(durationInSeconds);
+                existingActiveBonus.Multiplier = multiplier;
+            }
+            else
+            {
+                // Criar um novo registro de bônus ativo
+                BonusType activeBonus = new BonusType(
+                    activeBonusName, 
+                    0, 
+                    true, 
+                    DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds(),
+                    false,
+                    multiplier
+                );
+                bonusList.Add(activeBonus);
+            }
+            
+            await SaveBonusList(userId, bonusList);
+            Debug.Log($"UserBonusManager: Bônus {bonusName} ativado por {durationInSeconds} segundos com multiplicador {multiplier}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"UserBonusManager: Erro ao ativar bônus: {e.Message}");
+            throw;
+        }
+    }
+
+    public async Task ConsumeBonusAndActivate(string userId, string bonusName, float durationInSeconds, int multiplier)
     {
         if (string.IsNullOrEmpty(userId))
         {
@@ -179,333 +245,35 @@ public class UserBonusManager
         try
         {
             List<BonusType> bonusList = await GetUserBonuses(userId);
-            BonusType targetBonus = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
+            BonusType bonusToConsume = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
 
-            if (targetBonus != null)
+            if (bonusToConsume != null && bonusToConsume.BonusCount > 0)
             {
-                targetBonus.BonusCount = Math.Max(0, targetBonus.BonusCount - decrementAmount);
-
-                // Desativar o bônus se o contador chegar a zero
-                if (targetBonus.BonusCount == 0)
-                {
-                    targetBonus.IsBonusActive = false;
-                }
-
+                // Consumir um bônus
+                bonusToConsume.BonusCount--;
+                
+                // Ajustar status ativo
+                bonusToConsume.IsBonusActive = bonusToConsume.BonusCount > 0;
+                
+                // Salvar alterações
                 await SaveBonusList(userId, bonusList);
-                Debug.Log($"UserBonusManager: {bonusName} decrementado em {decrementAmount}. Novo valor: {targetBonus.BonusCount}");
+                
+                // Ativar o bônus no jogo
+                await ActivateBonusInGame(userId, bonusName, durationInSeconds, multiplier);
+                
+                Debug.Log($"UserBonusManager: {bonusName} consumido e ativado. Restantes: {bonusToConsume.BonusCount}");
             }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao decrementar contador: {e.Message}");
-        }
-    }
-
-    public async Task ActivateBonusInScene(string userId, string bonusName, float durationInSeconds, int multiplier)
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogError("UserBonusManager: UserId é nulo ou vazio");
-            return;
-        }
-
-        try
-        {
-            Debug.Log($"UserBonusManager: Tentando ativar {bonusName} na cena com multiplicador {multiplier} por {durationInSeconds} segundos");
-
-            QuestionSceneBonusManager questionSceneBonusManager = new QuestionSceneBonusManager();
-            if (questionSceneBonusManager == null)
+            else
             {
-                Debug.LogError("UserBonusManager: Falha ao criar QuestionSceneBonusManager");
-                return;
+                Debug.LogWarning($"UserBonusManager: {bonusName} não está disponível para consumo");
             }
-            Debug.Log($"Passando pelo ActivateBonus");
-            Debug.Log($"UserBonusManager: Chamando questionSceneBonusManager.ActivateBonus para {bonusName}");
-            await questionSceneBonusManager.ActivateBonus(userId, bonusName, durationInSeconds, multiplier);
-            Debug.Log($"UserBonusManager: {bonusName} ativado com sucesso na cena de perguntas");
         }
         catch (Exception e)
         {
-            Debug.LogError($"UserBonusManager: Erro ao ativar bônus na cena: {e.Message}\n{e.StackTrace}");
+            Debug.LogError($"UserBonusManager: Erro ao consumir e ativar bônus: {e.Message}");
             throw;
         }
     }
 
     #endregion
-
-    #region Special Bonus Methods
-
-    public async Task IncrementSpecialBonus(string userId)
-    {
-        await IncrementBonusCount(userId, "specialBonus", 1);
-    }
-
-    public async Task<bool> ActivateSpecialBonus(string userId)
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogError("UserBonusManager: UserId é nulo ou vazio");
-            return false;
-        }
-
-        try
-        {
-            Debug.Log("UserBonusManager: Iniciando ativação do Special Bonus");
-            List<BonusType> bonusList = await GetUserBonuses(userId);
-            BonusType specialBonus = bonusList.FirstOrDefault(b => b.BonusName == "specialBonus");
-
-            if (specialBonus != null && specialBonus.BonusCount >= SPECIAL_BONUS_ACTIVATION_THRESHOLD)
-            {
-                // Zerar o contador e desativar o bônus
-                specialBonus.BonusCount = 0;
-                specialBonus.IsBonusActive = false;
-
-                // Salvar as alterações
-                await SaveBonusList(userId, bonusList);
-
-                // Ativar o bônus na cena (3x de multiplicador por 10 minutos)
-                await ActivateBonusInScene(userId, "specialBonus", 600f, 3);
-
-                Debug.Log("UserBonusManager: Special Bonus ativado com sucesso");
-                return true;
-            }
-            else
-            {
-                Debug.LogWarning("UserBonusManager: Special Bonus não está disponível para ativação");
-                return false;
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao ativar Special Bonus: {e.Message}");
-            throw;
-        }
-    }
-
-    #endregion
-
-    #region List Completion Bonus Methods
-
-    public async Task IncrementListCompletionBonus(string userId, string databankName)
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogError("UserBonusManager: UserId é nulo ou vazio");
-            return;
-        }
-
-        try
-        {
-            // Primeiro, verificar se o databank já foi marcado como completado
-            bool isEligible = await CheckIfDatabankEligibleForBonus(userId, databankName);
-
-            if (isEligible)
-            {
-                // Marcar o databank como completado
-                await MarkDatabankAsCompleted(userId, databankName);
-
-                // Incrementar o bônus
-                await IncrementBonusCount(userId, "listCompletionBonus", 1, true);
-
-                Debug.Log($"UserBonusManager: Bônus de lista incrementado para o databank {databankName}");
-            }
-            else
-            {
-                Debug.Log($"UserBonusManager: Databank {databankName} já foi marcado como completado");
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao incrementar List Completion Bonus: {e.Message}");
-        }
-    }
-
-    public async Task<bool> ActivateListCompletionBonus(string userId)
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogError("UserBonusManager: UserId é nulo ou vazio");
-            return false;
-        }
-
-        try
-        {
-            Debug.Log("UserBonusManager: Iniciando ativação do List Completion Bonus");
-            List<BonusType> bonusList = await GetUserBonuses(userId);
-            BonusType listBonus = bonusList.FirstOrDefault(b => b.BonusName == "listCompletionBonus");
-
-            if (listBonus != null && listBonus.BonusCount > 0)
-            {
-                // Decrementar o contador em 1
-                listBonus.BonusCount--;
-
-                // Ajustar o status ativo com base no contador
-                listBonus.IsBonusActive = listBonus.BonusCount > 0;
-
-                // Salvar as alterações no UserBonus
-                Debug.Log($"UserBonusManager: Salvando alterações do List Completion Bonus na coleção UserBonus");
-                await SaveBonusList(userId, bonusList);
-
-                // Ativar o bônus na cena (2x de multiplicador por 10 minutos)
-                Debug.Log($"UserBonusManager: Tentando ativar List Completion Bonus na cena");
-                await ActivateBonusInScene(userId, "listCompletionBonus", 600f, 2);
-
-                Debug.Log($"UserBonusManager: List Completion Bonus ativado. Bônus restantes: {listBonus.BonusCount}");
-                return true;
-            }
-            else
-            {
-                Debug.LogWarning("UserBonusManager: List Completion Bonus não está disponível para ativação");
-                return false;
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao ativar List Completion Bonus: {e.Message}\n{e.StackTrace}");
-            throw;
-        }
-    }
-
-    public async Task<bool> CheckIfDatabankEligibleForBonus(string userId, string databankName)
-    {
-        try
-        {
-            // Verifica se o usuário já ganhou bônus por este databank específico
-            DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-
-            if (snapshot.Exists)
-            {
-                Dictionary<string, object> data = snapshot.ToDictionary();
-
-                // Verificar se já existe um registro de lista completa para este databank
-                if (data.ContainsKey("CompletedDatabanks"))
-                {
-                    List<object> completedDatabanks = data["CompletedDatabanks"] as List<object>;
-
-                    if (completedDatabanks != null && completedDatabanks.Contains(databankName))
-                    {
-                        Debug.Log($"UserBonusManager: Databank {databankName} já foi marcado como completo");
-                        return false;
-                    }
-                }
-
-                // Se chegou aqui, o databank ainda não foi marcado
-                return true;
-            }
-
-            // Se o documento não existe, ele é elegível
-            return true;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao verificar elegibilidade do databank: {e.Message}");
-            return false;
-        }
-    }
-
-    public async Task MarkDatabankAsCompleted(string userId, string databankName)
-    {
-        try
-        {
-            DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-
-            List<string> completedDatabanks = new List<string>();
-
-            if (snapshot.Exists)
-            {
-                Dictionary<string, object> data = snapshot.ToDictionary();
-
-                if (data.ContainsKey("CompletedDatabanks"))
-                {
-                    List<object> existingList = data["CompletedDatabanks"] as List<object>;
-
-                    if (existingList != null)
-                    {
-                        completedDatabanks = existingList.Select(item => item.ToString()).ToList();
-                    }
-                }
-            }
-
-            // Adicionar o novo databank se ainda não estiver na lista
-            if (!completedDatabanks.Contains(databankName))
-            {
-                completedDatabanks.Add(databankName);
-
-                // Atualizar o documento
-                Dictionary<string, object> updateData = new Dictionary<string, object>
-                {
-                    { "CompletedDatabanks", completedDatabanks }
-                };
-
-                await docRef.UpdateAsync(updateData);
-                Debug.Log($"UserBonusManager: Databank {databankName} marcado como completo");
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao marcar databank como completo: {e.Message}");
-        }
-    }
-
-    #endregion
-
-    #region Persistence Bonus Methods
-
-    public async Task IncrementPersistenceBonus(string userId)
-    {
-        await IncrementBonusCount(userId, "persistenceBonus", 1, true);
-    }
-
-    public async Task<bool> ActivatePersistenceBonus(string userId)
-    {
-        if (string.IsNullOrEmpty(userId))
-        {
-            Debug.LogError("UserBonusManager: UserId é nulo ou vazio");
-            return false;
-        }
-
-        try
-        {
-            Debug.Log("UserBonusManager: Iniciando ativação do Persistence Bonus");
-            List<BonusType> bonusList = await GetUserBonuses(userId);
-            BonusType persistenceBonus = bonusList.FirstOrDefault(b => b.BonusName == "persistenceBonus");
-
-            if (persistenceBonus != null && persistenceBonus.BonusCount > 0)
-            {
-                // Decrementar o contador em 1
-                persistenceBonus.BonusCount--;
-
-                // Ajustar o status ativo com base no contador
-                persistenceBonus.IsBonusActive = persistenceBonus.BonusCount > 0;
-
-                // Salvar as alterações
-                await SaveBonusList(userId, bonusList);
-
-                // Ativar o bônus na cena (configuração a definir)
-                await ActivateBonusInScene(userId, "persistenceBonus", 600f, 2);
-
-                Debug.Log($"UserBonusManager: Persistence Bonus ativado. Bônus restantes: {persistenceBonus.BonusCount}");
-                return true;
-            }
-            else
-            {
-                Debug.LogWarning("UserBonusManager: Persistence Bonus não está disponível para ativação");
-                return false;
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"UserBonusManager: Erro ao ativar Persistence Bonus: {e.Message}");
-            throw;
-        }
-    }
-
-    #endregion
-
-    // Você pode adicionar regiões para os outros bônus seguindo a mesma estrutura
-    // #region NewBonus Methods
-    // ...
-    // #endregion
 }

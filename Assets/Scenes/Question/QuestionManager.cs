@@ -464,15 +464,12 @@ public class QuestionManager : MonoBehaviour
     {
         try
         {
-            Debug.Log("CheckAndLoadMoreQuestions: Carregando mais questões não respondidas");
-
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
             string currentDatabaseName = loadManager.DatabankName;
             var newQuestions = await loadManager.LoadQuestionsForSet(currentSet);
 
             if (newQuestions == null || newQuestions.Count == 0)
             {
-                Debug.Log("CheckAndLoadMoreQuestions: Não há mais questões disponíveis");
                 ShowAnswerFeedback("Não há mais questões disponíveis. Volte ao menu principal.", false, true);
                 return;
             }
@@ -484,22 +481,16 @@ public class QuestionManager : MonoBehaviour
 
             if (unansweredQuestions.Count > 0)
             {
-                // Encontradas questões não respondidas - continuamos normalmente
-                Debug.Log($"CheckAndLoadMoreQuestions: Encontradas {unansweredQuestions.Count} questões não respondidas para continuar");
                 currentSession = new QuestionSession(unansweredQuestions);
                 StartQuestion();
             }
             else
             {
-                // Este é um caso excepcional: carregamos questões, mas todas já foram respondidas
-                // Isso pode acontecer se outro dispositivo respondeu às questões enquanto o usuário estava jogando
-                Debug.Log("CheckAndLoadMoreQuestions: Todas as questões carregadas já foram respondidas");
                 ShowAnswerFeedback("Não há mais questões não respondidas disponíveis. Volte ao menu principal.", false, true);
             }
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Erro em CheckAndLoadMoreQuestions: {ex.Message}");
             ShowAnswerFeedback("Ocorreu um erro ao buscar mais questões. Volte ao menu principal.", false, true);
         }
     }
@@ -515,12 +506,99 @@ public class QuestionManager : MonoBehaviour
 
             string userId = UserDataStore.CurrentUserData.UserId;
             UserBonusManager userBonusManager = new UserBonusManager();
-            await userBonusManager.IncrementListCompletionBonus(userId, databankName);
-            Debug.Log($"Database {databankName} completado! Bônus das Listas incrementado.");
+            bool isEligible = await CheckIfDatabankEligibleForBonus(userId, databankName);
+
+            if (isEligible)
+            {
+                await MarkDatabankAsCompleted(userId, databankName);
+                await userBonusManager.IncrementBonusCount(userId, "listCompletionBonus", 1, true);
+            }
+            else
+            {
+                Debug.LogWarning($"Databank {databankName} já foi marcado como completado anteriormente");
+            }
         }
         catch (Exception e)
         {
             Debug.LogError($"Erro ao processar conclusão do database: {e.Message}");
+        }
+    }
+
+    private async Task<bool> CheckIfDatabankEligibleForBonus(string userId, string databankName)
+    {
+        UserBonusManager userBonusManager = new UserBonusManager();
+
+        try
+        {
+            var docRef = Firebase.Firestore.FirebaseFirestore.DefaultInstance
+                .Collection("UserBonus").Document(userId);
+            var snapshot = await docRef.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> data = snapshot.ToDictionary();
+
+                if (data.ContainsKey("CompletedDatabanks"))
+                {
+                    List<object> completedDatabanks = data["CompletedDatabanks"] as List<object>;
+
+                    if (completedDatabanks != null && completedDatabanks.Contains(databankName))
+                    {
+                        Debug.Log($"Databank {databankName} já foi marcado como completo");
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao verificar elegibilidade do databank: {e.Message}");
+            return false;
+        }
+    }
+
+    private async Task MarkDatabankAsCompleted(string userId, string databankName)
+    {
+        try
+        {
+            var docRef = Firebase.Firestore.FirebaseFirestore.DefaultInstance
+                .Collection("UserBonus").Document(userId);
+            var snapshot = await docRef.GetSnapshotAsync();
+
+            List<string> completedDatabanks = new List<string>();
+
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> data = snapshot.ToDictionary();
+
+                if (data.ContainsKey("CompletedDatabanks"))
+                {
+                    List<object> existingList = data["CompletedDatabanks"] as List<object>;
+
+                    if (existingList != null)
+                    {
+                        completedDatabanks = existingList.Select(item => item.ToString()).ToList();
+                    }
+                }
+            }
+
+            if (!completedDatabanks.Contains(databankName))
+            {
+                completedDatabanks.Add(databankName);
+                Dictionary<string, object> updateData = new Dictionary<string, object>
+            {
+                { "CompletedDatabanks", completedDatabanks }
+            };
+
+                await docRef.UpdateAsync(updateData);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Erro ao marcar databank como completo: {e.Message}");
         }
     }
 
