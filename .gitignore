@@ -1,7 +1,7 @@
 ```text
 
 # Google Services files
-**/google-services-desktop
+**/google-services-desktop.json
 **/google-services.json
 **/GoogleService-Info.plist
 Assets/StreamingAssets/google-services-desktop
