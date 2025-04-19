@@ -1,4 +1,11 @@
 ```text
+
+# Google Services files
+**/google-services-desktop
+**/google-services.json
+**/GoogleService-Info.plist
+Assets/StreamingAssets/google-services-desktop
+
 # Firebase
 firebase.json
 .firebaserc
