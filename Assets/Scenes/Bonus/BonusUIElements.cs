@@ -11,8 +11,19 @@ public class BonusUIElements
     public Button bonusButton;
     public GameObject bonusContainer;
     
+    // Títulos e mensagens para HalfView
+    public string bonusTitle;
+    public string bonusMessage;
+    
     // Cores personalizadas (opcionais)
     public ColorBlock customColors;
     public bool useCustomColors = false;
 }
 
+[System.Serializable]
+public class BonusConfig
+{
+    public float duration = 600f;
+    public int multiplier = 2;
+    public int thresholdCount = 1;
+}

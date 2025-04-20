@@ -315,19 +315,14 @@ public class QuestionBonusManager : MonoBehaviour
 
         try
         {
-            // Ativar o bônus de respostas corretas (2x)
             await bonusManager.ActivateBonus(userId, "correctAnswerBonus", bonusDuration, 2);
+            await bonusManager.IncrementBonusCounter(userId, "correctAnswerBonusCounter");
 
-            // Atualizar a lista de bônus ativos
             activeBonuses = await bonusManager.GetActiveBonuses(userId);
-
-            // Recalcular o multiplicador
             combinedMultiplier = await bonusManager.GetCombinedMultiplier(userId);
-
             isBonusActive = true;
             currentBonusTime = bonusDuration;
 
-            // Mostrar feedback visual
             if (canvasGroupManager != null)
             {
                 canvasGroupManager.ShowBonusFeedback(true);
@@ -350,7 +345,6 @@ public class QuestionBonusManager : MonoBehaviour
                 }
             }
 
-            // Mostrar o timer
             if (bonusTimerContainer != null)
             {
                 bonusTimerContainer.SetActive(true);
@@ -390,13 +384,11 @@ public class QuestionBonusManager : MonoBehaviour
             activeBonuses.Clear();
             combinedMultiplier = 1;
 
-            // Esconder o feedback
             if (canvasGroupManager != null)
             {
                 canvasGroupManager.ShowBonusFeedback(false);
             }
 
-            // Esconder o timer
             if (bonusTimerContainer != null)
             {
                 bonusTimerContainer.SetActive(false);
@@ -415,13 +407,10 @@ public class QuestionBonusManager : MonoBehaviour
     private IEnumerator BonusTimerCoroutine()
     {
         float lastUpdateTime = currentBonusTime;
-
-        // Já atualizar no início
         UpdateTimerDisplay();
 
         while (currentBonusTime > 0)
         {
-            // Verificar se o timer está visível e se o texto está correto
             if (bonusTimerContainer != null && !bonusTimerContainer.activeSelf)
             {
                 Debug.LogWarning("Timer container não está ativo. Reativando...");
@@ -430,11 +419,8 @@ public class QuestionBonusManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
             currentBonusTime -= 1f;
-
-            // Atualizar o texto a cada segundo
             UpdateTimerDisplay();
 
-            // Atualizar no Firestore periodicamente
             if (lastUpdateTime - currentBonusTime >= 30f || currentBonusTime <= 10f)
             {
                 lastUpdateTime = currentBonusTime;
@@ -480,12 +466,10 @@ public class QuestionBonusManager : MonoBehaviour
 
         if (activeBonuses.Count > 1)
         {
-            // Múltiplos bônus ativos
             displayText = $"Bônus Acumulados (x{combinedMultiplier}): {minutes:00}:{seconds:00}";
         }
         else if (activeBonuses.Count == 1)
         {
-            // Um único bônus ativo
             var bonus = activeBonuses[0];
             var bonusType = bonus.ContainsKey("BonusType") ?
                 bonus["BonusType"].ToString() : "desconhecido";
@@ -505,14 +489,10 @@ public class QuestionBonusManager : MonoBehaviour
         }
         else
         {
-            // Sem bônus ativo (caso de erro)
             displayText = "Sem bônus ativo";
         }
 
         bonusTimerText.text = displayText;
-
-        // Log para debug
-        Debug.Log($"Timer atualizado: {displayText}, Container ativo: {bonusTimerContainer.activeSelf}");
     }
 
     public bool IsBonusActive()
@@ -581,7 +561,6 @@ public class QuestionBonusManager : MonoBehaviour
 
         try
         {
-            // Usar UpdateBonusExpirations em vez de UpdateExpirationTimestamp
             await bonusManager.UpdateBonusExpirations(userId, currentBonusTime);
         }
         catch (Exception e)
@@ -611,7 +590,6 @@ public class QuestionBonusManager : MonoBehaviour
             }
             else
             {
-                // Verificar em QuestionSceneBonus
                 return await bonusManager.IsBonusActive(userId, bonusType);
             }
         }

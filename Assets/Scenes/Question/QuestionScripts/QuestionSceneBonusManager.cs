@@ -26,12 +26,7 @@ public class QuestionSceneBonusManager
 
         try
         {
-            Debug.Log($"QuestionSceneBonusManager: Ativando bônus {bonusType} com multiplicador {multiplier} por {durationInSeconds} segundos");
-
-            // Calcular timestamp de expiração
             long expirationTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + (long)durationInSeconds;
-
-            // Preparar dados do bônus
             Dictionary<string, object> bonusData = new Dictionary<string, object>
         {
             { "BonusType", bonusType },
@@ -40,13 +35,10 @@ public class QuestionSceneBonusManager
             { "ActivatedAt", DateTimeOffset.UtcNow.ToUnixTimeSeconds() }
         };
 
-            // Salvar no Firestore
             DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("QuestionSceneBonus").Document(userId);
-
             DocumentSnapshot existing = await docRef.GetSnapshotAsync();
             if (existing.Exists)
             {
-                // Atualizar documento existente
                 Dictionary<string, object> data = existing.ToDictionary();
 
                 if (data.ContainsKey("ActiveBonuses"))
@@ -54,7 +46,6 @@ public class QuestionSceneBonusManager
                     List<object> activeBonuses = data["ActiveBonuses"] as List<object>;
                     if (activeBonuses != null)
                     {
-                        // Verificar se já existe um bônus do mesmo tipo
                         bool updated = false;
                         List<Dictionary<string, object>> updatedBonuses = new List<Dictionary<string, object>>();
 
@@ -63,7 +54,6 @@ public class QuestionSceneBonusManager
                             Dictionary<string, object> existingBonus = bonusObj as Dictionary<string, object>;
                             if (existingBonus != null)
                             {
-                                // Se encontrar um bônus do mesmo tipo, atualizá-lo
                                 if (existingBonus.ContainsKey("BonusType") && existingBonus["BonusType"].ToString() == bonusType)
                                 {
                                     updatedBonuses.Add(bonusData);
@@ -76,13 +66,11 @@ public class QuestionSceneBonusManager
                             }
                         }
 
-                        // Se não encontrou um bônus do mesmo tipo, adicionar um novo
                         if (!updated)
                         {
                             updatedBonuses.Add(bonusData);
                         }
 
-                        // Atualizar o documento
                         await docRef.UpdateAsync(new Dictionary<string, object>
                     {
                         { "ActiveBonuses", updatedBonuses }
@@ -93,7 +81,6 @@ public class QuestionSceneBonusManager
                     }
                 }
 
-                // Se não havia lista de bônus ativa, criar uma nova
                 await docRef.UpdateAsync(new Dictionary<string, object>
             {
                 { "ActiveBonuses", new List<Dictionary<string, object>> { bonusData } }
@@ -101,7 +88,6 @@ public class QuestionSceneBonusManager
             }
             else
             {
-                // Criar um novo documento
                 await docRef.SetAsync(new Dictionary<string, object>
             {
                 { "ActiveBonuses", new List<Dictionary<string, object>> { bonusData } },
@@ -143,7 +129,6 @@ public class QuestionSceneBonusManager
                 return new List<Dictionary<string, object>>();
             }
 
-            // Converter o objeto para lista
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
             long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
@@ -153,7 +138,6 @@ public class QuestionSceneBonusManager
                 {
                     if (bonusObj is Dictionary<string, object> bonusDict)
                     {
-                        // Verificar se não está expirado
                         if (bonusDict.ContainsKey("ExpirationTimestamp"))
                         {
                             long expirationTimestamp = Convert.ToInt64(bonusDict["ExpirationTimestamp"]);
@@ -176,7 +160,6 @@ public class QuestionSceneBonusManager
         }
     }
 
-    // Calcula o multiplicador combinado de todos os bônus ativos
     public async Task<int> GetCombinedMultiplier(string userId)
     {
         try
@@ -185,10 +168,9 @@ public class QuestionSceneBonusManager
 
             if (activeBonuses.Count == 0)
             {
-                return 1; // Sem bônus
+                return 1;
             }
 
-            // Multiplicar todos os multiplicadores
             int combinedMultiplier = 1;
 
             foreach (var bonus in activeBonuses)
@@ -209,7 +191,6 @@ public class QuestionSceneBonusManager
         }
     }
 
-    // Desativa todos os bônus
     public async Task DeactivateAllBonuses(string userId)
     {
         if (string.IsNullOrEmpty(userId))
@@ -229,8 +210,6 @@ public class QuestionSceneBonusManager
 
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
             await docRef.SetAsync(data, SetOptions.MergeAll);
-
-            Debug.Log($"QuestionSceneBonusManager: Todos os bônus desativados para o usuário {userId}");
         }
         catch (Exception e)
         {
@@ -238,7 +217,6 @@ public class QuestionSceneBonusManager
         }
     }
 
-    // Desativa um tipo específico de bônus
     public async Task DeactivateBonus(string userId, string bonusType)
     {
         if (string.IsNullOrEmpty(userId))
@@ -250,11 +228,7 @@ public class QuestionSceneBonusManager
         try
         {
             List<Dictionary<string, object>> activeBonuses = await GetActiveBonuses(userId);
-
-            // Remover o bônus específico
             activeBonuses.RemoveAll(b => b.ContainsKey("BonusType") && b["BonusType"].ToString() == bonusType);
-
-            // Salvar a lista atualizada
             Dictionary<string, object> data = new Dictionary<string, object>
             {
                 { ACTIVE_BONUSES_FIELD, activeBonuses },
@@ -264,8 +238,6 @@ public class QuestionSceneBonusManager
 
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
             await docRef.SetAsync(data, SetOptions.MergeAll);
-
-            Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} desativado para o usuário {userId}");
         }
         catch (Exception e)
         {
@@ -295,16 +267,13 @@ public class QuestionSceneBonusManager
                 return;
             }
 
-            // Definir a nova expiração
             long newExpirationTimestamp = DateTimeOffset.UtcNow.AddSeconds(remainingSeconds).ToUnixTimeSeconds();
 
-            // Atualizar todos os bônus
             foreach (var bonus in activeBonuses)
             {
                 bonus["ExpirationTimestamp"] = newExpirationTimestamp;
             }
 
-            // Salvar a lista atualizada
             Dictionary<string, object> data = new Dictionary<string, object>
             {
                 { ACTIVE_BONUSES_FIELD, activeBonuses },
@@ -313,8 +282,6 @@ public class QuestionSceneBonusManager
 
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
             await docRef.SetAsync(data, SetOptions.MergeAll);
-
-            Debug.Log($"QuestionSceneBonusManager: Expiração atualizada para {remainingSeconds} segundos");
         }
         catch (Exception e)
         {
@@ -322,7 +289,6 @@ public class QuestionSceneBonusManager
         }
     }
 
-    // Verifica se há algum bônus ativo
     public async Task<bool> HasAnyActiveBonus(string userId)
     {
         if (string.IsNullOrEmpty(userId))
@@ -342,7 +308,6 @@ public class QuestionSceneBonusManager
         }
     }
 
-    // Obtém o bônus que expira primeiro (útil para o timer)
     public async Task<Dictionary<string, object>> GetEarliestExpiringBonus(string userId)
     {
         try
@@ -380,7 +345,6 @@ public class QuestionSceneBonusManager
         }
     }
 
-    // Obtém o tempo restante para o primeiro bônus expirar
     public async Task<float> GetRemainingTime(string userId)
     {
         try
@@ -418,14 +382,12 @@ public class QuestionSceneBonusManager
 
             if (bonusType != null)
             {
-                // Verificar um tipo específico de bônus
                 return activeBonuses.Any(b =>
                     b.ContainsKey("BonusType") &&
                     b["BonusType"].ToString() == bonusType);
             }
             else
             {
-                // Verificar se há qualquer bônus ativo
                 return activeBonuses.Count > 0;
             }
         }
@@ -433,6 +395,71 @@ public class QuestionSceneBonusManager
         {
             Debug.LogError($"QuestionSceneBonusManager: Erro ao verificar bônus ativo: {e.Message}");
             return false;
+        }
+    }
+
+    public async Task IncrementBonusCounter(string userId, string bonusName)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogError("QuestionSceneBonusManager: UserId é nulo ou vazio");
+            return;
+        }
+
+        try
+        {
+            DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+            Debug.Log("Passei no 1");
+            int currentCount = 0;
+
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> data = snapshot.ToDictionary();
+
+                if (data.ContainsKey(bonusName))
+                {
+                    currentCount = Convert.ToInt32(data[bonusName]);
+                    Debug.Log("Passei no 2");
+                    Debug.Log($"Passei no currentCount = {currentCount}");
+                }
+            }
+
+            currentCount++;
+            Dictionary<string, object> updateData = new Dictionary<string, object>
+        {
+            { bonusName, currentCount }
+        };
+
+            await docRef.SetAsync(updateData, SetOptions.MergeAll);
+            Debug.Log("Passei no 3");
+
+            if (bonusName == "correctAnswerBonusCounter" && currentCount >= 3)
+            {
+                await docRef.UpdateAsync(new Dictionary<string, object>
+            {
+                { bonusName, 0 }
+            });
+                await GrantSpecialBonus(userId);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"QuestionSceneBonusManager: Erro ao incrementar contador de bônus: {e.Message}");
+        }
+    }
+
+    private async Task GrantSpecialBonus(string userId)
+    {
+        try
+        {
+            UserBonusManager userBonusManager = new UserBonusManager();
+            await userBonusManager.IncrementBonusCount(userId, "specialBonus", 1, true);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"QuestionSceneBonusManager: Erro ao conceder SpecialBonus: {e.Message}");
         }
     }
 }
