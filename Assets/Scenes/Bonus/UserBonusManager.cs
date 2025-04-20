@@ -123,9 +123,9 @@ public class UserBonusManager
     public async Task<List<BonusType>> GetAllActiveBonuses(string userId)
     {
         List<BonusType> bonusList = await GetUserBonuses(userId);
-        return bonusList.Where(b => 
-            b.BonusName.StartsWith(ACTIVE_BONUS_PREFIX) && 
-            b.IsBonusActive && 
+        return bonusList.Where(b =>
+            b.BonusName.StartsWith(ACTIVE_BONUS_PREFIX) &&
+            b.IsBonusActive &&
             !b.IsExpired()).ToList();
     }
 
@@ -176,7 +176,6 @@ public class UserBonusManager
             }
 
             await SaveBonusList(userId, bonusList);
-            Debug.Log($"UserBonusManager: {bonusName} incrementado em {incrementAmount}. Novo valor: {targetBonus.BonusCount}");
         }
         catch (Exception e)
         {
@@ -195,30 +194,38 @@ public class UserBonusManager
         try
         {
             List<BonusType> bonusList = await GetUserBonuses(userId);
-            string activeBonusName = $"{ACTIVE_BONUS_PREFIX}{bonusName}";
-            BonusType existingActiveBonus = bonusList.FirstOrDefault(b => b.BonusName == activeBonusName);
-            
-            if (existingActiveBonus != null)
+            BonusType bonusToActivate = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
+
+            if (bonusToActivate != null && bonusToActivate.IsBonusActive)
             {
-                existingActiveBonus.IsBonusActive = true;
-                existingActiveBonus.SetExpirationFromDuration(durationInSeconds);
-                existingActiveBonus.Multiplier = multiplier;
+                bonusToActivate.SetExpirationFromDuration(durationInSeconds);
+                bonusToActivate.Multiplier = multiplier;
             }
             else
             {
-                BonusType activeBonus = new BonusType(
-                    activeBonusName, 
-                    0, 
-                    true, 
-                    DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds(),
-                    false,
-                    multiplier
-                );
-                bonusList.Add(activeBonus);
+                if (bonusToActivate == null)
+                {
+                    bonusToActivate = new BonusType(
+                        bonusName,
+                        0, 
+                        true, 
+                        DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds(), // ExpirationTimestamp
+                        false, 
+                        multiplier 
+                    );
+                    bonusList.Add(bonusToActivate);
+                }
+                else
+                {
+                    bonusToActivate.IsBonusActive = true;
+                    bonusToActivate.SetExpirationFromDuration(durationInSeconds);
+                    bonusToActivate.Multiplier = multiplier;
+                }
             }
-            
+
             await SaveBonusList(userId, bonusList);
-            Debug.Log($"UserBonusManager: Bônus {bonusName} ativado por {durationInSeconds} segundos com multiplicador {multiplier}");
+            QuestionSceneBonusManager sceneBonusManager = new QuestionSceneBonusManager();
+            await sceneBonusManager.ActivateBonus(userId, bonusName, durationInSeconds, multiplier);
         }
         catch (Exception e)
         {
@@ -243,7 +250,12 @@ public class UserBonusManager
             if (bonusToConsume != null && bonusToConsume.BonusCount > 0)
             {
                 bonusToConsume.BonusCount--;
-                bonusToConsume.IsBonusActive = bonusToConsume.BonusCount > 0;
+
+                if (!bonusToConsume.IsPersistent && bonusToConsume.BonusCount <= 0)
+                {
+                    bonusToConsume.IsBonusActive = false;
+                }
+
                 await SaveBonusList(userId, bonusList);
                 await ActivateBonusInGame(userId, bonusName, durationInSeconds, multiplier);
             }

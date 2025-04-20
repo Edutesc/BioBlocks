@@ -27,7 +27,10 @@ public class BonusApplicationManager : MonoBehaviour
     {
         { "specialBonus", "XP Triplicada" },
         { "listCompletionBonus", "XP Triplicada (Listas)" },
-        { "persistenceBonus", "XP Triplicada (Incansável)" }
+        { "persistenceBonus", "XP Triplicada (Incansável)" },
+        { "specialBonusPro", "XP Triplicada" },
+        { "listCompletionBonusPro", "XP Triplicada (Listas)" },
+        { "persistenceBonusPro", "XP Triplicada (Incansável)" }
     };
 
     private UserBonusManager userBonusManager;
@@ -53,6 +56,9 @@ public class BonusApplicationManager : MonoBehaviour
         bonusColors["specialBonus"] = specialBonusColor;
         bonusColors["listCompletionBonus"] = listBonusColor;
         bonusColors["persistenceBonus"] = persistenceBonusColor;
+         bonusColors["specialBonusPro"] = specialBonusColor;
+        bonusColors["listCompletionBonusPro"] = listBonusColor;
+        bonusColors["persistenceBonusPro"] = persistenceBonusColor;
     }
     
     private void Start()
@@ -293,7 +299,6 @@ public class BonusApplicationManager : MonoBehaviour
             if (hasChanges)
             {
                 await userBonusManager.SaveBonusList(userId, bonusList);
-                Debug.Log("BonusApplicationManager: Timestamps de bônus atualizados no Firestore");
             }
         }
         catch (Exception e)
