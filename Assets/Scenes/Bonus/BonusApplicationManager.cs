@@ -21,15 +21,13 @@ public class BonusApplicationManager : MonoBehaviour
     [SerializeField] private Color listBonusColor = new Color(0.2f, 0.8f, 0.3f);
     [SerializeField] private Color persistenceBonusColor = new Color(0.2f, 0.5f, 1f);
     
-    // Mapeamento de cores
     private Dictionary<string, Color> bonusColors = new Dictionary<string, Color>();
     
-    // Mapeamento de nomes amigáveis
     private Dictionary<string, string> bonusDisplayNames = new Dictionary<string, string>
     {
         { "specialBonus", "XP Triplicada" },
-        { "listCompletionBonus", "XP Duplicada (Listas)" },
-        { "persistenceBonus", "XP Duplicada (Incansável)" }
+        { "listCompletionBonus", "XP Triplicada (Listas)" },
+        { "persistenceBonus", "XP Triplicada (Incansável)" }
     };
 
     private UserBonusManager userBonusManager;
@@ -52,8 +50,6 @@ public class BonusApplicationManager : MonoBehaviour
     private void Awake()
     {
         userBonusManager = new UserBonusManager();
-        
-        // Configurar mapeamento de cores
         bonusColors["specialBonus"] = specialBonusColor;
         bonusColors["listCompletionBonus"] = listBonusColor;
         bonusColors["persistenceBonus"] = persistenceBonusColor;
@@ -119,8 +115,6 @@ public class BonusApplicationManager : MonoBehaviour
         try
         {
             List<BonusType> activeBonuses = await userBonusManager.GetAllActiveBonuses(userId);
-            
-            // Limpar UI existente
             ClearActiveBonusUI();
             
             if (activeBonuses.Count > 0)
@@ -179,7 +173,6 @@ public class BonusApplicationManager : MonoBehaviour
             : baseBonusName;
             
         GameObject bonusTimerObj = Instantiate(bonusTimerPrefab, bonusTimersLayout);
-        
         TextMeshProUGUI nameText = bonusTimerObj.transform.Find("NameText")?.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI timerText = bonusTimerObj.transform.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
         Image background = bonusTimerObj.GetComponent<Image>();
@@ -234,7 +227,6 @@ public class BonusApplicationManager : MonoBehaviour
                 }
             }
             
-            // Remover bônus expirados
             foreach (string expiredBonus in expiredBonuses)
             {
                 if (activeBonusUIs.TryGetValue(expiredBonus, out ActiveBonusUI bonusUI))
@@ -248,14 +240,12 @@ public class BonusApplicationManager : MonoBehaviour
                 }
             }
             
-            // Atualizar Firestore periodicamente
             if (Time.time - lastFirestoreUpdateTime > 30f)
             {
                 UpdateBonusTimestampsInFirestore();
                 lastFirestoreUpdateTime = Time.time;
             }
             
-            // Ocultar container se não houver bônus ativos
             if (!anyBonusActive && bonusTimersContainer != null)
             {
                 bonusTimersContainer.SetActive(false);
@@ -316,7 +306,7 @@ public class BonusApplicationManager : MonoBehaviour
     {
         if (activeBonusUIs.Count == 0)
         {
-            return 1; // Multiplicador padrão
+            return 1; 
         }
         
         int totalMultiplier = 1;

@@ -67,7 +67,6 @@ public class UserBonusManager
                     }
                 }
 
-                // Atualizar bônus expirados
                 List<BonusType> expiredBonuses = bonusList.Where(b => b.IsBonusActive && b.IsExpired()).ToList();
                 if (expiredBonuses.Any())
                 {
@@ -165,7 +164,6 @@ public class UserBonusManager
             {
                 targetBonus.BonusCount += incrementAmount;
 
-                // Se autoActivate for verdadeiro ou se for o specialBonus com count >= threshold
                 if (autoActivate || (bonusName == "specialBonus" && targetBonus.BonusCount >= 5))
                 {
                     targetBonus.IsBonusActive = true;
@@ -196,23 +194,18 @@ public class UserBonusManager
 
         try
         {
-            // Registrar o bônus ativo no Firestore
             List<BonusType> bonusList = await GetUserBonuses(userId);
-            
-            // Verificar se já existe um bônus ativo com este nome
             string activeBonusName = $"{ACTIVE_BONUS_PREFIX}{bonusName}";
             BonusType existingActiveBonus = bonusList.FirstOrDefault(b => b.BonusName == activeBonusName);
             
             if (existingActiveBonus != null)
             {
-                // Atualizar o bônus existente
                 existingActiveBonus.IsBonusActive = true;
                 existingActiveBonus.SetExpirationFromDuration(durationInSeconds);
                 existingActiveBonus.Multiplier = multiplier;
             }
             else
             {
-                // Criar um novo registro de bônus ativo
                 BonusType activeBonus = new BonusType(
                     activeBonusName, 
                     0, 
@@ -249,19 +242,10 @@ public class UserBonusManager
 
             if (bonusToConsume != null && bonusToConsume.BonusCount > 0)
             {
-                // Consumir um bônus
                 bonusToConsume.BonusCount--;
-                
-                // Ajustar status ativo
                 bonusToConsume.IsBonusActive = bonusToConsume.BonusCount > 0;
-                
-                // Salvar alterações
                 await SaveBonusList(userId, bonusList);
-                
-                // Ativar o bônus no jogo
                 await ActivateBonusInGame(userId, bonusName, durationInSeconds, multiplier);
-                
-                Debug.Log($"UserBonusManager: {bonusName} consumido e ativado. Restantes: {bonusToConsume.BonusCount}");
             }
             else
             {

@@ -37,12 +37,11 @@ public class BonusSceneManager : MonoBehaviour
     [SerializeField] private float inactiveAlpha = 0.6f;
     [SerializeField] private bool useGrayscaleWhenInactive = false;
 
-    // Configurações de bônus
     private readonly Dictionary<string, BonusConfig> bonusConfigs = new Dictionary<string, BonusConfig>()
     {
         { "specialBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 5 } },
-        { "listCompletionBonus", new BonusConfig { duration = 600f, multiplier = 2, thresholdCount = 1 } },
-        { "persistenceBonus", new BonusConfig { duration = 600f, multiplier = 2, thresholdCount = 1 } }
+        { "listCompletionBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } },
+        { "persistenceBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } }
     };
 
     private UserBonusManager userBonusManager;
@@ -218,7 +217,6 @@ public class BonusSceneManager : MonoBehaviour
             }
         }
 
-        // Verificar e atualizar status de bônus especiais
         UpdateSpecialBonusesStatus(bonuses);
     }
 

@@ -316,6 +316,8 @@ public class QuestionBonusManager : MonoBehaviour
         try
         {
             await bonusManager.ActivateBonus(userId, "correctAnswerBonus", bonusDuration, 2);
+            await bonusManager.IncrementBonusCounter(userId, "correctAnswerBonusCounter");
+
             activeBonuses = await bonusManager.GetActiveBonuses(userId);
             combinedMultiplier = await bonusManager.GetCombinedMultiplier(userId);
             isBonusActive = true;
