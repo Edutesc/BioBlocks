@@ -223,7 +223,7 @@ public class BonusApplicationManager : MonoBehaviour
             {
                 if (activeBonuses.Count > 1)
                 {
-                    backgroundImage.color = new Color(0.8f, 0.3f, 0.8f);
+                    backgroundImage.color = new Color(1f, 0.76f, 0.1f);
                 }
                 else
                 {
