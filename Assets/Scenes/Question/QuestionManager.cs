@@ -27,8 +27,6 @@ public class QuestionManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("QuestionManager: Start iniciado");
-
         if (!ValidateManagers())
         {
             Debug.LogError("Falha na validação dos managers necessários.");
@@ -40,12 +38,10 @@ public class QuestionManager : MonoBehaviour
 
     private async void InitializeAndStartSession()
     {
-        Debug.Log("QuestionManager: InitializeAndStartSession iniciado");
         await InitializeSession();
 
         if (currentSession != null)
         {
-            Debug.Log("QuestionManager: Session inicializada com sucesso");
             SetupEventHandlers();
             StartQuestion();
         }
@@ -57,8 +53,6 @@ public class QuestionManager : MonoBehaviour
 
     private bool ValidateManagers()
     {
-        Debug.Log("QuestionManager: Iniciando validação dos managers");
-
         if (questionBottomBarManager == null)
             Debug.LogError("QuestionManager: questionBottomBarManager é null");
 
@@ -96,18 +90,14 @@ public class QuestionManager : MonoBehaviour
                feedbackElements != null &&
                transitionManager != null;
 
-        Debug.Log($"QuestionManager: Validação dos managers: {isValid}");
         return isValid;
     }
 
     private async Task InitializeSession()
     {
-        Debug.Log("QuestionManager: Iniciando InitializeSession");
         try
         {
             QuestionSet currentSet = QuestionSetManager.GetCurrentQuestionSet();
-            Debug.Log($"QuestionManager: QuestionSet atual: {currentSet}");
-
             IQuestionDatabase database = FindQuestionDatabase(currentSet);
             if (database == null)
             {
@@ -116,35 +106,27 @@ public class QuestionManager : MonoBehaviour
             }
 
             string currentDatabaseName = database.GetDatabankName();
-            Debug.Log($"QuestionManager: Database name: {currentDatabaseName}");
-
             loadManager.databankName = currentDatabaseName;
             List<string> answeredQuestions = await AnsweredQuestionsManager.Instance.FetchUserAnsweredQuestionsInTargetDatabase(currentDatabaseName);
             int answeredCount = answeredQuestions.Count;
             int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
-
-            Debug.Log($"QuestionManager: Total de questões respondidas: {answeredCount}/{totalQuestions}");
 
             if (totalQuestions <= 0)
             {
                 List<Question> allQuestions = database.GetQuestions();
                 totalQuestions = allQuestions.Count;
                 QuestionBankStatistics.SetTotalQuestions(currentDatabaseName, totalQuestions);
-                Debug.Log($"QuestionManager: Atualizando total de questões para: {totalQuestions}");
             }
 
             bool allQuestionsAnswered = QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount);
-            Debug.Log($"QuestionManager: Todas as questões foram respondidas? {allQuestionsAnswered}");
-
+            
             if (allQuestionsAnswered)
             {
-                Debug.Log("QuestionManager: Carregando cena ResetDatabaseView");
                 SceneDataManager.Instance.SetData(new Dictionary<string, object> { { "databankName", currentDatabaseName } });
                 SceneManager.LoadScene("ResetDatabaseView");
                 return;
             }
 
-            Debug.Log("QuestionManager: Carregando questões para o set atual");
             var questions = await loadManager.LoadQuestionsForSet(currentSet);
             if (questions == null)
             {
@@ -162,7 +144,6 @@ public class QuestionManager : MonoBehaviour
                 return;
             }
 
-            Debug.Log($"QuestionManager: {questions.Count} questões carregadas com sucesso");
             currentSession = new QuestionSession(questions);
         }
         catch (Exception e)
@@ -176,20 +157,16 @@ public class QuestionManager : MonoBehaviour
 
     private IQuestionDatabase FindQuestionDatabase(QuestionSet targetSet)
     {
-        Debug.Log($"QuestionManager: Procurando database para o set: {targetSet}");
         try
         {
             MonoBehaviour[] allBehaviours = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
-            Debug.Log($"QuestionManager: Encontrados {allBehaviours.Length} MonoBehaviours na cena");
-
+            
             foreach (MonoBehaviour behaviour in allBehaviours)
             {
                 if (behaviour is IQuestionDatabase database)
                 {
-                    Debug.Log($"QuestionManager: Encontrado potencial database: {behaviour.GetType().Name}");
                     if (database.GetQuestionSetType() == targetSet)
                     {
-                        Debug.Log($"QuestionManager: Database correspondente encontrado: {behaviour.GetType().Name}");
                         return database;
                     }
                 }
@@ -207,7 +184,6 @@ public class QuestionManager : MonoBehaviour
 
     private void SetupEventHandlers()
     {
-        Debug.Log("QuestionManager: Configurando event handlers");
         timerManager.OnTimerComplete += HandleTimeUp;
         answerManager.OnAnswerSelected += CheckAnswer;
         transitionManager.OnBeforeTransitionStart += PrepareNextQuestion;
@@ -227,16 +203,14 @@ public class QuestionManager : MonoBehaviour
             {
                 int baseScore = 5;
                 int actualScore = baseScore;
-
-                // Verificar se há bônus ativo
                 bool bonusActive = false;
+
                 if (scoreManager.HasBonusActive())
                 {
                     bonusActive = true;
                     actualScore = scoreManager.CalculateBonusScore(baseScore);
                 }
 
-                // Mensagem de feedback dinâmica baseada no bônus
                 string feedbackMessage = bonusActive
                     ? $"Resposta correta!\n+{actualScore} pontos (bônus ativo!)"
                     : "Resposta correta!\n+5 pontos";
@@ -351,12 +325,9 @@ public class QuestionManager : MonoBehaviour
 
     private void StartQuestion()
     {
-        Debug.Log("QuestionManager: Iniciando questão");
         try
         {
             var currentQuestion = currentSession.GetCurrentQuestion();
-            Debug.Log($"QuestionManager: Questão atual ID: {currentQuestion.questionNumber}");
-
             answerManager.SetupAnswerButtons(currentQuestion);
             questionCanvasGroupManager.ShowQuestion(
                 isImageQuestion: currentQuestion.isImageQuestion,
@@ -418,15 +389,11 @@ public class QuestionManager : MonoBehaviour
 
             if (QuestionBankStatistics.AreAllQuestionsAnswered(currentDatabaseName, answeredCount))
             {
-                Debug.Log($"BONUS FLOW: Todas as questões do database {currentDatabaseName} foram respondidas!");
                 int totalQuestions = QuestionBankStatistics.GetTotalQuestions(currentDatabaseName);
 
                 try
                 {
-                    Debug.Log("BONUS FLOW: Chamando HandleDatabaseCompletion...");
                     await HandleDatabaseCompletion(currentDatabaseName);
-                    Debug.Log("BONUS FLOW: HandleDatabaseCompletion concluído");
-
                     string completionMessage = $"Parabéns!! Você respondeu todas as {totalQuestions} perguntas desta lista corretamente!\n\nVocê ganhou um Bônus das Listas que pode ser ativado na tela de Bônus.";
                     ShowAnswerFeedback(completionMessage, true, true);
                 }
@@ -446,7 +413,6 @@ public class QuestionManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("QuestionManager: OnDestroy chamado");
         if (timerManager != null)
             timerManager.OnTimerComplete -= HandleTimeUp;
 
@@ -544,7 +510,6 @@ public class QuestionManager : MonoBehaviour
 
                     if (completedDatabanks != null && completedDatabanks.Contains(databankName))
                     {
-                        Debug.Log($"Databank {databankName} já foi marcado como completo");
                         return false;
                     }
                 }

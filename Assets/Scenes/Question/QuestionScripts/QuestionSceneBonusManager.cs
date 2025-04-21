@@ -76,7 +76,6 @@ public class QuestionSceneBonusManager
                         { "ActiveBonuses", updatedBonuses }
                     });
 
-                        Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} atualizado com sucesso");
                         return;
                     }
                 }
@@ -94,8 +93,6 @@ public class QuestionSceneBonusManager
                 { "UserId", userId }
             });
             }
-
-            Debug.Log($"QuestionSceneBonusManager: Bônus {bonusType} ativado com sucesso");
         }
         catch (Exception e)
         {
@@ -142,7 +139,6 @@ public class QuestionSceneBonusManager
                         {
                             long expirationTimestamp = Convert.ToInt64(bonusDict["ExpirationTimestamp"]);
 
-                            // Verificar se o bônus ainda não expirou
                             if (currentTimestamp < expirationTimestamp)
                             {
                                 result.Add(bonusDict);
@@ -411,8 +407,6 @@ public class QuestionSceneBonusManager
         {
             DocumentReference docRef = db.Collection(COLLECTION_NAME).Document(userId);
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-
-            Debug.Log("Passei no 1");
             int currentCount = 0;
 
             if (snapshot.Exists)
@@ -422,8 +416,6 @@ public class QuestionSceneBonusManager
                 if (data.ContainsKey(bonusName))
                 {
                     currentCount = Convert.ToInt32(data[bonusName]);
-                    Debug.Log("Passei no 2");
-                    Debug.Log($"Passei no currentCount = {currentCount}");
                 }
             }
 
@@ -434,7 +426,6 @@ public class QuestionSceneBonusManager
         };
 
             await docRef.SetAsync(updateData, SetOptions.MergeAll);
-            Debug.Log("Passei no 3");
 
             if (bonusName == "correctAnswerBonusCounter" && currentCount >= 3)
             {

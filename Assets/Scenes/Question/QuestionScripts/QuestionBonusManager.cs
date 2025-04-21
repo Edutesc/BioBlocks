@@ -19,7 +19,7 @@ public class QuestionBonusManager : MonoBehaviour
 
     [Header("Bonus Configuration")]
     [SerializeField] private int consecutiveCorrectAnswersNeeded = 5;
-    [SerializeField] private float bonusDuration = 600f; // 10 minutos em segundos
+    [SerializeField] private float bonusDuration = 600f;
 
     private int combinedMultiplier = 1;
     private int consecutiveCorrectAnswers = 0;
@@ -30,17 +30,14 @@ public class QuestionBonusManager : MonoBehaviour
 
     private void Start()
     {
-        // Inicializar o QuestionSceneBonusManager
         bonusManager = new QuestionSceneBonusManager();
 
-        // Validar componentes no início para garantir que tudo esteja configurado corretamente
         if (!ValidateComponents())
         {
             Debug.LogError("QuestionBonusManager: Falha na validação dos componentes necessários.");
             return;
         }
 
-        // Configurar event listeners
         if (answerManager != null)
         {
             answerManager.OnAnswerSelected += CheckAnswer;
@@ -62,7 +59,6 @@ public class QuestionBonusManager : MonoBehaviour
             Debug.LogWarning("QuestionManager não encontrado");
         }
 
-        // Encontrar o BonusApplicationManager e se inscrever no evento de atualização
         bonusApplicationManager = FindFirstObjectByType<BonusApplicationManager>();
         if (bonusApplicationManager != null)
         {
@@ -73,7 +69,6 @@ public class QuestionBonusManager : MonoBehaviour
             Debug.LogWarning("BonusApplicationManager não encontrado. A visualização de bônus pode não funcionar corretamente.");
         }
 
-        // Iniciar a verificação de bônus ativos
         StartCoroutine(InitCheckForBonus());
     }
 
@@ -159,23 +154,17 @@ public class QuestionBonusManager : MonoBehaviour
 
             if (hasBonus)
             {
-                // Obter os dados do bônus
                 List<Dictionary<string, object>> activeBonuses = await bonusManager.GetActiveBonuses(userId);
 
                 if (activeBonuses.Count > 0)
                 {
-                    // Calcular o multiplicador combinado
                     combinedMultiplier = await bonusManager.GetCombinedMultiplier(userId);
-                    
-                    // Obter o tempo restante
                     float remainingTime = await bonusManager.GetRemainingTime(userId);
 
                     if (remainingTime > 0)
                     {
-                        Debug.Log($"Bonus ativo encontrado com {remainingTime} segundos restantes. Notificando BonusApplicationManager...");
                         isBonusActive = true;
                         
-                        // Atualizar o BonusApplicationManager para mostrar o bônus ativo
                         if (bonusApplicationManager != null)
                         {
                             bonusApplicationManager.RefreshActiveBonuses();
@@ -183,19 +172,16 @@ public class QuestionBonusManager : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Bonus expirado. Desativando.");
                         isBonusActive = false;
                     }
                 }
                 else
                 {
-                    Debug.Log("Nenhum bônus ativo encontrado após verificação.");
                     isBonusActive = false;
                 }
             }
             else
             {
-                Debug.Log("Nenhum bônus ativo no Firestore.");
                 isBonusActive = false;
             }
         }
@@ -207,7 +193,6 @@ public class QuestionBonusManager : MonoBehaviour
 
     private void OnBonusMultiplierUpdated(int newMultiplier)
     {
-        // Atualizar o multiplicador local baseado no valor do BonusApplicationManager
         combinedMultiplier = newMultiplier;
     }
 
@@ -223,15 +208,11 @@ public class QuestionBonusManager : MonoBehaviour
 
         try
         {
-            // Ativar o bônus no Firestore
             await bonusManager.ActivateBonus(userId, "correctAnswerBonus", bonusDuration, 2);
             await bonusManager.IncrementBonusCounter(userId, "correctAnswerBonusCounter");
-
-            // Atualizar o estado local
             isBonusActive = true;
             currentBonusTime = bonusDuration;
 
-            // Mostrar feedback visual que o bônus foi ativado
             if (canvasGroupManager != null)
             {
                 canvasGroupManager.ShowBonusFeedback(true);
@@ -254,7 +235,6 @@ public class QuestionBonusManager : MonoBehaviour
                 }
             }
 
-            // Notificar o BonusApplicationManager para mostrar o bônus visualmente
             if (bonusApplicationManager != null)
             {
                 bonusApplicationManager.RefreshActiveBonuses();
@@ -327,25 +307,21 @@ public class QuestionBonusManager : MonoBehaviour
 
     public int GetCurrentScoreMultiplier()
     {
-        // Usar o multiplicador do BonusApplicationManager se disponível
         if (bonusApplicationManager != null)
         {
             return bonusApplicationManager.GetTotalMultiplier();
         }
         
-        // Fallback para o multiplicador local
         return isBonusActive ? combinedMultiplier : 1;
     }
 
     public int ApplyBonusToScore(int baseScore)
     {
-        // Usar o BonusApplicationManager para aplicar o bônus se disponível
         if (bonusApplicationManager != null)
         {
             return bonusApplicationManager.ApplyTotalBonus(baseScore);
         }
-        
-        // Fallback para o cálculo local
+
         if (isBonusActive && baseScore > 0)
         {
             return baseScore * combinedMultiplier;

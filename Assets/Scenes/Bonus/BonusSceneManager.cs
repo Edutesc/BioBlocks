@@ -406,8 +406,20 @@ public class BonusSceneManager : MonoBehaviour
     {
         try
         {
-            await ActivateBonus(bonusName);
+            if (!bonusConfigs.TryGetValue(bonusName, out BonusConfig config))
+            {
+                Debug.LogError($"Configuração não encontrada para {bonusName}");
+                return;
+            }
+
+            await userBonusManager.ConsumeBonusAndActivate(userId, bonusName, config.duration, config.multiplier);
             await FetchBonuses();
+            BonusApplicationManager bonusAppManager = FindFirstObjectByType<BonusApplicationManager>();
+            
+            if (bonusAppManager != null)
+            {
+                bonusAppManager.RefreshActiveBonuses();
+            }
         }
         catch (Exception e)
         {

@@ -201,7 +201,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
         },
         new Question {
             questionDatabankName = "NucleicAcidsQuestionDatabase",
-            questionText = "Para que serve a medidad de absorvância a 260nm?",
+            questionText = "Para que serve a medida de absorvância a 260nm?",
             answers = new string[] {
                 "Medida da concentração de proteínas.",
                 "Medida da concentração de ácidos nucléicos.",
