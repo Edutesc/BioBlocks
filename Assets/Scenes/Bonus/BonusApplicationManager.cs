@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using System.Linq;
@@ -12,62 +13,75 @@ public class BonusApplicationManager : MonoBehaviour
     [SerializeField] private float updateInterval = 1f;
     
     [Header("UI Elements")]
-    [SerializeField] private GameObject bonusTimersContainer;
-    [SerializeField] private GameObject bonusTimerPrefab;
-    [SerializeField] private Transform bonusTimersLayout;
+    [SerializeField] private GameObject bonusTimerContainer; // O container laranja existente
+    [SerializeField] private TextMeshProUGUI bonusTimerText; // O texto existente
     
     [Header("Bonus Colors")]
-    [SerializeField] private Color specialBonusColor = new Color(1f, 0.5f, 0.2f);
-    [SerializeField] private Color listBonusColor = new Color(0.2f, 0.8f, 0.3f);
-    [SerializeField] private Color persistenceBonusColor = new Color(0.2f, 0.5f, 1f);
+    [SerializeField] private Color specialBonusColor = new Color(1f, 1f, 0.7f);
+    [SerializeField] private Color listBonusColor = new Color(0.71f, 1f, 0.6f);
+    [SerializeField] private Color persistenceBonusColor = new Color(0.7f, 1f, 1f);
+    [SerializeField] private Color correctAnswerBonusColor = new Color(0.8f, 0.7f, 0.8f);
     
     private Dictionary<string, Color> bonusColors = new Dictionary<string, Color>();
-    
-    private Dictionary<string, string> bonusDisplayNames = new Dictionary<string, string>
-    {
-        { "specialBonus", "XP Triplicada" },
-        { "listCompletionBonus", "XP Triplicada (Listas)" },
-        { "persistenceBonus", "XP Triplicada (Incansável)" },
-        { "specialBonusPro", "XP Triplicada" },
-        { "listCompletionBonusPro", "XP Triplicada (Listas)" },
-        { "persistenceBonusPro", "XP Triplicada (Incansável)" }
-    };
-
+    private Dictionary<string, string> bonusDisplayNames = new Dictionary<string, string>();
     private UserBonusManager userBonusManager;
+    private QuestionSceneBonusManager questionSceneBonusManager;
     private string userId;
-    private Dictionary<string, ActiveBonusUI> activeBonusUIs = new Dictionary<string, ActiveBonusUI>();
-    private bool isInitialized = false;
     private float lastFirestoreUpdateTime = 0f;
-    
-    private class ActiveBonusUI
+    private List<BonusInfo> activeBonuses = new List<BonusInfo>();
+    public System.Action<int> OnBonusMultiplierUpdated;
+
+    private class BonusInfo
     {
-        public GameObject uiObject;
-        public TextMeshProUGUI timerText;
-        public TextMeshProUGUI nameText;
-        public Image backgroundImage;
+        public string bonusName;
         public float remainingTime;
         public int multiplier;
-        public string bonusName;
+        public string displayName;
+        public Color color;
     }
-
+    
     private void Awake()
     {
         userBonusManager = new UserBonusManager();
+        questionSceneBonusManager = new QuestionSceneBonusManager();
+        
         bonusColors["specialBonus"] = specialBonusColor;
         bonusColors["listCompletionBonus"] = listBonusColor;
         bonusColors["persistenceBonus"] = persistenceBonusColor;
-         bonusColors["specialBonusPro"] = specialBonusColor;
+        bonusColors["correctAnswerBonus"] = correctAnswerBonusColor;
+        bonusColors["specialBonusPro"] = specialBonusColor;
         bonusColors["listCompletionBonusPro"] = listBonusColor;
         bonusColors["persistenceBonusPro"] = persistenceBonusColor;
+        
+        bonusDisplayNames["specialBonus"] = "Bônus XP Triplicada";
+        bonusDisplayNames["listCompletionBonus"] = "Bônus XP Triplicada";
+        bonusDisplayNames["persistenceBonus"] = "Bônus XP Triplicada";
+        bonusDisplayNames["correctAnswerBonus"] = "Bônus XP Dobrada";
+        bonusDisplayNames["specialBonusPro"] = "Bônus XP Triplicada";
+        bonusDisplayNames["listCompletionBonusPro"] = "Bônus XP Triplicada";
+        bonusDisplayNames["persistenceBonusPro"] = "Bônus XP Triplicada";
     }
     
     private void Start()
     {
-        if (bonusTimersContainer != null)
+        // Verificar e procurar os elementos de UI se não estiverem atribuídos
+        if (bonusTimerText == null)
         {
-            bonusTimersContainer.SetActive(false);
+            bonusTimerText = GameObject.Find("BonusTimerText")?.GetComponent<TextMeshProUGUI>();
         }
         
+        if (bonusTimerContainer == null && bonusTimerText != null)
+        {
+            bonusTimerContainer = bonusTimerText.transform.parent.gameObject;
+        }
+        
+        // Ocultar container de bônus inicialmente
+        if (bonusTimerContainer != null)
+        {
+            bonusTimerContainer.SetActive(false);
+        }
+        
+        // Inicializar e buscar bônus ativos
         InitializeAndFetchActiveBonuses();
     }
     
@@ -86,13 +100,15 @@ public class BonusApplicationManager : MonoBehaviour
             UpdateBonusTimestampsInFirestore();
         }
     }
-
+    
+    private bool isInitialized = false;
+    
     private async void InitializeAndFetchActiveBonuses()
     {
         if (UserDataStore.CurrentUserData != null && !string.IsNullOrEmpty(UserDataStore.CurrentUserData.UserId))
         {
             userId = UserDataStore.CurrentUserData.UserId;
-            await FetchAndDisplayActiveBonuses();
+            await FetchAndDisplayAllActiveBonuses();
             StartCoroutine(UpdateTimersCoroutine());
             isInitialized = true;
         }
@@ -102,15 +118,17 @@ public class BonusApplicationManager : MonoBehaviour
         }
     }
     
+    // Método público para ser chamado pelo QuestionBonusManager
     public async void RefreshActiveBonuses()
     {
         if (isInitialized)
         {
-            await FetchAndDisplayActiveBonuses();
+            await FetchAndDisplayAllActiveBonuses();
         }
     }
-
-    private async System.Threading.Tasks.Task FetchAndDisplayActiveBonuses()
+    
+    // Método que combina os bônus de ambas as fontes
+    private async Task FetchAndDisplayAllActiveBonuses()
     {
         if (string.IsNullOrEmpty(userId))
         {
@@ -120,31 +138,67 @@ public class BonusApplicationManager : MonoBehaviour
 
         try
         {
-            List<BonusType> activeBonuses = await userBonusManager.GetAllActiveBonuses(userId);
-            ClearActiveBonusUI();
+            // Limpar a lista de bônus ativos
+            activeBonuses.Clear();
             
-            if (activeBonuses.Count > 0)
+            // Obter bônus da QuestionSceneBonus (bônus ganhos por respostas corretas)
+            List<Dictionary<string, object>> questionSceneBonuses = await questionSceneBonusManager.GetActiveBonuses(userId);
+            long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            
+            foreach (var bonusDict in questionSceneBonuses)
             {
-                if (bonusTimersContainer != null)
+                if (bonusDict.ContainsKey("BonusType") && 
+                    bonusDict.ContainsKey("ExpirationTimestamp") && 
+                    bonusDict.ContainsKey("BonusMultiplier"))
                 {
-                    bonusTimersContainer.SetActive(true);
-                }
-                
-                foreach (BonusType bonus in activeBonuses)
-                {
-                    if (!bonus.IsExpired())
+                    string bonusType = bonusDict["BonusType"].ToString();
+                    long expirationTimestamp = Convert.ToInt64(bonusDict["ExpirationTimestamp"]);
+                    int multiplier = Convert.ToInt32(bonusDict["BonusMultiplier"]);
+                    
+                    // Verificar se ainda não expirou
+                    if (expirationTimestamp > currentTimestamp)
                     {
-                        AddBonusToUI(bonus);
+                        float remainingTime = expirationTimestamp - currentTimestamp;
+                        Color bonusColor = bonusColors.ContainsKey(bonusType) ? bonusColors[bonusType] : Color.white;
+                        string displayName = bonusDisplayNames.ContainsKey(bonusType) ? bonusDisplayNames[bonusType] : bonusType;
+                        
+                        activeBonuses.Add(new BonusInfo {
+                            bonusName = bonusType,
+                            remainingTime = remainingTime,
+                            multiplier = multiplier,
+                            displayName = displayName,
+                            color = bonusColor
+                        });
                     }
                 }
             }
-            else
+            
+            // Obter bônus de UserBonus (ativados pelo usuário na BonusScene)
+            List<BonusType> userBonuses = await userBonusManager.GetUserBonuses(userId);
+            foreach (var bonus in userBonuses)
             {
-                if (bonusTimersContainer != null)
+                if (bonus.IsBonusActive && !bonus.IsExpired())
                 {
-                    bonusTimersContainer.SetActive(false);
+                    string bonusName = bonus.BonusName;
+                    float remainingTime = bonus.GetRemainingSeconds();
+                    Color bonusColor = bonusColors.ContainsKey(bonusName) ? bonusColors[bonusName] : Color.white;
+                    string displayName = bonusDisplayNames.ContainsKey(bonusName) ? bonusDisplayNames[bonusName] : bonusName;
+                    
+                    activeBonuses.Add(new BonusInfo {
+                        bonusName = bonusName,
+                        remainingTime = remainingTime,
+                        multiplier = bonus.Multiplier,
+                        displayName = displayName,
+                        color = bonusColor
+                    });
                 }
             }
+            
+            // Atualizar a UI
+            UpdateBonusUI();
+            
+            // Notificar sobre a mudança no multiplicador
+            OnBonusMultiplierUpdated?.Invoke(GetTotalMultiplier());
         }
         catch (Exception e)
         {
@@ -152,153 +206,164 @@ public class BonusApplicationManager : MonoBehaviour
         }
     }
     
-    private void ClearActiveBonusUI()
+    // Método para atualizar a UI com base nos bônus ativos
+    private void UpdateBonusUI()
     {
-        foreach (var bonusUI in activeBonusUIs.Values)
+        if (activeBonuses.Count == 0)
         {
-            if (bonusUI.uiObject != null)
+            if (bonusTimerContainer != null)
             {
-                Destroy(bonusUI.uiObject);
+                bonusTimerContainer.SetActive(false);
             }
-        }
-        
-        activeBonusUIs.Clear();
-    }
-    
-    private void AddBonusToUI(BonusType bonus)
-    {
-        if (bonusTimerPrefab == null || bonusTimersLayout == null)
-        {
-            Debug.LogError("BonusApplicationManager: Prefab ou layout não configurados");
             return;
         }
         
-        string baseBonusName = bonus.BonusName.Replace("active_", "");
-        string displayName = bonusDisplayNames.ContainsKey(baseBonusName) 
-            ? bonusDisplayNames[baseBonusName] 
-            : baseBonusName;
+        // Mostrar o container
+        if (bonusTimerContainer != null)
+        {
+            bonusTimerContainer.SetActive(true);
+        }
+        
+        // Calcular o multiplicador total
+        int totalMultiplier = 1;
+        foreach (var bonus in activeBonuses)
+        {
+            totalMultiplier *= bonus.multiplier;
+        }
+        
+        // Encontrar o bônus que vai expirar primeiro
+        BonusInfo earliestExpiringBonus = activeBonuses.OrderBy(b => b.remainingTime).FirstOrDefault();
+        
+        if (earliestExpiringBonus != null && bonusTimerText != null)
+        {
+            // Calcular minutos e segundos
+            int minutes = Mathf.FloorToInt(earliestExpiringBonus.remainingTime / 60);
+            int seconds = Mathf.FloorToInt(earliestExpiringBonus.remainingTime % 60);
             
-        GameObject bonusTimerObj = Instantiate(bonusTimerPrefab, bonusTimersLayout);
-        TextMeshProUGUI nameText = bonusTimerObj.transform.Find("NameText")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI timerText = bonusTimerObj.transform.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
-        Image background = bonusTimerObj.GetComponent<Image>();
-        
-        if (nameText != null)
-        {
-            nameText.text = displayName;
+            // Formatar o texto baseado no número de bônus ativos
+            if (activeBonuses.Count > 1)
+            {
+                bonusTimerText.text = $"Bônus Acumulados (x{totalMultiplier}): {minutes:00}:{seconds:00} minutos";
+            }
+            else
+            {
+                // Extrair o nome do bônus sem o "Bônus" prefixo para economizar espaço
+                string bonusName = earliestExpiringBonus.displayName;
+                if (bonusName.StartsWith("Bônus "))
+                {
+                    bonusName = bonusName.Substring(6);
+                }
+                
+                bonusTimerText.text = $"{bonusName}: {minutes:00}:{seconds:00} minutos";
+            }
+            
+            // Atualizar a cor do fundo baseado no tipo de bônus
+            // Se houver múltiplos bônus, usar uma cor especial para indicar combinação
+            Image backgroundImage = bonusTimerContainer.GetComponent<Image>();
+            if (backgroundImage != null)
+            {
+                if (activeBonuses.Count > 1)
+                {
+                    // Mistura de cores ou usar uma cor específica para bônus acumulados
+                    backgroundImage.color = new Color(0.8f, 0.3f, 0.8f); // Roxo para múltiplos bônus
+                }
+                else
+                {
+                    backgroundImage.color = earliestExpiringBonus.color;
+                }
+            }
         }
-        
-        if (background != null && bonusColors.ContainsKey(baseBonusName))
-        {
-            background.color = bonusColors[baseBonusName];
-        }
-        
-        float remainingTime = bonus.GetRemainingSeconds();
-        
-        ActiveBonusUI activeBonusUI = new ActiveBonusUI
-        {
-            uiObject = bonusTimerObj,
-            timerText = timerText,
-            nameText = nameText,
-            backgroundImage = background,
-            remainingTime = remainingTime,
-            multiplier = bonus.Multiplier,
-            bonusName = bonus.BonusName
-        };
-        
-        activeBonusUIs[bonus.BonusName] = activeBonusUI;
-        UpdateTimerText(activeBonusUI);
     }
     
+    // Método para decrementar o tempo dos bônus ativos
     private IEnumerator UpdateTimersCoroutine()
     {
         while (true)
         {
             bool anyBonusActive = false;
-            List<string> expiredBonuses = new List<string>();
+            List<BonusInfo> expiredBonuses = new List<BonusInfo>();
             
-            foreach (var bonusEntry in activeBonusUIs)
+            foreach (var bonus in activeBonuses)
             {
-                ActiveBonusUI bonusUI = bonusEntry.Value;
-                bonusUI.remainingTime -= updateInterval;
+                bonus.remainingTime -= updateInterval;
                 
-                if (bonusUI.remainingTime <= 0)
+                if (bonus.remainingTime <= 0)
                 {
-                    expiredBonuses.Add(bonusEntry.Key);
+                    expiredBonuses.Add(bonus);
                 }
                 else
                 {
                     anyBonusActive = true;
-                    UpdateTimerText(bonusUI);
                 }
             }
             
-            foreach (string expiredBonus in expiredBonuses)
+            // Remover bônus expirados
+            foreach (var expiredBonus in expiredBonuses)
             {
-                if (activeBonusUIs.TryGetValue(expiredBonus, out ActiveBonusUI bonusUI))
-                {
-                    if (bonusUI.uiObject != null)
-                    {
-                        Destroy(bonusUI.uiObject);
-                    }
-                    
-                    activeBonusUIs.Remove(expiredBonus);
-                }
+                activeBonuses.Remove(expiredBonus);
             }
             
+            // Atualizar a UI
+            UpdateBonusUI();
+            
+            // Notificar sobre mudança no multiplicador quando algum bônus expirar
+            if (expiredBonuses.Count > 0)
+            {
+                OnBonusMultiplierUpdated?.Invoke(GetTotalMultiplier());
+            }
+            
+            // Atualizar Firestore periodicamente
             if (Time.time - lastFirestoreUpdateTime > 30f)
             {
                 UpdateBonusTimestampsInFirestore();
                 lastFirestoreUpdateTime = Time.time;
             }
             
-            if (!anyBonusActive && bonusTimersContainer != null)
-            {
-                bonusTimersContainer.SetActive(false);
-            }
-            
             yield return new WaitForSeconds(updateInterval);
-        }
-    }
-    
-    private void UpdateTimerText(ActiveBonusUI bonusUI)
-    {
-        if (bonusUI.timerText != null)
-        {
-            int minutes = Mathf.FloorToInt(bonusUI.remainingTime / 60);
-            int seconds = Mathf.FloorToInt(bonusUI.remainingTime % 60);
-            bonusUI.timerText.text = $"{minutes:00}:{seconds:00}";
         }
     }
     
     private async void UpdateBonusTimestampsInFirestore()
     {
-        if (string.IsNullOrEmpty(userId) || activeBonusUIs.Count == 0)
+        if (string.IsNullOrEmpty(userId) || activeBonuses.Count == 0)
         {
             return;
         }
         
         try
         {
+            // Atualizar timestamps de UserBonus
             List<BonusType> bonusList = await userBonusManager.GetUserBonuses(userId);
-            bool hasChanges = false;
+            bool hasUserBonusChanges = false;
             
-            foreach (var bonusEntry in activeBonusUIs)
+            foreach (var bonus in activeBonuses)
             {
-                string bonusName = bonusEntry.Key;
-                ActiveBonusUI bonusUI = bonusEntry.Value;
-                
-                BonusType bonusToUpdate = bonusList.FirstOrDefault(b => b.BonusName == bonusName);
-                if (bonusToUpdate != null && bonusToUpdate.GetRemainingSeconds() != bonusUI.remainingTime)
+                BonusType bonusToUpdate = bonusList.FirstOrDefault(b => b.BonusName == bonus.bonusName && b.IsBonusActive);
+                if (bonusToUpdate != null)
                 {
-                    bonusToUpdate.SetExpirationFromDuration(bonusUI.remainingTime);
-                    hasChanges = true;
+                    bonusToUpdate.SetExpirationFromDuration(bonus.remainingTime);
+                    hasUserBonusChanges = true;
                 }
             }
             
-            if (hasChanges)
+            if (hasUserBonusChanges)
             {
                 await userBonusManager.SaveBonusList(userId, bonusList);
+            }
+            
+            // Atualizar timestamps em QuestionSceneBonus
+            List<string> questionSceneBonusTypes = activeBonuses
+                .Where(b => b.bonusName == "correctAnswerBonus")
+                .Select(b => b.bonusName)
+                .ToList();
+                
+            foreach (string bonusType in questionSceneBonusTypes)
+            {
+                BonusInfo bonusInfo = activeBonuses.FirstOrDefault(b => b.bonusName == bonusType);
+                if (bonusInfo != null)
+                {
+                    await questionSceneBonusManager.UpdateExpirationTimestamp(userId, bonusInfo.remainingTime);
+                }
             }
         }
         catch (Exception e)
@@ -307,18 +372,19 @@ public class BonusApplicationManager : MonoBehaviour
         }
     }
     
+    // Métodos públicos úteis para outras classes
+    
     public int GetTotalMultiplier()
     {
-        if (activeBonusUIs.Count == 0)
+        if (activeBonuses.Count == 0)
         {
             return 1; 
         }
         
         int totalMultiplier = 1;
-        
-        foreach (var bonusUI in activeBonusUIs.Values)
+        foreach (var bonus in activeBonuses)
         {
-            totalMultiplier *= bonusUI.multiplier;
+            totalMultiplier *= bonus.multiplier;
         }
         
         return totalMultiplier;
@@ -331,13 +397,38 @@ public class BonusApplicationManager : MonoBehaviour
     
     public bool IsAnyBonusActive()
     {
-        return activeBonusUIs.Count > 0;
+        return activeBonuses.Count > 0;
     }
     
     public bool IsBonusActive(string bonusType)
     {
-        string activeBonusName = $"active_{bonusType}";
-        return activeBonusUIs.ContainsKey(activeBonusName);
+        return activeBonuses.Any(b => b.bonusName == bonusType);
+    }
+    
+    // Método para adicionar um novo bônus (chamado pelo QuestionBonusManager)
+    public void AddActiveBonus(string bonusType, float durationInSeconds, int multiplier)
+    {
+        if (string.IsNullOrEmpty(bonusType) || durationInSeconds <= 0 || multiplier <= 0)
+        {
+            return;
+        }
+        
+        Color bonusColor = bonusColors.ContainsKey(bonusType) ? bonusColors[bonusType] : Color.white;
+        string displayName = bonusDisplayNames.ContainsKey(bonusType) ? bonusDisplayNames[bonusType] : bonusType;
+        
+        activeBonuses.Add(new BonusInfo {
+            bonusName = bonusType,
+            remainingTime = durationInSeconds,
+            multiplier = multiplier,
+            displayName = displayName,
+            color = bonusColor
+        });
+        
+        // Atualizar a UI
+        UpdateBonusUI();
+        
+        // Notificar sobre a mudança no multiplicador
+        OnBonusMultiplierUpdated?.Invoke(GetTotalMultiplier());
     }
     
     private void OnDestroy()
@@ -350,4 +441,3 @@ public class BonusApplicationManager : MonoBehaviour
         }
     }
 }
-
