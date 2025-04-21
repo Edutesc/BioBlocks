@@ -207,11 +207,11 @@ public class UserBonusManager
                 {
                     bonusToActivate = new BonusType(
                         bonusName,
-                        0, 
-                        true, 
-                        DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds(), // ExpirationTimestamp
-                        false, 
-                        multiplier 
+                        0,
+                        true,
+                        DateTimeOffset.UtcNow.AddSeconds(durationInSeconds).ToUnixTimeSeconds(),
+                        false,
+                        multiplier
                     );
                     bonusList.Add(bonusToActivate);
                 }
@@ -257,7 +257,8 @@ public class UserBonusManager
                 }
 
                 await SaveBonusList(userId, bonusList);
-                await ActivateBonusInGame(userId, bonusName, durationInSeconds, multiplier);
+                QuestionSceneBonusManager sceneBonusManager = new QuestionSceneBonusManager();
+                await sceneBonusManager.ActivateBonus(userId, bonusName, durationInSeconds, multiplier);
             }
             else
             {
