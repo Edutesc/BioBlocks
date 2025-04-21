@@ -27,14 +27,9 @@ public class QuestionScoreManager : MonoBehaviour
             Debug.LogError("AnsweredQuestionsManager não encontrado");
         }
 
-        if (questionBonusManager == null)
+        if (questionBonusManager == null && bonusApplicationManager == null)
         {
-            Debug.LogWarning("BonusManager não encontrado. O sistema de bônus não estará disponível.");
-        }
-
-        if (bonusApplicationManager == null)
-        {
-            Debug.LogWarning("BonusApplicationManager não encontrado. O sistema de bônus especiais não estará disponível.");
+            Debug.LogWarning("Nem BonusManager nem BonusApplicationManager foram encontrados. O sistema de bônus não estará disponível.");
         }
     }
 
@@ -58,7 +53,13 @@ public class QuestionScoreManager : MonoBehaviour
             }
 
             int actualScoreChange = scoreChange;
-            if (isCorrect && questionBonusManager != null && questionBonusManager.IsBonusActive())
+            
+            if (isCorrect && bonusApplicationManager != null && bonusApplicationManager.IsAnyBonusActive())
+            {
+                actualScoreChange = bonusApplicationManager.ApplyTotalBonus(scoreChange);
+            }
+            
+            else if (isCorrect && questionBonusManager != null && questionBonusManager.IsBonusActive())
             {
                 actualScoreChange = questionBonusManager.ApplyBonusToScore(scoreChange);
             }
@@ -146,25 +147,26 @@ public class QuestionScoreManager : MonoBehaviour
 
     public bool HasBonusActive()
     {
-        bool standardBonusActive = questionBonusManager != null && questionBonusManager.IsBonusActive();
-        bool specialBonusActive = bonusApplicationManager != null && bonusApplicationManager.IsAnyBonusActive();
-        return standardBonusActive || specialBonusActive;
+        if (bonusApplicationManager != null)
+        {
+            return bonusApplicationManager.IsAnyBonusActive();
+        }
+
+        return questionBonusManager != null && questionBonusManager.IsBonusActive();
     }
 
     public int CalculateBonusScore(int baseScore)
     {
-        int score = baseScore;
-         
-        if (questionBonusManager != null && questionBonusManager.IsBonusActive())
-        {
-            score = questionBonusManager.ApplyBonusToScore(score);
-        }
-        
         if (bonusApplicationManager != null && bonusApplicationManager.IsAnyBonusActive())
         {
-            score = bonusApplicationManager.ApplyTotalBonus(score);
+            return bonusApplicationManager.ApplyTotalBonus(baseScore);
         }
-        
-        return score;
+
+        if (questionBonusManager != null && questionBonusManager.IsBonusActive())
+        {
+            return questionBonusManager.ApplyBonusToScore(baseScore);
+        }
+
+        return baseScore;
     }
 }

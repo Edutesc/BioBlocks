@@ -33,6 +33,16 @@ public class BonusSceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI isBonusActiveBEPro;
     [SerializeField] private Button bonusButtonBEPro;
 
+    [Header("Bonus das Listas Pro")]
+    [SerializeField] private TextMeshProUGUI bonusCountBLPro;
+    [SerializeField] private TextMeshProUGUI isBonusActiveBLPro;
+    [SerializeField] private Button bonusButtonBLPro;
+
+    [Header("Bonus Incansável Pro")]
+    [SerializeField] private TextMeshProUGUI bonusCountBIPro;
+    [SerializeField] private TextMeshProUGUI isBonusActiveBIPro;
+    [SerializeField] private Button bonusButtonBIPro;
+
     [Header("Visual Settings")]
     [SerializeField] private float inactiveAlpha = 0.6f;
     [SerializeField] private bool useGrayscaleWhenInactive = false;
@@ -41,7 +51,10 @@ public class BonusSceneManager : MonoBehaviour
     {
         { "specialBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 5 } },
         { "listCompletionBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } },
-        { "persistenceBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } }
+        { "persistenceBonus", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } },
+        { "specialBonusPro", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 5 } },
+        { "listCompletionBonusPro", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } },
+        { "persistenceBonusPro", new BonusConfig { duration = 600f, multiplier = 3, thresholdCount = 1 } }
     };
 
     private UserBonusManager userBonusManager;
@@ -91,6 +104,36 @@ public class BonusSceneManager : MonoBehaviour
                 bonusContainer = bonusButtonBI?.gameObject,
                 bonusTitle = "Ativar Bonus Incansável",
                 bonusMessage = "Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
+            },
+            new BonusUIElements
+            {
+                bonusFirestoreName = "specialBonusPro",
+                bonusCountText = bonusCountBEPro,
+                isBonusActiveText = isBonusActiveBEPro,
+                bonusButton = bonusButtonBEPro,
+                bonusContainer = bonusButtonBEPro?.gameObject,
+                bonusTitle = "Ativar Special Bonus Pro",
+                bonusMessage = "Você terá xp triplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
+            },
+            new BonusUIElements
+            {
+                bonusFirestoreName = "listCompletionBonusPro",
+                bonusCountText = bonusCountBLPro,
+                isBonusActiveText = isBonusActiveBLPro,
+                bonusButton = bonusButtonBLPro,
+                bonusContainer = bonusButtonBLPro?.gameObject,
+                bonusTitle = "Ativar Bonus das Listas Pro",
+                bonusMessage = "Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
+            },
+            new BonusUIElements
+            {
+                bonusFirestoreName = "persistenceBonusPro",
+                bonusCountText = bonusCountBIPro,
+                isBonusActiveText = isBonusActiveBIPro,
+                bonusButton = bonusButtonBIPro,
+                bonusContainer = bonusButtonBIPro?.gameObject,
+                bonusTitle = "Ativar Bonus Incansável Pro",
+                bonusMessage = "Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
             }
             // Outros mapeamentos...
         };
@@ -114,7 +157,6 @@ public class BonusSceneManager : MonoBehaviour
 
     private void OnAnyHalfViewHidden()
     {
-        Debug.Log("HalfView escondido, forçando atualização da UI");
         ForceUpdateUIAndReactivateButton();
     }
 
@@ -159,32 +201,13 @@ public class BonusSceneManager : MonoBehaviour
             BonusType matchingBonus = bonuses.FirstOrDefault(b =>
                 b.BonusName == bonusUIMapping.bonusFirestoreName);
 
-            bool isActive = false;
+            bool isButtonInteractable = false;
             int count = 0;
 
             if (matchingBonus != null)
             {
                 count = matchingBonus.BonusCount;
-
-                // Verificar condição de ativação com base nas configurações
-                if (bonusConfigs.TryGetValue(bonusUIMapping.bonusFirestoreName, out BonusConfig config))
-                {
-                    if (count >= config.thresholdCount)
-                    {
-                        isActive = true;
-
-                        // Forçar a atualização do objeto BonusType
-                        if (!matchingBonus.IsBonusActive)
-                        {
-                            matchingBonus.IsBonusActive = true;
-                            Debug.Log($"Forçando ativação do status do botão {bonusUIMapping.bonusFirestoreName}");
-                        }
-                    }
-                }
-                else
-                {
-                    isActive = matchingBonus.IsBonusActive;
-                }
+                isButtonInteractable = count > 0;
 
                 if (bonusUIMapping.bonusCountText != null)
                 {
@@ -193,7 +216,7 @@ public class BonusSceneManager : MonoBehaviour
 
                 if (bonusUIMapping.isBonusActiveText != null)
                 {
-                    bonusUIMapping.isBonusActiveText.text = isActive ? "Ativo" : "Inativo";
+                    bonusUIMapping.isBonusActiveText.text = matchingBonus.IsBonusActive ? "Ativo" : "Inativo";
                 }
             }
             else
@@ -209,15 +232,13 @@ public class BonusSceneManager : MonoBehaviour
                 }
             }
 
-            UpdateButtonState(bonusUIMapping, isActive);
+            UpdateButtonState(bonusUIMapping, isButtonInteractable);
 
-            if (isActive)
+            if (isButtonInteractable)
             {
                 SetupButtonAction(bonusUIMapping, matchingBonus);
             }
         }
-
-        UpdateSpecialBonusesStatus(bonuses);
     }
 
     private void UpdateSpecialBonusesStatus(List<BonusType> bonuses)
@@ -343,9 +364,6 @@ public class BonusSceneManager : MonoBehaviour
     private IEnumerator ConfigureBonusHalfViewAfterFrame(HalfViewComponent halfView, string bonusName)
     {
         yield return null;
-        Debug.Log($"Configurando HalfView para {bonusName}");
-
-        // Impedir a reconfiguração automática
         var preventReconfigField = typeof(HalfViewComponent).GetField("preventButtonReconfiguration",
                                                                     System.Reflection.BindingFlags.NonPublic |
                                                                     System.Reflection.BindingFlags.Instance);
@@ -354,7 +372,6 @@ public class BonusSceneManager : MonoBehaviour
             preventReconfigField.SetValue(halfView, true);
         }
 
-        // Encontrar o mapeamento de UI para este bônus
         BonusUIElements bonusUI = bonusUIMappings.FirstOrDefault(b => b.bonusFirestoreName == bonusName);
         if (bonusUI == null)
         {
@@ -362,43 +379,35 @@ public class BonusSceneManager : MonoBehaviour
             yield break;
         }
 
-        // Configurar a UI
         halfView.OnCancelled -= OnHalfViewCancelled;
         halfView.OnCancelled += OnHalfViewCancelled;
         halfView.SetTitle(bonusUI.bonusTitle);
         halfView.SetMessage(bonusUI.bonusMessage);
 
-        // Configurar os botões
         halfView.SetPrimaryButton("Cancelar", () =>
         {
-            Debug.Log($"Cancelando ativação de {bonusName}");
             CancelBonusActivation(bonusName);
         });
 
         halfView.SetSecondaryButton("Ativar Bonus", () =>
         {
-            Debug.Log($"Ativando {bonusName}");
             ActivateBonusFromButton(bonusName);
         });
 
-        // Mostrar o menu
         halfView.ShowMenu();
     }
 
     public void CancelBonusActivation(string bonusName)
     {
-        Debug.Log($"Cancelando ativação do bônus {bonusName}");
         ForceUpdateUIAndReactivateButton();
     }
 
     public async void ActivateBonusFromButton(string bonusName)
     {
-        Debug.Log($"Iniciando ativação do bônus {bonusName} via botão");
         try
         {
             await ActivateBonus(bonusName);
             await FetchBonuses();
-            Debug.Log($"Bônus {bonusName} ativado com sucesso");
         }
         catch (Exception e)
         {
@@ -424,8 +433,6 @@ public class BonusSceneManager : MonoBehaviour
             }
 
             await userBonusManager.ConsumeBonusAndActivate(userId, bonusName, config.duration, config.multiplier);
-
-            // Notificar o BonusApplicationManager para atualizar a UI em tempo real
             BonusApplicationManager bonusAppManager = FindFirstObjectByType<BonusApplicationManager>();
             if (bonusAppManager != null)
             {
@@ -485,7 +492,6 @@ public class BonusSceneManager : MonoBehaviour
             if (mapping.bonusButton != null)
             {
                 mapping.bonusButton.interactable = true;
-                Debug.Log($"Botão {mapping.bonusFirestoreName} reativado por fallback");
             }
         }
     }
@@ -504,7 +510,6 @@ public class BonusSceneManager : MonoBehaviour
                 if (bonusUI != null && bonusUI.bonusButton != null)
                 {
                     bonusUI.bonusButton.interactable = true;
-                    Debug.Log($"Botão {bonusName} reativado após atualização de UI");
                 }
             }
         }

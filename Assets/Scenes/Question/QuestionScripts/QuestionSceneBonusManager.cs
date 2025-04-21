@@ -142,6 +142,7 @@ public class QuestionSceneBonusManager
                         {
                             long expirationTimestamp = Convert.ToInt64(bonusDict["ExpirationTimestamp"]);
 
+                            // Verificar se o bônus ainda não expirou
                             if (currentTimestamp < expirationTimestamp)
                             {
                                 result.Add(bonusDict);
