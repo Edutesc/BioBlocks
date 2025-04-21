@@ -161,6 +161,12 @@ public class ProfileImageManager : MonoBehaviour
         if (permission == NativeGallery.Permission.Denied)
         {
             Debug.LogWarning("Permissão para acessar a galeria negada");
+            
+            // Mostrar alerta sobre permissão negada
+            if (AlertManager.Instance != null)
+            {
+                AlertManager.Instance.ShowAlert("Permissão para acessar a galeria negada.\nPor favor, verifique as configurações do seu dispositivo.");
+            }
         }
     }
 
@@ -169,7 +175,6 @@ public class ProfileImageManager : MonoBehaviour
         isProcessing = true;
         imageButton.interactable = false;
 
-        // Verificar tamanho do arquivo
         FileInfo fileInfo = null;
         try
         {
@@ -178,6 +183,13 @@ public class ProfileImageManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"Erro ao acessar arquivo: {e.Message}");
+            
+            // Mostrar alerta sobre erro ao acessar o arquivo
+            if (AlertManager.Instance != null)
+            {
+                AlertManager.Instance.ShowAlert($"Erro ao acessar o arquivo.\nDetalhes: {e.Message}");
+            }
+            
             isProcessing = false;
             imageButton.interactable = true;
             yield break;
@@ -186,6 +198,13 @@ public class ProfileImageManager : MonoBehaviour
         if (fileInfo.Length > MaxImageSizeBytes)
         {
             Debug.LogError("Imagem muito grande. Máximo 1MB");
+            
+            if (AlertManager.Instance != null)
+            {
+                Debug.LogWarning("Instance exist");
+                AlertManager.Instance.ShowAlert("A imagem selecionada \nexcede o tamanho máximo \npermitido (1MB).");
+            }
+            
             isProcessing = false;
             imageButton.interactable = true;
             yield break;
@@ -204,6 +223,13 @@ public class ProfileImageManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"Erro ao carregar imagem: {e.Message}");
+            
+            // Mostrar alerta sobre erro ao carregar a imagem
+            if (AlertManager.Instance != null)
+            {
+                AlertManager.Instance.ShowAlert($"Erro ao carregar a imagem.\nDetalhes: {e.Message}");
+            }
+            
             isProcessing = false;
             imageButton.interactable = true;
             yield break;
@@ -239,6 +265,13 @@ public class ProfileImageManager : MonoBehaviour
         if (!uploadSuccess)
         {
             Debug.LogError("Falha no upload da nova imagem");
+            
+            // Mostrar alerta sobre falha no upload
+            if (AlertManager.Instance != null)
+            {
+                AlertManager.Instance.ShowAlert("Falha no upload da imagem.\nPor favor, tente novamente mais tarde.");
+            }
+            
             isProcessing = false;
             imageButton.interactable = true;
             yield break;
@@ -253,6 +286,12 @@ public class ProfileImageManager : MonoBehaviour
         if (!updateSuccess)
         {
             Debug.LogError("Falha ao atualizar URL do perfil");
+            
+            // Mostrar alerta sobre falha na atualização do perfil
+            if (AlertManager.Instance != null)
+            {
+                AlertManager.Instance.ShowAlert("Falha ao atualizar o perfil.\nPor favor, tente novamente mais tarde.");
+            }
         }
 
         isProcessing = false;
