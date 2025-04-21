@@ -33,6 +33,16 @@ public class BonusSceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI isBonusActiveBEPro;
     [SerializeField] private Button bonusButtonBEPro;
 
+    [Header("Bonus das Listas Pro")]
+    [SerializeField] private TextMeshProUGUI bonusCountBLPro;
+    [SerializeField] private TextMeshProUGUI isBonusActiveBLPro;
+    [SerializeField] private Button bonusButtonBLPro;
+
+    [Header("Bonus Incansável Pro")]
+    [SerializeField] private TextMeshProUGUI bonusCountBIPro;
+    [SerializeField] private TextMeshProUGUI isBonusActiveBIPro;
+    [SerializeField] private Button bonusButtonBIPro;
+
     [Header("Visual Settings")]
     [SerializeField] private float inactiveAlpha = 0.6f;
     [SerializeField] private bool useGrayscaleWhenInactive = false;
@@ -98,31 +108,31 @@ public class BonusSceneManager : MonoBehaviour
             new BonusUIElements
             {
                 bonusFirestoreName = "specialBonusPro",
-                bonusCountText = bonusCountBE,
-                isBonusActiveText = isBonusActiveBE,
-                bonusButton = bonusButtonBE,
-                bonusContainer = bonusButtonBE?.gameObject,
-                bonusTitle = "Ativar Special Bonus",
+                bonusCountText = bonusCountBEPro,
+                isBonusActiveText = isBonusActiveBEPro,
+                bonusButton = bonusButtonBEPro,
+                bonusContainer = bonusButtonBEPro?.gameObject,
+                bonusTitle = "Ativar Special Bonus Pro",
                 bonusMessage = "Você terá xp triplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
             },
             new BonusUIElements
             {
                 bonusFirestoreName = "listCompletionBonusPro",
-                bonusCountText = bonusCountBL,
-                isBonusActiveText = isBonusActiveBL,
-                bonusButton = bonusButtonBL,
-                bonusContainer = bonusButtonBL?.gameObject,
-                bonusTitle = "Ativar Bonus das Listas",
+                bonusCountText = bonusCountBLPro,
+                isBonusActiveText = isBonusActiveBLPro,
+                bonusButton = bonusButtonBLPro,
+                bonusContainer = bonusButtonBLPro?.gameObject,
+                bonusTitle = "Ativar Bonus das Listas Pro",
                 bonusMessage = "Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
             },
             new BonusUIElements
             {
                 bonusFirestoreName = "persistenceBonusPro",
-                bonusCountText = bonusCountBI,
-                isBonusActiveText = isBonusActiveBI,
-                bonusButton = bonusButtonBI,
-                bonusContainer = bonusButtonBI?.gameObject,
-                bonusTitle = "Ativar Bonus Incansável",
+                bonusCountText = bonusCountBIPro,
+                isBonusActiveText = isBonusActiveBIPro,
+                bonusButton = bonusButtonBIPro,
+                bonusContainer = bonusButtonBIPro?.gameObject,
+                bonusTitle = "Ativar Bonus Incansável Pro",
                 bonusMessage = "Você terá xp duplicada por 10 min.\nPoderá ser cumulativo se já existir um bonus em uso.\nDeseja ativar o bonus agora?"
             }
             // Outros mapeamentos...
