@@ -303,7 +303,7 @@ public class NucleicAcidsQuestionDatabase : MonoBehaviour, IQuestionDatabase
             answers = new string[] {
                 "Ligar-se ao ribossomo.",
                 "Ligar-se ao mRNA.",
-                "Ligar-se ao aminoácido.",
+                "Ligar-se a proteínas.",
                 "Ligar-se ao DNA."
             },
             correctIndex = 1,
